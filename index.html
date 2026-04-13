@@ -191,13 +191,14 @@ body{font-family:'DM Sans',sans-serif;background:#EDECEA;min-height:100vh;displa
 <div class="screen" id="s2">
 <div class="top-bar"><button class="back-btn" onclick="go(1)">&#8592;</button><span class="top-title">Расскажите о поездке</span></div>
 <div class="progress"><div class="progress-fill" style="width:50%"></div></div>
-<div class="field"><label class="field-label">Куда хотите поехать?</label><input class="field-input" placeholder="Например: Алтай, Байкал, Дагестан..."><div class="field-hint">Можно написать несколько вариантов или «не знаю, подберите»</div></div>
-<div class="field"><label class="field-label">Даты поездки</label><div class="date-row"><div><input class="field-input" placeholder="Начало" onfocus="this.type='date'" onblur="if(!this.value)this.type='text'"></div><div><input class="field-input" placeholder="Конец" onfocus="this.type='date'" onblur="if(!this.value)this.type='text'"></div></div></div>
-<div class="field"><label class="field-label">Бюджет на человека</label><div class="chips" data-mode="single"><div class="chip" onclick="pick(this)">до 30 000 &#8381;</div><div class="chip on" onclick="pick(this)">30-60 000 &#8381;</div><div class="chip" onclick="pick(this)">60-100 000 &#8381;</div><div class="chip" onclick="pick(this)">100 000+ &#8381;</div></div></div>
-<div class="field"><label class="field-label">С кем едете?</label><div class="chips" data-mode="single"><div class="chip on" onclick="pick(this)">Пара</div><div class="chip" onclick="pick(this)">Семья с детьми</div><div class="chip" onclick="pick(this)">Соло</div><div class="chip" onclick="pick(this)">Компания</div><div class="chip" onclick="pick(this)">С собакой</div></div></div>
-<div class="field"><label class="field-label">Что важно в поездке?</label><div class="chips" data-mode="multi"><div class="chip on" onclick="pick(this)">Природа</div><div class="chip" onclick="pick(this)">Еда</div><div class="chip on" onclick="pick(this)">Активный отдых</div><div class="chip" onclick="pick(this)">Культура</div><div class="chip" onclick="pick(this)">Спокойный отдых</div><div class="chip" onclick="pick(this)">Фото-локации</div></div></div>
-<div class="field"><label class="field-label">Что-то ещё? (необязательно)</label><input class="field-input" placeholder="Боюсь высоты, люблю кофе, аллергия..."></div>
-<button class="btn-primary" onclick="go(3)">Далее: выбор тарифа</button>
+<div class="field"><label class="field-label">Куда хотите поехать?</label><input class="field-input" id="f-destination" placeholder="Например: Алтай, Байкал, Дагестан..."><div class="field-hint">Можно написать несколько вариантов или «не знаю, подберите»</div></div>
+<div class="field"><label class="field-label">Даты поездки</label><div class="date-row"><div><input class="field-input" id="f-date-start" placeholder="Начало" onfocus="this.type='date'" onblur="if(!this.value)this.type='text'"></div><div><input class="field-input" id="f-date-end" placeholder="Конец" onfocus="this.type='date'" onblur="if(!this.value)this.type='text'"></div></div></div>
+<div class="field"><label class="field-label">Бюджет на человека</label><div class="chips" id="f-budget" data-mode="single"><div class="chip" onclick="pick(this)">до 30 000 &#8381;</div><div class="chip on" onclick="pick(this)">30-60 000 &#8381;</div><div class="chip" onclick="pick(this)">60-100 000 &#8381;</div><div class="chip" onclick="pick(this)">100 000+ &#8381;</div></div></div>
+<div class="field"><label class="field-label">С кем едете?</label><div class="chips" id="f-travelers" data-mode="single"><div class="chip on" onclick="pick(this)">Пара</div><div class="chip" onclick="pick(this)">Семья с детьми</div><div class="chip" onclick="pick(this)">Соло</div><div class="chip" onclick="pick(this)">Компания</div><div class="chip" onclick="pick(this)">С собакой</div></div></div>
+<div class="field"><label class="field-label">Что важно в поездке?</label><div class="chips" id="f-interests" data-mode="multi"><div class="chip on" onclick="pick(this)">Природа</div><div class="chip" onclick="pick(this)">Еда</div><div class="chip on" onclick="pick(this)">Активный отдых</div><div class="chip" onclick="pick(this)">Культура</div><div class="chip" onclick="pick(this)">Спокойный отдых</div><div class="chip" onclick="pick(this)">Фото-локации</div></div></div>
+<div class="field"><label class="field-label">Что-то ещё? (необязательно)</label><input class="field-input" id="f-wishes" placeholder="Боюсь высоты, люблю кофе, аллергия..."></div>
+<div class="field"><label class="field-label">Email для получения маршрута</label><input class="field-input" id="f-email" type="email" placeholder="your@email.com"></div>
+<button class="btn-primary" id="submit-btn" onclick="submitForm()">Далее: выбор тарифа</button>
 <div class="screen-label">Экран 2 из 5: Анкета</div>
 </div>
 
@@ -285,6 +286,8 @@ body{font-family:'DM Sans',sans-serif;background:#EDECEA;min-height:100vh;displa
 </div>
 
 <script>
+var WEBHOOK_URL = 'https://n8n-production-bd16.up.railway.app/webhook/travel-request';
+
 function go(n){
 document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
 var el=document.getElementById('s'+n);
@@ -292,6 +295,48 @@ el.classList.add('active','screen-fade');
 el.scrollTop=0;
 document.querySelector('.phone').scrollTop=0;
 setTimeout(()=>el.classList.remove('screen-fade'),220);
+}
+
+function getChipValue(containerId){
+var el=document.getElementById(containerId);
+var selected=el.querySelectorAll('.chip.on');
+var vals=[];
+selected.forEach(function(c){vals.push(c.textContent.trim());});
+return el.dataset.mode==='single'?vals[0]||'':vals;
+}
+
+function submitForm(){
+var email=document.getElementById('f-email').value.trim();
+if(!email){alert('Введите email для получения маршрута');return;}
+
+var data={
+destination:document.getElementById('f-destination').value.trim(),
+date_start:document.getElementById('f-date-start').value,
+date_end:document.getElementById('f-date-end').value,
+budget:getChipValue('f-budget'),
+travelers:getChipValue('f-travelers'),
+interests:getChipValue('f-interests'),
+wishes:document.getElementById('f-wishes').value.trim(),
+email:email
+};
+
+var btn=document.getElementById('submit-btn');
+btn.textContent='Отправляем...';
+btn.disabled=true;
+
+fetch(WEBHOOK_URL,{
+method:'POST',
+headers:{'Content-Type':'application/json'},
+body:JSON.stringify(data)
+}).then(function(){
+btn.textContent='Далее: выбор тарифа';
+btn.disabled=false;
+go(3);
+}).catch(function(){
+btn.textContent='Далее: выбор тарифа';
+btn.disabled=false;
+go(3);
+});
 }
 
 function pick(el){
