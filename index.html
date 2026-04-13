@@ -2,313 +2,394 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ПутёвAI — планировщик путешествий</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ПутёвAI — ИИ-планировщик путешествий по России</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
+:root{
+  --c-ink:#1A1A18;
+  --c-text:#3D3D3A;
+  --c-muted:#7A7A72;
+  --c-hint:#A8A8A0;
+  --c-line:#E8E6E0;
+  --c-sand:#F5F3ED;
+  --c-cream:#FAF9F6;
+  --c-white:#FFFFFF;
+  --c-blue:#1B5E9E;
+  --c-blue-light:#EBF2FA;
+  --c-blue-dark:#0D4A7A;
+  --c-green:#0B6B4F;
+  --c-green-light:#E6F5EE;
+  --c-amber:#9E6B0A;
+  --c-amber-light:#FDF5E6;
+  --c-red-light:#FDF0EF;
+  --c-red:#A83232;
+  --font-display:'Playfair Display',Georgia,serif;
+  --font-body:'Manrope',system-ui,sans-serif;
+  --r-sm:8px;--r-md:12px;--r-lg:16px;--r-xl:24px;
+}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'DM Sans',sans-serif;background:#EDECEA;min-height:100vh;display:flex;justify-content:center;padding:24px 0}
-.phone{width:375px;min-height:700px;background:#fff;border:1px solid #D3D1C7;border-radius:32px;overflow:hidden;position:relative}
-.notch{height:32px;display:flex;align-items:center;justify-content:center}
-.notch-bar{width:80px;height:6px;background:#E5E5E0;border-radius:3px;margin-top:8px}
-.screen{display:none;padding-bottom:20px}
-.screen.active{display:block}
-.screen-fade{animation:fadeIn .2s ease}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes scaleIn{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--c-cream);color:var(--c-text);-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
-.ph{padding:0 20px}
-.hero{padding:28px 20px 16px;text-align:center}
-.hero h1{font-size:21px;font-weight:700;color:#2C2C2A;line-height:1.3;margin-bottom:10px;letter-spacing:-.3px}
-.hero p{font-size:13px;color:#5F5E5A;line-height:1.55}
+.app{max-width:480px;margin:0 auto;min-height:100vh;min-height:100dvh;background:var(--c-white);position:relative;overflow:hidden}
+.screen{display:none;opacity:0;min-height:100vh;min-height:100dvh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.screen.active{display:block;animation:screenIn .4s ease forwards}
+@keyframes screenIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 
-.btn-primary{display:block;width:calc(100% - 40px);margin:0 20px 10px;padding:14px;border-radius:10px;background:#185FA5;color:#fff;text-align:center;font-size:14px;font-weight:700;border:none;cursor:pointer;font-family:inherit;transition:opacity .15s,transform .1s;letter-spacing:.2px}
-.btn-primary:hover{opacity:.92}
-.btn-primary:active{transform:scale(.98)}
-.btn-secondary{display:block;width:calc(100% - 40px);margin:0 20px 20px;padding:12px;border-radius:10px;background:transparent;border:1px solid #D3D1C7;text-align:center;font-size:13px;color:#5F5E5A;cursor:pointer;font-family:inherit;transition:opacity .15s,transform .1s}
-.btn-secondary:hover{opacity:.85}
-.btn-secondary:active{transform:scale(.98)}
+/* Top bar */
+.top-bar{padding:16px 20px 12px;display:flex;align-items:center;gap:12px;position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);z-index:10}
+.back-btn{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--c-line);display:flex;align-items:center;justify-content:center;cursor:pointer;background:none;color:var(--c-muted);font-size:18px;transition:all .2s}
+.back-btn:hover{background:var(--c-sand);border-color:var(--c-muted)}
+.top-title{font-family:var(--font-body);font-size:15px;font-weight:600;color:var(--c-ink);letter-spacing:-.2px}
 
-.steps{display:flex;gap:8px;padding:0 20px 20px}
-.step{flex:1;background:#F5F5F3;border-radius:10px;padding:12px 6px;text-align:center}
-.step-num{width:26px;height:26px;border-radius:50%;background:#E6F1FB;color:#185FA5;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 6px}
-.step p{font-size:11px;color:#5F5E5A;line-height:1.3}
+/* Buttons */
+.btn{display:block;width:100%;padding:16px;border-radius:var(--r-md);font-size:15px;font-weight:600;border:none;cursor:pointer;font-family:var(--font-body);transition:all .2s;letter-spacing:-.1px;text-align:center}
+.btn-primary{background:var(--c-blue);color:#fff}
+.btn-primary:hover{background:var(--c-blue-dark)}
+.btn-primary:active{transform:scale(.985)}
+.btn-primary:disabled{opacity:.6;cursor:not-allowed}
+.btn-outline{background:transparent;border:1.5px solid var(--c-line);color:var(--c-text)}
+.btn-outline:hover{border-color:var(--c-muted);background:var(--c-sand)}
+.btn-ghost{background:transparent;color:var(--c-blue);border:none;padding:12px}
+.btn-ghost:hover{background:var(--c-blue-light)}
 
-.example-card{margin:0 20px 16px;border:1px solid #E5E5E0;border-radius:12px;overflow:hidden}
-.example-head{background:#F5F5F3;padding:10px 14px;display:flex;justify-content:space-between;align-items:center}
-.example-head span{font-size:13px;font-weight:700;color:#2C2C2A}
-.badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px}
-.badge-green{background:#E1F5EE;color:#0F6E56}
-.badge-blue{background:#E6F1FB;color:#185FA5}
-.example-body{padding:12px 14px}
-.example-body p{font-size:12px;color:#5F5E5A;margin-bottom:4px;line-height:1.45}
+/* ========== SCREEN 1: LANDING ========== */
+.hero{padding:48px 24px 32px;text-align:center;position:relative}
+.hero-logo{font-family:var(--font-display);font-size:14px;font-weight:600;color:var(--c-blue);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;opacity:0;animation:fadeUp .6s ease .1s forwards}
+.hero h1{font-family:var(--font-display);font-size:30px;font-weight:700;color:var(--c-ink);line-height:1.25;letter-spacing:-.5px;margin-bottom:14px;opacity:0;animation:fadeUp .6s ease .2s forwards}
+.hero h1 em{font-style:italic;color:var(--c-blue)}
+.hero p{font-size:15px;color:var(--c-muted);line-height:1.65;max-width:340px;margin:0 auto;opacity:0;animation:fadeUp .6s ease .35s forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
-.social{padding:14px 20px;border-top:1px solid #F1EFE8}
-.review{display:flex;gap:10px;margin-bottom:14px}
+.hero-actions{padding:0 24px 28px;display:flex;flex-direction:column;gap:10px;opacity:0;animation:fadeUp .6s ease .5s forwards}
+
+.how-it-works{padding:0 24px 28px}
+.how-label{font-size:11px;font-weight:700;color:var(--c-hint);text-transform:uppercase;letter-spacing:2px;margin-bottom:16px}
+.steps{display:flex;gap:8px}
+.step{flex:1;padding:16px 10px;background:var(--c-sand);border-radius:var(--r-md);text-align:center;transition:transform .2s}
+.step:hover{transform:translateY(-2px)}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--c-blue-light);color:var(--c-blue);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 8px}
+.step p{font-size:12px;color:var(--c-muted);line-height:1.4}
+
+.example-card{margin:0 24px 20px;border:1.5px solid var(--c-line);border-radius:var(--r-lg);overflow:hidden;cursor:pointer;transition:all .25s}
+.example-card:hover{border-color:var(--c-blue);transform:translateY(-2px);box-shadow:0 8px 24px rgba(27,94,158,.08)}
+.example-head{background:var(--c-sand);padding:14px 18px;display:flex;justify-content:space-between;align-items:center}
+.example-head span{font-size:14px;font-weight:600;color:var(--c-ink);font-family:var(--font-display)}
+.badge{font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:.8px}
+.badge-green{background:var(--c-green-light);color:var(--c-green)}
+.badge-blue{background:var(--c-blue-light);color:var(--c-blue)}
+.example-body{padding:14px 18px}
+.example-body p{font-size:13px;color:var(--c-muted);margin-bottom:3px;line-height:1.5}
+
+.reviews{padding:20px 24px 12px;border-top:1px solid var(--c-line)}
+.reviews-label{font-size:11px;font-weight:700;color:var(--c-hint);text-transform:uppercase;letter-spacing:2px;margin-bottom:16px}
+.review{display:flex;gap:12px;margin-bottom:16px}
 .review:last-child{margin-bottom:0}
-.avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
-.av-blue{background:#E6F1FB;color:#185FA5}
-.av-green{background:#E1F5EE;color:#0F6E56}
-.review-name{font-size:12px;font-weight:700;color:#2C2C2A;margin-bottom:2px}
-.stars{color:#EF9F27;font-size:11px;letter-spacing:1px;margin-left:4px}
-.review-text{font-size:12px;color:#5F5E5A;line-height:1.45}
+.avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+.av-blue{background:var(--c-blue-light);color:var(--c-blue)}
+.av-green{background:var(--c-green-light);color:var(--c-green)}
+.review-name{font-size:13px;font-weight:700;color:var(--c-ink);margin-bottom:2px}
+.stars{color:#E5A100;font-size:12px;letter-spacing:1px;margin-left:6px}
+.review-text{font-size:13px;color:var(--c-muted);line-height:1.55}
 
-.top-bar{padding:12px 20px 8px;display:flex;align-items:center;gap:10px}
-.back-btn{width:30px;height:30px;border-radius:50%;border:1px solid #E5E5E0;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:#5F5E5A;background:none;font-family:inherit;transition:background .15s}
-.back-btn:hover{background:#F5F5F3}
-.top-title{font-size:16px;font-weight:700;color:#2C2C2A}
+.footer-note{text-align:center;padding:16px 24px 32px;font-size:11px;color:var(--c-hint)}
 
-.progress{margin:0 20px 18px;height:4px;background:#F1EFE8;border-radius:2px}
-.progress-fill{height:4px;border-radius:2px;background:#185FA5;transition:width .3s}
+/* ========== SCREEN 2: FORM ========== */
+.progress-bar{margin:0 20px 20px;height:3px;background:var(--c-sand);border-radius:2px}
+.progress-fill{height:3px;border-radius:2px;background:var(--c-blue);transition:width .4s ease}
 
-.field{padding:0 20px 14px}
-.field-label{font-size:12px;font-weight:500;color:#5F5E5A;margin-bottom:6px;display:block}
-.field-input{width:100%;padding:11px 14px;border:1px solid #E5E5E0;border-radius:8px;font-size:14px;color:#2C2C2A;background:#fff;font-family:inherit;outline:none;transition:border-color .15s}
-.field-input:focus{border-color:#185FA5}
-.field-input::placeholder{color:#B4B2A9}
-.field-hint{font-size:11px;color:#888780;margin-top:4px;line-height:1.3}
-.date-row{display:flex;gap:8px}
+.field{padding:0 20px 18px}
+.field-label{font-size:12px;font-weight:600;color:var(--c-muted);margin-bottom:8px;display:block;text-transform:uppercase;letter-spacing:.8px}
+.field-input{width:100%;padding:14px 16px;border:1.5px solid var(--c-line);border-radius:var(--r-sm);font-size:15px;color:var(--c-ink);background:var(--c-white);font-family:var(--font-body);outline:none;transition:border-color .2s}
+.field-input:focus{border-color:var(--c-blue);box-shadow:0 0 0 3px rgba(27,94,158,.08)}
+.field-input::placeholder{color:var(--c-hint)}
+.field-hint{font-size:11px;color:var(--c-hint);margin-top:6px;line-height:1.4}
+.date-row{display:flex;gap:10px}
 .date-row>div{flex:1}
 
-.chips{display:flex;flex-wrap:wrap;gap:7px}
-.chip{padding:9px 15px;border-radius:20px;border:1px solid #E5E5E0;font-size:13px;color:#5F5E5A;cursor:pointer;background:#fff;transition:all .12s;font-family:inherit;user-select:none}
-.chip.on{background:#E6F1FB;color:#185FA5;border-color:#E6F1FB;font-weight:500}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:10px 18px;border-radius:24px;border:1.5px solid var(--c-line);font-size:14px;color:var(--c-muted);cursor:pointer;background:var(--c-white);transition:all .15s;font-family:var(--font-body);user-select:none}
+.chip:hover{border-color:var(--c-blue);color:var(--c-blue)}
+.chip.on{background:var(--c-blue);color:#fff;border-color:var(--c-blue);font-weight:600}
 
-.tariff{margin:0 20px 10px;border:1px solid #E5E5E0;border-radius:12px;padding:16px;cursor:pointer;transition:border-color .15s;position:relative}
-.tariff.selected{border:2px solid #185FA5;padding:15px}
-.tariff-badge{position:absolute;top:-10px;right:14px;font-size:10px;font-weight:700;padding:3px 12px;border-radius:10px;background:#E6F1FB;color:#185FA5}
-.tariff-name{font-size:14px;font-weight:700;color:#2C2C2A;margin-bottom:2px}
-.tariff-price{font-size:21px;font-weight:700;color:#2C2C2A}
-.tariff-price span{font-size:13px;font-weight:400;color:#888780}
-.tariff-list{margin-top:10px;list-style:none}
-.tariff-list li{font-size:12px;color:#5F5E5A;padding:4px 0;display:flex;align-items:center;gap:8px}
-.tariff-list li::before{content:'';width:16px;height:16px;border-radius:50%;background:#E1F5EE;flex-shrink:0}
+.form-actions{padding:8px 20px 32px}
 
-.guarantee{margin:14px 20px;padding:12px 14px;background:#F5F5F3;border-radius:10px;display:flex;gap:10px;align-items:flex-start}
-.guarantee-check{width:22px;height:22px;border-radius:50%;background:#E1F5EE;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:#0F6E56}
-.guarantee p{font-size:12px;color:#5F5E5A;line-height:1.45}
-.guarantee strong{color:#2C2C2A;font-weight:700}
+/* ========== SCREEN 3: TARIFFS ========== */
+.tariff-intro{padding:0 20px 18px;font-size:13px;color:var(--c-muted);line-height:1.5}
+.tariff{margin:0 20px 12px;border:1.5px solid var(--c-line);border-radius:var(--r-lg);padding:20px;cursor:pointer;transition:all .2s;position:relative}
+.tariff:hover{border-color:var(--c-blue);box-shadow:0 4px 16px rgba(27,94,158,.06)}
+.tariff.selected{border:2px solid var(--c-blue);background:var(--c-blue-light)}
+.tariff-badge{position:absolute;top:-11px;right:16px;font-size:10px;font-weight:700;padding:4px 14px;border-radius:20px;background:var(--c-blue);color:#fff;text-transform:uppercase;letter-spacing:.8px}
+.tariff-name{font-family:var(--font-display);font-size:16px;font-weight:600;color:var(--c-ink);margin-bottom:4px}
+.tariff-price{font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--c-ink)}
+.tariff-price span{font-size:14px;font-weight:400;color:var(--c-hint);font-family:var(--font-body)}
+.tariff-list{margin-top:14px;list-style:none}
+.tariff-list li{font-size:13px;color:var(--c-text);padding:5px 0;display:flex;align-items:center;gap:10px;line-height:1.4}
+.tariff-list li::before{content:'✓';width:20px;height:20px;border-radius:50%;background:var(--c-green-light);color:var(--c-green);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 
-.result-hero{text-align:center;padding:24px 20px 16px}
-.result-check{width:52px;height:52px;border-radius:50%;background:#E1F5EE;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:26px;color:#0F6E56;animation:scaleIn .4s ease}
-.result-hero h2{font-size:19px;font-weight:700;color:#2C2C2A;margin-bottom:4px}
-.result-hero p{font-size:13px;color:#888780}
+.guarantee{margin:16px 20px;padding:16px;background:var(--c-sand);border-radius:var(--r-md);display:flex;gap:12px;align-items:flex-start}
+.guarantee-icon{width:24px;height:24px;border-radius:50%;background:var(--c-green-light);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--c-green)}
+.guarantee p{font-size:13px;color:var(--c-muted);line-height:1.5}
+.guarantee strong{color:var(--c-ink)}
 
-.summary{margin:0 20px 14px;background:#F5F5F3;border-radius:10px;padding:14px}
-.summary-row{display:flex;justify-content:space-between;font-size:13px;padding:4px 0}
-.summary-row .lbl{color:#888780}
-.summary-row .val{color:#2C2C2A;font-weight:700}
+.tariff-actions{padding:8px 20px 32px}
 
-.day-card{margin:0 20px 12px;border:1px solid #E5E5E0;border-radius:12px;overflow:hidden}
-.day-head{background:#F5F5F3;padding:10px 14px;display:flex;justify-content:space-between;align-items:center}
-.day-head-title{font-size:13px;font-weight:700;color:#2C2C2A}
-.day-head-city{font-size:11px;color:#888780}
-.day-item{padding:10px 14px;border-top:1px solid #F1EFE8;display:flex;gap:10px}
-.day-time{font-size:11px;color:#888780;min-width:36px;padding-top:2px}
-.day-content{flex:1}
-.day-place{font-size:13px;font-weight:700;color:#2C2C2A}
-.day-desc{font-size:11px;color:#5F5E5A;line-height:1.4;margin-top:2px}
-.day-tag{display:inline-block;font-size:10px;font-weight:500;padding:2px 8px;border-radius:8px;margin-top:4px}
-.tag-culture{background:#E6F1FB;color:#185FA5}
-.tag-food{background:#FAEEDA;color:#854F0B}
-.tag-rest{background:#E1F5EE;color:#0F6E56}
-.tag-transport{background:#F1EFE8;color:#5F5E5A}
+/* ========== SCREEN 4: RESULT ========== */
+.result-hero{text-align:center;padding:40px 24px 24px;position:relative}
+.result-check{width:60px;height:60px;border-radius:50%;background:var(--c-green-light);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:28px;color:var(--c-green);animation:popIn .5s cubic-bezier(.175,.885,.32,1.275)}
+@keyframes popIn{from{transform:scale(0);opacity:0}50%{transform:scale(1.1)}to{transform:scale(1);opacity:1}}
+.result-hero h2{font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--c-ink);margin-bottom:6px}
+.result-hero p{font-size:14px;color:var(--c-muted)}
 
-.files{padding:0 20px}
-.file-row{display:flex;align-items:center;gap:12px;padding:13px;border:1px solid #E5E5E0;border-radius:10px;margin-bottom:8px;cursor:pointer;transition:background .15s}
-.file-row:hover{background:#FAFAF8}
-.file-icon{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
-.fi-pdf{background:#FCEBEB;color:#A32D2D}
-.fi-xls{background:#E1F5EE;color:#0F6E56}
-.fi-map{background:#E6F1FB;color:#185FA5}
-.fi-chk{background:#FAEEDA;color:#854F0B}
+.summary{margin:0 20px 18px;background:var(--c-sand);border-radius:var(--r-md);padding:18px 20px}
+.summary-row{display:flex;justify-content:space-between;font-size:14px;padding:5px 0}
+.summary-row .lbl{color:var(--c-muted)}
+.summary-row .val{color:var(--c-ink);font-weight:600}
+
+.preview-card{margin:0 20px 16px;border:1.5px solid var(--c-line);border-radius:var(--r-lg);overflow:hidden}
+.preview-head{background:var(--c-blue);padding:14px 18px}
+.preview-head span{font-size:14px;font-weight:600;color:#fff;font-family:var(--font-display)}
+.preview-item{padding:12px 18px;border-top:1px solid var(--c-line);display:flex;gap:12px}
+.preview-time{font-size:12px;color:var(--c-blue);font-weight:700;min-width:40px;padding-top:2px}
+.preview-place{font-size:14px;font-weight:600;color:var(--c-ink)}
+
+.files{padding:0 20px 8px}
+.file-row{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1.5px solid var(--c-line);border-radius:var(--r-md);margin-bottom:10px;cursor:pointer;transition:all .2s}
+.file-row:hover{border-color:var(--c-blue);background:var(--c-blue-light);transform:translateX(4px)}
+.file-icon{width:42px;height:42px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;letter-spacing:.5px}
+.fi-pdf{background:var(--c-red-light);color:var(--c-red)}
+.fi-xls{background:var(--c-green-light);color:var(--c-green)}
+.fi-map{background:var(--c-blue-light);color:var(--c-blue)}
+.fi-chk{background:var(--c-amber-light);color:var(--c-amber)}
 .file-info{flex:1}
-.file-name{font-size:13px;font-weight:700;color:#2C2C2A}
-.file-desc{font-size:11px;color:#888780}
-.file-arrow{font-size:16px;color:#D3D1C7}
+.file-name{font-size:14px;font-weight:600;color:var(--c-ink)}
+.file-desc{font-size:12px;color:var(--c-muted);margin-top:2px}
+.file-arrow{font-size:18px;color:var(--c-hint);transition:transform .2s}
+.file-row:hover .file-arrow{transform:translateX(4px);color:var(--c-blue)}
 
-.screen-label{font-size:11px;color:#B4B2A9;text-align:center;padding:12px 20px 4px}
+.result-actions{padding:8px 20px 32px;display:flex;flex-direction:column;gap:10px}
+.result-note{text-align:center;font-size:12px;color:var(--c-hint);padding:0 20px 24px}
 
-.ex-sub{font-size:12px;color:#5F5E5A;padding:2px 20px 14px;line-height:1.5}
-.ex-stats{display:flex;gap:6px;padding:0 20px 14px}
-.ex-stat{flex:1;background:#F5F5F3;border-radius:10px;padding:10px;text-align:center}
-.ex-stat .num{font-size:17px;font-weight:700;color:#2C2C2A}
-.ex-stat .lbl{font-size:10px;color:#888780;margin-top:2px}
+/* ========== SCREEN 5: EXAMPLE ========== */
+.ex-hero{padding:20px 20px 16px}
+.ex-hero-title{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--c-ink);line-height:1.3;margin-bottom:6px}
+.ex-hero-sub{font-size:13px;color:var(--c-muted);line-height:1.5}
 
-.day-tabs{display:flex;gap:5px;padding:0 20px 12px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.ex-stats{display:flex;gap:8px;padding:0 20px 18px}
+.ex-stat{flex:1;background:var(--c-sand);border-radius:var(--r-md);padding:14px 8px;text-align:center}
+.ex-stat .num{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--c-ink)}
+.ex-stat .lbl{font-size:11px;color:var(--c-muted);margin-top:3px}
+
+.day-tabs{display:flex;gap:6px;padding:0 20px 14px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .day-tabs::-webkit-scrollbar{display:none}
-.day-tab{min-width:34px;height:34px;border-radius:17px;border:1px solid #E5E5E0;font-size:12px;font-weight:500;color:#5F5E5A;cursor:pointer;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .12s;font-family:inherit}
-.day-tab.on{background:#E6F1FB;color:#185FA5;border-color:#E6F1FB;font-weight:700}
+.day-tab{min-width:38px;height:38px;border-radius:19px;border:1.5px solid var(--c-line);font-size:13px;font-weight:600;color:var(--c-muted);cursor:pointer;background:var(--c-white);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;font-family:var(--font-body)}
+.day-tab.on{background:var(--c-blue);color:#fff;border-color:var(--c-blue)}
+.day-tab:hover:not(.on){border-color:var(--c-blue);color:var(--c-blue)}
 
-.budget-block{margin:14px 20px;border:1px solid #E5E5E0;border-radius:12px;overflow:hidden}
-.budget-head{background:#F5F5F3;padding:10px 14px;font-size:13px;font-weight:700;color:#2C2C2A}
-.budget-row{padding:8px 14px;border-top:1px solid #F1EFE8;display:flex;align-items:center;font-size:12px}
-.budget-row .cat{color:#5F5E5A;min-width:68px}
-.bar-wrap{flex:1;margin:0 10px;height:5px;background:#F1EFE8;border-radius:3px}
-.bar-fill{height:5px;border-radius:3px;background:#185FA5}
-.budget-row .amt{color:#2C2C2A;font-weight:700;min-width:65px;text-align:right}
-.budget-row.total{background:#F5F5F3}
-.budget-row.total .cat,.budget-row.total .amt{font-weight:700;color:#185FA5}
+.day-card{margin:0 20px 14px;border:1.5px solid var(--c-line);border-radius:var(--r-lg);overflow:hidden}
+.day-head{background:var(--c-sand);padding:12px 18px;display:flex;justify-content:space-between;align-items:center}
+.day-head-title{font-size:14px;font-weight:600;color:var(--c-ink);font-family:var(--font-display)}
+.day-head-city{font-size:12px;color:var(--c-muted);font-weight:500}
+.day-item{padding:12px 18px;border-top:1px solid var(--c-line);display:flex;gap:12px}
+.day-time{font-size:12px;color:var(--c-blue);font-weight:700;min-width:40px;padding-top:2px}
+.day-content{flex:1}
+.day-place{font-size:14px;font-weight:600;color:var(--c-ink)}
+.day-desc{font-size:12px;color:var(--c-muted);line-height:1.45;margin-top:3px}
+.day-tag{display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;margin-top:5px;text-transform:uppercase;letter-spacing:.5px}
+.tag-culture{background:var(--c-blue-light);color:var(--c-blue)}
+.tag-food{background:var(--c-amber-light);color:var(--c-amber)}
+.tag-rest{background:var(--c-green-light);color:var(--c-green)}
+.tag-transport{background:var(--c-sand);color:var(--c-muted)}
 
-.file-pills{display:flex;gap:6px;padding:0 20px 10px}
-.file-pill{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:9px 4px;border:1px solid #E5E5E0;border-radius:10px;font-size:11px;color:#5F5E5A;cursor:default}
+.budget-block{margin:18px 20px;border:1.5px solid var(--c-line);border-radius:var(--r-lg);overflow:hidden}
+.budget-head{background:var(--c-sand);padding:14px 18px;font-size:14px;font-weight:600;color:var(--c-ink);font-family:var(--font-display)}
+.budget-row{padding:10px 18px;border-top:1px solid var(--c-line);display:flex;align-items:center;font-size:13px}
+.budget-row .cat{color:var(--c-muted);min-width:76px;font-weight:500}
+.bar-wrap{flex:1;margin:0 12px;height:6px;background:var(--c-sand);border-radius:3px}
+.bar-fill{height:6px;border-radius:3px;background:linear-gradient(90deg,var(--c-blue),var(--c-blue-dark));transition:width .6s ease}
+.budget-row .amt{color:var(--c-ink);font-weight:700;min-width:72px;text-align:right}
+.budget-row.total{background:var(--c-blue-light)}
+.budget-row.total .cat,.budget-row.total .amt{font-weight:700;color:var(--c-blue)}
+
+.file-pills{display:flex;gap:8px;padding:0 20px 14px}
+.file-pill{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 4px;border:1.5px solid var(--c-line);border-radius:var(--r-md);font-size:12px;font-weight:600;color:var(--c-muted);cursor:default}
 .file-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 
-.top-right{margin-left:auto}
+.ex-actions{padding:8px 20px 32px;display:flex;flex-direction:column;gap:10px}
+
+/* Desktop centering */
+@media(min-width:481px){
+  body{background:var(--c-sand)}
+  .app{box-shadow:0 0 60px rgba(0,0,0,.06)}
+}
 </style>
 </head>
 <body>
-<div class="phone">
-<div class="notch"><div class="notch-bar"></div></div>
+<div class="app">
 
+<!-- SCREEN 1: LANDING -->
 <div class="screen active" id="s1">
 <div class="hero">
-<h1>Готовый маршрут по России за 5 минут</h1>
-<p>ИИ спланирует поездку под ваш бюджет, даты и интересы. Вы получите PDF-маршрут, карту и таблицу расходов.</p>
+  <div class="hero-logo">✦ ПутёвAI</div>
+  <h1>Готовый маршрут<br>по России за <em>5 минут</em></h1>
+  <p>ИИ спланирует поездку под ваш бюджет, даты и интересы. Получите PDF-маршрут, карту и таблицу расходов.</p>
 </div>
-<button class="btn-primary" onclick="go(2)">Спланировать поездку</button>
-<button class="btn-secondary" onclick="go(5)">Посмотреть пример маршрута</button>
-<div class="steps">
-<div class="step"><div class="step-num">1</div><p>Расскажите о поездке</p></div>
-<div class="step"><div class="step-num">2</div><p>ИИ создаёт маршрут</p></div>
-<div class="step"><div class="step-num">3</div><p>Получите готовый пакет</p></div>
+<div class="hero-actions">
+  <button class="btn btn-primary" onclick="go(2)">Спланировать поездку →</button>
+  <button class="btn btn-outline" onclick="go(5)">Посмотреть пример маршрута</button>
 </div>
-<div class="example-card">
-<div class="example-head"><span>Алтай, 7 дней</span><span class="badge badge-green">Пример</span></div>
-<div class="example-body">
-<p>Пара, бюджет 80 000 &#8381;</p>
-<p>Чемал &#8594; Телецкое озеро &#8594; Акташ &#8594; Марс-1</p>
-<p>Жильё, еда, транспорт — всё расписано</p>
+<div class="how-it-works">
+  <div class="how-label">Как это работает</div>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><p>Расскажите о поездке</p></div>
+    <div class="step"><div class="step-num">2</div><p>ИИ создаёт маршрут</p></div>
+    <div class="step"><div class="step-num">3</div><p>Получите готовый пакет</p></div>
+  </div>
 </div>
+<div class="example-card" onclick="go(5)">
+  <div class="example-head"><span>Алтай, 7 дней</span><span class="badge badge-green">Пример</span></div>
+  <div class="example-body">
+    <p>Пара, бюджет 80 000 ₽</p>
+    <p>Чемал → Телецкое озеро → Акташ → Марс-1</p>
+    <p>Жильё, еда, транспорт — всё расписано</p>
+  </div>
 </div>
-<div class="social">
-<div class="review"><div class="avatar av-blue">АК</div><div><div class="review-name">Анна К. <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div><div class="review-text">Съездили на Байкал по этому маршруту. Всё совпало, ничего лишнего. Очень удобная таблица расходов!</div></div></div>
-<div class="review"><div class="avatar av-green">ДМ</div><div><div class="review-name">Дмитрий М. <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div><div class="review-text">Заказал маршрут по Дагестану для семьи с ребёнком. Учли всё: и рестораны с детским меню, и время на переезды.</div></div></div>
+<div class="reviews">
+  <div class="reviews-label">Отзывы</div>
+  <div class="review"><div class="avatar av-blue">АК</div><div><div class="review-name">Анна К. <span class="stars">★★★★★</span></div><div class="review-text">Съездили на Байкал по этому маршруту. Всё совпало, ничего лишнего. Очень удобная таблица расходов!</div></div></div>
+  <div class="review"><div class="avatar av-green">ДМ</div><div><div class="review-name">Дмитрий М. <span class="stars">★★★★★</span></div><div class="review-text">Заказал маршрут по Дагестану для семьи с ребёнком. Учли всё: и рестораны с детским меню, и время на переезды.</div></div></div>
 </div>
-<div class="screen-label">Экран 1 из 5: Лендинг</div>
+<div class="footer-note">© 2026 putevkai.ru — планируем путешествия с умом</div>
 </div>
 
+<!-- SCREEN 2: FORM -->
 <div class="screen" id="s2">
-<div class="top-bar"><button class="back-btn" onclick="go(1)">&#8592;</button><span class="top-title">Расскажите о поездке</span></div>
-<div class="progress"><div class="progress-fill" style="width:50%"></div></div>
-<div class="field"><label class="field-label">Куда хотите поехать?</label><input class="field-input" id="f-destination" placeholder="Например: Алтай, Байкал, Дагестан..."><div class="field-hint">Можно написать несколько вариантов или «не знаю, подберите»</div></div>
+<div class="top-bar"><button class="back-btn" onclick="go(1)">←</button><span class="top-title">Расскажите о поездке</span></div>
+<div class="progress-bar"><div class="progress-fill" style="width:50%"></div></div>
+<div class="field"><label class="field-label">Куда хотите поехать?</label><input class="field-input" id="f-destination" placeholder="Алтай, Байкал, Дагестан..."><div class="field-hint">Можно написать несколько вариантов или «не знаю, подберите»</div></div>
 <div class="field"><label class="field-label">Даты поездки</label><div class="date-row"><div><input class="field-input" id="f-date-start" placeholder="Начало" onfocus="this.type='date'" onblur="if(!this.value)this.type='text'"></div><div><input class="field-input" id="f-date-end" placeholder="Конец" onfocus="this.type='date'" onblur="if(!this.value)this.type='text'"></div></div></div>
-<div class="field"><label class="field-label">Бюджет на человека</label><div class="chips" id="f-budget" data-mode="single"><div class="chip" onclick="pick(this)">до 30 000 &#8381;</div><div class="chip on" onclick="pick(this)">30-60 000 &#8381;</div><div class="chip" onclick="pick(this)">60-100 000 &#8381;</div><div class="chip" onclick="pick(this)">100 000+ &#8381;</div></div></div>
-<div class="field"><label class="field-label">С кем едете?</label><div class="chips" id="f-travelers" data-mode="single"><div class="chip on" onclick="pick(this)">Пара</div><div class="chip" onclick="pick(this)">Семья с детьми</div><div class="chip" onclick="pick(this)">Соло</div><div class="chip" onclick="pick(this)">Компания</div><div class="chip" onclick="pick(this)">С собакой</div></div></div>
+<div class="field"><label class="field-label">Бюджет на человека</label><div class="chips" id="f-budget" data-mode="single"><div class="chip" onclick="pick(this)">до 30 000 ₽</div><div class="chip on" onclick="pick(this)">30–60 000 ₽</div><div class="chip" onclick="pick(this)">60–100 000 ₽</div><div class="chip" onclick="pick(this)">100 000+ ₽</div></div></div>
+<div class="field"><label class="field-label">С кем едете?</label><div class="chips" id="f-travelers" data-mode="single"><div class="chip on" onclick="pick(this)">Пара</div><div class="chip" onclick="pick(this)">Семья с детьми</div><div class="chip" onclick="pick(this)">Соло</div><div class="chip" onclick="pick(this)">Компания</div><div class="chip" onclick="pick(this)">С питомцем</div></div></div>
 <div class="field"><label class="field-label">Что важно в поездке?</label><div class="chips" id="f-interests" data-mode="multi"><div class="chip on" onclick="pick(this)">Природа</div><div class="chip" onclick="pick(this)">Еда</div><div class="chip on" onclick="pick(this)">Активный отдых</div><div class="chip" onclick="pick(this)">Культура</div><div class="chip" onclick="pick(this)">Спокойный отдых</div><div class="chip" onclick="pick(this)">Фото-локации</div></div></div>
-<div class="field"><label class="field-label">Что-то ещё? (необязательно)</label><input class="field-input" id="f-wishes" placeholder="Боюсь высоты, люблю кофе, аллергия..."></div>
-<div class="field"><label class="field-label">Email для получения маршрута</label><input class="field-input" id="f-email" type="email" placeholder="your@email.com"></div>
-<button class="btn-primary" id="submit-btn" onclick="submitForm()">Далее: выбор тарифа</button>
-<div class="screen-label">Экран 2 из 5: Анкета</div>
+<div class="field"><label class="field-label">Пожелания</label><input class="field-input" id="f-wishes" placeholder="Боюсь высоты, люблю кофе, аллергия..."></div>
+<div class="field"><label class="field-label">Email для маршрута</label><input class="field-input" id="f-email" type="email" placeholder="your@email.com"></div>
+<div class="form-actions"><button class="btn btn-primary" id="submit-btn" onclick="submitForm()">Далее: выбор тарифа →</button></div>
 </div>
 
+<!-- SCREEN 3: TARIFFS -->
 <div class="screen" id="s3">
-<div class="top-bar"><button class="back-btn" onclick="go(2)">&#8592;</button><span class="top-title">Выберите тариф</span></div>
-<div class="ex-sub">Маршрут: Алтай, 7 дней, пара, 30-60 000 &#8381;</div>
+<div class="top-bar"><button class="back-btn" onclick="go(2)">←</button><span class="top-title">Выберите тариф</span></div>
+<div class="tariff-intro">Ваш маршрут почти готов. Выберите подходящий вариант:</div>
 <div class="tariff" onclick="pickTariff(this,490)">
-<div class="tariff-name">Базовый</div>
-<div class="tariff-price">490 &#8381; <span>разово</span></div>
-<ul class="tariff-list"><li>Маршрут по дням в PDF</li><li>Список мест и адресов</li><li>Чек-лист вещей</li></ul>
+  <div class="tariff-name">Базовый</div>
+  <div class="tariff-price">490 ₽ <span>разово</span></div>
+  <ul class="tariff-list"><li>Маршрут по дням в PDF</li><li>Список мест и адресов</li><li>Чек-лист вещей</li></ul>
 </div>
 <div class="tariff selected" onclick="pickTariff(this,990)">
-<div class="tariff-badge">Популярный</div>
-<div class="tariff-name">Расширенный</div>
-<div class="tariff-price">990 &#8381; <span>разово</span></div>
-<ul class="tariff-list"><li>Всё из базового</li><li>Таблица бюджета в Google Sheets</li><li>Маршрут на Яндекс.Картах</li><li>Рекомендации кафе и жилья</li><li>Контакты экстренных служб</li></ul>
+  <div class="tariff-badge">Популярный</div>
+  <div class="tariff-name">Расширенный</div>
+  <div class="tariff-price">990 ₽ <span>разово</span></div>
+  <ul class="tariff-list"><li>Всё из базового</li><li>Таблица бюджета в Google Sheets</li><li>Маршрут на Яндекс.Картах</li><li>Рекомендации кафе и жилья</li><li>Контакты экстренных служб</li></ul>
 </div>
 <div class="tariff" onclick="pickTariff(this,1990)">
-<div class="tariff-name">Пакет 3 маршрута</div>
-<div class="tariff-price">1 990 &#8381; <span>за 3 поездки</span></div>
-<ul class="tariff-list"><li>3 расширенных маршрута</li><li>Экономия 980 &#8381;</li><li>Используйте в течение года</li></ul>
+  <div class="tariff-name">Пакет 3 маршрута</div>
+  <div class="tariff-price">1 990 ₽ <span>за 3 поездки</span></div>
+  <ul class="tariff-list"><li>3 расширенных маршрута</li><li>Экономия 980 ₽</li><li>Используйте в течение года</li></ul>
 </div>
-<div class="guarantee"><div class="guarantee-check">&#10003;</div><p><strong>Гарантия возврата.</strong> Если маршрут вам не подойдёт, вернём деньги в течение 24 часов без вопросов.</p></div>
-<button class="btn-primary" id="pay-btn" onclick="go(4)">Оплатить 990 &#8381;</button>
-<div class="screen-label">Экран 3 из 5: Тарифы</div>
+<div class="guarantee"><div class="guarantee-icon">✓</div><p><strong>Гарантия возврата.</strong> Если маршрут вам не подойдёт, вернём деньги в течение 24 часов без вопросов.</p></div>
+<div class="tariff-actions"><button class="btn btn-primary" id="pay-btn" onclick="go(4)">Оплатить 990 ₽ →</button></div>
 </div>
 
+<!-- SCREEN 4: RESULT -->
 <div class="screen" id="s4">
-<div class="result-hero"><div class="result-check">&#10003;</div><h2>Ваш маршрут готов!</h2><p>Отправили всё на вашу почту</p></div>
+<div class="result-hero"><div class="result-check">✓</div><h2>Ваш маршрут готов!</h2><p>Отправили всё на вашу почту</p></div>
 <div class="summary">
-<div class="summary-row"><span class="lbl">Направление</span><span class="val">Горный Алтай</span></div>
-<div class="summary-row"><span class="lbl">Даты</span><span class="val">12 — 18 июля</span></div>
-<div class="summary-row"><span class="lbl">Бюджет на двоих</span><span class="val">~78 000 &#8381;</span></div>
-<div class="summary-row"><span class="lbl">Дней</span><span class="val">7</span></div>
+  <div class="summary-row"><span class="lbl">Направление</span><span class="val">Горный Алтай</span></div>
+  <div class="summary-row"><span class="lbl">Даты</span><span class="val">12 — 18 июля</span></div>
+  <div class="summary-row"><span class="lbl">Бюджет на двоих</span><span class="val">~78 000 ₽</span></div>
+  <div class="summary-row"><span class="lbl">Дней</span><span class="val">7</span></div>
 </div>
-<div class="day-card">
-<div class="day-head"><span class="day-head-title">День 1: Горно-Алтайск &#8594; Чемал</span></div>
-<div class="day-item"><span class="day-time">09:00</span><div class="day-content"><div class="day-place">Прилёт, трансфер</div></div></div>
-<div class="day-item"><span class="day-time">12:00</span><div class="day-content"><div class="day-place">Обед в «Усадьба Ника»</div></div></div>
-<div class="day-item"><span class="day-time">14:00</span><div class="day-content"><div class="day-place">Чемальская ГЭС</div></div></div>
-<div class="day-item"><span class="day-time">17:00</span><div class="day-content"><div class="day-place">Заселение, отдых</div></div></div>
+<div class="preview-card">
+  <div class="preview-head"><span>День 1: Горно-Алтайск → Чемал</span></div>
+  <div class="preview-item"><span class="preview-time">09:00</span><div><div class="preview-place">Прилёт, трансфер</div></div></div>
+  <div class="preview-item"><span class="preview-time">12:00</span><div><div class="preview-place">Обед в «Усадьба Ника»</div></div></div>
+  <div class="preview-item"><span class="preview-time">14:00</span><div><div class="preview-place">Чемальская ГЭС</div></div></div>
+  <div class="preview-item"><span class="preview-time">17:00</span><div><div class="preview-place">Заселение, отдых</div></div></div>
 </div>
 <div class="files">
-<div class="file-row"><div class="file-icon fi-pdf">PDF</div><div class="file-info"><div class="file-name">Маршрут Алтай 7 дней.pdf</div><div class="file-desc">14 страниц, маршрут по дням + чек-лист</div></div><div class="file-arrow">&#8594;</div></div>
-<div class="file-row"><div class="file-icon fi-xls">XLS</div><div class="file-info"><div class="file-name">Бюджет поездки</div><div class="file-desc">Google Sheets, расходы по категориям</div></div><div class="file-arrow">&#8594;</div></div>
-<div class="file-row"><div class="file-icon fi-map">MAP</div><div class="file-info"><div class="file-name">Маршрут на карте</div><div class="file-desc">Яндекс.Карты, все точки отмечены</div></div><div class="file-arrow">&#8594;</div></div>
-<div class="file-row"><div class="file-icon fi-chk">CHK</div><div class="file-info"><div class="file-name">Чек-лист вещей</div><div class="file-desc">PDF, адаптирован под Алтай в июле</div></div><div class="file-arrow">&#8594;</div></div>
+  <div class="file-row"><div class="file-icon fi-pdf">PDF</div><div class="file-info"><div class="file-name">Маршрут Алтай 7 дней.pdf</div><div class="file-desc">14 страниц, маршрут по дням + чек-лист</div></div><div class="file-arrow">→</div></div>
+  <div class="file-row"><div class="file-icon fi-xls">XLS</div><div class="file-info"><div class="file-name">Бюджет поездки</div><div class="file-desc">Google Sheets, расходы по категориям</div></div><div class="file-arrow">→</div></div>
+  <div class="file-row"><div class="file-icon fi-map">MAP</div><div class="file-info"><div class="file-name">Маршрут на карте</div><div class="file-desc">Яндекс.Карты, все точки отмечены</div></div><div class="file-arrow">→</div></div>
+  <div class="file-row"><div class="file-icon fi-chk">CHK</div><div class="file-info"><div class="file-name">Чек-лист вещей</div><div class="file-desc">PDF, адаптирован под Алтай в июле</div></div><div class="file-arrow">→</div></div>
 </div>
-<button class="btn-secondary" style="margin-top:14px">Поделиться маршрутом</button>
-<button class="btn-primary" onclick="go(2)">Спланировать ещё одну поездку</button>
-<div class="screen-label" style="color:#B4B2A9">Все материалы также отправлены на вашу почту</div>
-<div class="screen-label">Экран 4 из 5: Результат</div>
+<div class="result-actions">
+  <button class="btn btn-outline">Поделиться маршрутом</button>
+  <button class="btn btn-primary" onclick="go(2)">Спланировать ещё одну поездку</button>
+</div>
+<div class="result-note">Все материалы также отправлены на вашу почту</div>
 </div>
 
+<!-- SCREEN 5: EXAMPLE ROUTE -->
 <div class="screen" id="s5">
-<div class="top-bar"><button class="back-btn" onclick="go(1)">&#8592;</button><span class="top-title">Москва &#8594; Петербург</span><span class="badge badge-blue top-right">Пример</span></div>
-<div class="ex-sub">Соло, 14 дней, спокойный отдых + культура, 12-25 апреля</div>
+<div class="top-bar"><button class="back-btn" onclick="go(1)">←</button><span class="top-title">Пример маршрута</span><span class="badge badge-blue" style="margin-left:auto">Пример</span></div>
+<div class="ex-hero">
+  <div class="ex-hero-title">Москва → Петербург</div>
+  <div class="ex-hero-sub">Соло, 14 дней, спокойный отдых + культура, 12–25 апреля</div>
+</div>
 <div class="ex-stats">
-<div class="ex-stat"><div class="num">14</div><div class="lbl">дней</div></div>
-<div class="ex-stat"><div class="num">~48 000</div><div class="lbl">&#8381; бюджет</div></div>
-<div class="ex-stat"><div class="num">32</div><div class="lbl">места</div></div>
+  <div class="ex-stat"><div class="num">14</div><div class="lbl">дней</div></div>
+  <div class="ex-stat"><div class="num">~48 000</div><div class="lbl">₽ бюджет</div></div>
+  <div class="ex-stat"><div class="num">32</div><div class="lbl">места</div></div>
 </div>
 <div class="day-tabs" id="dtabs"></div>
 <div id="day-display"></div>
 <div class="budget-block">
-<div class="budget-head">Бюджет на 14 дней</div>
-<div class="budget-row"><span class="cat">Жильё</span><div class="bar-wrap"><div class="bar-fill" style="width:42%"></div></div><span class="amt">20 000 &#8381;</span></div>
-<div class="budget-row"><span class="cat">Еда</span><div class="bar-wrap"><div class="bar-fill" style="width:25%"></div></div><span class="amt">12 000 &#8381;</span></div>
-<div class="budget-row"><span class="cat">Транспорт</span><div class="bar-wrap"><div class="bar-fill" style="width:17%"></div></div><span class="amt">8 000 &#8381;</span></div>
-<div class="budget-row"><span class="cat">Музеи</span><div class="bar-wrap"><div class="bar-fill" style="width:10%"></div></div><span class="amt">5 000 &#8381;</span></div>
-<div class="budget-row"><span class="cat">Резерв</span><div class="bar-wrap"><div class="bar-fill" style="width:6%"></div></div><span class="amt">3 000 &#8381;</span></div>
-<div class="budget-row total"><span class="cat">Итого</span><span class="amt">48 000 &#8381;</span></div>
+  <div class="budget-head">Бюджет на 14 дней</div>
+  <div class="budget-row"><span class="cat">Жильё</span><div class="bar-wrap"><div class="bar-fill" style="width:42%"></div></div><span class="amt">20 000 ₽</span></div>
+  <div class="budget-row"><span class="cat">Еда</span><div class="bar-wrap"><div class="bar-fill" style="width:25%"></div></div><span class="amt">12 000 ₽</span></div>
+  <div class="budget-row"><span class="cat">Транспорт</span><div class="bar-wrap"><div class="bar-fill" style="width:17%"></div></div><span class="amt">8 000 ₽</span></div>
+  <div class="budget-row"><span class="cat">Музеи</span><div class="bar-wrap"><div class="bar-fill" style="width:10%"></div></div><span class="amt">5 000 ₽</span></div>
+  <div class="budget-row"><span class="cat">Резерв</span><div class="bar-wrap"><div class="bar-fill" style="width:6%"></div></div><span class="amt">3 000 ₽</span></div>
+  <div class="budget-row total"><span class="cat">Итого</span><span class="amt">48 000 ₽</span></div>
 </div>
 <div class="file-pills">
-<div class="file-pill"><div class="file-dot" style="background:#A32D2D"></div>PDF</div>
-<div class="file-pill"><div class="file-dot" style="background:#0F6E56"></div>Таблица</div>
-<div class="file-pill"><div class="file-dot" style="background:#185FA5"></div>Карта</div>
-<div class="file-pill"><div class="file-dot" style="background:#854F0B"></div>Чек-лист</div>
+  <div class="file-pill"><div class="file-dot" style="background:var(--c-red)"></div>PDF</div>
+  <div class="file-pill"><div class="file-dot" style="background:var(--c-green)"></div>Таблица</div>
+  <div class="file-pill"><div class="file-dot" style="background:var(--c-blue)"></div>Карта</div>
+  <div class="file-pill"><div class="file-dot" style="background:var(--c-amber)"></div>Чек-лист</div>
 </div>
-<button class="btn-primary" onclick="go(2)">Хочу такой же маршрут</button>
-<button class="btn-secondary" onclick="go(1)">Назад на главную</button>
-<div class="screen-label">Экран 5 из 5: Пример маршрута</div>
+<div class="ex-actions">
+  <button class="btn btn-primary" onclick="go(2)">Хочу такой же маршрут →</button>
+  <button class="btn btn-outline" onclick="go(1)">Назад на главную</button>
+</div>
 </div>
 
 </div>
 
 <script>
-var WEBHOOK_URL = 'https://n8n-production-bd16.up.railway.app/webhook/travel-request';
+var WEBHOOK_URL='https://n8n-production-bd16.up.railway.app/webhook/travel-request';
 
 function go(n){
-document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');s.style.display='none'});
 var el=document.getElementById('s'+n);
-el.classList.add('active','screen-fade');
+el.style.display='block';
+void el.offsetWidth;
+el.classList.add('active');
 el.scrollTop=0;
-document.querySelector('.phone').scrollTop=0;
-setTimeout(()=>el.classList.remove('screen-fade'),220);
+window.scrollTo(0,0);
 }
 
-function getChipValue(containerId){
-var el=document.getElementById(containerId);
-var selected=el.querySelectorAll('.chip.on');
-var vals=[];
-selected.forEach(function(c){vals.push(c.textContent.trim());});
-return el.dataset.mode==='single'?vals[0]||'':vals;
+function getChipValue(id){
+var el=document.getElementById(id);
+var sel=el.querySelectorAll('.chip.on');
+var v=[];sel.forEach(function(c){v.push(c.textContent.trim())});
+return el.dataset.mode==='single'?v[0]||'':v;
 }
 
 function submitForm(){
 var email=document.getElementById('f-email').value.trim();
 if(!email){alert('Введите email для получения маршрута');return;}
-
 var data={
 destination:document.getElementById('f-destination').value.trim(),
 date_start:document.getElementById('f-date-start').value,
@@ -319,40 +400,23 @@ interests:getChipValue('f-interests'),
 wishes:document.getElementById('f-wishes').value.trim(),
 email:email
 };
-
 var btn=document.getElementById('submit-btn');
-btn.textContent='Отправляем...';
-btn.disabled=true;
-
-fetch(WEBHOOK_URL,{
-method:'POST',
-headers:{'Content-Type':'application/json'},
-body:JSON.stringify(data)
-}).then(function(){
-btn.textContent='Далее: выбор тарифа';
-btn.disabled=false;
-go(3);
-}).catch(function(){
-btn.textContent='Далее: выбор тарифа';
-btn.disabled=false;
-go(3);
-});
+btn.textContent='Отправляем...';btn.disabled=true;
+fetch(WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
+.then(function(){btn.textContent='Далее: выбор тарифа →';btn.disabled=false;go(3);})
+.catch(function(){btn.textContent='Далее: выбор тарифа →';btn.disabled=false;go(3);});
 }
 
 function pick(el){
 var mode=el.parentElement.dataset.mode;
-if(mode==='single'){
-el.parentElement.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
-el.classList.add('on');
-}else{
-el.classList.toggle('on');
-}
+if(mode==='single'){el.parentElement.querySelectorAll('.chip').forEach(function(c){c.classList.remove('on')});el.classList.add('on')}
+else{el.classList.toggle('on')}
 }
 
 function pickTariff(el,price){
-document.querySelectorAll('.tariff').forEach(t=>{t.classList.remove('selected');t.style.borderWidth='';});
+document.querySelectorAll('.tariff').forEach(function(t){t.classList.remove('selected')});
 el.classList.add('selected');
-document.getElementById('pay-btn').textContent='Оплатить '+price.toLocaleString('ru-RU')+' \u20BD';
+document.getElementById('pay-btn').textContent='Оплатить '+price.toLocaleString('ru-RU')+' \u20BD →';
 }
 
 var days=[
@@ -435,7 +499,7 @@ var tagMap={culture:['tag-culture','Культура'],food:['tag-food','Еда'
 var curDay=0;
 function renderTabs(){
 var h='';
-days.forEach(function(d,i){h+='<div class="day-tab'+(i===curDay?' on':'')+'" onclick="selDay('+i+')">'+d.d+'</div>';});
+days.forEach(function(d,i){h+='<div class="day-tab'+(i===curDay?' on':'')+'" onclick="selDay('+i+')">'+d.d+'</div>'});
 document.getElementById('dtabs').innerHTML=h;
 }
 function renderDay(){
