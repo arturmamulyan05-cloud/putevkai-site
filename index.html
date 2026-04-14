@@ -2,518 +2,308 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>ПутёвAI — ИИ-планировщик путешествий по России</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ПутёвAI — готовый маршрут по России за 5 минут</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{
-  --c-ink:#1A1A18;
-  --c-text:#3D3D3A;
-  --c-muted:#7A7A72;
-  --c-hint:#A8A8A0;
-  --c-line:#E8E6E0;
-  --c-sand:#F5F3ED;
-  --c-cream:#FAF9F6;
-  --c-white:#FFFFFF;
-  --c-blue:#1B5E9E;
-  --c-blue-light:#EBF2FA;
-  --c-blue-dark:#0D4A7A;
-  --c-green:#0B6B4F;
-  --c-green-light:#E6F5EE;
-  --c-amber:#9E6B0A;
-  --c-amber-light:#FDF5E6;
-  --c-red-light:#FDF0EF;
-  --c-red:#A83232;
-  --font-display:'Playfair Display',Georgia,serif;
-  --font-body:'Manrope',system-ui,sans-serif;
-  --r-sm:8px;--r-md:12px;--r-lg:16px;--r-xl:24px;
-}
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{font-family:var(--font-body);background:var(--c-cream);color:var(--c-text);-webkit-font-smoothing:antialiased;overflow-x:hidden}
-
-.app{max-width:480px;margin:0 auto;min-height:100vh;min-height:100dvh;background:var(--c-white);position:relative;overflow:hidden}
-.screen{display:none;opacity:0;min-height:100vh;min-height:100dvh;overflow-y:auto;-webkit-overflow-scrolling:touch}
-.screen.active{display:block;animation:screenIn .4s ease forwards}
-@keyframes screenIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-
-/* Top bar */
-.top-bar{padding:16px 20px 12px;display:flex;align-items:center;gap:12px;position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);z-index:10}
-.back-btn{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--c-line);display:flex;align-items:center;justify-content:center;cursor:pointer;background:none;color:var(--c-muted);font-size:18px;transition:all .2s}
-.back-btn:hover{background:var(--c-sand);border-color:var(--c-muted)}
-.top-title{font-family:var(--font-body);font-size:15px;font-weight:600;color:var(--c-ink);letter-spacing:-.2px}
-
-/* Buttons */
-.btn{display:block;width:100%;padding:16px;border-radius:var(--r-md);font-size:15px;font-weight:600;border:none;cursor:pointer;font-family:var(--font-body);transition:all .2s;letter-spacing:-.1px;text-align:center}
-.btn-primary{background:var(--c-blue);color:#fff}
-.btn-primary:hover{background:var(--c-blue-dark)}
-.btn-primary:active{transform:scale(.985)}
-.btn-primary:disabled{opacity:.6;cursor:not-allowed}
-.btn-outline{background:transparent;border:1.5px solid var(--c-line);color:var(--c-text)}
-.btn-outline:hover{border-color:var(--c-muted);background:var(--c-sand)}
-.btn-ghost{background:transparent;color:var(--c-blue);border:none;padding:12px}
-.btn-ghost:hover{background:var(--c-blue-light)}
-
-/* ========== SCREEN 1: LANDING ========== */
-.hero{padding:48px 24px 32px;text-align:center;position:relative}
-.hero-logo{font-family:var(--font-display);font-size:14px;font-weight:600;color:var(--c-blue);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;opacity:0;animation:fadeUp .6s ease .1s forwards}
-.hero h1{font-family:var(--font-display);font-size:30px;font-weight:700;color:var(--c-ink);line-height:1.25;letter-spacing:-.5px;margin-bottom:14px;opacity:0;animation:fadeUp .6s ease .2s forwards}
-.hero h1 em{font-style:italic;color:var(--c-blue)}
-.hero p{font-size:15px;color:var(--c-muted);line-height:1.65;max-width:340px;margin:0 auto;opacity:0;animation:fadeUp .6s ease .35s forwards}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-
-.hero-actions{padding:0 24px 28px;display:flex;flex-direction:column;gap:10px;opacity:0;animation:fadeUp .6s ease .5s forwards}
-
-.how-it-works{padding:0 24px 28px}
-.how-label{font-size:11px;font-weight:700;color:var(--c-hint);text-transform:uppercase;letter-spacing:2px;margin-bottom:16px}
-.steps{display:flex;gap:8px}
-.step{flex:1;padding:16px 10px;background:var(--c-sand);border-radius:var(--r-md);text-align:center;transition:transform .2s}
-.step:hover{transform:translateY(-2px)}
-.step-num{width:28px;height:28px;border-radius:50%;background:var(--c-blue-light);color:var(--c-blue);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 8px}
-.step p{font-size:12px;color:var(--c-muted);line-height:1.4}
-
-.example-card{margin:0 24px 20px;border:1.5px solid var(--c-line);border-radius:var(--r-lg);overflow:hidden;cursor:pointer;transition:all .25s}
-.example-card:hover{border-color:var(--c-blue);transform:translateY(-2px);box-shadow:0 8px 24px rgba(27,94,158,.08)}
-.example-head{background:var(--c-sand);padding:14px 18px;display:flex;justify-content:space-between;align-items:center}
-.example-head span{font-size:14px;font-weight:600;color:var(--c-ink);font-family:var(--font-display)}
-.badge{font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:.8px}
-.badge-green{background:var(--c-green-light);color:var(--c-green)}
-.badge-blue{background:var(--c-blue-light);color:var(--c-blue)}
-.example-body{padding:14px 18px}
-.example-body p{font-size:13px;color:var(--c-muted);margin-bottom:3px;line-height:1.5}
-
-.reviews{padding:20px 24px 12px;border-top:1px solid var(--c-line)}
-.reviews-label{font-size:11px;font-weight:700;color:var(--c-hint);text-transform:uppercase;letter-spacing:2px;margin-bottom:16px}
-.review{display:flex;gap:12px;margin-bottom:16px}
-.review:last-child{margin-bottom:0}
-.avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
-.av-blue{background:var(--c-blue-light);color:var(--c-blue)}
-.av-green{background:var(--c-green-light);color:var(--c-green)}
-.review-name{font-size:13px;font-weight:700;color:var(--c-ink);margin-bottom:2px}
-.stars{color:#E5A100;font-size:12px;letter-spacing:1px;margin-left:6px}
-.review-text{font-size:13px;color:var(--c-muted);line-height:1.55}
-
-.footer-note{text-align:center;padding:16px 24px 32px;font-size:11px;color:var(--c-hint)}
-
-/* ========== SCREEN 2: FORM ========== */
-.progress-bar{margin:0 20px 20px;height:3px;background:var(--c-sand);border-radius:2px}
-.progress-fill{height:3px;border-radius:2px;background:var(--c-blue);transition:width .4s ease}
-
-.field{padding:0 20px 18px}
-.field-label{font-size:12px;font-weight:600;color:var(--c-muted);margin-bottom:8px;display:block;text-transform:uppercase;letter-spacing:.8px}
-.field-input{width:100%;padding:14px 16px;border:1.5px solid var(--c-line);border-radius:var(--r-sm);font-size:15px;color:var(--c-ink);background:var(--c-white);font-family:var(--font-body);outline:none;transition:border-color .2s}
-.field-input:focus{border-color:var(--c-blue);box-shadow:0 0 0 3px rgba(27,94,158,.08)}
-.field-input::placeholder{color:var(--c-hint)}
-.field-hint{font-size:11px;color:var(--c-hint);margin-top:6px;line-height:1.4}
+:root{--blue:#1A5FA4;--blue-light:#E8F0FB;--blue-dark:#0D4170;--green:#0F6E56;--green-light:#E1F5EE;--amber:#854F0B;--amber-light:#FFF4E0;--red:#A32D2D;--red-light:#FCEBEB;--text:#1E1E1C;--text-2:#5A5A56;--text-3:#8A8A84;--bg:#FAFAF8;--card:#FFFFFF;--border:#E8E8E4;--border-light:#F2F2EE}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
+.screen{display:none;min-height:100vh;animation:fadeUp .4s ease}
+.screen.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scaleIn{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+.container{max-width:480px;margin:0 auto;padding:0 20px}
+.nav-bar{text-align:center;padding-bottom:24px}
+.nav-logo{font-size:18px;font-weight:800;color:#fff;letter-spacing:-.3px}
+.hero-section{background:linear-gradient(165deg,#0A3D6E 0%,#185FA5 40%,#2B7EC9 100%);padding:56px 0 48px;position:relative;overflow:hidden}
+.hero-section::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(255,255,255,0.08) 0%,transparent 70%);border-radius:50%}
+.hero-section::after{content:'';position:absolute;bottom:-40px;left:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(255,255,255,0.05) 0%,transparent 70%);border-radius:50%}
+.hero-logo{font-size:13px;font-weight:600;color:rgba(255,255,255,0.5);letter-spacing:3px;text-transform:uppercase;text-align:center;margin-bottom:24px}
+.hero-title{font-size:32px;font-weight:800;color:#fff;text-align:center;line-height:1.2;margin-bottom:14px;letter-spacing:-.5px}
+.hero-title span{color:rgba(255,255,255,0.6)}
+.hero-sub{font-size:15px;color:rgba(255,255,255,0.75);text-align:center;line-height:1.6;max-width:360px;margin:0 auto 32px}
+.hero-cta{display:block;width:100%;max-width:340px;margin:0 auto 12px;padding:16px;border-radius:14px;background:#fff;color:var(--blue);text-align:center;font-size:15px;font-weight:700;border:none;cursor:pointer;font-family:inherit;transition:all .2s;box-shadow:0 4px 20px rgba(0,0,0,0.15)}
+.hero-cta:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(0,0,0,0.2)}
+.hero-cta:active{transform:scale(.98)}
+.hero-cta-sec{display:block;width:100%;max-width:340px;margin:0 auto;padding:14px;border-radius:14px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.9);text-align:center;font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;transition:all .2s}
+.hero-cta-sec:hover{background:rgba(255,255,255,0.18)}
+.steps-section{padding:36px 0 32px}
+.steps-row{display:flex;gap:12px}
+.step-card{flex:1;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px 12px;text-align:center;transition:transform .2s}
+.step-card:hover{transform:translateY(-2px)}
+.step-num{width:36px;height:36px;border-radius:50%;background:var(--blue-light);color:var(--blue);font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 10px}
+.step-card p{font-size:12px;color:var(--text-2);line-height:1.4}
+.section-label{font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:2px;margin-bottom:14px}
+.example-section{padding:0 0 32px}
+.example-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.example-top{background:linear-gradient(135deg,#F5F5F3,#EEEEE8);padding:16px 20px;display:flex;justify-content:space-between;align-items:center}
+.example-top h3{font-size:15px;font-weight:700}
+.badge{font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px}
+.badge-green{background:var(--green-light);color:var(--green)}
+.badge-blue{background:var(--blue-light);color:var(--blue)}
+.example-body{padding:16px 20px}
+.example-body p{font-size:13px;color:var(--text-2);margin-bottom:5px;line-height:1.5}
+.social-section{padding:0 0 40px}
+.review-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px 20px;margin-bottom:10px}
+.review-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+.av-blue{background:var(--blue-light);color:var(--blue)}
+.av-green{background:var(--green-light);color:var(--green)}
+.review-name{font-size:13px;font-weight:700}
+.stars{color:#EF9F27;font-size:12px;letter-spacing:1px;margin-left:6px}
+.review-text{font-size:13px;color:var(--text-2);line-height:1.55}
+.form-header{background:linear-gradient(165deg,#0A3D6E,#185FA5);padding:20px 0 24px}
+.form-nav{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.back-btn{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;color:rgba(255,255,255,0.8);background:rgba(255,255,255,0.08);font-family:inherit;transition:all .15s}
+.back-btn:hover{background:rgba(255,255,255,0.15)}
+.form-title{font-size:20px;font-weight:700;color:#fff}
+.progress{height:4px;background:rgba(255,255,255,0.15);border-radius:2px}
+.progress-fill{height:4px;border-radius:2px;background:#fff;transition:width .3s}
+.form-body{padding:28px 0 40px}
+.field{margin-bottom:22px}
+.field-label{font-size:13px;font-weight:600;color:var(--text);margin-bottom:8px;display:block}
+.field-input{width:100%;padding:14px 16px;border:1.5px solid var(--border);border-radius:12px;font-size:15px;color:var(--text);background:var(--card);font-family:inherit;outline:none;transition:all .2s}
+.field-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,95,164,0.1)}
+.field-input::placeholder{color:var(--text-3)}
+.field-hint{font-size:12px;color:var(--text-3);margin-top:6px}
 .date-row{display:flex;gap:10px}
 .date-row>div{flex:1}
-
 .chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{padding:10px 18px;border-radius:24px;border:1.5px solid var(--c-line);font-size:14px;color:var(--c-muted);cursor:pointer;background:var(--c-white);transition:all .15s;font-family:var(--font-body);user-select:none}
-.chip:hover{border-color:var(--c-blue);color:var(--c-blue)}
-.chip.on{background:var(--c-blue);color:#fff;border-color:var(--c-blue);font-weight:600}
-
-.form-actions{padding:8px 20px 32px}
-
-/* ========== SCREEN 3: TARIFFS ========== */
-.tariff-intro{padding:0 20px 18px;font-size:13px;color:var(--c-muted);line-height:1.5}
-.tariff{margin:0 20px 12px;border:1.5px solid var(--c-line);border-radius:var(--r-lg);padding:20px;cursor:pointer;transition:all .2s;position:relative}
-.tariff:hover{border-color:var(--c-blue);box-shadow:0 4px 16px rgba(27,94,158,.06)}
-.tariff.selected{border:2px solid var(--c-blue);background:var(--c-blue-light)}
-.tariff-badge{position:absolute;top:-11px;right:16px;font-size:10px;font-weight:700;padding:4px 14px;border-radius:20px;background:var(--c-blue);color:#fff;text-transform:uppercase;letter-spacing:.8px}
-.tariff-name{font-family:var(--font-display);font-size:16px;font-weight:600;color:var(--c-ink);margin-bottom:4px}
-.tariff-price{font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--c-ink)}
-.tariff-price span{font-size:14px;font-weight:400;color:var(--c-hint);font-family:var(--font-body)}
+.chip{padding:10px 18px;border-radius:24px;border:1.5px solid var(--border);font-size:14px;color:var(--text-2);cursor:pointer;background:var(--card);transition:all .15s;font-family:inherit;user-select:none;font-weight:500}
+.chip:hover{border-color:var(--blue);color:var(--blue)}
+.chip.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.btn-primary{display:block;width:100%;padding:16px;border-radius:14px;background:var(--blue);color:#fff;text-align:center;font-size:15px;font-weight:700;border:none;cursor:pointer;font-family:inherit;transition:all .2s}
+.btn-primary:hover{background:var(--blue-dark);transform:translateY(-1px)}
+.btn-primary:active{transform:scale(.98)}
+.btn-primary:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.btn-secondary{display:block;width:100%;padding:14px;border-radius:14px;background:transparent;border:1.5px solid var(--border);text-align:center;font-size:14px;font-weight:500;color:var(--text-2);cursor:pointer;font-family:inherit;transition:all .15s;margin-top:10px}
+.btn-secondary:hover{border-color:var(--text-3)}
+.pricing-summary{font-size:13px;color:var(--text-2);margin-bottom:24px;line-height:1.5}
+.tariff{background:var(--card);border:1.5px solid var(--border);border-radius:16px;padding:22px;margin-bottom:12px;cursor:pointer;transition:all .2s;position:relative}
+.tariff:hover{border-color:var(--blue)}
+.tariff.selected{border:2.5px solid var(--blue);box-shadow:0 4px 20px rgba(26,95,164,0.12)}
+.tariff-badge{position:absolute;top:-11px;right:16px;font-size:10px;font-weight:700;padding:4px 14px;border-radius:20px;background:var(--blue);color:#fff}
+.tariff-name{font-size:15px;font-weight:700;margin-bottom:4px}
+.tariff-price{font-size:28px;font-weight:800;letter-spacing:-.5px}
+.tariff-price span{font-size:14px;font-weight:400;color:var(--text-3)}
 .tariff-list{margin-top:14px;list-style:none}
-.tariff-list li{font-size:13px;color:var(--c-text);padding:5px 0;display:flex;align-items:center;gap:10px;line-height:1.4}
-.tariff-list li::before{content:'✓';width:20px;height:20px;border-radius:50%;background:var(--c-green-light);color:var(--c-green);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-
-.guarantee{margin:16px 20px;padding:16px;background:var(--c-sand);border-radius:var(--r-md);display:flex;gap:12px;align-items:flex-start}
-.guarantee-icon{width:24px;height:24px;border-radius:50%;background:var(--c-green-light);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--c-green)}
-.guarantee p{font-size:13px;color:var(--c-muted);line-height:1.5}
-.guarantee strong{color:var(--c-ink)}
-
-.tariff-actions{padding:8px 20px 32px}
-
-/* ========== SCREEN 4: RESULT ========== */
-.result-hero{text-align:center;padding:40px 24px 24px;position:relative}
-.result-check{width:60px;height:60px;border-radius:50%;background:var(--c-green-light);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:28px;color:var(--c-green);animation:popIn .5s cubic-bezier(.175,.885,.32,1.275)}
-@keyframes popIn{from{transform:scale(0);opacity:0}50%{transform:scale(1.1)}to{transform:scale(1);opacity:1}}
-.result-hero h2{font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--c-ink);margin-bottom:6px}
-.result-hero p{font-size:14px;color:var(--c-muted)}
-
-.summary{margin:0 20px 18px;background:var(--c-sand);border-radius:var(--r-md);padding:18px 20px}
-.summary-row{display:flex;justify-content:space-between;font-size:14px;padding:5px 0}
-.summary-row .lbl{color:var(--c-muted)}
-.summary-row .val{color:var(--c-ink);font-weight:600}
-
-.preview-card{margin:0 20px 16px;border:1.5px solid var(--c-line);border-radius:var(--r-lg);overflow:hidden}
-.preview-head{background:var(--c-blue);padding:14px 18px}
-.preview-head span{font-size:14px;font-weight:600;color:#fff;font-family:var(--font-display)}
-.preview-item{padding:12px 18px;border-top:1px solid var(--c-line);display:flex;gap:12px}
-.preview-time{font-size:12px;color:var(--c-blue);font-weight:700;min-width:40px;padding-top:2px}
-.preview-place{font-size:14px;font-weight:600;color:var(--c-ink)}
-
-.files{padding:0 20px 8px}
-.file-row{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1.5px solid var(--c-line);border-radius:var(--r-md);margin-bottom:10px;cursor:pointer;transition:all .2s}
-.file-row:hover{border-color:var(--c-blue);background:var(--c-blue-light);transform:translateX(4px)}
-.file-icon{width:42px;height:42px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;letter-spacing:.5px}
-.fi-pdf{background:var(--c-red-light);color:var(--c-red)}
-.fi-xls{background:var(--c-green-light);color:var(--c-green)}
-.fi-map{background:var(--c-blue-light);color:var(--c-blue)}
-.fi-chk{background:var(--c-amber-light);color:var(--c-amber)}
+.tariff-list li{font-size:13px;color:var(--text-2);padding:5px 0;display:flex;align-items:center;gap:10px;line-height:1.4}
+.tariff-list li::before{content:'\2713';width:20px;height:20px;border-radius:50%;background:var(--green-light);color:var(--green);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
+.guarantee{margin:20px 0;padding:16px 20px;background:var(--bg);border-radius:14px;display:flex;gap:12px;align-items:flex-start}
+.guarantee-icon{width:28px;height:28px;border-radius:50%;background:var(--green-light);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--green)}
+.guarantee p{font-size:13px;color:var(--text-2);line-height:1.5}
+.guarantee strong{color:var(--text);font-weight:700}
+.result-header{background:linear-gradient(165deg,#0A5E3E,#0F6E56,#14856A);padding:48px 0 40px;text-align:center}
+.result-check{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:32px;color:#fff;animation:scaleIn .5s ease}
+.result-header h2{font-size:24px;font-weight:800;color:#fff;margin-bottom:6px}
+.result-header p{font-size:14px;color:rgba(255,255,255,0.7)}
+.result-body{padding:28px 0 40px}
+.summary-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:20px}
+.summary-row{display:flex;justify-content:space-between;font-size:14px;padding:6px 0}
+.summary-row .lbl{color:var(--text-3)}
+.summary-row .val{font-weight:700}
+.day-preview{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:20px}
+.day-preview-head{background:linear-gradient(135deg,#F5F5F3,#EEEEE8);padding:14px 20px;font-size:14px;font-weight:700}
+.day-preview-item{padding:12px 20px;border-top:1px solid var(--border-light);display:flex;gap:12px}
+.day-preview-time{font-size:12px;font-weight:600;color:var(--blue);min-width:40px;padding-top:2px}
+.day-preview-place{font-size:14px;font-weight:600}
+.files-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.file-card{display:flex;align-items:center;gap:14px;padding:16px;background:var(--card);border:1px solid var(--border);border-radius:14px;cursor:pointer;transition:all .15s}
+.file-card:hover{border-color:var(--blue);transform:translateX(4px)}
+.file-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0}
+.fi-pdf{background:var(--red-light);color:var(--red)}
+.fi-xls{background:var(--green-light);color:var(--green)}
+.fi-map{background:var(--blue-light);color:var(--blue)}
+.fi-chk{background:var(--amber-light);color:var(--amber)}
 .file-info{flex:1}
-.file-name{font-size:14px;font-weight:600;color:var(--c-ink)}
-.file-desc{font-size:12px;color:var(--c-muted);margin-top:2px}
-.file-arrow{font-size:18px;color:var(--c-hint);transition:transform .2s}
-.file-row:hover .file-arrow{transform:translateX(4px);color:var(--c-blue)}
-
-.result-actions{padding:8px 20px 32px;display:flex;flex-direction:column;gap:10px}
-.result-note{text-align:center;font-size:12px;color:var(--c-hint);padding:0 20px 24px}
-
-/* ========== SCREEN 5: EXAMPLE ========== */
-.ex-hero{padding:20px 20px 16px}
-.ex-hero-title{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--c-ink);line-height:1.3;margin-bottom:6px}
-.ex-hero-sub{font-size:13px;color:var(--c-muted);line-height:1.5}
-
-.ex-stats{display:flex;gap:8px;padding:0 20px 18px}
-.ex-stat{flex:1;background:var(--c-sand);border-radius:var(--r-md);padding:14px 8px;text-align:center}
-.ex-stat .num{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--c-ink)}
-.ex-stat .lbl{font-size:11px;color:var(--c-muted);margin-top:3px}
-
-.day-tabs{display:flex;gap:6px;padding:0 20px 14px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.file-name{font-size:14px;font-weight:700}
+.file-desc{font-size:12px;color:var(--text-3);margin-top:2px}
+.file-arrow{font-size:18px;color:var(--border);transition:color .15s}
+.file-card:hover .file-arrow{color:var(--blue)}
+.example-header{background:linear-gradient(165deg,#0A3D6E,#185FA5);padding:20px 0 24px}
+.example-hero-title{font-size:22px;font-weight:800;color:#fff;margin-bottom:4px}
+.example-hero-sub{font-size:13px;color:rgba(255,255,255,0.65)}
+.stats-row{display:flex;gap:8px;margin-bottom:24px}
+.stat-card{flex:1;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;text-align:center}
+.stat-num{font-size:22px;font-weight:800}
+.stat-lbl{font-size:11px;color:var(--text-3);margin-top:2px}
+.day-tabs{display:flex;gap:6px;margin-bottom:18px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px}
 .day-tabs::-webkit-scrollbar{display:none}
-.day-tab{min-width:38px;height:38px;border-radius:19px;border:1.5px solid var(--c-line);font-size:13px;font-weight:600;color:var(--c-muted);cursor:pointer;background:var(--c-white);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;font-family:var(--font-body)}
-.day-tab.on{background:var(--c-blue);color:#fff;border-color:var(--c-blue)}
-.day-tab:hover:not(.on){border-color:var(--c-blue);color:var(--c-blue)}
-
-.day-card{margin:0 20px 14px;border:1.5px solid var(--c-line);border-radius:var(--r-lg);overflow:hidden}
-.day-head{background:var(--c-sand);padding:12px 18px;display:flex;justify-content:space-between;align-items:center}
-.day-head-title{font-size:14px;font-weight:600;color:var(--c-ink);font-family:var(--font-display)}
-.day-head-city{font-size:12px;color:var(--c-muted);font-weight:500}
-.day-item{padding:12px 18px;border-top:1px solid var(--c-line);display:flex;gap:12px}
-.day-time{font-size:12px;color:var(--c-blue);font-weight:700;min-width:40px;padding-top:2px}
+.day-tab{min-width:38px;height:38px;border-radius:50%;border:1.5px solid var(--border);font-size:13px;font-weight:600;color:var(--text-2);cursor:pointer;background:var(--card);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;font-family:inherit}
+.day-tab:hover{border-color:var(--blue);color:var(--blue)}
+.day-tab.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.day-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:16px}
+.day-head{background:linear-gradient(135deg,#F5F5F3,#EEEEE8);padding:14px 20px;display:flex;justify-content:space-between;align-items:center}
+.day-head-title{font-size:14px;font-weight:700}
+.day-head-city{font-size:12px;color:var(--text-3);font-weight:500}
+.day-item{padding:14px 20px;border-top:1px solid var(--border-light);display:flex;gap:12px}
+.day-time{font-size:12px;font-weight:600;color:var(--blue);min-width:40px;padding-top:2px}
 .day-content{flex:1}
-.day-place{font-size:14px;font-weight:600;color:var(--c-ink)}
-.day-desc{font-size:12px;color:var(--c-muted);line-height:1.45;margin-top:3px}
-.day-tag{display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;margin-top:5px;text-transform:uppercase;letter-spacing:.5px}
-.tag-culture{background:var(--c-blue-light);color:var(--c-blue)}
-.tag-food{background:var(--c-amber-light);color:var(--c-amber)}
-.tag-rest{background:var(--c-green-light);color:var(--c-green)}
-.tag-transport{background:var(--c-sand);color:var(--c-muted)}
-
-.budget-block{margin:18px 20px;border:1.5px solid var(--c-line);border-radius:var(--r-lg);overflow:hidden}
-.budget-head{background:var(--c-sand);padding:14px 18px;font-size:14px;font-weight:600;color:var(--c-ink);font-family:var(--font-display)}
-.budget-row{padding:10px 18px;border-top:1px solid var(--c-line);display:flex;align-items:center;font-size:13px}
-.budget-row .cat{color:var(--c-muted);min-width:76px;font-weight:500}
-.bar-wrap{flex:1;margin:0 12px;height:6px;background:var(--c-sand);border-radius:3px}
-.bar-fill{height:6px;border-radius:3px;background:linear-gradient(90deg,var(--c-blue),var(--c-blue-dark));transition:width .6s ease}
-.budget-row .amt{color:var(--c-ink);font-weight:700;min-width:72px;text-align:right}
-.budget-row.total{background:var(--c-blue-light)}
-.budget-row.total .cat,.budget-row.total .amt{font-weight:700;color:var(--c-blue)}
-
-.file-pills{display:flex;gap:8px;padding:0 20px 14px}
-.file-pill{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 4px;border:1.5px solid var(--c-line);border-radius:var(--r-md);font-size:12px;font-weight:600;color:var(--c-muted);cursor:default}
+.day-place{font-size:14px;font-weight:700}
+.day-desc{font-size:12px;color:var(--text-2);line-height:1.5;margin-top:3px}
+.day-tag{display:inline-block;font-size:10px;font-weight:600;padding:3px 10px;border-radius:10px;margin-top:6px}
+.tag-culture{background:var(--blue-light);color:var(--blue)}
+.tag-food{background:var(--amber-light);color:var(--amber)}
+.tag-rest{background:var(--green-light);color:var(--green)}
+.tag-transport{background:#F1EFE8;color:var(--text-2)}
+.budget-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:20px}
+.budget-head{background:linear-gradient(135deg,#F5F5F3,#EEEEE8);padding:14px 20px;font-size:14px;font-weight:700}
+.budget-row{padding:10px 20px;border-top:1px solid var(--border-light);display:flex;align-items:center;font-size:13px}
+.budget-row .cat{color:var(--text-2);min-width:80px;font-weight:500}
+.bar-wrap{flex:1;margin:0 12px;height:6px;background:var(--border-light);border-radius:3px}
+.bar-fill{height:6px;border-radius:3px;background:var(--blue)}
+.budget-row .amt{font-weight:700;min-width:75px;text-align:right}
+.budget-row.total{background:var(--bg)}
+.budget-row.total .cat,.budget-row.total .amt{font-weight:800;color:var(--blue)}
+.file-pills{display:flex;gap:8px;margin-bottom:24px}
+.file-pill{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:12px 4px;background:var(--card);border:1px solid var(--border);border-radius:12px;font-size:12px;font-weight:500;color:var(--text-2)}
 .file-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-
-.ex-actions{padding:8px 20px 32px;display:flex;flex-direction:column;gap:10px}
-
-/* Desktop centering */
-@media(min-width:481px){
-  body{background:var(--c-sand)}
-  .app{box-shadow:0 0 60px rgba(0,0,0,.06)}
-}
+.footer{text-align:center;padding:20px 0 32px}
+.footer-text{font-size:12px;color:var(--text-3)}
+.blur-section{position:relative}
+.blur-overlay{position:relative}
+.blur-overlay::after{content:'';position:absolute;bottom:0;left:0;right:0;height:200px;background:linear-gradient(transparent,var(--bg) 90%);pointer-events:none;z-index:1}
+.blur-cta{position:relative;z-index:2;text-align:center;padding:0 0 24px}
+.blur-cta p{font-size:13px;color:var(--text-3);margin-bottom:14px}
+.lock-icon{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;background:var(--blue-light);color:var(--blue);font-size:22px;margin-bottom:12px}
 </style>
 </head>
 <body>
-<div class="app">
-
-<!-- SCREEN 1: LANDING -->
 <div class="screen active" id="s1">
-<div class="hero">
-  <div class="hero-logo">✦ ПутёвAI</div>
-  <h1>Готовый маршрут<br>по России за <em>5 минут</em></h1>
-  <p>ИИ спланирует поездку под ваш бюджет, даты и интересы. Получите PDF-маршрут, карту и таблицу расходов.</p>
-</div>
-<div class="hero-actions">
-  <button class="btn btn-primary" onclick="go(2)">Спланировать поездку →</button>
-  <button class="btn btn-outline" onclick="go(5)">Посмотреть пример маршрута</button>
-</div>
-<div class="how-it-works">
-  <div class="how-label">Как это работает</div>
-  <div class="steps">
-    <div class="step"><div class="step-num">1</div><p>Расскажите о поездке</p></div>
-    <div class="step"><div class="step-num">2</div><p>ИИ создаёт маршрут</p></div>
-    <div class="step"><div class="step-num">3</div><p>Получите готовый пакет</p></div>
-  </div>
-</div>
-<div class="example-card" onclick="go(5)">
-  <div class="example-head"><span>Алтай, 7 дней</span><span class="badge badge-green">Пример</span></div>
-  <div class="example-body">
-    <p>Пара, бюджет 80 000 ₽</p>
-    <p>Чемал → Телецкое озеро → Акташ → Марс-1</p>
-    <p>Жильё, еда, транспорт — всё расписано</p>
-  </div>
-</div>
-<div class="reviews">
-  <div class="reviews-label">Отзывы</div>
-  <div class="review"><div class="avatar av-blue">АК</div><div><div class="review-name">Анна К. <span class="stars">★★★★★</span></div><div class="review-text">Съездили на Байкал по этому маршруту. Всё совпало, ничего лишнего. Очень удобная таблица расходов!</div></div></div>
-  <div class="review"><div class="avatar av-green">ДМ</div><div><div class="review-name">Дмитрий М. <span class="stars">★★★★★</span></div><div class="review-text">Заказал маршрут по Дагестану для семьи с ребёнком. Учли всё: и рестораны с детским меню, и время на переезды.</div></div></div>
-</div>
-<div class="footer-note">© 2026 putevkai.ru — планируем путешествия с умом</div>
-</div>
-
-<!-- SCREEN 2: FORM -->
+<div class="hero-section"><div class="container">
+<div class="nav-bar"><span class="nav-logo">ПутёвAI</span></div>
+<h1 class="hero-title">Готовый маршрут<br>по России <span>за 5 минут</span></h1>
+<p class="hero-sub">ИИ спланирует поездку под ваш бюджет, даты и интересы. Вы получите PDF-маршрут, карту и таблицу расходов.</p>
+<button class="hero-cta" onclick="go(2)">Спланировать поездку</button>
+<button class="hero-cta-sec" onclick="go(5)">Посмотреть пример маршрута</button>
+</div></div>
+<div class="container">
+<div class="steps-section"><div class="steps-row">
+<div class="step-card"><div class="step-num">1</div><p>Расскажите о поездке</p></div>
+<div class="step-card"><div class="step-num">2</div><p>ИИ создаёт маршрут</p></div>
+<div class="step-card"><div class="step-num">3</div><p>Получите готовый пакет</p></div>
+</div></div>
+<div class="example-section"><div class="section-label">Пример маршрута</div>
+<div class="example-card"><div class="example-top"><h3>Алтай, 7 дней</h3><span class="badge badge-green">Пример</span></div>
+<div class="example-body"><p>&#128107; Пара, бюджет 80 000 &#8381;</p><p>&#128205; Чемал &#8594; Телецкое озеро &#8594; Акташ &#8594; Марс-1</p><p>&#127968; Жильё, еда, транспорт — всё расписано</p></div></div></div>
+<div class="social-section"><div class="section-label">Отзывы</div>
+<div class="review-card"><div class="review-top"><div class="avatar av-blue">АК</div><div><span class="review-name">Анна К.</span><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div></div><div class="review-text">Съездили на Байкал по этому маршруту. Всё совпало, ничего лишнего. Очень удобная таблица расходов!</div></div>
+<div class="review-card"><div class="review-top"><div class="avatar av-green">ДМ</div><div><span class="review-name">Дмитрий М.</span><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div></div><div class="review-text">Заказал маршрут по Дагестану для семьи с ребёнком. Учли всё: и рестораны с детским меню, и время на переезды.</div></div>
+</div></div></div>
 <div class="screen" id="s2">
-<div class="top-bar"><button class="back-btn" onclick="go(1)">←</button><span class="top-title">Расскажите о поездке</span></div>
-<div class="progress-bar"><div class="progress-fill" style="width:50%"></div></div>
-<div class="field"><label class="field-label">Куда хотите поехать?</label><input class="field-input" id="f-destination" placeholder="Алтай, Байкал, Дагестан..."><div class="field-hint">Можно написать несколько вариантов или «не знаю, подберите»</div></div>
+<div class="form-header"><div class="container">
+<div class="form-nav"><button class="back-btn" onclick="go(1)">&#8592;</button><span class="form-title">Расскажите о поездке</span></div>
+<div class="progress"><div class="progress-fill" style="width:50%"></div></div>
+</div></div>
+<div class="container"><div class="form-body">
+<div class="field"><label class="field-label">Куда хотите поехать?</label><input class="field-input" id="f-destination" placeholder="Например: Алтай, Байкал, Дагестан..."><div class="field-hint">Можно написать несколько вариантов или «не знаю, подберите»</div></div>
 <div class="field"><label class="field-label">Даты поездки</label><div class="date-row"><div><input class="field-input" id="f-date-start" placeholder="Начало" onfocus="this.type='date'" onblur="if(!this.value)this.type='text'"></div><div><input class="field-input" id="f-date-end" placeholder="Конец" onfocus="this.type='date'" onblur="if(!this.value)this.type='text'"></div></div></div>
-<div class="field"><label class="field-label">Бюджет на человека</label><div class="chips" id="f-budget" data-mode="single"><div class="chip" onclick="pick(this)">до 30 000 ₽</div><div class="chip on" onclick="pick(this)">30–60 000 ₽</div><div class="chip" onclick="pick(this)">60–100 000 ₽</div><div class="chip" onclick="pick(this)">100 000+ ₽</div></div></div>
-<div class="field"><label class="field-label">С кем едете?</label><div class="chips" id="f-travelers" data-mode="single"><div class="chip on" onclick="pick(this)">Пара</div><div class="chip" onclick="pick(this)">Семья с детьми</div><div class="chip" onclick="pick(this)">Соло</div><div class="chip" onclick="pick(this)">Компания</div><div class="chip" onclick="pick(this)">С питомцем</div></div></div>
-<div class="field"><label class="field-label">Что важно в поездке?</label><div class="chips" id="f-interests" data-mode="multi"><div class="chip on" onclick="pick(this)">Природа</div><div class="chip" onclick="pick(this)">Еда</div><div class="chip on" onclick="pick(this)">Активный отдых</div><div class="chip" onclick="pick(this)">Культура</div><div class="chip" onclick="pick(this)">Спокойный отдых</div><div class="chip" onclick="pick(this)">Фото-локации</div></div></div>
-<div class="field"><label class="field-label">Пожелания</label><input class="field-input" id="f-wishes" placeholder="Боюсь высоты, люблю кофе, аллергия..."></div>
-<div class="field"><label class="field-label">Email для маршрута</label><input class="field-input" id="f-email" type="email" placeholder="your@email.com"></div>
-<div class="form-actions"><button class="btn btn-primary" id="submit-btn" onclick="submitForm()">Далее: выбор тарифа →</button></div>
-</div>
-
-<!-- SCREEN 3: TARIFFS -->
+<div class="field"><label class="field-label">Бюджет на человека</label><div class="chips" id="f-budget" data-mode="single"><div class="chip" onclick="pick(this)">до 30 000 &#8381;</div><div class="chip on" onclick="pick(this)">30-60 000 &#8381;</div><div class="chip" onclick="pick(this)">60-100 000 &#8381;</div><div class="chip" onclick="pick(this)">100 000+ &#8381;</div></div></div>
+<div class="field"><label class="field-label">С кем едете?</label><div class="chips" id="f-travelers" data-mode="single"><div class="chip on" onclick="pick(this)">&#128107; Пара</div><div class="chip" onclick="pick(this)">&#128106; Семья с детьми</div><div class="chip" onclick="pick(this)">&#129489; Соло</div><div class="chip" onclick="pick(this)">&#127881; Компания</div><div class="chip" onclick="pick(this)">&#128054; С собакой</div></div></div>
+<div class="field"><label class="field-label">Что важно в поездке?</label><div class="chips" id="f-interests" data-mode="multi"><div class="chip on" onclick="pick(this)">&#127966; Природа</div><div class="chip" onclick="pick(this)">&#127860; Еда</div><div class="chip on" onclick="pick(this)">&#127947; Активный отдых</div><div class="chip" onclick="pick(this)">&#127963; Культура</div><div class="chip" onclick="pick(this)">&#128524; Спокойный отдых</div><div class="chip" onclick="pick(this)">&#128247; Фото-локации</div></div></div>
+<div class="field"><label class="field-label">Что-то ещё? (необязательно)</label><input class="field-input" id="f-wishes" placeholder="Боюсь высоты, люблю кофе, аллергия..."></div>
+<div class="field"><label class="field-label">Email для получения маршрута</label><input class="field-input" id="f-email" type="email" placeholder="your@email.com"></div>
+<button class="btn-primary" id="submit-btn" onclick="submitForm()">Далее: выбор тарифа</button>
+</div></div></div>
 <div class="screen" id="s3">
-<div class="top-bar"><button class="back-btn" onclick="go(2)">←</button><span class="top-title">Выберите тариф</span></div>
-<div class="tariff-intro">Ваш маршрут почти готов. Выберите подходящий вариант:</div>
-<div class="tariff" onclick="pickTariff(this,490)">
-  <div class="tariff-name">Базовый</div>
-  <div class="tariff-price">490 ₽ <span>разово</span></div>
-  <ul class="tariff-list"><li>Маршрут по дням в PDF</li><li>Список мест и адресов</li><li>Чек-лист вещей</li></ul>
-</div>
-<div class="tariff selected" onclick="pickTariff(this,990)">
-  <div class="tariff-badge">Популярный</div>
-  <div class="tariff-name">Расширенный</div>
-  <div class="tariff-price">990 ₽ <span>разово</span></div>
-  <ul class="tariff-list"><li>Всё из базового</li><li>Таблица бюджета в Google Sheets</li><li>Маршрут на Яндекс.Картах</li><li>Рекомендации кафе и жилья</li><li>Контакты экстренных служб</li></ul>
-</div>
-<div class="tariff" onclick="pickTariff(this,1990)">
-  <div class="tariff-name">Пакет 3 маршрута</div>
-  <div class="tariff-price">1 990 ₽ <span>за 3 поездки</span></div>
-  <ul class="tariff-list"><li>3 расширенных маршрута</li><li>Экономия 980 ₽</li><li>Используйте в течение года</li></ul>
-</div>
-<div class="guarantee"><div class="guarantee-icon">✓</div><p><strong>Гарантия возврата.</strong> Если маршрут вам не подойдёт, вернём деньги в течение 24 часов без вопросов.</p></div>
-<div class="tariff-actions"><button class="btn btn-primary" id="pay-btn" onclick="go(4)">Оплатить 990 ₽ →</button></div>
-</div>
-
-<!-- SCREEN 4: RESULT -->
+<div class="form-header"><div class="container">
+<div class="form-nav"><button class="back-btn" onclick="go(2)">&#8592;</button><span class="form-title">Выберите тариф</span></div>
+</div></div>
+<div class="container" style="padding-top:24px;padding-bottom:40px;">
+<div class="pricing-summary">Ваш маршрут почти готов — выберите подходящий пакет</div>
+<div class="tariff" onclick="pickTariff(this,490)"><div class="tariff-name">Базовый</div><div class="tariff-price">490 &#8381; <span>разово</span></div><ul class="tariff-list"><li>Маршрут по дням в PDF</li><li>Список мест и адресов</li><li>Чек-лист вещей</li></ul></div>
+<div class="tariff selected" onclick="pickTariff(this,990)"><div class="tariff-badge">Популярный</div><div class="tariff-name">Расширенный</div><div class="tariff-price">990 &#8381; <span>разово</span></div><ul class="tariff-list"><li>Всё из базового</li><li>Таблица бюджета в Google Sheets</li><li>Маршрут на Яндекс.Картах</li><li>Рекомендации кафе и жилья</li><li>Контакты экстренных служб</li></ul></div>
+<div class="tariff" onclick="pickTariff(this,1990)"><div class="tariff-name">Пакет 3 маршрута</div><div class="tariff-price">1 990 &#8381; <span>за 3 поездки</span></div><ul class="tariff-list"><li>3 расширенных маршрута</li><li>Экономия 980 &#8381;</li><li>Используйте в течение года</li></ul></div>
+<div class="guarantee"><div class="guarantee-icon">&#10003;</div><p><strong>Гарантия возврата.</strong> Если маршрут вам не подойдёт, вернём деньги в течение 24 часов без вопросов.</p></div>
+<button class="btn-primary" id="pay-btn" onclick="pay()">Оплатить 990 &#8381;</button>
+</div></div>
 <div class="screen" id="s4">
-<div class="result-hero"><div class="result-check">✓</div><h2>Ваш маршрут готов!</h2><p>Отправили всё на вашу почту</p></div>
-<div class="summary">
-  <div class="summary-row"><span class="lbl">Направление</span><span class="val">Горный Алтай</span></div>
-  <div class="summary-row"><span class="lbl">Даты</span><span class="val">12 — 18 июля</span></div>
-  <div class="summary-row"><span class="lbl">Бюджет на двоих</span><span class="val">~78 000 ₽</span></div>
-  <div class="summary-row"><span class="lbl">Дней</span><span class="val">7</span></div>
+<div class="result-header"><div class="container">
+<div class="result-check">&#10003;</div><h2>Ваш маршрут готов!</h2><p>Отправили всё на вашу почту</p>
+</div></div>
+<div class="container"><div class="result-body">
+<div class="summary-card"><div class="summary-row"><span class="lbl">Направление</span><span class="val">Горный Алтай</span></div><div class="summary-row"><span class="lbl">Даты</span><span class="val">12 — 18 июля</span></div><div class="summary-row"><span class="lbl">Бюджет на двоих</span><span class="val">~78 000 &#8381;</span></div><div class="summary-row"><span class="lbl">Дней</span><span class="val">7</span></div></div>
+<div class="day-preview"><div class="day-preview-head">День 1: Горно-Алтайск &#8594; Чемал</div><div class="day-preview-item"><span class="day-preview-time">09:00</span><div><div class="day-preview-place">Прилёт, трансфер</div></div></div><div class="day-preview-item"><span class="day-preview-time">12:00</span><div><div class="day-preview-place">Обед в «Усадьба Ника»</div></div></div><div class="day-preview-item"><span class="day-preview-time">14:00</span><div><div class="day-preview-place">Чемальская ГЭС</div></div></div><div class="day-preview-item"><span class="day-preview-time">17:00</span><div><div class="day-preview-place">Заселение, отдых</div></div></div></div>
+<div class="files-grid">
+<div class="file-card"><div class="file-icon fi-pdf">PDF</div><div class="file-info"><div class="file-name">Маршрут Алтай 7 дней.pdf</div><div class="file-desc">14 страниц, маршрут по дням + чек-лист</div></div><div class="file-arrow">&#8594;</div></div>
+<div class="file-card"><div class="file-icon fi-xls">XLS</div><div class="file-info"><div class="file-name">Бюджет поездки</div><div class="file-desc">Google Sheets, расходы по категориям</div></div><div class="file-arrow">&#8594;</div></div>
+<div class="file-card"><div class="file-icon fi-map">MAP</div><div class="file-info"><div class="file-name">Маршрут на карте</div><div class="file-desc">Яндекс.Карты, все точки отмечены</div></div><div class="file-arrow">&#8594;</div></div>
+<div class="file-card"><div class="file-icon fi-chk">CHK</div><div class="file-info"><div class="file-name">Чек-лист вещей</div><div class="file-desc">PDF, адаптирован под Алтай в июле</div></div><div class="file-arrow">&#8594;</div></div>
 </div>
-<div class="preview-card">
-  <div class="preview-head"><span>День 1: Горно-Алтайск → Чемал</span></div>
-  <div class="preview-item"><span class="preview-time">09:00</span><div><div class="preview-place">Прилёт, трансфер</div></div></div>
-  <div class="preview-item"><span class="preview-time">12:00</span><div><div class="preview-place">Обед в «Усадьба Ника»</div></div></div>
-  <div class="preview-item"><span class="preview-time">14:00</span><div><div class="preview-place">Чемальская ГЭС</div></div></div>
-  <div class="preview-item"><span class="preview-time">17:00</span><div><div class="preview-place">Заселение, отдых</div></div></div>
-</div>
-<div class="files">
-  <div class="file-row"><div class="file-icon fi-pdf">PDF</div><div class="file-info"><div class="file-name">Маршрут Алтай 7 дней.pdf</div><div class="file-desc">14 страниц, маршрут по дням + чек-лист</div></div><div class="file-arrow">→</div></div>
-  <div class="file-row"><div class="file-icon fi-xls">XLS</div><div class="file-info"><div class="file-name">Бюджет поездки</div><div class="file-desc">Google Sheets, расходы по категориям</div></div><div class="file-arrow">→</div></div>
-  <div class="file-row"><div class="file-icon fi-map">MAP</div><div class="file-info"><div class="file-name">Маршрут на карте</div><div class="file-desc">Яндекс.Карты, все точки отмечены</div></div><div class="file-arrow">→</div></div>
-  <div class="file-row"><div class="file-icon fi-chk">CHK</div><div class="file-info"><div class="file-name">Чек-лист вещей</div><div class="file-desc">PDF, адаптирован под Алтай в июле</div></div><div class="file-arrow">→</div></div>
-</div>
-<div class="result-actions">
-  <button class="btn btn-outline">Поделиться маршрутом</button>
-  <button class="btn btn-primary" onclick="go(2)">Спланировать ещё одну поездку</button>
-</div>
-<div class="result-note">Все материалы также отправлены на вашу почту</div>
-</div>
-
-<!-- SCREEN 5: EXAMPLE ROUTE -->
+<button class="btn-primary" onclick="go(2)">Спланировать ещё одну поездку</button>
+<button class="btn-secondary">Поделиться маршрутом</button>
+<div class="footer"><div class="footer-text">Все материалы также отправлены на вашу почту</div></div>
+</div></div></div>
 <div class="screen" id="s5">
-<div class="top-bar"><button class="back-btn" onclick="go(1)">←</button><span class="top-title">Пример маршрута</span><span class="badge badge-blue" style="margin-left:auto">Пример</span></div>
-<div class="ex-hero">
-  <div class="ex-hero-title">Москва → Петербург</div>
-  <div class="ex-hero-sub">Соло, 14 дней, спокойный отдых + культура, 12–25 апреля</div>
+<div class="example-header"><div class="container">
+<div class="form-nav"><button class="back-btn" onclick="go(1)">&#8592;</button><span class="form-title">Пример маршрута</span><span class="badge badge-blue" style="margin-left:auto">Пример</span></div>
+<div class="example-hero-title">Москва &#8594; Петербург</div>
+<div class="example-hero-sub">Соло, 14 дней, спокойный отдых + культура, 12-25 апреля</div>
+</div></div>
+<div class="container" style="padding-top:24px;padding-bottom:40px;">
+<div class="stats-row"><div class="stat-card"><div class="stat-num">14</div><div class="stat-lbl">дней</div></div><div class="stat-card"><div class="stat-num">~48K</div><div class="stat-lbl">&#8381; бюджет</div></div><div class="stat-card"><div class="stat-num">32</div><div class="stat-lbl">места</div></div></div>
+
+<div class="budget-card">
+<div class="budget-head">Бюджет на 14 дней</div>
+<div class="budget-row"><span class="cat">Жильё</span><div class="bar-wrap"><div class="bar-fill" style="width:42%"></div></div><span class="amt">20 000 &#8381;</span></div>
+<div class="budget-row"><span class="cat">Еда</span><div class="bar-wrap"><div class="bar-fill" style="width:25%"></div></div><span class="amt">12 000 &#8381;</span></div>
+<div class="budget-row"><span class="cat">Транспорт</span><div class="bar-wrap"><div class="bar-fill" style="width:17%"></div></div><span class="amt">8 000 &#8381;</span></div>
+<div class="budget-row"><span class="cat">Музеи</span><div class="bar-wrap"><div class="bar-fill" style="width:10%"></div></div><span class="amt">5 000 &#8381;</span></div>
+<div class="budget-row"><span class="cat">Резерв</span><div class="bar-wrap"><div class="bar-fill" style="width:6%"></div></div><span class="amt">3 000 &#8381;</span></div>
+<div class="budget-row total"><span class="cat">Итого</span><span class="amt">48 000 &#8381;</span></div>
 </div>
-<div class="ex-stats">
-  <div class="ex-stat"><div class="num">14</div><div class="lbl">дней</div></div>
-  <div class="ex-stat"><div class="num">~48 000</div><div class="lbl">₽ бюджет</div></div>
-  <div class="ex-stat"><div class="num">32</div><div class="lbl">места</div></div>
+
+<div class="section-label">Первые 2 дня из 14</div>
+
+<div class="day-card">
+<div class="day-head"><span class="day-head-title">День 1: Прибытие в Москву</span><span class="day-head-city">Москва</span></div>
+<div class="day-item"><span class="day-time">14:00</span><div class="day-content"><div class="day-place">Заселение &#171;Чистые пруды&#187;</div><div class="day-desc">Бутик-отель, 5 мин от метро. 2 500 руб./ночь</div><span class="day-tag tag-rest">Отдых</span></div></div>
+<div class="day-item"><span class="day-time">16:00</span><div class="day-content"><div class="day-place">Прогулка по Чистым прудам</div><div class="day-desc">Бульвар, весенние деревья. Спокойный старт</div><span class="day-tag tag-rest">Отдых</span></div></div>
+<div class="day-item"><span class="day-time">19:00</span><div class="day-content"><div class="day-place">Ужин в &#171;Лавка-Лавка&#187;</div><div class="day-desc">Фермерская кухня. Средний чек ~1 200 руб.</div><span class="day-tag tag-food">Еда</span></div></div>
 </div>
-<div class="day-tabs" id="dtabs"></div>
-<div id="day-display"></div>
-<div class="budget-block">
-  <div class="budget-head">Бюджет на 14 дней</div>
-  <div class="budget-row"><span class="cat">Жильё</span><div class="bar-wrap"><div class="bar-fill" style="width:42%"></div></div><span class="amt">20 000 ₽</span></div>
-  <div class="budget-row"><span class="cat">Еда</span><div class="bar-wrap"><div class="bar-fill" style="width:25%"></div></div><span class="amt">12 000 ₽</span></div>
-  <div class="budget-row"><span class="cat">Транспорт</span><div class="bar-wrap"><div class="bar-fill" style="width:17%"></div></div><span class="amt">8 000 ₽</span></div>
-  <div class="budget-row"><span class="cat">Музеи</span><div class="bar-wrap"><div class="bar-fill" style="width:10%"></div></div><span class="amt">5 000 ₽</span></div>
-  <div class="budget-row"><span class="cat">Резерв</span><div class="bar-wrap"><div class="bar-fill" style="width:6%"></div></div><span class="amt">3 000 ₽</span></div>
-  <div class="budget-row total"><span class="cat">Итого</span><span class="amt">48 000 ₽</span></div>
+
+<div class="day-card">
+<div class="day-head"><span class="day-head-title">День 2: Третьяковка</span><span class="day-head-city">Москва</span></div>
+<div class="day-item"><span class="day-time">10:00</span><div class="day-content"><div class="day-place">Третьяковская галерея</div><div class="day-desc">Основная экспозиция. Билет 500 руб.</div><span class="day-tag tag-culture">Культура</span></div></div>
+<div class="day-item"><span class="day-time">13:00</span><div class="day-content"><div class="day-place">Обед &#171;Братья Караваевы&#187;</div><div class="day-desc">Суп + горячее ~450 руб.</div><span class="day-tag tag-food">Еда</span></div></div>
+<div class="day-item"><span class="day-time">14:30</span><div class="day-content"><div class="day-place">Замоскворечье</div><div class="day-desc">Ордынка, Пятницкая &#8212; тихие переулки</div><span class="day-tag tag-rest">Отдых</span></div></div>
 </div>
-<div class="file-pills">
-  <div class="file-pill"><div class="file-dot" style="background:var(--c-red)"></div>PDF</div>
-  <div class="file-pill"><div class="file-dot" style="background:var(--c-green)"></div>Таблица</div>
-  <div class="file-pill"><div class="file-dot" style="background:var(--c-blue)"></div>Карта</div>
-  <div class="file-pill"><div class="file-dot" style="background:var(--c-amber)"></div>Чек-лист</div>
+
+<div class="blur-section">
+<div class="blur-overlay">
+<div class="day-card" style="opacity:0.4;filter:blur(3px);pointer-events:none">
+<div class="day-head"><span class="day-head-title">День 3: ГМИИ + Горького</span><span class="day-head-city">Москва</span></div>
+<div class="day-item"><span class="day-time">10:00</span><div class="day-content"><div class="day-place">Пушкинский музей</div><div class="day-desc">Импрессионисты. Билет 400 руб.</div></div></div>
+<div class="day-item"><span class="day-time">13:30</span><div class="day-content"><div class="day-place">Обед в Strelka Bar</div><div class="day-desc">Вид на Москву-реку. ~900 руб.</div></div></div>
 </div>
-<div class="ex-actions">
-  <button class="btn btn-primary" onclick="go(2)">Хочу такой же маршрут →</button>
-  <button class="btn btn-outline" onclick="go(1)">Назад на главную</button>
+<div class="day-card" style="opacity:0.25;filter:blur(5px);pointer-events:none">
+<div class="day-head"><span class="day-head-title">День 4: Свободный день</span><span class="day-head-city">Москва</span></div>
+<div class="day-item"><span class="day-time">10:00</span><div class="day-content"><div class="day-place">Поздний подъём</div></div></div>
+<div class="day-item"><span class="day-time">14:00</span><div class="day-content"><div class="day-place">Патриаршие пруды</div></div></div>
+</div>
+</div>
+<div class="blur-cta">
+<div class="lock-icon">&#128274;</div>
+<p>Ещё 12 дней маршрута, карта,<br>таблица бюджета и чек-лист вещей</p>
+<button class="btn-primary" onclick="go(2)">Получить полный маршрут</button>
 </div>
 </div>
 
-</div>
+<div class="file-pills"><div class="file-pill"><div class="file-dot" style="background:var(--red)"></div>PDF</div><div class="file-pill"><div class="file-dot" style="background:var(--green)"></div>Таблица</div><div class="file-pill"><div class="file-dot" style="background:var(--blue)"></div>Карта</div><div class="file-pill"><div class="file-dot" style="background:var(--amber)"></div>Чек-лист</div></div>
 
+<button class="btn-secondary" onclick="go(1)">Назад на главную</button>
+</div></div>
 <script>
 var WEBHOOK_URL='https://n8n-production-bd16.up.railway.app/webhook/travel-request';
-
-function go(n){
-document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');s.style.display='none'});
-var el=document.getElementById('s'+n);
-el.style.display='block';
-void el.offsetWidth;
-el.classList.add('active');
-el.scrollTop=0;
-window.scrollTo(0,0);
-}
-
-function getChipValue(id){
-var el=document.getElementById(id);
-var sel=el.querySelectorAll('.chip.on');
-var v=[];sel.forEach(function(c){v.push(c.textContent.trim())});
-return el.dataset.mode==='single'?v[0]||'':v;
-}
-
-function submitForm(){
-var email=document.getElementById('f-email').value.trim();
-if(!email){alert('Введите email для получения маршрута');return;}
-var data={
-destination:document.getElementById('f-destination').value.trim(),
-date_start:document.getElementById('f-date-start').value,
-date_end:document.getElementById('f-date-end').value,
-budget:getChipValue('f-budget'),
-travelers:getChipValue('f-travelers'),
-interests:getChipValue('f-interests'),
-wishes:document.getElementById('f-wishes').value.trim(),
-email:email
-};
-var btn=document.getElementById('submit-btn');
-btn.textContent='Отправляем...';btn.disabled=true;
-fetch(WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
-.then(function(){btn.textContent='Далее: выбор тарифа →';btn.disabled=false;go(3);})
-.catch(function(){btn.textContent='Далее: выбор тарифа →';btn.disabled=false;go(3);});
-}
-
-function pick(el){
-var mode=el.parentElement.dataset.mode;
-if(mode==='single'){el.parentElement.querySelectorAll('.chip').forEach(function(c){c.classList.remove('on')});el.classList.add('on')}
-else{el.classList.toggle('on')}
-}
-
-function pickTariff(el,price){
-document.querySelectorAll('.tariff').forEach(function(t){t.classList.remove('selected')});
-el.classList.add('selected');
-document.getElementById('pay-btn').textContent='Оплатить '+price.toLocaleString('ru-RU')+' \u20BD →';
-}
-
-var days=[
-{d:1,t:"День 1: Прибытие в Москву",c:"Москва",items:[
-{tm:"14:00",p:"Заселение «Чистые пруды»",ds:"Бутик-отель, 5 мин от метро. 2 500 руб./ночь",tg:"rest"},
-{tm:"16:00",p:"Прогулка по Чистым прудам",ds:"Бульвар, весенние деревья. Спокойный старт",tg:"rest"},
-{tm:"19:00",p:"Ужин в «Лавка-Лавка»",ds:"Фермерская кухня. Средний чек ~1 200 руб.",tg:"food"}
-]},
-{d:2,t:"День 2: Третьяковка",c:"Москва",items:[
-{tm:"10:00",p:"Третьяковская галерея",ds:"Основная экспозиция. Билет 500 руб.",tg:"culture"},
-{tm:"13:00",p:"Обед «Братья Караваевы»",ds:"Суп + горячее ~450 руб.",tg:"food"},
-{tm:"14:30",p:"Замоскворечье",ds:"Ордынка, Пятницкая — тихие переулки",tg:"rest"},
-{tm:"17:00",p:"«Кооператив Чёрный»",ds:"Спешелти-кофе. Капучино 300 руб.",tg:"food"}
-]},
-{d:3,t:"День 3: ГМИИ + Горького",c:"Москва",items:[
-{tm:"10:00",p:"Пушкинский музей",ds:"Импрессионисты. Билет 400 руб.",tg:"culture"},
-{tm:"13:30",p:"Обед в Strelka Bar",ds:"Вид на Москву-реку. ~900 руб.",tg:"food"},
-{tm:"15:00",p:"Парк Горького + «Гараж»",ds:"Набережная, современное искусство",tg:"culture"}
-]},
-{d:4,t:"День 4: Свободный день",c:"Москва",items:[
-{tm:"10:00",p:"Поздний подъём",ds:"День без плана — по настроению",tg:"rest"},
-{tm:"14:00",p:"Патриаршие пруды",ds:"Кофе, книга. Булгаковские места",tg:"rest"},
-{tm:"18:00",p:"Театр или концерт",ds:"МХТ, консерватория. Билеты от 800 руб.",tg:"culture"}
-]},
-{d:5,t:"День 5: Коломенское",c:"Москва",items:[
-{tm:"10:00",p:"Коломенское",ds:"Церковь Вознесения, яблоневые сады",tg:"culture"},
-{tm:"14:00",p:"Обед «Сыроварня»",ds:"Красный Октябрь. ~1 000 руб.",tg:"food"},
-{tm:"17:00",p:"Сборы, отдых",ds:"Завтра переезд в Петербург",tg:"rest"}
-]},
-{d:6,t:"День 6: Переезд",c:"Переезд",items:[
-{tm:"07:00",p:"Сапсан",ds:"4 часа, ~3 500 руб.",tg:"transport"},
-{tm:"12:00",p:"Заселение «Соль»",ds:"Приватная комната. 1 800 руб./ночь",tg:"rest"},
-{tm:"15:00",p:"Невский проспект",ds:"Дом Зингера, Казанский собор",tg:"culture"},
-{tm:"19:00",p:"Ужин «Тартар Бар»",ds:"Авторская кухня, ~1 400 руб.",tg:"food"}
-]},
-{d:7,t:"День 7: Эрмитаж",c:"Петербург",items:[
-{tm:"10:00",p:"Эрмитаж, главный штаб",ds:"Импрессионисты + авангард. 500 руб.",tg:"culture"},
-{tm:"14:00",p:"«Пироговый дворик»",ds:"Пироги от 90 руб.",tg:"food"},
-{tm:"15:30",p:"Дворцовая набережная",ds:"Стрелка Васильевского острова",tg:"rest"}
-]},
-{d:8,t:"День 8: Русский музей",c:"Петербург",items:[
-{tm:"10:30",p:"Русский музей",ds:"Билет 450 руб.",tg:"culture"},
-{tm:"13:30",p:"«Мечтатели»",ds:"Рубинштейна. ~700 руб.",tg:"food"},
-{tm:"15:00",p:"Фонтанка — Мойка",ds:"Каналы, мосты, дворы-колодцы",tg:"rest"}
-]},
-{d:9,t:"День 9: Петергоф",c:"Пригород",items:[
-{tm:"09:30",p:"Метеор до Петергофа",ds:"40 мин, ~1 000 руб.",tg:"transport"},
-{tm:"10:30",p:"Нижний парк + фонтаны",ds:"Билет 600 руб. 3-4 часа",tg:"culture"},
-{tm:"15:00",p:"Обед у парка",ds:"~800 руб.",tg:"food"},
-{tm:"17:00",p:"Возвращение",ds:"Метеор или маршрутка",tg:"transport"}
-]},
-{d:10,t:"День 10: Свободный день",c:"Петербург",items:[
-{tm:"11:00",p:"Завтрак «Буше»",ds:"Круассаны и кофе",tg:"food"},
-{tm:"14:00",p:"«Подписные издания»",ds:"Культовый книжный с кафе",tg:"rest"},
-{tm:"17:00",p:"Новая Голландия",ds:"Остров-парк. Вход бесплатный",tg:"rest"}
-]},
-{d:11,t:"День 11: Эрарта",c:"Петербург",items:[
-{tm:"10:30",p:"Музей Эрарта",ds:"Современное искусство. 600 руб.",tg:"culture"},
-{tm:"14:00",p:"«Ем Гуляю»",ds:"Домашняя кухня. ~600 руб.",tg:"food"},
-{tm:"16:00",p:"Набережная Шмидта",ds:"Закат, ледоколы на причале",tg:"rest"}
-]},
-{d:12,t:"День 12: Пушкин",c:"Пригород",items:[
-{tm:"09:00",p:"Электричка",ds:"30 мин, ~70 руб.",tg:"transport"},
-{tm:"10:00",p:"Екатерининский дворец",ds:"Янтарная комната. 850 руб.",tg:"culture"},
-{tm:"13:00",p:"Парк",ds:"Пруды, мостики. 200 руб.",tg:"rest"},
-{tm:"15:00",p:"Обед + возвращение",ds:"Кафе у парка, электричка",tg:"food"}
-]},
-{d:13,t:"День 13: Покупки",c:"Петербург",items:[
-{tm:"11:00",p:"Витебский вокзал",ds:"Красивейший вокзал, модерн",tg:"culture"},
-{tm:"13:00",p:"Обед на Рубинштейна",ds:"Улица ресторанов",tg:"food"},
-{tm:"15:00",p:"Сувениры",ds:"Удельная или Невский",tg:"rest"}
-]},
-{d:14,t:"День 14: Отъезд",c:"Петербург",items:[
-{tm:"09:00",p:"Завтрак с видом",ds:"«Небо и вино» или терраса",tg:"food"},
-{tm:"11:00",p:"Последняя прогулка",ds:"Летний сад или Марсово поле",tg:"rest"},
-{tm:"14:00",p:"Трансфер",ds:"Пулково или Сапсан ~3 500 руб.",tg:"transport"}
-]}
-];
+function go(n){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));var el=document.getElementById('s'+n);el.classList.add('active');window.scrollTo({top:0,behavior:'instant'});}
+function getChipValue(id){var el=document.getElementById(id);var sel=el.querySelectorAll('.chip.on');var v=[];sel.forEach(function(c){v.push(c.textContent.trim());});return el.dataset.mode==='single'?v[0]||'':v;}
+function submitForm(){var email=document.getElementById('f-email').value.trim();if(!email){alert('Введите email для получения маршрута');return;}window._formData={destination:document.getElementById('f-destination').value.trim(),date_start:document.getElementById('f-date-start').value,date_end:document.getElementById('f-date-end').value,budget:getChipValue('f-budget'),travelers:getChipValue('f-travelers'),interests:getChipValue('f-interests'),wishes:document.getElementById('f-wishes').value.trim(),email:email};go(3);}
+function pay(){var btn=document.getElementById('pay-btn');btn.textContent='Обработка...';btn.disabled=true;if(window._formData){fetch(WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(window._formData)}).then(function(){btn.textContent='Готово!';go(4);}).catch(function(){btn.textContent='Готово!';go(4);});}else{go(4);}}
+function pick(el){var mode=el.parentElement.dataset.mode;if(mode==='single'){el.parentElement.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));el.classList.add('on');}else{el.classList.toggle('on');}}
+function pickTariff(el,price){document.querySelectorAll('.tariff').forEach(t=>t.classList.remove('selected'));el.classList.add('selected');document.getElementById('pay-btn').textContent='Оплатить '+price.toLocaleString('ru-RU')+' \u20BD';}
 var tagMap={culture:['tag-culture','Культура'],food:['tag-food','Еда'],rest:['tag-rest','Отдых'],transport:['tag-transport','Транспорт']};
-var curDay=0;
-function renderTabs(){
-var h='';
-days.forEach(function(d,i){h+='<div class="day-tab'+(i===curDay?' on':'')+'" onclick="selDay('+i+')">'+d.d+'</div>'});
-document.getElementById('dtabs').innerHTML=h;
-}
-function renderDay(){
-var d=days[curDay];
-var h='<div class="day-card"><div class="day-head"><span class="day-head-title">'+d.t+'</span><span class="day-head-city">'+d.c+'</span></div>';
-d.items.forEach(function(it){
-var tg=tagMap[it.tg];
-h+='<div class="day-item"><span class="day-time">'+it.tm+'</span><div class="day-content"><div class="day-place">'+it.p+'</div><div class="day-desc">'+it.ds+'</div><span class="day-tag '+tg[0]+'">'+tg[1]+'</span></div></div>';
-});
-h+='</div>';
-document.getElementById('day-display').innerHTML=h;
-}
-function selDay(i){curDay=i;renderTabs();renderDay();}
-renderTabs();renderDay();
+
 </script>
 </body>
 </html>
