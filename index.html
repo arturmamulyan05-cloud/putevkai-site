@@ -67,6 +67,9 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .field-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,95,164,0.1)}
 .field-input::placeholder{color:var(--text-3)}
 .field-hint{font-size:12px;color:var(--text-3);margin-top:6px}
+.field-error{border-color:var(--red) !important;box-shadow:0 0 0 3px rgba(163,45,45,0.1) !important}
+.error-msg{font-size:12px;color:var(--red);margin-top:6px;display:none}
+.error-msg.visible{display:block}
 .date-row{display:flex;gap:10px}
 .date-row>div{flex:1}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
@@ -167,6 +170,9 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .blur-cta{position:relative;z-index:2;text-align:center;padding:0 0 24px}
 .blur-cta p{font-size:13px;color:var(--text-3);margin-bottom:14px}
 .lock-icon{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;background:var(--blue-light);color:var(--blue);font-size:22px;margin-bottom:12px}
+/* Toast notification */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--red);color:#fff;padding:14px 24px;border-radius:14px;font-size:14px;font-weight:600;font-family:'Outfit',sans-serif;z-index:999;opacity:0;transition:all .3s ease;pointer-events:none;max-width:90%;text-align:center}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 </style>
 </head>
 <body>
@@ -198,7 +204,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 </div></div>
 <div class="container"><div class="form-body">
 <div class="field"><label class="field-label">Куда хотите поехать?</label><input class="field-input" id="f-destination" placeholder="Например: Алтай, Байкал, Дагестан..."><div class="field-hint">Можно написать несколько вариантов или «не знаю, подберите»</div></div>
-<div class="field"><label class="field-label">Даты поездки</label><div class="date-row"><div><input class="field-input" id="f-date-start" placeholder="Начало" onfocus="this.type='date'" onblur="if(!this.value)this.type='text'"></div><div><input class="field-input" id="f-date-end" placeholder="Конец" onfocus="this.type='date'" onblur="if(!this.value)this.type='text'"></div></div></div>
+<div class="field"><label class="field-label">Даты поездки</label><div class="date-row"><div><input class="field-input" id="f-date-start" type="date"></div><div><input class="field-input" id="f-date-end" type="date"></div></div></div>
 <div class="field"><label class="field-label">Бюджет на человека</label><div class="chips" id="f-budget" data-mode="single"><div class="chip" onclick="pick(this)">до 30 000 &#8381;</div><div class="chip on" onclick="pick(this)">30-60 000 &#8381;</div><div class="chip" onclick="pick(this)">60-100 000 &#8381;</div><div class="chip" onclick="pick(this)">100 000+ &#8381;</div></div></div>
 <div class="field"><label class="field-label">С кем едете?</label><div class="chips" id="f-travelers" data-mode="single"><div class="chip on" onclick="pick(this)">&#128107; Пара</div><div class="chip" onclick="pick(this)">&#128106; Семья с детьми</div><div class="chip" onclick="pick(this)">&#129489; Соло</div><div class="chip" onclick="pick(this)">&#127881; Компания</div><div class="chip" onclick="pick(this)">&#128054; С собакой</div></div></div>
 <div class="field"><label class="field-label">Что важно в поездке?</label><div class="chips" id="f-interests" data-mode="multi"><div class="chip on" onclick="pick(this)">&#127966; Природа</div><div class="chip" onclick="pick(this)">&#127860; Еда</div><div class="chip on" onclick="pick(this)">&#127947; Активный отдых</div><div class="chip" onclick="pick(this)">&#127963; Культура</div><div class="chip" onclick="pick(this)">&#128524; Спокойный отдых</div><div class="chip" onclick="pick(this)">&#128247; Фото-локации</div></div></div>
@@ -211,9 +217,9 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 <div class="form-nav"><button class="back-btn" onclick="go(2)">&#8592;</button><span class="form-title">Выберите тариф</span></div>
 </div></div>
 <div class="container" style="padding-top:24px;padding-bottom:40px;">
-<div class="pricing-summary">Ваш маршрут почти готов — выберите подходящий пакет</div>
+<div class="pricing-summary" id="pricing-summary">Ваш маршрут почти готов — выберите подходящий пакет</div>
 <div class="tariff" onclick="pickTariff(this,490)"><div class="tariff-name">Базовый</div><div class="tariff-price">490 &#8381; <span>разово</span></div><ul class="tariff-list"><li>Маршрут по дням в PDF</li><li>Список мест и адресов</li><li>Чек-лист вещей</li></ul></div>
-<div class="tariff selected" onclick="pickTariff(this,990)"><div class="tariff-badge">Популярный</div><div class="tariff-name">Расширенный</div><div class="tariff-price">990 &#8381; <span>разово</span></div><ul class="tariff-list"><li>Всё из базового</li><li>Таблица бюджета в Google Sheets</li><li>Маршрут на Яндекс.Картах</li><li>Рекомендации кафе и жилья</li><li>Контакты экстренных служб</li></ul></div>
+<div class="tariff selected" id="tariff-mid" onclick="pickTariff(this,990)"><div class="tariff-badge">Популярный</div><div class="tariff-name">Расширенный</div><div class="tariff-price">990 &#8381; <span>разово</span></div><ul class="tariff-list"><li>Всё из базового</li><li>Таблица бюджета в Google Sheets</li><li>Маршрут на Яндекс.Картах</li><li>Рекомендации кафе и жилья</li><li>Контакты экстренных служб</li></ul></div>
 <div class="tariff" onclick="pickTariff(this,1990)"><div class="tariff-name">Пакет 3 маршрута</div><div class="tariff-price">1 990 &#8381; <span>за 3 поездки</span></div><ul class="tariff-list"><li>3 расширенных маршрута</li><li>Экономия 980 &#8381;</li><li>Используйте в течение года</li></ul></div>
 <div class="guarantee"><div class="guarantee-icon">&#10003;</div><p><strong>Гарантия возврата.</strong> Если маршрут вам не подойдёт, вернём деньги в течение 24 часов без вопросов.</p></div>
 <button class="btn-primary" id="pay-btn" onclick="pay()">Оплатить 990 &#8381;</button>
@@ -231,7 +237,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 <div class="file-card"><div class="file-icon fi-map">MAP</div><div class="file-info"><div class="file-name">Маршрут на карте</div><div class="file-desc">Яндекс.Карты, все точки отмечены</div></div><div class="file-arrow">&#8594;</div></div>
 <div class="file-card"><div class="file-icon fi-chk">CHK</div><div class="file-info"><div class="file-name">Чек-лист вещей</div><div class="file-desc">PDF, адаптирован под Алтай в июле</div></div><div class="file-arrow">&#8594;</div></div>
 </div>
-<button class="btn-primary" onclick="go(2)">Спланировать ещё одну поездку</button>
+<button class="btn-primary" onclick="startNewTrip()">Спланировать ещё одну поездку</button>
 <button class="btn-secondary">Поделиться маршрутом</button>
 <div class="footer"><div class="footer-text">Все материалы также отправлены на вашу почту</div></div>
 </div></div></div>
@@ -294,16 +300,175 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 
 <button class="btn-secondary" onclick="go(1)">Назад на главную</button>
 </div></div>
+
+<!-- Toast element -->
+<div class="toast" id="toast"></div>
+
 <script>
 var WEBHOOK_URL='https://n8n-production-bd16.up.railway.app/webhook/travel-request';
-function go(n){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));var el=document.getElementById('s'+n);el.classList.add('active');window.scrollTo({top:0,behavior:'instant'});}
-function getChipValue(id){var el=document.getElementById(id);var sel=el.querySelectorAll('.chip.on');var v=[];sel.forEach(function(c){v.push(c.textContent.trim());});return el.dataset.mode==='single'?v[0]||'':v;}
-function submitForm(){var email=document.getElementById('f-email').value.trim();if(!email){alert('Введите email для получения маршрута');return;}window._formData={destination:document.getElementById('f-destination').value.trim(),date_start:document.getElementById('f-date-start').value,date_end:document.getElementById('f-date-end').value,budget:getChipValue('f-budget'),travelers:getChipValue('f-travelers'),interests:getChipValue('f-interests'),wishes:document.getElementById('f-wishes').value.trim(),email:email};go(3);}
-function pay(){var btn=document.getElementById('pay-btn');btn.textContent='Обработка...';btn.disabled=true;if(window._formData){fetch(WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(window._formData)}).then(function(){btn.textContent='Готово!';go(4);}).catch(function(){btn.textContent='Готово!';go(4);});}else{go(4);}}
-function pick(el){var mode=el.parentElement.dataset.mode;if(mode==='single'){el.parentElement.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));el.classList.add('on');}else{el.classList.toggle('on');}}
-function pickTariff(el,price){document.querySelectorAll('.tariff').forEach(t=>t.classList.remove('selected'));el.classList.add('selected');document.getElementById('pay-btn').textContent='Оплатить '+price.toLocaleString('ru-RU')+' \u20BD';}
-var tagMap={culture:['tag-culture','Культура'],food:['tag-food','Еда'],rest:['tag-rest','Отдых'],transport:['tag-transport','Транспорт']};
 
+function go(n){
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
+  var el=document.getElementById('s'+n);
+  el.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function showToast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},3000);
+}
+
+function getChipValue(id){
+  var el=document.getElementById(id);
+  var sel=el.querySelectorAll('.chip.on');
+  var v=[];
+  sel.forEach(function(c){v.push(c.textContent.trim());});
+  return el.dataset.mode==='single'?v[0]||'':v;
+}
+
+function validateForm(){
+  var valid=true;
+  var dest=document.getElementById('f-destination');
+  var email=document.getElementById('f-email');
+  var dateStart=document.getElementById('f-date-start');
+  var dateEnd=document.getElementById('f-date-end');
+
+  // Clear previous errors
+  [dest,email,dateStart,dateEnd].forEach(function(el){el.classList.remove('field-error');});
+
+  if(!dest.value.trim()){
+    dest.classList.add('field-error');
+    valid=false;
+  }
+  if(!dateStart.value){
+    dateStart.classList.add('field-error');
+    valid=false;
+  }
+  if(!dateEnd.value){
+    dateEnd.classList.add('field-error');
+    valid=false;
+  }
+  if(dateStart.value && dateEnd.value && dateStart.value>=dateEnd.value){
+    dateEnd.classList.add('field-error');
+    valid=false;
+  }
+  if(!email.value.trim()||!email.value.includes('@')){
+    email.classList.add('field-error');
+    valid=false;
+  }
+  if(!valid){
+    showToast('Заполните обязательные поля');
+  }
+  return valid;
+}
+
+function submitForm(){
+  if(!validateForm()) return;
+
+  window._formData={
+    destination:document.getElementById('f-destination').value.trim(),
+    date_start:document.getElementById('f-date-start').value,
+    date_end:document.getElementById('f-date-end').value,
+    budget:getChipValue('f-budget'),
+    travelers:getChipValue('f-travelers'),
+    interests:getChipValue('f-interests'),
+    wishes:document.getElementById('f-wishes').value.trim(),
+    email:document.getElementById('f-email').value.trim()
+  };
+
+  // Update pricing summary with user data
+  var summary=document.getElementById('pricing-summary');
+  summary.textContent='Маршрут: '+window._formData.destination+', '+window._formData.travelers+', '+window._formData.budget;
+
+  go(3);
+}
+
+function resetPayButton(){
+  var btn=document.getElementById('pay-btn');
+  btn.textContent='Оплатить 990 \u20BD';
+  btn.disabled=false;
+  // Reset tariff selection to middle
+  document.querySelectorAll('.tariff').forEach(function(t){t.classList.remove('selected');});
+  document.getElementById('tariff-mid').classList.add('selected');
+}
+
+function pay(){
+  var btn=document.getElementById('pay-btn');
+  btn.textContent='Обработка...';
+  btn.disabled=true;
+
+  if(!window._formData){
+    showToast('Ошибка: данные формы не найдены');
+    resetPayButton();
+    return;
+  }
+
+  fetch(WEBHOOK_URL,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(window._formData)
+  }).then(function(response){
+    if(!response.ok) throw new Error('Ошибка сервера');
+    btn.textContent='Готово!';
+    go(4);
+  }).catch(function(err){
+    showToast('Ошибка отправки. Попробуйте ещё раз.');
+    resetPayButton();
+  });
+}
+
+function startNewTrip(){
+  // Reset form fields
+  document.getElementById('f-destination').value='';
+  document.getElementById('f-date-start').value='';
+  document.getElementById('f-date-end').value='';
+  document.getElementById('f-wishes').value='';
+  document.getElementById('f-email').value='';
+
+  // Reset chips to defaults
+  var budgetChips=document.getElementById('f-budget').querySelectorAll('.chip');
+  budgetChips.forEach(function(c,i){c.classList.toggle('on',i===1);});
+  var travelerChips=document.getElementById('f-travelers').querySelectorAll('.chip');
+  travelerChips.forEach(function(c,i){c.classList.toggle('on',i===0);});
+  var interestChips=document.getElementById('f-interests').querySelectorAll('.chip');
+  interestChips.forEach(function(c){c.classList.remove('on');});
+  interestChips[0].classList.add('on');
+  interestChips[2].classList.add('on');
+
+  // Reset pay button
+  resetPayButton();
+
+  // Clear form data
+  window._formData=null;
+
+  go(2);
+}
+
+function pick(el){
+  var mode=el.parentElement.dataset.mode;
+  if(mode==='single'){
+    el.parentElement.querySelectorAll('.chip').forEach(function(c){c.classList.remove('on');});
+    el.classList.add('on');
+  }else{
+    el.classList.toggle('on');
+  }
+}
+
+function pickTariff(el,price){
+  document.querySelectorAll('.tariff').forEach(function(t){t.classList.remove('selected');});
+  el.classList.add('selected');
+  document.getElementById('pay-btn').textContent='Оплатить '+price.toLocaleString('ru-RU')+' \u20BD';
+}
+
+// Remove error styling on input focus
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.field-input').forEach(function(input){
+    input.addEventListener('focus',function(){this.classList.remove('field-error');});
+  });
+});
 </script>
 </body>
 </html>
