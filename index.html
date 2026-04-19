@@ -2,7 +2,10 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>ПутёвкAI — готовый маршрут по России за 10 минут</title>
 <meta name="description" content="AI-планировщик путешествий по России. Получите PDF-маршрут, таблицу бюджета и карту за 10 минут. От 490 ₽.">
 <meta name="theme-color" content="#1A5FA4">
@@ -108,7 +111,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .home-cta-btn:hover{background:var(--blue-dark);transform:translateY(-2px);box-shadow:0 6px 24px rgba(26,95,164,0.35)}
 
 /* ============ HERO V2 ============ */
-.hero-v2{background:#0A2540;padding:40px 0 0;position:relative;overflow:hidden;color:#fff}
+.hero-v2{background:#0A2540;padding:calc(env(safe-area-inset-top,0px) + 40px) 0 0;position:relative;overflow:hidden;color:#fff}
 .hero-v2::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top right,rgba(43,126,201,0.35) 0%,transparent 55%),radial-gradient(ellipse at bottom left,rgba(26,95,164,0.25) 0%,transparent 55%);pointer-events:none}
 .hero-v2-content{position:relative;z-index:1}
 .hero-v2-tag{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:rgba(43,126,201,0.15);border:1px solid rgba(43,126,201,0.3);border-radius:20px;font-size:11px;font-weight:600;color:#8AC0EE;letter-spacing:.5px;text-transform:uppercase;margin-bottom:20px}
@@ -278,7 +281,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .reveal.visible{opacity:1;transform:translateY(0)}
 
 /* ============ FLOW HEADER (unified for s2, s3, s5) ============ */
-.flow-header{background:#0A2540;padding:24px 0 36px;position:relative;overflow:hidden;color:#fff}
+.flow-header{background:#0A2540;padding:calc(env(safe-area-inset-top,0px) + 24px) 0 36px;position:relative;overflow:hidden;color:#fff}
 .flow-header::before{content:'';position:absolute;top:-80px;right:-80px;width:240px;height:240px;background:radial-gradient(circle,rgba(43,126,201,0.25) 0%,transparent 65%);border-radius:50%;pointer-events:none}
 .flow-header::after{content:'';position:absolute;bottom:-40px;left:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(26,95,164,0.18) 0%,transparent 65%);border-radius:50%;pointer-events:none}
 .flow-header>.container{position:relative;z-index:1}
@@ -331,7 +334,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .stat-card-v2-lbl{font-size:10px;color:var(--text-3);margin-top:6px;text-transform:uppercase;letter-spacing:1px;font-weight:600}
 
 /* ============ SUCCESS PAGE (s4) ============ */
-.success-header{background:#0A2540;padding:40px 0 48px;position:relative;overflow:hidden;color:#fff;text-align:center}
+.success-header{background:#0A2540;padding:calc(env(safe-area-inset-top,0px) + 40px) 0 48px;position:relative;overflow:hidden;color:#fff;text-align:center}
 .success-header::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:320px;height:320px;background:radial-gradient(circle,rgba(58,208,127,0.25) 0%,transparent 65%);border-radius:50%;pointer-events:none}
 .success-header::after{content:'';position:absolute;bottom:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(43,126,201,0.2) 0%,transparent 65%);border-radius:50%;pointer-events:none}
 .success-header>.container{position:relative;z-index:1}
@@ -553,7 +556,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .site-footer-tagline{font-size:12px;color:rgba(255,255,255,0.4);text-align:center;margin-bottom:24px;letter-spacing:.5px}
 
 /* Info pages */
-.info-header{background:linear-gradient(165deg,#0A3D6E,#185FA5);padding:20px 0 32px;position:relative;overflow:hidden}
+.info-header{background:linear-gradient(165deg,#0A3D6E,#185FA5);padding:calc(env(safe-area-inset-top,0px) + 20px) 0 32px;position:relative;overflow:hidden}
 .info-header::before{content:'';position:absolute;top:-80px;right:-80px;width:240px;height:240px;background:radial-gradient(circle,rgba(255,255,255,0.08) 0%,transparent 70%);border-radius:50%;pointer-events:none}
 .info-header::after{content:'';position:absolute;bottom:-60px;left:-60px;width:180px;height:180px;background:radial-gradient(circle,rgba(255,255,255,0.05) 0%,transparent 70%);border-radius:50%;pointer-events:none}
 .info-header>.container{position:relative;z-index:1}
@@ -640,6 +643,119 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .legal-body li{margin-bottom:6px}
 .legal-body a{color:var(--blue);text-decoration:underline}
 .legal-meta{font-size:12px;color:var(--text-3);padding:14px 16px;background:var(--bg);border-radius:10px;margin-bottom:20px;border:1px solid var(--border-light)}
+
+/* ============ MOBILE OPTIMIZATIONS ============ */
+@media (max-width:400px){
+  /* Крупные заголовки — ужимаем */
+  .hero-v2-title{font-size:30px;letter-spacing:-.5px;line-height:1.1}
+  .flow-title{font-size:24px}
+  .success-title{font-size:26px}
+  .demo-title,.comparison-title,.section-main-title,.final-cta-title,.home-cta-title{font-size:22px}
+  .hero-v2-sub,.flow-sub,.section-main-sub,.comparison-sub{font-size:13px}
+
+  /* Hero phone mockup — уменьшаем */
+  .phone-mockup{padding:16px}
+  .phone-msg,.phone-route{font-size:11px;padding:10px 12px}
+  .phone-route-day{font-size:10px;padding:3px 0}
+
+  /* Trust strip — чуть меньше цифры */
+  .trust-num{font-size:16px}
+  .trust-lbl{font-size:9px}
+
+  /* Demo tabs — минимальный padding, ещё меньше шрифт */
+  .demo-tab{padding:8px 6px;font-size:11px;gap:4px;min-width:auto}
+  .demo-tab-icon{width:16px;height:16px;font-size:8px}
+  .demo-panel-head{padding:12px 14px}
+  .demo-panel-body{padding:14px}
+
+  /* Comparison table — адаптируем 3 колонки */
+  .comparison-head,.comparison-row{grid-template-columns:1.4fr 0.8fr 0.8fr;padding:11px 12px;gap:6px}
+  .comparison-criterion{font-size:12px}
+  .comparison-cell,.comparison-head-cell{font-size:11px;line-height:1.3}
+
+  /* Steps v2 — меньше padding */
+  .step-v2{padding:18px;gap:12px}
+  .step-v2-num{width:36px;height:36px;font-size:15px;border-radius:12px}
+  .step-v2-title{font-size:15px}
+  .step-v2-desc{font-size:12px}
+
+  /* Tariff-preview — отступ сверху чтобы бэджи не накладывались */
+  .tariff-preview{padding:22px 18px 18px}
+  .tariff-preview-badge,.tariff-preview-save-badge{right:12px;font-size:8px;padding:3px 9px}
+  .tariff-preview-price{font-size:24px}
+  .tariff-preview-meta{font-size:10px}
+  .tariff-preview-features li{font-size:12px}
+
+  /* Tariffs на s3 */
+  .tariff{padding:20px 18px}
+  .tariff-price{font-size:22px}
+
+  /* Order summary на s3 — уменьшаем gap */
+  .order-summary{padding:14px;gap:10px}
+  .order-summary-main{font-size:13px}
+  .order-summary-edit{font-size:10px;padding:5px 9px}
+
+  /* Success timeline — более плотно */
+  .success-timeline{max-width:100%;padding:0}
+  .success-timeline-dot{width:28px;height:28px;font-size:12px}
+  .success-timeline-label{font-size:10px;padding:0}
+  .success-timeline-step::before{top:14px}
+  .success-header{padding:32px 0 40px}
+  .success-check-wrap{width:64px;height:64px;margin-bottom:16px}
+  .success-check{font-size:30px}
+
+  /* Success order card */
+  .success-order-body{padding:14px 16px}
+  .success-order-row{font-size:12px;padding:8px 0}
+  .success-order-val{max-width:55%}
+  .success-package-item{padding:10px}
+  .success-package-item-icon{width:30px;height:30px;font-size:9px}
+  .success-package-item-name{font-size:12px}
+  .success-package-item-desc{font-size:10px}
+
+  /* Sticky CTA — меньше отступов */
+  .sticky-cta{max-width:calc(100% - 24px);bottom:12px}
+  .sticky-cta-btn{padding:12px 20px;font-size:13px}
+
+  /* Chips — чуть меньше padding */
+  .chip{padding:9px 14px;font-size:13px}
+
+  /* Form sections */
+  .form-section-card{padding:16px}
+  .form-section-label{font-size:10px}
+
+  /* Destination chips grid — давай в одну колонку на узких */
+  .package-grid{grid-template-columns:1fr 1fr}
+
+  /* Example stats v2 — адаптация */
+  .stat-card-v2{padding:14px 8px}
+  .stat-card-v2-num{font-size:19px}
+  .stat-card-v2-lbl{font-size:9px}
+
+  /* Final CTA — меньше padding */
+  .final-cta-section{padding:48px 0 56px}
+
+  /* Footer — меньше отступы */
+  .site-footer{padding:28px 0 24px}
+
+  /* Container — чуть меньше отступов по краям */
+  .container{padding:0 16px}
+}
+
+/* Ещё более узкие экраны (старые Android, iPhone SE) */
+@media (max-width:360px){
+  .hero-v2-title{font-size:26px}
+  .flow-title{font-size:22px}
+  .success-title{font-size:23px}
+  .demo-title,.comparison-title,.section-main-title,.final-cta-title{font-size:20px}
+  .comparison-criterion{font-size:11px}
+  .comparison-cell,.comparison-head-cell{font-size:10px}
+  .demo-tab{padding:7px 4px;font-size:10px}
+  .chip{padding:8px 12px;font-size:12px}
+  .tariff-preview-features li{font-size:11px}
+  .success-timeline-dot{width:26px;height:26px;font-size:11px}
+  .success-timeline-label{font-size:9px}
+}
 </style>
 </head>
 <body>
