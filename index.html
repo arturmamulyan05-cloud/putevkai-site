@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ПутёвкAI — готовый маршрут по России за 5 минут</title>
+<title>ПутёвкAI — готовый маршрут по России за 10 минут</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <!-- Yandex.Metrika counter -->
@@ -184,16 +184,122 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .blur-cta{position:relative;z-index:2;text-align:center;padding:0 0 24px}
 .blur-cta p{font-size:13px;color:var(--text-3);margin-bottom:14px}
 .lock-icon{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;background:var(--blue-light);color:var(--blue);font-size:22px;margin-bottom:12px}
-/* Toast notification */
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--red);color:#fff;padding:14px 24px;border-radius:14px;font-size:14px;font-weight:600;font-family:'Outfit',sans-serif;z-index:999;opacity:0;transition:all .3s ease;pointer-events:none;max-width:90%;text-align:center}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+/* Consent checkbox */
+.consent-field{background:var(--bg);padding:16px;border-radius:12px;margin-bottom:22px;border:1px solid var(--border-light);transition:all .2s}
+.consent-label{display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text-2);line-height:1.5}
+.consent-label input[type="checkbox"]{width:18px;height:18px;margin-top:1px;cursor:pointer;accent-color:var(--blue);flex-shrink:0}
+.consent-label a{color:var(--blue);text-decoration:underline}
+.consent-field.field-error{border-color:var(--red);background:var(--red-light)}
+
+/* Site footer */
+.site-footer{background:#0A2540;padding:40px 0 32px}
+.site-footer-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px;max-width:380px;margin-left:auto;margin-right:auto}
+.site-footer-link{font-size:13px;color:rgba(255,255,255,0.75);cursor:pointer;font-family:inherit;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);padding:11px 14px;text-align:center;transition:all .18s;font-weight:500;border-radius:10px}
+.site-footer-link:hover{color:#fff;background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.2)}
+.site-footer-bottom{font-size:11px;color:rgba(255,255,255,0.4);text-align:center;padding-top:20px;border-top:1px solid rgba(255,255,255,0.08);line-height:1.7;max-width:380px;margin:0 auto}
+.site-footer-logo{font-size:18px;font-weight:800;color:#fff;text-align:center;margin-bottom:20px;letter-spacing:-.3px}
+.site-footer-tagline{font-size:12px;color:rgba(255,255,255,0.4);text-align:center;margin-bottom:24px;letter-spacing:.5px}
+
+/* Info pages */
+.info-header{background:linear-gradient(165deg,#0A3D6E,#185FA5);padding:20px 0 32px;position:relative;overflow:hidden}
+.info-header::before{content:'';position:absolute;top:-80px;right:-80px;width:240px;height:240px;background:radial-gradient(circle,rgba(255,255,255,0.08) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+.info-header::after{content:'';position:absolute;bottom:-60px;left:-60px;width:180px;height:180px;background:radial-gradient(circle,rgba(255,255,255,0.05) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+.info-header>.container{position:relative;z-index:1}
+.info-header-title{font-size:26px;font-weight:800;color:#fff;margin-top:10px;letter-spacing:-.5px;line-height:1.2}
+.info-header-sub{font-size:14px;color:rgba(255,255,255,0.7);margin-top:6px}
+.info-body{padding:0 0 48px}
+.info-body-inner{margin-top:-20px;position:relative;z-index:2}
+.info-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,0.03);transition:transform .2s,box-shadow .2s}
+.info-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.06)}
+.info-card-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.info-card-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.ici-blue{background:var(--blue-light);color:var(--blue)}
+.ici-green{background:var(--green-light);color:var(--green)}
+.ici-amber{background:var(--amber-light);color:var(--amber)}
+.ici-purple{background:#F0E8F7;color:#6B3AA0}
+.info-card h3{font-size:17px;font-weight:800;color:var(--text);letter-spacing:-.2px;margin:0}
+.info-card p{font-size:14px;color:var(--text-2);line-height:1.7;margin-bottom:10px}
+.info-card p:last-child{margin-bottom:0}
+.info-card strong{color:var(--text);font-weight:700}
+.info-card ul{margin:10px 0 0 0;padding-left:4px;list-style:none}
+.info-card li{font-size:14px;color:var(--text-2);line-height:1.65;margin-bottom:10px;padding-left:20px;position:relative}
+.info-card li::before{content:'';position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:var(--blue)}
+
+/* Author hero card (О сервисе) */
+.author-card{background:linear-gradient(135deg,#1A5FA4,#2B7EC9);border-radius:20px;padding:28px 24px;margin-bottom:16px;color:#fff;position:relative;overflow:hidden;box-shadow:0 8px 28px rgba(26,95,164,0.25)}
+.author-card::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(255,255,255,0.12) 0%,transparent 70%);border-radius:50%}
+.author-avatar{width:68px;height:68px;border-radius:50%;background:rgba(255,255,255,0.15);border:2px solid rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;color:#fff;margin-bottom:16px;position:relative;z-index:1}
+.author-quote{font-size:16px;font-weight:500;line-height:1.55;color:#fff;position:relative;z-index:1}
+.author-quote-mark{font-size:40px;color:rgba(255,255,255,0.3);line-height:.6;vertical-align:-10px;margin-right:4px;font-weight:800}
+.author-name{font-size:13px;color:rgba(255,255,255,0.7);margin-top:14px;font-weight:500;position:relative;z-index:1}
+.author-name strong{color:#fff;font-weight:700}
+
+/* Package preview in About */
+.package-preview{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.package-item{padding:14px;border-radius:12px;background:var(--bg);border:1px solid var(--border-light)}
+.package-item-icon{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;margin-bottom:8px}
+.package-item-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px}
+.package-item-desc{font-size:11px;color:var(--text-3);line-height:1.4}
+
+/* FAQ redesign */
+.faq-item{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:10px;overflow:hidden;transition:all .2s}
+.faq-item.open{border-color:var(--blue);box-shadow:0 4px 20px rgba(26,95,164,0.1)}
+.faq-q{padding:18px 20px;cursor:pointer;display:flex;align-items:flex-start;gap:14px;font-size:14px;font-weight:600;color:var(--text);line-height:1.45;user-select:none}
+.faq-num{flex-shrink:0;font-size:12px;font-weight:800;color:var(--blue);background:var(--blue-light);width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;letter-spacing:-.3px;transition:all .2s}
+.faq-item.open .faq-num{background:var(--blue);color:#fff}
+.faq-q-text{flex:1;padding-top:3px}
+.faq-q-arrow{flex-shrink:0;font-size:22px;color:var(--text-3);transition:transform .25s;padding-top:0;line-height:1;font-weight:300}
+.faq-item.open .faq-q-arrow{transform:rotate(45deg);color:var(--blue)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;padding:0 20px 0 62px}
+.faq-item.open .faq-a{max-height:600px;padding:0 20px 18px 62px}
+.faq-a p{font-size:13px;color:var(--text-2);line-height:1.65;margin-bottom:8px}
+.faq-a p:last-child{margin-bottom:0}
+.faq-a a{color:var(--blue);text-decoration:underline}
+
+/* FAQ group label */
+.faq-group-label{font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:2px;margin:22px 0 12px 4px}
+.faq-group-label:first-child{margin-top:0}
+
+/* Contact big card */
+.contact-hero{background:linear-gradient(135deg,#1A5FA4,#2B7EC9);border-radius:20px;padding:32px 24px;text-align:center;color:#fff;margin-bottom:16px;position:relative;overflow:hidden;box-shadow:0 8px 28px rgba(26,95,164,0.25)}
+.contact-hero::before{content:'';position:absolute;top:-60px;right:-60px;width:180px;height:180px;background:radial-gradient(circle,rgba(255,255,255,0.1) 0%,transparent 70%);border-radius:50%}
+.contact-hero::after{content:'';position:absolute;bottom:-40px;left:-40px;width:140px;height:140px;background:radial-gradient(circle,rgba(255,255,255,0.08) 0%,transparent 70%);border-radius:50%}
+.contact-hero-icon{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,0.2);border:2px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 18px;position:relative;z-index:1}
+.contact-hero-label{font-size:12px;color:rgba(255,255,255,0.7);font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;position:relative;z-index:1}
+.contact-hero-email{font-size:22px;font-weight:800;color:#fff;margin-bottom:18px;letter-spacing:-.3px;word-break:break-word;position:relative;z-index:1}
+.contact-mailto{display:inline-block;padding:12px 24px;background:#fff;color:var(--blue);border-radius:12px;font-size:14px;font-weight:700;text-decoration:none;transition:all .2s;position:relative;z-index:1}
+.contact-mailto:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.2)}
+
+/* Legal documents: оглавление */
+.legal-toc{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 20px;margin-bottom:24px}
+.legal-toc-title{font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px}
+.legal-toc ol{list-style:none;counter-reset:toc;padding:0;margin:0}
+.legal-toc li{counter-increment:toc;font-size:13px;color:var(--text-2);padding:6px 0;border-bottom:1px solid var(--border-light);cursor:pointer;transition:color .15s}
+.legal-toc li:last-child{border-bottom:none}
+.legal-toc li:hover{color:var(--blue)}
+.legal-toc li::before{content:counter(toc,decimal-leading-zero);color:var(--blue);font-weight:700;margin-right:10px;font-variant-numeric:tabular-nums}
+
+/* Legal */
+.legal-body{padding:28px 0 48px;font-size:13px;color:var(--text-2);line-height:1.7}
+.legal-body h3{font-size:15px;font-weight:700;color:var(--text);margin:22px 0 10px}
+.legal-body h3:first-child{margin-top:0}
+.legal-body p{margin-bottom:10px}
+.legal-body ul{margin:8px 0 12px 0;padding-left:20px}
+.legal-body li{margin-bottom:6px}
+.legal-body a{color:var(--blue);text-decoration:underline}
+.legal-meta{font-size:12px;color:var(--text-3);padding:14px 16px;background:var(--bg);border-radius:10px;margin-bottom:20px;border:1px solid var(--border-light)}
 </style>
 </head>
 <body>
+
+<!-- S1 HOME -->
 <div class="screen active" id="s1">
 <div class="hero-section"><div class="container">
 <div class="nav-bar"><span class="nav-logo">ПутёвкAI</span></div>
-<h1 class="hero-title">Готовый маршрут<br>по России <span>за 5 минут</span></h1>
+<h1 class="hero-title">Готовый маршрут<br>по России <span>за 10 минут</span></h1>
 <p class="hero-sub">ИИ спланирует поездку под ваш бюджет, даты и интересы. Вы получите PDF-маршрут, карту и таблицу расходов.</p>
 <button class="hero-cta" onclick="track('cta_plan_clicked');go(2)">Спланировать поездку</button>
 <button class="hero-cta-sec" onclick="track('example_view');go(5)">Посмотреть пример маршрута</button>
@@ -210,7 +316,24 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 <div class="social-section"><div class="section-label">Отзывы</div>
 <div class="review-card"><div class="review-top"><div class="avatar av-blue">АК</div><div><span class="review-name">Анна К.</span><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div></div><div class="review-text">Съездили на Байкал по этому маршруту. Всё совпало, ничего лишнего. Очень удобная таблица расходов!</div></div>
 <div class="review-card"><div class="review-top"><div class="avatar av-green">ДМ</div><div><span class="review-name">Дмитрий М.</span><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div></div><div class="review-text">Заказал маршрут по Дагестану для семьи с ребёнком. Учли всё: и рестораны с детским меню, и время на переезды.</div></div>
-</div></div></div>
+</div></div>
+
+<div class="site-footer"><div class="container">
+<div class="site-footer-logo">ПутёвкAI</div>
+<div class="site-footer-tagline">МАРШРУТЫ ПО РОССИИ</div>
+<div class="site-footer-grid">
+<button class="site-footer-link" onclick="go(6)">О сервисе</button>
+<button class="site-footer-link" onclick="go(7)">FAQ</button>
+<button class="site-footer-link" onclick="go(8)">Контакты</button>
+<button class="site-footer-link" onclick="go(5)">Пример маршрута</button>
+<button class="site-footer-link" onclick="go(9)">Договор-оферта</button>
+<button class="site-footer-link" onclick="go(10)">Политика ПДн</button>
+</div>
+<div class="site-footer-bottom">© 2026 putevkai.ru<br>Автор сервиса &mdash; Артур</div>
+</div></div>
+</div>
+
+<!-- S2 FORM -->
 <div class="screen" id="s2">
 <div class="form-header"><div class="container">
 <div class="form-nav"><button class="back-btn" onclick="go(1)">&#8592;</button><span class="form-title">Расскажите о поездке</span></div>
@@ -224,8 +347,18 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 <div class="field"><label class="field-label">Что важно в поездке?</label><div class="chips" id="f-interests" data-mode="multi"><div class="chip on" onclick="pick(this)">&#127966; Природа</div><div class="chip" onclick="pick(this)">&#127860; Еда</div><div class="chip on" onclick="pick(this)">&#127947; Активный отдых</div><div class="chip" onclick="pick(this)">&#127963; Культура</div><div class="chip" onclick="pick(this)">&#128524; Спокойный отдых</div><div class="chip" onclick="pick(this)">&#128247; Фото-локации</div></div></div>
 <div class="field"><label class="field-label">Что-то ещё? (необязательно)</label><input class="field-input" id="f-wishes" placeholder="Боюсь высоты, люблю кофе, аллергия..."></div>
 <div class="field"><label class="field-label">Email для получения маршрута</label><input class="field-input" id="f-email" type="email" placeholder="your@email.com"></div>
+
+<div class="field consent-field" id="consent-wrap">
+<label class="consent-label">
+<input type="checkbox" id="f-consent">
+<span>Я соглашаюсь с <a href="#" onclick="go(9);return false">договором-офертой</a> и <a href="#" onclick="go(10);return false">политикой обработки персональных данных</a>, подтверждаю передачу email и параметров поездки для формирования и отправки маршрута.</span>
+</label>
+</div>
+
 <button class="btn-primary" id="submit-btn" onclick="submitForm()">Далее: выбор тарифа</button>
 </div></div></div>
+
+<!-- S3 TARIFFS -->
 <div class="screen" id="s3">
 <div class="form-header"><div class="container">
 <div class="form-nav"><button class="back-btn" onclick="go(2)">&#8592;</button><span class="form-title">Выберите тариф</span></div>
@@ -235,9 +368,11 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 <div class="tariff" onclick="pickTariff(this,490)"><div class="tariff-name">Базовый</div><div class="tariff-price">490 &#8381; <span>разово</span></div><ul class="tariff-list"><li>Маршрут по дням в PDF</li><li>Список мест и адресов</li><li>Чек-лист вещей</li></ul></div>
 <div class="tariff selected" id="tariff-mid" onclick="pickTariff(this,990)"><div class="tariff-badge">Популярный</div><div class="tariff-name">Расширенный</div><div class="tariff-price">990 &#8381; <span>разово</span></div><ul class="tariff-list"><li>Всё из базового</li><li>Таблица бюджета в Google Sheets</li><li>Маршрут на Яндекс.Картах</li><li>Рекомендации кафе и жилья</li><li>Контакты экстренных служб</li></ul></div>
 <div class="tariff" onclick="pickTariff(this,1990)"><div class="tariff-name">Пакет 3 маршрута</div><div class="tariff-price">1 990 &#8381; <span>за 3 поездки</span></div><ul class="tariff-list"><li>3 расширенных маршрута</li><li>Экономия 980 &#8381;</li><li>Используйте в течение года</li></ul></div>
-<div class="guarantee"><div class="guarantee-icon">&#10003;</div><p><strong>Гарантия возврата.</strong> Если маршрут вам не подойдёт, вернём деньги в течение 24 часов без вопросов.</p></div>
+<div class="guarantee"><div class="guarantee-icon">&#10003;</div><p><strong>Если маршрут не подойдёт</strong> — напишите на hello@putevkai.ru. Обсудим: переделаем под уточнения или вернём деньги.</p></div>
 <button class="btn-primary" id="pay-btn" onclick="pay()">Оплатить 990 &#8381;</button>
 </div></div>
+
+<!-- S4 RESULT -->
 <div class="screen" id="s4">
 <div class="result-header"><div class="container">
 <div class="result-check">&#10003;</div><h2>Ваш маршрут готов!</h2><p>Отправили всё на вашу почту</p>
@@ -255,6 +390,8 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 <button class="btn-secondary">Поделиться маршрутом</button>
 <div class="footer"><div class="footer-text">Все материалы также отправлены на вашу почту</div></div>
 </div></div></div>
+
+<!-- S5 EXAMPLE -->
 <div class="screen" id="s5">
 <div class="example-header"><div class="container">
 <div class="form-nav"><button class="back-btn" onclick="go(1)">&#8592;</button><span class="form-title">Пример маршрута</span><span class="badge badge-blue" style="margin-left:auto">Пример</span></div>
@@ -263,7 +400,6 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 </div></div>
 <div class="container" style="padding-top:24px;padding-bottom:40px;">
 <div class="stats-row"><div class="stat-card"><div class="stat-num">14</div><div class="stat-lbl">дней</div></div><div class="stat-card"><div class="stat-num">~48K</div><div class="stat-lbl">&#8381; бюджет</div></div><div class="stat-card"><div class="stat-num">32</div><div class="stat-lbl">места</div></div></div>
-
 <div class="budget-card">
 <div class="budget-head">Бюджет на 14 дней</div>
 <div class="budget-row"><span class="cat">Жильё</span><div class="bar-wrap"><div class="bar-fill" style="width:42%"></div></div><span class="amt">20 000 &#8381;</span></div>
@@ -273,23 +409,19 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 <div class="budget-row"><span class="cat">Резерв</span><div class="bar-wrap"><div class="bar-fill" style="width:6%"></div></div><span class="amt">3 000 &#8381;</span></div>
 <div class="budget-row total"><span class="cat">Итого</span><span class="amt">48 000 &#8381;</span></div>
 </div>
-
 <div class="section-label">Первые 2 дня из 14</div>
-
 <div class="day-card">
 <div class="day-head"><span class="day-head-title">День 1: Прибытие в Москву</span><span class="day-head-city">Москва</span></div>
 <div class="day-item"><span class="day-time">14:00</span><div class="day-content"><div class="day-place">Заселение &#171;Чистые пруды&#187;</div><div class="day-desc">Бутик-отель, 5 мин от метро. 2 500 руб./ночь</div><span class="day-tag tag-rest">Отдых</span></div></div>
 <div class="day-item"><span class="day-time">16:00</span><div class="day-content"><div class="day-place">Прогулка по Чистым прудам</div><div class="day-desc">Бульвар, весенние деревья. Спокойный старт</div><span class="day-tag tag-rest">Отдых</span></div></div>
 <div class="day-item"><span class="day-time">19:00</span><div class="day-content"><div class="day-place">Ужин в &#171;Лавка-Лавка&#187;</div><div class="day-desc">Фермерская кухня. Средний чек ~1 200 руб.</div><span class="day-tag tag-food">Еда</span></div></div>
 </div>
-
 <div class="day-card">
 <div class="day-head"><span class="day-head-title">День 2: Третьяковка</span><span class="day-head-city">Москва</span></div>
 <div class="day-item"><span class="day-time">10:00</span><div class="day-content"><div class="day-place">Третьяковская галерея</div><div class="day-desc">Основная экспозиция. Билет 500 руб.</div><span class="day-tag tag-culture">Культура</span></div></div>
 <div class="day-item"><span class="day-time">13:00</span><div class="day-content"><div class="day-place">Обед &#171;Братья Караваевы&#187;</div><div class="day-desc">Суп + горячее ~450 руб.</div><span class="day-tag tag-food">Еда</span></div></div>
 <div class="day-item"><span class="day-time">14:30</span><div class="day-content"><div class="day-place">Замоскворечье</div><div class="day-desc">Ордынка, Пятницкая &#8212; тихие переулки</div><span class="day-tag tag-rest">Отдых</span></div></div>
 </div>
-
 <div class="blur-section">
 <div class="blur-overlay">
 <div class="day-card" style="opacity:0.4;filter:blur(3px);pointer-events:none">
@@ -309,35 +441,389 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 <button class="btn-primary" onclick="track('example_cta_clicked');go(2)">Получить полный маршрут</button>
 </div>
 </div>
-
 <div class="file-pills"><div class="file-pill"><div class="file-dot" style="background:var(--red)"></div>PDF</div><div class="file-pill"><div class="file-dot" style="background:var(--green)"></div>Таблица</div><div class="file-pill"><div class="file-dot" style="background:var(--blue)"></div>Карта</div><div class="file-pill"><div class="file-dot" style="background:var(--amber)"></div>Чек-лист</div></div>
-
 <button class="btn-secondary" onclick="go(1)">Назад на главную</button>
 </div></div>
 
-<!-- Toast element -->
+<!-- S6 ABOUT -->
+<div class="screen" id="s6">
+<div class="info-header"><div class="container">
+<div class="form-nav"><button class="back-btn" onclick="go(1)">&#8592;</button><span class="form-title">О сервисе</span></div>
+<div class="info-header-title">Привет, я Артур</div>
+<div class="info-header-sub">Автор сервиса ПутёвкAI</div>
+</div></div>
+<div class="container"><div class="info-body"><div class="info-body-inner" style="padding-top:24px">
+
+<div class="author-card">
+<div class="author-avatar">А</div>
+<div class="author-quote"><span class="author-quote-mark">&ldquo;</span>Устал планировать поездки вручную — десять вкладок, поиск мест, бюджет в Excel. Автоматизировал то, что делал для себя. Так появился ПутёвкAI.</div>
+<div class="author-name"><strong>Артур</strong> &middot; автор сервиса</div>
+</div>
+
+<div class="info-card">
+<div class="info-card-head">
+<div class="info-card-icon ici-blue">&#128218;</div>
+<h3>Как появился сервис</h3>
+</div>
+<p>Каждый раз перед поездкой я тратил целые вечера: собирал места из статей, искал отели, складывал расходы в табличку, проверял часы работы музеев. К моменту выезда уже был выжат.</p>
+<p>В какой-то момент понял: то, что я делаю вручную каждый раз — может собирать ИИ. За пару недель собрал систему, которая выдаёт готовый пакет документов на поездку за 10 минут. Попробовал — сработало.</p>
+</div>
+
+<div class="info-card">
+<div class="info-card-head">
+<div class="info-card-icon ici-green">&#127873;</div>
+<h3>Что вы получаете</h3>
+</div>
+<p>Не просто текст маршрута, как в ChatGPT — а готовый пакет из четырёх документов:</p>
+<div class="package-preview">
+<div class="package-item"><div class="package-item-icon fi-pdf">PDF</div><div class="package-item-name">Маршрут</div><div class="package-item-desc">Расписание по дням, места, время</div></div>
+<div class="package-item"><div class="package-item-icon fi-xls">XLS</div><div class="package-item-name">Бюджет</div><div class="package-item-desc">Google-таблица с формулами</div></div>
+<div class="package-item"><div class="package-item-icon fi-map">MAP</div><div class="package-item-name">Карта</div><div class="package-item-desc">Все точки в Яндекс.Картах</div></div>
+<div class="package-item"><div class="package-item-icon fi-chk">CHK</div><div class="package-item-name">Чек-лист</div><div class="package-item-desc">Вещи под ваше направление</div></div>
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-card-head">
+<div class="info-card-icon ici-amber">&#127757;</div>
+<h3>Почему по России</h3>
+</div>
+<p>Россия — страна с огромным количеством недооценённых мест, о которых даже местные не знают. Алтай, Карелия, Дагестан, Камчатка — каждый регион может закрыть за одну поездку столько впечатлений, сколько не даст двухнедельный тур в Европу.</p>
+<p>Планирование по России — <strong>сложнее</strong>, чем по Европе. Меньше агрегаторов, больше мелких локаций, которые нужно искать вручную. ИИ справляется с этим отлично — поэтому и выбрал такой фокус.</p>
+</div>
+
+<div class="info-card">
+<div class="info-card-head">
+<div class="info-card-icon ici-purple">&#9889;</div>
+<h3>Технологии</h3>
+</div>
+<p>Под капотом — модель <strong>Claude от Anthropic</strong> (одна из лучших сегодня для задач планирования) плюс промпты, заточенные под туризм по России. После оплаты ИИ собирает маршрут под ваш запрос за несколько минут.</p>
+</div>
+
+<button class="btn-primary" style="margin-top:8px" onclick="track('cta_plan_clicked');go(2)">Спланировать поездку</button>
+<button class="btn-secondary" onclick="go(1)">На главную</button>
+
+</div></div></div></div>
+
+<!-- S7 FAQ -->
+<div class="screen" id="s7">
+<div class="info-header"><div class="container">
+<div class="form-nav"><button class="back-btn" onclick="go(1)">&#8592;</button><span class="form-title">Частые вопросы</span></div>
+<div class="info-header-title">Отвечаем честно</div>
+<div class="info-header-sub">На то, о чём чаще всего спрашивают</div>
+</div></div>
+<div class="container"><div class="info-body"><div class="info-body-inner" style="padding-top:24px">
+
+<div class="faq-group-label">Про продукт</div>
+
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-q"><span class="faq-num">01</span><span class="faq-q-text">Чем это лучше, чем просто спросить ChatGPT?</span><span class="faq-q-arrow">+</span></div>
+<div class="faq-a">
+<p>ChatGPT даст вам только текст — его потом нужно самому структурировать, перенести в таблицу, искать точки на карте, собирать контакты. Мы сразу выдаём <strong>готовый пакет</strong>: PDF-маршрут по дням, Google-таблицу с формулами, карту и чек-лист вещей.</p>
+<p>Плюс у нас настроены промпты специально под планирование поездок по России — результат получается более детальный и практичный.</p>
+</div>
+</div>
+
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-q"><span class="faq-num">02</span><span class="faq-q-text">Можно ли править маршрут после получения?</span><span class="faq-q-arrow">+</span></div>
+<div class="faq-a">
+<p>Да. Google-таблица с бюджетом редактируется свободно: вы вписываете туда факт по ходу поездки, она сама пересчитывает остаток.</p>
+<p>Сам маршрут (PDF) автоматически не переделываем, но если что-то принципиально не подошло — напишите на hello@putevkai.ru, пересоберём новый вариант.</p>
+</div>
+</div>
+
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-q"><span class="faq-num">03</span><span class="faq-q-text">Что если я уже был в этих местах?</span><span class="faq-q-arrow">+</span></div>
+<div class="faq-a">
+<p>В форме есть поле &laquo;Что-то ещё?&raquo; — укажите там, где уже были или что не хотите включать. ИИ учтёт и соберёт альтернативный маршрут с другими точками.</p>
+</div>
+</div>
+
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-q"><span class="faq-num">04</span><span class="faq-q-text">Работает ли для поездок за рубеж или в СНГ?</span><span class="faq-q-arrow">+</span></div>
+<div class="faq-a">
+<p>Пока нет — только Россия. В планах добавить страны СНГ (Грузия, Армения, Казахстан) и ближнее зарубежье, но это будет отдельно и позже.</p>
+</div>
+</div>
+
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-q"><span class="faq-num">05</span><span class="faq-q-text">Насколько актуальные заведения, цены и часы работы?</span><span class="faq-q-arrow">+</span></div>
+<div class="faq-a">
+<p>Мы подбираем места с устойчивой репутацией и высокими рейтингами, чтобы снизить риск &laquo;закрылось вчера&raquo;. Цены указываем ориентировочные — это всегда вилка, а не гарантия.</p>
+<p>Часы работы и актуальные цены <strong>рекомендуем проверить</strong> за день до визита — у небольших кафе и музеев графики меняются чаще, чем обновляются агрегаторы.</p>
+</div>
+</div>
+
+<div class="faq-group-label">Оплата и доставка</div>
+
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-q"><span class="faq-num">06</span><span class="faq-q-text">Когда придёт маршрут?</span><span class="faq-q-arrow">+</span></div>
+<div class="faq-a">
+<p>В течение <strong>10 минут</strong> после оплаты. Все файлы приходят на email, который вы указали в форме.</p>
+<p>Если через 30 минут ничего не пришло — проверьте папку &laquo;Спам&raquo;, а затем напишите на hello@putevkai.ru.</p>
+</div>
+</div>
+
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-q"><span class="faq-num">07</span><span class="faq-q-text">Как происходит оплата? Это безопасно?</span><span class="faq-q-arrow">+</span></div>
+<div class="faq-a">
+<p>Оплата — через защищённый платёжный шлюз банковской картой. Данные карты не хранятся у нас, обработка проходит на стороне платёжной системы по стандартам PCI DSS.</p>
+<p>На текущем пилотном этапе возможны альтернативные способы оплаты — если что, напишите на hello@putevkai.ru.</p>
+</div>
+</div>
+
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-q"><span class="faq-num">08</span><span class="faq-q-text">Что делать, если не понравился маршрут?</span><span class="faq-q-arrow">+</span></div>
+<div class="faq-a">
+<p>Напишите на <strong>hello@putevkai.ru</strong> с коротким описанием, что именно не подошло. Мы либо пересоберём маршрут с учётом уточнений, либо вернём деньги — в зависимости от ситуации. Справедливо для обеих сторон.</p>
+</div>
+</div>
+
+<div class="faq-group-label">Данные и автор</div>
+
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-q"><span class="faq-num">09</span><span class="faq-q-text">Какие данные вы собираете?</span><span class="faq-q-arrow">+</span></div>
+<div class="faq-a">
+<p>Только то, что нужно для работы: <strong>email</strong> (чтобы отправить маршрут) и <strong>параметры поездки</strong> (направление, даты, бюджет, с кем едете, интересы) — они идут в промпт для ИИ.</p>
+<p>Email не продаётся, не передаётся рекламодателям. Маркетинговую рассылку не делаем. Подробнее — в <a href="#" onclick="go(10);return false">политике обработки персональных данных</a>.</p>
+</div>
+</div>
+
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-q"><span class="faq-num">10</span><span class="faq-q-text">Кто стоит за сервисом?</span><span class="faq-q-arrow">+</span></div>
+<div class="faq-a">
+<p>Артур — автор сервиса. Один человек, который устал планировать поездки руками и сделал для себя систему автоматизации, а потом открыл её для всех.</p>
+<p>Связаться напрямую: <strong>hello@putevkai.ru</strong>. Подробнее — на странице <a href="#" onclick="go(6);return false">&laquo;О сервисе&raquo;</a>.</p>
+</div>
+</div>
+
+<button class="btn-primary" style="margin-top:24px" onclick="track('cta_plan_clicked');go(2)">Спланировать поездку</button>
+<button class="btn-secondary" onclick="go(1)">На главную</button>
+
+</div></div></div></div>
+
+<!-- S8 CONTACT -->
+<div class="screen" id="s8">
+<div class="info-header"><div class="container">
+<div class="form-nav"><button class="back-btn" onclick="go(1)">&#8592;</button><span class="form-title">Контакты</span></div>
+<div class="info-header-title">Связаться со мной</div>
+<div class="info-header-sub">Отвечаю лично, обычно в течение дня</div>
+</div></div>
+<div class="container"><div class="info-body"><div class="info-body-inner" style="padding-top:24px">
+
+<div class="contact-hero">
+<div class="contact-hero-icon">&#9993;</div>
+<div class="contact-hero-label">Email</div>
+<div class="contact-hero-email">hello@putevkai.ru</div>
+<a class="contact-mailto" href="mailto:hello@putevkai.ru">Написать письмо</a>
+</div>
+
+<div class="info-card">
+<div class="info-card-head">
+<div class="info-card-icon ici-blue">&#128172;</div>
+<h3>С чем могу помочь</h3>
+</div>
+<ul>
+<li>Маршрут не пришёл или пришёл с ошибкой</li>
+<li>Хочу переделать маршрут под уточнения</li>
+<li>Вопросы по оплате или возврату</li>
+<li>Отзыв или предложение по сервису</li>
+<li>Сотрудничество: блог, партнёрка, корпоративные заказы</li>
+</ul>
+</div>
+
+<div class="info-card">
+<div class="info-card-head">
+<div class="info-card-icon ici-green">&#9201;</div>
+<h3>Когда отвечу</h3>
+</div>
+<p>Обычно в течение нескольких часов в рабочее время по Москве. На письма, пришедшие ночью или в выходные, отвечу в ближайший будний день до обеда.</p>
+<p>Если вопрос срочный — укажите это в теме письма словом &laquo;срочно&raquo;, постараюсь ответить быстрее.</p>
+</div>
+
+<button class="btn-primary" style="margin-top:8px" onclick="track('cta_plan_clicked');go(2)">Спланировать поездку</button>
+<button class="btn-secondary" onclick="go(1)">На главную</button>
+
+</div></div></div></div>
+
+<!-- S9 OFFER -->
+<div class="screen" id="s9">
+<div class="info-header"><div class="container">
+<div class="form-nav"><button class="back-btn" onclick="goBackSmart()">&#8592;</button><span class="form-title">Договор-оферта</span></div>
+<div class="info-header-title">Публичная оферта</div>
+<div class="info-header-sub">Условия оказания услуг сервиса</div>
+</div></div>
+<div class="container"><div class="legal-body">
+
+<div class="legal-meta">
+<strong>Редакция от 19 апреля 2026 г.</strong><br>
+Автор сервиса: Артур<br>
+Сайт: putevkai.ru<br>
+Контакт: hello@putevkai.ru
+</div>
+
+<h3>1. Общие положения</h3>
+<p>Настоящий документ является публичной офертой (далее — «Оферта»). Акцептом Оферты является оплата услуг сервиса ПутёвкAI (далее — «Сервис»), размещённого на сайте putevkai.ru. С момента оплаты между Автором сервиса (далее — «Исполнитель») и пользователем (далее — «Заказчик») заключается договор на условиях настоящей Оферты.</p>
+
+<h3>2. Предмет договора</h3>
+<p>Исполнитель обязуется по запросу Заказчика автоматически сформировать и направить на указанный Заказчиком email индивидуальный туристический маршрут, включающий (в зависимости от выбранного тарифа):</p>
+<ul>
+<li>PDF-документ с расписанием поездки по дням, местами, временем и описаниями;</li>
+<li>электронную таблицу бюджета в Google Sheets;</li>
+<li>ссылку на Яндекс.Карты с отмеченными точками маршрута;</li>
+<li>чек-лист вещей, адаптированный под поездку;</li>
+<li>контакты экстренных служб региона.</li>
+</ul>
+
+<h3>3. Стоимость и порядок оплаты</h3>
+<p>Стоимость услуг определяется выбранным Заказчиком тарифом, действующим на сайте на момент оформления заказа:</p>
+<ul>
+<li><strong>Базовый</strong> — 490 рублей за один маршрут;</li>
+<li><strong>Расширенный</strong> — 990 рублей за один маршрут;</li>
+<li><strong>Пакет 3 маршрута</strong> — 1 990 рублей, действует 12 месяцев с даты оплаты.</li>
+</ul>
+<p>Оплата производится единоразово, в момент оформления заказа, безналичным способом через интернет-эквайринг. Датой оплаты считается дата поступления денежных средств Исполнителю.</p>
+
+<h3>4. Сроки оказания услуг</h3>
+<p>Готовый маршрут направляется Заказчику на указанный email <strong>в течение 10 минут</strong> с момента поступления оплаты. В исключительных случаях (технические сбои, недоступность провайдеров ИИ) срок может быть увеличен до 24 часов, о чём Заказчик информируется отдельно.</p>
+
+<h3>5. Качество услуг и оговорки</h3>
+<p>Исполнитель прилагает разумные усилия для формирования качественного маршрута, однако Заказчик осознаёт и принимает следующее:</p>
+<ul>
+<li>маршрут составляется на основе актуальных на момент генерации данных; цены, часы работы и доступность объектов могут меняться независимо от Исполнителя;</li>
+<li>Исполнитель не является туроператором, не несёт ответственности за бронирование, качество услуг третьих лиц (отелей, ресторанов, перевозчиков) и их доступность в указанные даты;</li>
+<li>все рекомендации носят информационный характер; финальные решения о поездке принимает Заказчик самостоятельно.</li>
+</ul>
+
+<h3>6. Возврат денежных средств</h3>
+<p>Если полученный маршрут не соответствует заявленным параметрам или содержит очевидные ошибки (несуществующие места, невозможные логистически переходы и т. п.), Заказчик вправе в течение 7 календарных дней с момента получения маршрута направить на hello@putevkai.ru мотивированное обращение.</p>
+<p>По результатам рассмотрения Исполнитель:</p>
+<ul>
+<li>либо бесплатно переделывает маршрут с учётом замечаний;</li>
+<li>либо осуществляет возврат денежных средств в полном объёме на тот же способ оплаты в течение 10 рабочих дней.</li>
+</ul>
+<p>Возврат по причине «передумал ехать» или «поездка отменилась по моей инициативе» — не предусмотрен, так как услуга уже оказана в момент отправки маршрута.</p>
+
+<h3>7. Персональные данные</h3>
+<p>Оформляя заказ, Заказчик подтверждает согласие с <a href="#" onclick="go(10);return false">Политикой обработки персональных данных</a>, размещённой на сайте putevkai.ru.</p>
+
+<h3>8. Ответственность сторон</h3>
+<p>Исполнитель не несёт ответственности за невозможность оказания услуг в результате обстоятельств непреодолимой силы, а также действий третьих лиц (провайдеров ИИ, платёжных систем, почтовых сервисов).</p>
+<p>Суммарная ответственность Исполнителя перед Заказчиком ограничена размером уплаченной Заказчиком суммы по конкретному заказу.</p>
+
+<h3>9. Изменение условий</h3>
+<p>Исполнитель вправе в одностороннем порядке изменять условия настоящей Оферты. Новая редакция вступает в силу с момента публикации на сайте. К уже оформленным заказам применяется редакция, действовавшая на момент оплаты.</p>
+
+<h3>10. Реквизиты и контакты</h3>
+<p>
+Автор сервиса: Артур<br>
+Email для связи: hello@putevkai.ru<br>
+Сайт: putevkai.ru
+</p>
+
+<button class="btn-secondary" style="margin-top:24px" onclick="goBackSmart()">Назад</button>
+
+</div></div></div>
+
+<!-- S10 PRIVACY -->
+<div class="screen" id="s10">
+<div class="info-header"><div class="container">
+<div class="form-nav"><button class="back-btn" onclick="goBackSmart()">&#8592;</button><span class="form-title">Политика ПДн</span></div>
+<div class="info-header-title">Политика обработки</div>
+<div class="info-header-sub">персональных данных</div>
+</div></div>
+<div class="container"><div class="legal-body">
+
+<div class="legal-meta">
+<strong>Редакция от 19 апреля 2026 г.</strong><br>
+Оператор обработки ПДн: Артур (автор сервиса)<br>
+Сайт: putevkai.ru<br>
+Контакт: hello@putevkai.ru
+</div>
+
+<h3>1. Общие положения</h3>
+<p>Настоящая Политика определяет порядок обработки персональных данных (далее — «ПДн») пользователей сайта putevkai.ru и соответствует требованиям Федерального закона РФ от 27.07.2006 № 152-ФЗ «О персональных данных».</p>
+<p>Оператор (автор сервиса) обязуется обеспечивать конфиденциальность ПДн и применять необходимые организационные и технические меры для их защиты от неправомерного доступа.</p>
+
+<h3>2. Какие данные мы собираем</h3>
+<p>В рамках работы сервиса мы обрабатываем следующие категории ПДн:</p>
+<ul>
+<li><strong>Email</strong> — для отправки готового маршрута и сервисной переписки;</li>
+<li><strong>Параметры поездки</strong> — направление, даты, бюджет, состав группы, интересы, пожелания (используются для генерации маршрута);</li>
+<li><strong>Технические данные посещения сайта</strong> — IP-адрес, User-Agent, cookies, данные Яндекс.Метрики (анонимная аналитика поведения, карта кликов, Вебвизор).</li>
+</ul>
+<p>Мы не собираем данные банковских карт — оплата обрабатывается платёжным шлюзом на его стороне.</p>
+
+<h3>3. Цели обработки</h3>
+<ul>
+<li>оказание услуг сервиса (формирование и отправка маршрута);</li>
+<li>связь с пользователем по вопросам заказа;</li>
+<li>улучшение качества сервиса (аналитика поведения);</li>
+<li>исполнение требований законодательства РФ.</li>
+</ul>
+
+<h3>4. Основания обработки</h3>
+<p>Обработка ПДн осуществляется на основании согласия пользователя, выраженного в форме акцепта договора-оферты при оформлении заказа, а также для исполнения заключённого договора (ч. 5 ст. 6 152-ФЗ).</p>
+
+<h3>5. Срок хранения</h3>
+<p>Email и параметры поездки хранятся в течение 1 года с момента последнего заказа — для возможности обращения по гарантийным вопросам. По истечении срока данные удаляются.</p>
+<p>Технические данные (cookies, Яндекс.Метрика) хранятся в соответствии с политиками соответствующих сервисов.</p>
+
+<h3>6. Передача третьим лицам</h3>
+<p>Мы <strong>не продаём</strong> ваши ПДн и не передаём их для рекламных целей. Передача ограниченного объёма данных осуществляется только в следующих случаях:</p>
+<ul>
+<li>платёжный шлюз — для обработки оплаты;</li>
+<li>провайдер email-рассылки (Resend) — для доставки письма с маршрутом;</li>
+<li>провайдер ИИ (Anthropic, США) — только параметры поездки (без email) для генерации маршрута;</li>
+<li>Яндекс.Метрика — для сбора анонимной аналитики посещений;</li>
+<li>государственные органы — по законному запросу в рамках действующего законодательства.</li>
+</ul>
+
+<h3>7. Трансграничная передача</h3>
+<p>Пользователь информирован и соглашается с тем, что часть инфраструктуры сервиса (провайдер ИИ) находится на территории США. Передача в данном случае осуществляется только в обезличенном виде (без email).</p>
+
+<h3>8. Права пользователя</h3>
+<p>Пользователь вправе:</p>
+<ul>
+<li>получать информацию о составе обрабатываемых ПДн;</li>
+<li>требовать уточнения, блокирования или удаления своих ПДн;</li>
+<li>отозвать согласие на обработку.</li>
+</ul>
+<p>Запросы направляются на <strong>hello@putevkai.ru</strong>. Срок рассмотрения — до 30 дней.</p>
+
+<h3>9. Cookies</h3>
+<p>На сайте используются cookies для работы Яндекс.Метрики. Отключить их можно в настройках браузера — сайт продолжит работать, но часть аналитики будет недоступна.</p>
+
+<h3>10. Изменения</h3>
+<p>Текущая редакция Политики публикуется на сайте. Существенные изменения будут отдельно анонсироваться на главной странице.</p>
+
+<button class="btn-secondary" style="margin-top:24px" onclick="goBackSmart()">Назад</button>
+
+</div></div></div>
+
 <div class="toast" id="toast"></div>
 
 <script>
 var WEBHOOK_URL='https://n8n-production-bd16.up.railway.app/webhook/travel-request';
 var YM_ID=108663677;
+var _lastScreen=1;
 
-// Безопасная отправка событий в Яндекс.Метрику.
-// Ничего не падает, если счётчик заблокирован (AdBlock) или ещё не загрузился.
 function track(goal,params){
-  try{
-    if(typeof ym==='function'){
-      ym(YM_ID,'reachGoal',goal,params||{});
-    }
-  }catch(e){}
+  try{if(typeof ym==='function'){ym(YM_ID,'reachGoal',goal,params||{});}}catch(e){}
 }
 
 function go(n){
+  var active=document.querySelector('.screen.active');
+  if(active && ['s1','s2','s6','s7','s8'].indexOf(active.id)>=0){
+    _lastScreen=parseInt(active.id.replace('s',''),10);
+  }
   document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
-  var el=document.getElementById('s'+n);
-  el.classList.add('active');
+  document.getElementById('s'+n).classList.add('active');
   window.scrollTo(0,0);
 }
+
+function goBackSmart(){go(_lastScreen||1);}
+function toggleFaq(el){el.classList.toggle('open');}
 
 function showToast(msg){
   var t=document.getElementById('toast');
@@ -360,33 +846,26 @@ function validateForm(){
   var email=document.getElementById('f-email');
   var dateStart=document.getElementById('f-date-start');
   var dateEnd=document.getElementById('f-date-end');
+  var consent=document.getElementById('f-consent');
+  var consentWrap=document.getElementById('consent-wrap');
 
-  // Clear previous errors
   [dest,email,dateStart,dateEnd].forEach(function(el){el.classList.remove('field-error');});
+  consentWrap.classList.remove('field-error');
 
-  if(!dest.value.trim()){
-    dest.classList.add('field-error');
-    valid=false;
-  }
-  if(!dateStart.value){
-    dateStart.classList.add('field-error');
-    valid=false;
-  }
-  if(!dateEnd.value){
-    dateEnd.classList.add('field-error');
-    valid=false;
-  }
-  if(dateStart.value && dateEnd.value && dateStart.value>=dateEnd.value){
-    dateEnd.classList.add('field-error');
-    valid=false;
-  }
-  if(!email.value.trim()||!email.value.includes('@')){
-    email.classList.add('field-error');
-    valid=false;
-  }
+  if(!dest.value.trim()){dest.classList.add('field-error');valid=false;}
+  if(!dateStart.value){dateStart.classList.add('field-error');valid=false;}
+  if(!dateEnd.value){dateEnd.classList.add('field-error');valid=false;}
+  if(dateStart.value && dateEnd.value && dateStart.value>=dateEnd.value){dateEnd.classList.add('field-error');valid=false;}
+  if(!email.value.trim()||!email.value.includes('@')){email.classList.add('field-error');valid=false;}
+  if(!consent.checked){consentWrap.classList.add('field-error');valid=false;}
+
   if(!valid){
     track('form_validation_failed');
-    showToast('Заполните обязательные поля');
+    if(!consent.checked && dest.value.trim() && email.value.trim()){
+      showToast('Примите условия договора и политику ПДн');
+    }else{
+      showToast('Заполните обязательные поля');
+    }
   }
   return valid;
 }
@@ -402,17 +881,17 @@ function submitForm(){
     travelers:getChipValue('f-travelers'),
     interests:getChipValue('f-interests'),
     wishes:document.getElementById('f-wishes').value.trim(),
-    email:document.getElementById('f-email').value.trim()
+    email:document.getElementById('f-email').value.trim(),
+    consent_given:true,
+    consent_ts:new Date().toISOString()
   };
 
-  // Трекаем успешную отправку формы + параметры (без email, чтобы не было PII)
   track('form_submitted',{
     travelers:window._formData.travelers,
     budget:window._formData.budget,
     interests_count:(window._formData.interests||[]).length
   });
 
-  // Update pricing summary with user data
   var summary=document.getElementById('pricing-summary');
   summary.textContent='Маршрут: '+window._formData.destination+', '+window._formData.travelers+', '+window._formData.budget;
 
@@ -423,7 +902,6 @@ function resetPayButton(){
   var btn=document.getElementById('pay-btn');
   btn.textContent='Оплатить 990 \u20BD';
   btn.disabled=false;
-  // Reset tariff selection to middle
   document.querySelectorAll('.tariff').forEach(function(t){t.classList.remove('selected');});
   document.getElementById('tariff-mid').classList.add('selected');
 }
@@ -438,7 +916,6 @@ function pay(){
   }
 
   track('pay_clicked',{price:selectedPrice});
-
   btn.textContent='Обработка...';
   btn.disabled=true;
 
@@ -467,15 +944,13 @@ function pay(){
 
 function startNewTrip(){
   track('new_trip_started');
-
-  // Reset form fields
   document.getElementById('f-destination').value='';
   document.getElementById('f-date-start').value='';
   document.getElementById('f-date-end').value='';
   document.getElementById('f-wishes').value='';
   document.getElementById('f-email').value='';
+  document.getElementById('f-consent').checked=false;
 
-  // Reset chips to defaults
   var budgetChips=document.getElementById('f-budget').querySelectorAll('.chip');
   budgetChips.forEach(function(c,i){c.classList.toggle('on',i===1);});
   var travelerChips=document.getElementById('f-travelers').querySelectorAll('.chip');
@@ -485,12 +960,8 @@ function startNewTrip(){
   interestChips[0].classList.add('on');
   interestChips[2].classList.add('on');
 
-  // Reset pay button
   resetPayButton();
-
-  // Clear form data
   window._formData=null;
-
   go(2);
 }
 
@@ -511,27 +982,25 @@ function pickTariff(el,price){
   track('tariff_selected',{price:price});
 }
 
-// Remove error styling on input focus + отслеживание начала заполнения формы (один раз за сессию)
 var _formStartedTracked=false;
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('.field-input').forEach(function(input){
     input.addEventListener('focus',function(){this.classList.remove('field-error');});
     input.addEventListener('input',function(){
-      if(!_formStartedTracked){
-        _formStartedTracked=true;
-        track('form_started');
-      }
+      if(!_formStartedTracked){_formStartedTracked=true;track('form_started');}
     });
   });
-  // То же для чипсов (пользователь может начать с выбора чипса, не трогая текстовые поля)
   document.querySelectorAll('.chips .chip').forEach(function(chip){
     chip.addEventListener('click',function(){
-      if(!_formStartedTracked){
-        _formStartedTracked=true;
-        track('form_started');
-      }
+      if(!_formStartedTracked){_formStartedTracked=true;track('form_started');}
     });
   });
+  var consent=document.getElementById('f-consent');
+  if(consent){
+    consent.addEventListener('change',function(){
+      document.getElementById('consent-wrap').classList.remove('field-error');
+    });
+  }
 });
 </script>
 </body>
