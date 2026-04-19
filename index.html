@@ -111,7 +111,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .home-cta-btn:hover{background:var(--blue-dark);transform:translateY(-2px);box-shadow:0 6px 24px rgba(26,95,164,0.35)}
 
 /* ============ HERO V2 ============ */
-.hero-v2{background:#0A2540;padding:calc(env(safe-area-inset-top,0px) + 40px) 0 0;position:relative;overflow:hidden;color:#fff}
+.hero-v2{background:#0A2540;padding:max(56px,calc(env(safe-area-inset-top,0px) + 40px)) 0 0;position:relative;overflow:hidden;color:#fff}
 .hero-v2::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top right,rgba(43,126,201,0.35) 0%,transparent 55%),radial-gradient(ellipse at bottom left,rgba(26,95,164,0.25) 0%,transparent 55%);pointer-events:none}
 .hero-v2-content{position:relative;z-index:1}
 .hero-v2-tag{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:rgba(43,126,201,0.15);border:1px solid rgba(43,126,201,0.3);border-radius:20px;font-size:11px;font-weight:600;color:#8AC0EE;letter-spacing:.5px;text-transform:uppercase;margin-bottom:20px}
@@ -281,7 +281,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .reveal.visible{opacity:1;transform:translateY(0)}
 
 /* ============ FLOW HEADER (unified for s2, s3, s5) ============ */
-.flow-header{background:#0A2540;padding:calc(env(safe-area-inset-top,0px) + 24px) 0 36px;position:relative;overflow:hidden;color:#fff}
+.flow-header{background:#0A2540;padding:max(48px,calc(env(safe-area-inset-top,0px) + 28px)) 0 36px;position:relative;overflow:hidden;color:#fff}
 .flow-header::before{content:'';position:absolute;top:-80px;right:-80px;width:240px;height:240px;background:radial-gradient(circle,rgba(43,126,201,0.25) 0%,transparent 65%);border-radius:50%;pointer-events:none}
 .flow-header::after{content:'';position:absolute;bottom:-40px;left:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(26,95,164,0.18) 0%,transparent 65%);border-radius:50%;pointer-events:none}
 .flow-header>.container{position:relative;z-index:1}
@@ -334,7 +334,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .stat-card-v2-lbl{font-size:10px;color:var(--text-3);margin-top:6px;text-transform:uppercase;letter-spacing:1px;font-weight:600}
 
 /* ============ SUCCESS PAGE (s4) ============ */
-.success-header{background:#0A2540;padding:calc(env(safe-area-inset-top,0px) + 40px) 0 48px;position:relative;overflow:hidden;color:#fff;text-align:center}
+.success-header{background:#0A2540;padding:max(56px,calc(env(safe-area-inset-top,0px) + 40px)) 0 48px;position:relative;overflow:hidden;color:#fff;text-align:center}
 .success-header::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:320px;height:320px;background:radial-gradient(circle,rgba(58,208,127,0.25) 0%,transparent 65%);border-radius:50%;pointer-events:none}
 .success-header::after{content:'';position:absolute;bottom:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(43,126,201,0.2) 0%,transparent 65%);border-radius:50%;pointer-events:none}
 .success-header>.container{position:relative;z-index:1}
@@ -408,6 +408,9 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .progress-fill{height:4px;border-radius:2px;background:#fff;transition:width .3s}
 .form-body{padding:28px 0 40px}
 .field{margin-bottom:22px}
+/* Disable iOS auto-telephone styling even if meta fails */
+a[href^="tel:"],a[x-apple-data-detectors],.chip a{color:inherit !important;text-decoration:none !important;font-weight:inherit !important;font-size:inherit !important;pointer-events:none !important}
+
 .field-label{font-size:13px;font-weight:600;color:var(--text);margin-bottom:8px;display:block}
 .field-input{width:100%;padding:14px 16px;border:1.5px solid var(--border);border-radius:12px;font-size:15px;color:var(--text);background:var(--card);font-family:inherit;outline:none;transition:all .2s}
 .field-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,95,164,0.1)}
@@ -416,8 +419,8 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .field-error{border-color:var(--red) !important;box-shadow:0 0 0 3px rgba(163,45,45,0.1) !important}
 .error-msg{font-size:12px;color:var(--red);margin-top:6px;display:none}
 .error-msg.visible{display:block}
-.date-row{display:flex;gap:10px}
-.date-row>div{flex:1 1 0;min-width:0}
+.date-row{display:flex;gap:10px;flex-wrap:wrap}
+.date-row>div{flex:1 1 160px;min-width:0}
 .date-row .field-input{min-width:0}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{padding:10px 18px;border-radius:24px;border:1.5px solid var(--border);font-size:14px;color:var(--text-2);cursor:pointer;background:var(--card);transition:all .15s;font-family:inherit;user-select:none;font-weight:500}
@@ -557,7 +560,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .site-footer-tagline{font-size:12px;color:rgba(255,255,255,0.4);text-align:center;margin-bottom:24px;letter-spacing:.5px}
 
 /* Info pages */
-.info-header{background:linear-gradient(165deg,#0A3D6E,#185FA5);padding:calc(env(safe-area-inset-top,0px) + 20px) 0 32px;position:relative;overflow:hidden}
+.info-header{background:linear-gradient(165deg,#0A3D6E,#185FA5);padding:max(44px,calc(env(safe-area-inset-top,0px) + 24px)) 0 32px;position:relative;overflow:hidden}
 .info-header::before{content:'';position:absolute;top:-80px;right:-80px;width:240px;height:240px;background:radial-gradient(circle,rgba(255,255,255,0.08) 0%,transparent 70%);border-radius:50%;pointer-events:none}
 .info-header::after{content:'';position:absolute;bottom:-60px;left:-60px;width:180px;height:180px;background:radial-gradient(circle,rgba(255,255,255,0.05) 0%,transparent 70%);border-radius:50%;pointer-events:none}
 .info-header>.container{position:relative;z-index:1}
@@ -724,9 +727,6 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
   /* Form sections */
   .form-section-card{padding:16px}
   .form-section-label{font-size:10px}
-
-  /* Date row — на узких телефонах складываем в столбец */
-  .date-row{flex-direction:column;gap:10px}
 
   /* Destination chips grid — давай в одну колонку на узких */
   .package-grid{grid-template-columns:1fr 1fr}
@@ -1141,7 +1141,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 <div class="form-section">
 <div class="form-section-label">О поездке</div>
 <div class="form-section-card">
-<div class="field"><label class="field-label">Бюджет на человека</label><div class="chips" id="f-budget" data-mode="single"><div class="chip" onclick="pick(this)">до 30 000 &#8381;</div><div class="chip on" onclick="pick(this)">30-60 000 &#8381;</div><div class="chip" onclick="pick(this)">60-100 000 &#8381;</div><div class="chip" onclick="pick(this)">100 000+ &#8381;</div><div class="chip chip-custom" onclick="pick(this)">&#9998; Своя сумма</div></div>
+<div class="field"><label class="field-label">Бюджет на человека</label><div class="chips" id="f-budget" data-mode="single"><div class="chip" onclick="pick(this)">до 30 000 &#8381;</div><div class="chip on" onclick="pick(this)">30&ndash;60 000 &#8381;</div><div class="chip" onclick="pick(this)">60&ndash;100 000 &#8381;</div><div class="chip" onclick="pick(this)">100 000+ &#8381;</div><div class="chip chip-custom" onclick="pick(this)">&#9998; Своя сумма</div></div>
 <div class="custom-budget-wrap" id="f-budget-custom-wrap">
 <div class="custom-budget-input"><input type="number" id="f-budget-custom" placeholder="Например, 45000" min="0" step="1000" inputmode="numeric"><span class="custom-budget-suffix">&#8381; на человека</span></div>
 <div class="custom-budget-hint">Укажите ориентировочный бюджет — ИИ учтёт при подборе жилья и активностей</div>
