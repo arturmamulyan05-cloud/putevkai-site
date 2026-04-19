@@ -276,6 +276,126 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 /* ============ SCROLL REVEAL ============ */
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ============ FLOW HEADER (unified for s2, s3, s5) ============ */
+.flow-header{background:#0A2540;padding:24px 0 36px;position:relative;overflow:hidden;color:#fff}
+.flow-header::before{content:'';position:absolute;top:-80px;right:-80px;width:240px;height:240px;background:radial-gradient(circle,rgba(43,126,201,0.25) 0%,transparent 65%);border-radius:50%;pointer-events:none}
+.flow-header::after{content:'';position:absolute;bottom:-40px;left:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(26,95,164,0.18) 0%,transparent 65%);border-radius:50%;pointer-events:none}
+.flow-header>.container{position:relative;z-index:1}
+.flow-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.flow-back{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;color:rgba(255,255,255,0.9);background:rgba(255,255,255,0.06);font-family:inherit;transition:all .15s;flex-shrink:0}
+.flow-back:hover{background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.35)}
+.flow-step{font-size:11px;font-weight:700;color:#8AC0EE;letter-spacing:2px;text-transform:uppercase;padding:5px 11px;background:rgba(43,126,201,0.15);border:1px solid rgba(43,126,201,0.3);border-radius:20px}
+.flow-badge-example{font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);color:rgba(255,255,255,0.9);letter-spacing:.5px}
+.flow-title{font-size:28px;font-weight:800;line-height:1.15;letter-spacing:-.5px;color:#fff;margin-bottom:8px}
+.flow-sub{font-size:14px;color:rgba(255,255,255,0.65);line-height:1.5;margin-bottom:20px;max-width:380px}
+.flow-progress{height:4px;background:rgba(255,255,255,0.12);border-radius:2px;overflow:hidden}
+.flow-progress-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#6AB2E8,#B8D9F5);transition:width .4s ease}
+
+/* ============ FORM BODY V2 ============ */
+.flow-body{padding:32px 0 48px}
+.form-section{margin-bottom:32px}
+.form-section:last-child{margin-bottom:24px}
+.form-section-label{font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:2px;margin-bottom:16px;padding-left:4px}
+.form-section-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,0.03)}
+.form-section-card .field:last-child{margin-bottom:0}
+
+/* ============ ORDER SUMMARY (on s3) ============ */
+.order-summary{background:linear-gradient(135deg,var(--blue-light),#F0F5FC);border:1px solid rgba(26,95,164,0.15);border-radius:16px;padding:16px 18px;margin-bottom:24px;display:flex;align-items:center;gap:14px}
+.order-summary-icon{width:36px;height:36px;border-radius:10px;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.order-summary-body{flex:1;min-width:0}
+.order-summary-label{font-size:10px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:3px}
+.order-summary-main{font-size:14px;font-weight:700;color:var(--text);line-height:1.4}
+.order-summary-edit{font-size:11px;color:var(--blue);font-weight:600;cursor:pointer;padding:6px 12px;border-radius:8px;background:rgba(255,255,255,0.6);border:1px solid rgba(26,95,164,0.2);transition:all .15s;flex-shrink:0;font-family:inherit}
+.order-summary-edit:hover{background:#fff;border-color:var(--blue)}
+
+/* ============ PAY BUTTON V2 ============ */
+.pay-btn{display:flex;width:100%;padding:18px 24px;border-radius:14px;background:var(--blue);color:#fff;border:none;cursor:pointer;font-family:inherit;transition:all .2s;align-items:center;justify-content:space-between;box-shadow:0 4px 16px rgba(26,95,164,0.3);margin-top:8px}
+.pay-btn:hover{background:var(--blue-dark);transform:translateY(-1px);box-shadow:0 8px 24px rgba(26,95,164,0.4)}
+.pay-btn:active{transform:scale(.98)}
+.pay-btn:disabled{opacity:.7;cursor:not-allowed;transform:none}
+.pay-btn-label{font-size:15px;font-weight:700}
+.pay-btn-price{font-size:17px;font-weight:800;letter-spacing:-.3px}
+
+/* ============ GUARANTEE V2 ============ */
+.guarantee-v2{margin:22px 0;padding:18px 20px;background:var(--green-light);border:1px solid rgba(15,110,86,0.15);border-radius:14px;display:flex;gap:14px;align-items:flex-start}
+.guarantee-v2-icon{width:32px;height:32px;border-radius:10px;background:var(--green);color:#fff;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px}
+.guarantee-v2-body{flex:1;font-size:13px;color:var(--green);line-height:1.55}
+.guarantee-v2-body strong{color:#0A5A45;font-weight:700;display:block;margin-bottom:3px;font-size:13px}
+
+/* ============ EXAMPLE PAGE STATS V2 ============ */
+.example-stats-v2{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:24px}
+.stat-card-v2{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 12px;text-align:center;transition:transform .2s}
+.stat-card-v2:hover{transform:translateY(-2px)}
+.stat-card-v2-num{font-size:22px;font-weight:800;letter-spacing:-.5px;line-height:1}
+.stat-card-v2-lbl{font-size:10px;color:var(--text-3);margin-top:6px;text-transform:uppercase;letter-spacing:1px;font-weight:600}
+
+/* ============ SUCCESS PAGE (s4) ============ */
+.success-header{background:#0A2540;padding:40px 0 48px;position:relative;overflow:hidden;color:#fff;text-align:center}
+.success-header::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:320px;height:320px;background:radial-gradient(circle,rgba(58,208,127,0.25) 0%,transparent 65%);border-radius:50%;pointer-events:none}
+.success-header::after{content:'';position:absolute;bottom:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(43,126,201,0.2) 0%,transparent 65%);border-radius:50%;pointer-events:none}
+.success-header>.container{position:relative;z-index:1}
+.success-check-wrap{width:76px;height:76px;border-radius:50%;background:linear-gradient(135deg,#3AD07F,#2AA865);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;box-shadow:0 12px 32px rgba(58,208,127,0.3);animation:scaleIn .5s cubic-bezier(.4,0,.2,1);border:3px solid rgba(255,255,255,0.15)}
+.success-check{color:#fff;font-size:36px;font-weight:800;line-height:1}
+.success-title{font-size:30px;font-weight:800;line-height:1.15;letter-spacing:-.5px;color:#fff;margin-bottom:10px}
+.success-sub{font-size:14px;color:rgba(255,255,255,0.7);line-height:1.5;max-width:340px;margin:0 auto}
+.success-sub strong{color:#fff;font-weight:600}
+
+/* Timeline */
+.success-timeline{display:flex;align-items:flex-start;justify-content:space-between;gap:0;margin:0 auto 0;max-width:380px;padding:0 8px;position:relative;z-index:2}
+.success-timeline-step{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;position:relative}
+.success-timeline-dot{width:32px;height:32px;border-radius:50%;background:var(--card);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--text-3);z-index:2;position:relative;transition:all .3s}
+.success-timeline-step.done .success-timeline-dot{background:#3AD07F;border-color:#3AD07F;color:#fff;box-shadow:0 2px 8px rgba(58,208,127,0.35)}
+.success-timeline-step.active .success-timeline-dot{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 2px 8px rgba(26,95,164,0.4);animation:pulse-dot 2s ease infinite}
+@keyframes pulse-dot{0%,100%{box-shadow:0 0 0 0 rgba(26,95,164,0.5),0 2px 8px rgba(26,95,164,0.4)}50%{box-shadow:0 0 0 10px rgba(26,95,164,0),0 2px 8px rgba(26,95,164,0.4)}}
+.success-timeline-label{font-size:11px;font-weight:600;color:var(--text-2);text-align:center;line-height:1.3;padding:0 2px}
+.success-timeline-step:not(.active):not(.done) .success-timeline-label{color:var(--text-3)}
+.success-timeline-step.active .success-timeline-label{color:var(--blue);font-weight:700}
+.success-timeline-step.done .success-timeline-label{color:var(--green);font-weight:700}
+.success-timeline-step::before{content:'';position:absolute;top:16px;left:-50%;width:100%;height:2px;background:var(--border);z-index:1}
+.success-timeline-step:first-child::before{display:none}
+.success-timeline-step.done+.success-timeline-step::before,
+.success-timeline-step.done::before{background:#3AD07F}
+
+/* Success body */
+.success-body{padding:28px 0 40px;margin-top:-12px;position:relative;z-index:3}
+
+/* Detailed order info */
+.success-order-card{background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden;margin-bottom:16px;box-shadow:0 4px 20px rgba(0,0,0,0.06)}
+.success-order-head{background:linear-gradient(135deg,#F5F7FB,#EDF1F8);padding:14px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border-light)}
+.success-order-head-icon{width:28px;height:28px;border-radius:8px;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.success-order-head-title{font-size:13px;font-weight:700;color:var(--text);letter-spacing:.2px}
+.success-order-head-num{font-size:10px;color:var(--text-3);margin-left:auto;font-variant-numeric:tabular-nums;letter-spacing:.5px}
+.success-order-body{padding:18px 20px}
+.success-order-row{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;padding:9px 0;border-bottom:1px dashed var(--border-light);font-size:13px}
+.success-order-row:first-child{padding-top:0}
+.success-order-row:last-child{padding-bottom:0;border-bottom:none}
+.success-order-lbl{color:var(--text-3);font-weight:500;flex-shrink:0}
+.success-order-val{color:var(--text);font-weight:600;text-align:right;word-break:break-word;max-width:60%}
+.success-order-val.email{font-family:ui-monospace,Menlo,Monaco,Consolas,monospace;font-size:12px;font-weight:500}
+
+/* Package preview on success */
+.success-package-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px;margin-bottom:16px}
+.success-package-head{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.success-package-head-icon{width:32px;height:32px;border-radius:10px;background:var(--blue-light);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.success-package-head-title{font-size:15px;font-weight:800;letter-spacing:-.2px;line-height:1.3}
+.success-package-head-sub{font-size:12px;color:var(--text-3);margin-top:2px}
+.success-package-badge{font-size:10px;font-weight:800;padding:5px 10px;border-radius:8px;background:var(--blue);color:#fff;letter-spacing:.3px;text-transform:uppercase;flex-shrink:0}
+.success-package-badge.pack{background:var(--amber)}
+.success-package-badge.basic{background:var(--text-3)}
+.success-package-items{display:flex;flex-direction:column;gap:10px}
+.success-package-item{display:flex;align-items:center;gap:12px;padding:10px 12px;background:var(--bg);border-radius:10px;border:1px solid var(--border-light)}
+.success-package-item-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0}
+.success-package-item-text{flex:1;min-width:0}
+.success-package-item-name{font-size:13px;font-weight:700;color:var(--text);line-height:1.3}
+.success-package-item-desc{font-size:11px;color:var(--text-3);line-height:1.4;margin-top:1px}
+
+/* Help card (if not received) */
+.success-help-card{background:var(--amber-light);border:1px solid rgba(133,79,11,0.15);border-radius:16px;padding:18px 20px;margin-bottom:20px;display:flex;gap:14px;align-items:flex-start}
+.success-help-card-icon{width:30px;height:30px;border-radius:10px;background:var(--amber);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.success-help-card-body{flex:1;font-size:13px;color:var(--amber);line-height:1.55}
+.success-help-card-body strong{display:block;color:#5A3407;font-weight:700;margin-bottom:4px;font-size:13px}
+.success-help-card-body a{color:#5A3407;text-decoration:underline;font-weight:600}
 .form-header{background:linear-gradient(165deg,#0A3D6E,#185FA5);padding:20px 0 24px}
 .form-nav{display:flex;align-items:center;gap:12px;margin-bottom:16px}
 .back-btn{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;color:rgba(255,255,255,0.8);background:rgba(255,255,255,0.08);font-family:inherit;transition:all .15s}
@@ -299,6 +419,20 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .chip{padding:10px 18px;border-radius:24px;border:1.5px solid var(--border);font-size:14px;color:var(--text-2);cursor:pointer;background:var(--card);transition:all .15s;font-family:inherit;user-select:none;font-weight:500}
 .chip:hover{border-color:var(--blue);color:var(--blue)}
 .chip.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.chip-custom{border-style:dashed}
+.chip-custom:hover{border-style:solid}
+.chip-custom.on{border-style:solid;background:var(--blue-dark)}
+
+/* Custom budget input */
+.custom-budget-wrap{display:none;margin-top:12px;padding:14px 16px;background:var(--blue-light);border-radius:12px;border:1px solid rgba(26,95,164,0.15);animation:fadeUp .25s ease}
+.custom-budget-wrap.visible{display:block}
+.custom-budget-input{display:flex;align-items:center;gap:10px}
+.custom-budget-input input{flex:1;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:15px;font-family:inherit;outline:none;transition:all .15s;font-weight:600;color:var(--text);background:#fff;min-width:0}
+.custom-budget-input input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,95,164,0.1)}
+.custom-budget-input input::-webkit-outer-spin-button,.custom-budget-input input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.custom-budget-input input[type=number]{-moz-appearance:textfield}
+.custom-budget-suffix{font-size:13px;color:var(--blue);font-weight:600;white-space:nowrap;flex-shrink:0}
+.custom-budget-hint{font-size:12px;color:var(--text-2);margin-top:8px;line-height:1.45}
 .btn-primary{display:block;width:100%;padding:16px;border-radius:14px;background:var(--blue);color:#fff;text-align:center;font-size:15px;font-weight:700;border:none;cursor:pointer;font-family:inherit;transition:all .2s}
 .btn-primary:hover{background:var(--blue-dark);transform:translateY(-1px)}
 .btn-primary:active{transform:scale(.98)}
@@ -317,6 +451,11 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .tariff-list{margin-top:14px;list-style:none}
 .tariff-list li{font-size:13px;color:var(--text-2);padding:5px 0;display:flex;align-items:center;gap:10px;line-height:1.4}
 .tariff-list li::before{content:'\2713';width:20px;height:20px;border-radius:50%;background:var(--green-light);color:var(--green);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
+.tariff-list li.muted{color:var(--text-3)}
+.tariff-list li.muted::before{content:'\2013';background:var(--border-light);color:var(--text-3)}
+.tariff-list li.note{color:var(--blue);font-weight:500}
+.tariff-list li.note::before{content:'\2605';background:var(--blue-light);color:var(--blue);font-size:10px}
+.tariff-list-divider{margin:8px 0 2px;font-size:10px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:1.5px;padding-left:4px}
 .guarantee{margin:20px 0;padding:16px 20px;background:var(--bg);border-radius:14px;display:flex;gap:12px;align-items:flex-start}
 .guarantee-icon{width:28px;height:28px;border-radius:50%;background:var(--green-light);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--green)}
 .guarantee p{font-size:13px;color:var(--text-2);line-height:1.5}
@@ -767,7 +906,8 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 <li>Список мест и адресов</li>
 <li>Чек-лист вещей</li>
 <li class="muted">Без таблицы бюджета</li>
-<li class="muted">Без карты</li>
+<li class="muted">Без карты на Яндексе</li>
+<li class="muted">Без рекомендаций жилья</li>
 </ul>
 <div class="tariff-preview-cta">Выбрать <span class="tariff-preview-cta-arrow">&rarr;</span></div>
 </div>
@@ -782,29 +922,13 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 <div class="tariff-preview-meta">разово<br>один маршрут</div>
 </div>
 <ul class="tariff-preview-features">
-<li>Всё из базового</li>
+<li>PDF-маршрут по дням</li>
+<li>Список мест и адресов</li>
+<li>Чек-лист вещей</li>
 <li>Таблица бюджета в Google Sheets</li>
 <li>Маршрут на Яндекс.Картах</li>
 <li>Рекомендации кафе и жилья</li>
 <li>Контакты экстренных служб</li>
-</ul>
-<div class="tariff-preview-cta">Выбрать <span class="tariff-preview-cta-arrow">&rarr;</span></div>
-</div>
-
-<div class="tariff-preview reveal" onclick="track('cta_plan_clicked');go(2)">
-<div class="tariff-preview-save-badge">−980 ₽</div>
-<div class="tariff-preview-top">
-<div>
-<div class="tariff-preview-name">Пакет 3 маршрута</div>
-<div class="tariff-preview-price">1&thinsp;990 <span>&#8381;</span></div>
-</div>
-<div class="tariff-preview-meta">за 3 поездки<br>действует год</div>
-</div>
-<ul class="tariff-preview-features">
-<li>3 расширенных маршрута</li>
-<li>Экономия 980&thinsp;₽ vs поодиночке</li>
-<li>Используйте в течение 12 месяцев</li>
-<li>Подходит для планов на год вперёд</li>
 </ul>
 <div class="tariff-preview-cta">Выбрать <span class="tariff-preview-cta-arrow">&rarr;</span></div>
 </div>
@@ -874,18 +998,50 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 
 <!-- S2 FORM -->
 <div class="screen" id="s2">
-<div class="form-header"><div class="container">
-<div class="form-nav"><button class="back-btn" onclick="go(1)">&#8592;</button><span class="form-title">Расскажите о поездке</span></div>
-<div class="progress"><div class="progress-fill" style="width:50%"></div></div>
+<div class="flow-header"><div class="container">
+<div class="flow-nav">
+<button class="flow-back" onclick="go(1)">&#8592;</button>
+<div class="flow-step">Шаг 1 из 2</div>
+</div>
+<h1 class="flow-title">Расскажите о поездке</h1>
+<p class="flow-sub">6 коротких вопросов — 2 минуты на всё</p>
+<div class="flow-progress"><div class="flow-progress-fill" style="width:50%"></div></div>
 </div></div>
-<div class="container"><div class="form-body">
-<div class="field"><label class="field-label">Куда хотите поехать?</label><input class="field-input" id="f-destination" placeholder="Например: Алтай, Байкал, Дагестан..."><div class="field-hint">Можно написать несколько вариантов или «не знаю, подберите»</div></div>
-<div class="field"><label class="field-label">Даты поездки</label><div class="date-row"><div><input class="field-input" id="f-date-start" type="date"></div><div><input class="field-input" id="f-date-end" type="date"></div></div></div>
-<div class="field"><label class="field-label">Бюджет на человека</label><div class="chips" id="f-budget" data-mode="single"><div class="chip" onclick="pick(this)">до 30 000 &#8381;</div><div class="chip on" onclick="pick(this)">30-60 000 &#8381;</div><div class="chip" onclick="pick(this)">60-100 000 &#8381;</div><div class="chip" onclick="pick(this)">100 000+ &#8381;</div></div></div>
+
+<div class="container"><div class="flow-body">
+
+<div class="form-section">
+<div class="form-section-label">Направление и даты</div>
+<div class="form-section-card">
+<div class="field"><label class="field-label">Куда хотите поехать?</label><input class="field-input" id="f-destination" placeholder="Например: Алтай, Байкал, Дагестан..."><div class="field-hint">Можно несколько вариантов или «не знаю, подберите»</div></div>
+<div class="field" style="margin-bottom:0"><label class="field-label">Даты поездки</label><div class="date-row"><div><input class="field-input" id="f-date-start" type="date"></div><div><input class="field-input" id="f-date-end" type="date"></div></div></div>
+</div>
+</div>
+
+<div class="form-section">
+<div class="form-section-label">О поездке</div>
+<div class="form-section-card">
+<div class="field"><label class="field-label">Бюджет на человека</label><div class="chips" id="f-budget" data-mode="single"><div class="chip" onclick="pick(this)">до 30 000 &#8381;</div><div class="chip on" onclick="pick(this)">30-60 000 &#8381;</div><div class="chip" onclick="pick(this)">60-100 000 &#8381;</div><div class="chip" onclick="pick(this)">100 000+ &#8381;</div><div class="chip chip-custom" onclick="pick(this)">&#9998; Своя сумма</div></div>
+<div class="custom-budget-wrap" id="f-budget-custom-wrap">
+<div class="custom-budget-input"><input type="number" id="f-budget-custom" placeholder="Например, 45000" min="0" step="1000" inputmode="numeric"><span class="custom-budget-suffix">&#8381; на человека</span></div>
+<div class="custom-budget-hint">Укажите ориентировочный бюджет — ИИ учтёт при подборе жилья и активностей</div>
+</div>
+<div class="field-hint" style="margin-top:10px">&#9992;&#65039; Без учёта билетов на самолёт или поезд до региона</div>
+</div>
 <div class="field"><label class="field-label">С кем едете?</label><div class="chips" id="f-travelers" data-mode="single"><div class="chip on" onclick="pick(this)">&#128107; Пара</div><div class="chip" onclick="pick(this)">&#128106; Семья с детьми</div><div class="chip" onclick="pick(this)">&#129489; Соло</div><div class="chip" onclick="pick(this)">&#127881; Компания</div><div class="chip" onclick="pick(this)">&#128054; С собакой</div></div></div>
-<div class="field"><label class="field-label">Что важно в поездке?</label><div class="chips" id="f-interests" data-mode="multi"><div class="chip on" onclick="pick(this)">&#127966; Природа</div><div class="chip" onclick="pick(this)">&#127860; Еда</div><div class="chip on" onclick="pick(this)">&#127947; Активный отдых</div><div class="chip" onclick="pick(this)">&#127963; Культура</div><div class="chip" onclick="pick(this)">&#128524; Спокойный отдых</div><div class="chip" onclick="pick(this)">&#128247; Фото-локации</div></div></div>
-<div class="field"><label class="field-label">Что-то ещё? (необязательно)</label><input class="field-input" id="f-wishes" placeholder="Боюсь высоты, люблю кофе, аллергия..."></div>
-<div class="field"><label class="field-label">Email для получения маршрута</label><input class="field-input" id="f-email" type="email" placeholder="your@email.com"></div>
+<div class="field"><label class="field-label">Что важно в поездке?</label><div class="chips" id="f-interests" data-mode="multi"><div class="chip on" onclick="pick(this)">&#127966; Природа</div><div class="chip" onclick="pick(this)">&#127860; Еда и гастрономия</div><div class="chip on" onclick="pick(this)">&#127947; Активный отдых</div><div class="chip" onclick="pick(this)">&#127963; Культура и музеи</div><div class="chip" onclick="pick(this)">&#128524; Спокойный отдых</div><div class="chip" onclick="pick(this)">&#128247; Фото-локации</div><div class="chip" onclick="pick(this)">&#127974; Архитектура</div><div class="chip" onclick="pick(this)">&#127754; Пляж и вода</div><div class="chip" onclick="pick(this)">&#127863; Локальные напитки</div><div class="chip" onclick="pick(this)">&#129496; Баня и велнес</div></div></div>
+<div class="field"><label class="field-label">Темп поездки</label><div class="chips" id="f-pace" data-mode="single"><div class="chip" onclick="pick(this)">&#128293; Насыщенная</div><div class="chip on" onclick="pick(this)">&#127919; Сбалансированная</div><div class="chip" onclick="pick(this)">&#128564; Расслабленная</div></div></div>
+<div class="field"><label class="field-label">Предпочтения по жилью</label><div class="chips" id="f-lodging" data-mode="single"><div class="chip" onclick="pick(this)">&#127976; Отели</div><div class="chip" onclick="pick(this)">&#127968; Квартиры</div><div class="chip" onclick="pick(this)">&#127957; Глэмпинг</div><div class="chip" onclick="pick(this)">&#127794; Турбазы</div><div class="chip on" onclick="pick(this)">&#129335; Без предпочтений</div></div></div>
+<div class="field" style="margin-bottom:0"><label class="field-label">Что-то ещё? <span style="color:var(--text-3);font-weight:400">— необязательно</span></label><input class="field-input" id="f-wishes" placeholder="Боюсь высоты, веган, люблю кофе, аллергия на..."></div>
+</div>
+</div>
+
+<div class="form-section">
+<div class="form-section-label">Куда отправить маршрут</div>
+<div class="form-section-card">
+<div class="field" style="margin-bottom:0"><label class="field-label">Email</label><input class="field-input" id="f-email" type="email" placeholder="your@email.com"><div class="field-hint">На этот адрес придут все файлы пакета</div></div>
+</div>
+</div>
 
 <div class="field consent-field" id="consent-wrap">
 <label class="consent-label">
@@ -894,51 +1050,185 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 </label>
 </div>
 
-<button class="btn-primary" id="submit-btn" onclick="submitForm()">Далее: выбор тарифа</button>
+<button class="btn-primary" id="submit-btn" onclick="submitForm()">Далее &mdash; выбор тарифа &rarr;</button>
 </div></div></div>
 
 <!-- S3 TARIFFS -->
 <div class="screen" id="s3">
-<div class="form-header"><div class="container">
-<div class="form-nav"><button class="back-btn" onclick="go(2)">&#8592;</button><span class="form-title">Выберите тариф</span></div>
+<div class="flow-header"><div class="container">
+<div class="flow-nav">
+<button class="flow-back" onclick="go(2)">&#8592;</button>
+<div class="flow-step">Шаг 2 из 2</div>
+</div>
+<h1 class="flow-title">Выберите тариф</h1>
+<p class="flow-sub">Оплата один раз. Без подписок, без скрытых платежей.</p>
+<div class="flow-progress"><div class="flow-progress-fill" style="width:100%"></div></div>
 </div></div>
-<div class="container" style="padding-top:24px;padding-bottom:40px;">
-<div class="pricing-summary" id="pricing-summary">Ваш маршрут почти готов — выберите подходящий пакет</div>
-<div class="tariff" onclick="pickTariff(this,490)"><div class="tariff-name">Базовый</div><div class="tariff-price">490 &#8381; <span>разово</span></div><ul class="tariff-list"><li>Маршрут по дням в PDF</li><li>Список мест и адресов</li><li>Чек-лист вещей</li></ul></div>
-<div class="tariff selected" id="tariff-mid" onclick="pickTariff(this,990)"><div class="tariff-badge">Популярный</div><div class="tariff-name">Расширенный</div><div class="tariff-price">990 &#8381; <span>разово</span></div><ul class="tariff-list"><li>Всё из базового</li><li>Таблица бюджета в Google Sheets</li><li>Маршрут на Яндекс.Картах</li><li>Рекомендации кафе и жилья</li><li>Контакты экстренных служб</li></ul></div>
-<div class="tariff" onclick="pickTariff(this,1990)"><div class="tariff-badge tariff-badge-save">&minus;980 &#8381;</div><div class="tariff-name">Пакет 3 маршрута</div><div class="tariff-price">1 990 &#8381; <span>за 3 поездки</span></div><ul class="tariff-list"><li>3 расширенных маршрута</li><li>Экономия 980 &#8381; vs поодиночке</li><li>Действует 12 месяцев с даты оплаты</li></ul></div>
-<div class="guarantee"><div class="guarantee-icon">&#10003;</div><p><strong>Если маршрут не подойдёт</strong> — напишите на hello@putevkai.ru. Обсудим: переделаем под уточнения или вернём деньги.</p></div>
-<button class="btn-primary" id="pay-btn" onclick="pay()">Оплатить 990 &#8381;</button>
-</div></div>
+
+<div class="container"><div class="flow-body">
+
+<div class="order-summary">
+<div class="order-summary-icon">&#9992;</div>
+<div class="order-summary-body">
+<div class="order-summary-label">Ваш запрос</div>
+<div class="order-summary-main" id="order-summary-main">—</div>
+</div>
+<button class="order-summary-edit" onclick="go(2)">Изменить</button>
+</div>
+
+<div class="tariff" onclick="pickTariff(this,490)"><div class="tariff-name">Базовый</div><div class="tariff-price">490 &#8381; <span>разово</span></div><ul class="tariff-list">
+<li>PDF-маршрут по дням</li>
+<li>Список мест и адресов</li>
+<li>Чек-лист вещей</li>
+<li class="muted">Без таблицы бюджета</li>
+<li class="muted">Без карты на Яндексе</li>
+<li class="muted">Без рекомендаций жилья</li>
+</ul></div>
+
+<div class="tariff selected" id="tariff-mid" onclick="pickTariff(this,990)"><div class="tariff-badge">Популярный</div><div class="tariff-name">Расширенный</div><div class="tariff-price">990 &#8381; <span>разово</span></div><ul class="tariff-list">
+<li>PDF-маршрут по дням</li>
+<li>Список мест и адресов</li>
+<li>Чек-лист вещей</li>
+<li>Таблица бюджета в Google Sheets</li>
+<li>Маршрут на Яндекс.Картах</li>
+<li>Рекомендации кафе и жилья</li>
+<li>Контакты экстренных служб</li>
+</ul></div>
+
+<div class="guarantee-v2">
+<div class="guarantee-v2-icon">&#10003;</div>
+<div class="guarantee-v2-body">
+<strong>Возврат возможен</strong>
+Если маршрут не подойдёт — напишите на hello@putevkai.ru. Переделаем под уточнения или вернём деньги.
+</div>
+</div>
+
+<button class="pay-btn" id="pay-btn" onclick="pay()">
+<span class="pay-btn-label">Оплатить</span>
+<span class="pay-btn-price" id="pay-btn-price">990 &#8381;</span>
+</button>
+
+</div></div></div>
 
 <!-- S4 RESULT -->
 <div class="screen" id="s4">
-<div class="result-header"><div class="container">
-<div class="result-check">&#10003;</div><h2>Ваш маршрут готов!</h2><p>Отправили всё на вашу почту</p>
+
+<div class="success-header"><div class="container">
+<div class="success-check-wrap"><div class="success-check">&#10003;</div></div>
+<h1 class="success-title">Заказ принят!</h1>
+<p class="success-sub">Соберём ваш маршрут и пришлём на&nbsp;<strong id="r-email-header">указанную почту</strong> в&nbsp;течение <strong>10-30 минут</strong></p>
 </div></div>
-<div class="container"><div class="result-body">
-<div class="summary-card"><div class="summary-row"><span class="lbl">Направление</span><span class="val">Горный Алтай</span></div><div class="summary-row"><span class="lbl">Даты</span><span class="val">12 — 18 июля</span></div><div class="summary-row"><span class="lbl">Бюджет на двоих</span><span class="val">~78 000 &#8381;</span></div><div class="summary-row"><span class="lbl">Дней</span><span class="val">7</span></div></div>
-<div class="day-preview"><div class="day-preview-head">День 1: Горно-Алтайск &#8594; Чемал</div><div class="day-preview-item"><span class="day-preview-time">09:00</span><div><div class="day-preview-place">Прилёт, трансфер</div></div></div><div class="day-preview-item"><span class="day-preview-time">12:00</span><div><div class="day-preview-place">Обед в «Усадьба Ника»</div></div></div><div class="day-preview-item"><span class="day-preview-time">14:00</span><div><div class="day-preview-place">Чемальская ГЭС</div></div></div><div class="day-preview-item"><span class="day-preview-time">17:00</span><div><div class="day-preview-place">Заселение, отдых</div></div></div></div>
-<div class="files-grid">
-<div class="file-card"><div class="file-icon fi-pdf">PDF</div><div class="file-info"><div class="file-name">Маршрут Алтай 7 дней.pdf</div><div class="file-desc">14 страниц, маршрут по дням + чек-лист</div></div><div class="file-arrow">&#8594;</div></div>
-<div class="file-card"><div class="file-icon fi-xls">XLS</div><div class="file-info"><div class="file-name">Бюджет поездки</div><div class="file-desc">Google Sheets, расходы по категориям</div></div><div class="file-arrow">&#8594;</div></div>
-<div class="file-card"><div class="file-icon fi-map">MAP</div><div class="file-info"><div class="file-name">Маршрут на карте</div><div class="file-desc">Яндекс.Карты, все точки отмечены</div></div><div class="file-arrow">&#8594;</div></div>
-<div class="file-card"><div class="file-icon fi-chk" style="font-size:22px">&#10003;</div><div class="file-info"><div class="file-name">Чек-лист вещей</div><div class="file-desc">PDF, адаптирован под Алтай в июле</div></div><div class="file-arrow">&#8594;</div></div>
+
+<div class="container"><div class="success-body">
+
+<div class="success-timeline">
+<div class="success-timeline-step done">
+<div class="success-timeline-dot">&#10003;</div>
+<div class="success-timeline-label">Запрос<br>принят</div>
 </div>
+<div class="success-timeline-step active">
+<div class="success-timeline-dot">2</div>
+<div class="success-timeline-label">Готовим<br>маршрут</div>
+</div>
+<div class="success-timeline-step">
+<div class="success-timeline-dot">3</div>
+<div class="success-timeline-label">Отправляем<br>на почту</div>
+</div>
+</div>
+<p style="text-align:center;font-size:11px;color:var(--text-3);margin-top:14px;letter-spacing:.3px">Обновления статуса придут на почту &mdash; можно закрыть эту вкладку</p>
+
+<!-- Order summary -->
+<div class="success-order-card" style="margin-top:28px">
+<div class="success-order-head">
+<div class="success-order-head-icon">&#9992;</div>
+<div class="success-order-head-title">Ваш заказ</div>
+<div class="success-order-head-num" id="r-order-num">№ —</div>
+</div>
+<div class="success-order-body">
+<div class="success-order-row"><span class="success-order-lbl">Направление</span><span class="success-order-val" id="r-destination">—</span></div>
+<div class="success-order-row"><span class="success-order-lbl">Даты</span><span class="success-order-val" id="r-dates">—</span></div>
+<div class="success-order-row"><span class="success-order-lbl">Дней</span><span class="success-order-val" id="r-days">—</span></div>
+<div class="success-order-row"><span class="success-order-lbl">С кем</span><span class="success-order-val" id="r-travelers">—</span></div>
+<div class="success-order-row"><span class="success-order-lbl">Бюджет</span><span class="success-order-val" id="r-budget">—</span></div>
+<div class="success-order-row"><span class="success-order-lbl">Email для отправки</span><span class="success-order-val email" id="r-email">—</span></div>
+</div>
+</div>
+
+<!-- Package preview -->
+<div class="success-package-card">
+<div class="success-package-head">
+<div class="success-package-head-icon">&#128230;</div>
+<div style="flex:1">
+<div class="success-package-head-title">Что будет в письме</div>
+<div class="success-package-head-sub" id="r-package-sub">4 документа одним архивом</div>
+</div>
+<div class="success-package-badge" id="r-tariff-badge">Расширенный</div>
+</div>
+<div class="success-package-items">
+<div class="success-package-item" data-tariff-tier="1">
+<div class="success-package-item-icon fi-pdf">PDF</div>
+<div class="success-package-item-text">
+<div class="success-package-item-name">Маршрут по дням</div>
+<div class="success-package-item-desc">Расписание, места, адреса, описания</div>
+</div>
+</div>
+<div class="success-package-item" data-tariff-tier="1">
+<div class="success-package-item-icon fi-chk" style="font-size:18px">&#10003;</div>
+<div class="success-package-item-text">
+<div class="success-package-item-name">Чек-лист вещей</div>
+<div class="success-package-item-desc">Под ваш регион, сезон и формат поездки</div>
+</div>
+</div>
+<div class="success-package-item" data-tariff-tier="2">
+<div class="success-package-item-icon fi-xls">XLS</div>
+<div class="success-package-item-text">
+<div class="success-package-item-name">Таблица бюджета</div>
+<div class="success-package-item-desc">Google Sheets, формулы план/факт</div>
+</div>
+</div>
+<div class="success-package-item" data-tariff-tier="2">
+<div class="success-package-item-icon fi-map">MAP</div>
+<div class="success-package-item-text">
+<div class="success-package-item-name">Карта маршрута</div>
+<div class="success-package-item-desc">Ссылка на Яндекс.Карты со всеми точками</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Help if nothing arrives -->
+<div class="success-help-card">
+<div class="success-help-card-icon">&#9888;</div>
+<div class="success-help-card-body">
+<strong>Если через 30 минут ничего не пришло</strong>
+Сначала проверьте папку «Спам» — первое письмо от нового отправителя часто попадает туда. Если и там нет — напишите на <a href="mailto:hello@putevkai.ru">hello@putevkai.ru</a>, разберёмся.
+</div>
+</div>
+
 <button class="btn-primary" onclick="startNewTrip()">Спланировать ещё одну поездку</button>
-<button class="btn-secondary">Поделиться маршрутом</button>
-<div class="footer"><div class="footer-text">Все материалы также отправлены на вашу почту</div></div>
+<button class="btn-secondary" onclick="go(1)">На главную</button>
+
 </div></div></div>
 
 <!-- S5 EXAMPLE -->
 <div class="screen" id="s5">
-<div class="example-header"><div class="container">
-<div class="form-nav"><button class="back-btn" onclick="go(1)">&#8592;</button><span class="form-title">Пример маршрута</span><span class="badge badge-blue" style="margin-left:auto">Пример</span></div>
-<div class="example-hero-title">Москва &#8594; Петербург</div>
-<div class="example-hero-sub">Соло, 14 дней, спокойный отдых + культура, 12-25 апреля</div>
+<div class="flow-header"><div class="container">
+<div class="flow-nav">
+<button class="flow-back" onclick="go(1)">&#8592;</button>
+<div class="flow-badge-example">Пример</div>
+</div>
+<h1 class="flow-title">Москва &rarr; Петербург</h1>
+<p class="flow-sub">Соло &middot; 14 дней &middot; спокойный отдых + культура &middot; 48 000 ₽</p>
 </div></div>
-<div class="container" style="padding-top:24px;padding-bottom:40px;">
-<div class="stats-row"><div class="stat-card"><div class="stat-num">14</div><div class="stat-lbl">дней</div></div><div class="stat-card"><div class="stat-num">~48K</div><div class="stat-lbl">&#8381; бюджет</div></div><div class="stat-card"><div class="stat-num">32</div><div class="stat-lbl">места</div></div></div>
+
+<div class="container"><div class="flow-body">
+
+<div class="example-stats-v2">
+<div class="stat-card-v2"><div class="stat-card-v2-num">14</div><div class="stat-card-v2-lbl">Дней</div></div>
+<div class="stat-card-v2"><div class="stat-card-v2-num">~48K</div><div class="stat-card-v2-lbl">Бюджет, ₽</div></div>
+<div class="stat-card-v2"><div class="stat-card-v2-num">32</div><div class="stat-card-v2-lbl">Места</div></div>
+</div>
+
 <div class="budget-card">
 <div class="budget-head">Бюджет на 14 дней</div>
 <div class="budget-row"><span class="cat">Жильё</span><div class="bar-wrap"><div class="bar-fill" style="width:42%"></div></div><span class="amt">20 000 &#8381;</span></div>
@@ -948,7 +1238,8 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 <div class="budget-row"><span class="cat">Резерв</span><div class="bar-wrap"><div class="bar-fill" style="width:6%"></div></div><span class="amt">3 000 &#8381;</span></div>
 <div class="budget-row total"><span class="cat">Итого</span><span class="amt">48 000 &#8381;</span></div>
 </div>
-<div class="section-label">Первые 2 дня из 14</div>
+
+<div class="section-label" style="margin-top:22px">Первые 2 дня из 14</div>
 <div class="day-card">
 <div class="day-head"><span class="day-head-title">День 1: Прибытие в Москву</span><span class="day-head-city">Москва</span></div>
 <div class="day-item"><span class="day-time">14:00</span><div class="day-content"><div class="day-place">Заселение &#171;Чистые пруды&#187;</div><div class="day-desc">Бутик-отель, 5 мин от метро. 2 500 руб./ночь</div><span class="day-tag tag-rest">Отдых</span></div></div>
@@ -982,7 +1273,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 </div>
 <div class="file-pills"><div class="file-pill"><div class="file-dot" style="background:var(--red)"></div>PDF</div><div class="file-pill"><div class="file-dot" style="background:var(--green)"></div>Таблица</div><div class="file-pill"><div class="file-dot" style="background:var(--blue)"></div>Карта</div><div class="file-pill"><div class="file-dot" style="background:var(--amber)"></div>Чек-лист</div></div>
 <button class="btn-secondary" onclick="go(1)">Назад на главную</button>
-</div></div>
+</div></div></div>
 
 <!-- S6 ABOUT -->
 <div class="screen" id="s6">
@@ -1218,8 +1509,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 <p>Стоимость услуг определяется выбранным Заказчиком тарифом, действующим на сайте на момент оформления заказа:</p>
 <ul>
 <li><strong>Базовый</strong> — 490 рублей за один маршрут;</li>
-<li><strong>Расширенный</strong> — 990 рублей за один маршрут;</li>
-<li><strong>Пакет 3 маршрута</strong> — 1 990 рублей, действует 12 месяцев с даты оплаты.</li>
+<li><strong>Расширенный</strong> — 990 рублей за один маршрут.</li>
 </ul>
 <p>Оплата производится единоразово, в момент оформления заказа, безналичным способом через интернет-эквайринг. Датой оплаты считается дата поступления денежных средств Исполнителю.</p>
 
@@ -1405,9 +1695,11 @@ function validateForm(){
   var dateEnd=document.getElementById('f-date-end');
   var consent=document.getElementById('f-consent');
   var consentWrap=document.getElementById('consent-wrap');
+  var budgetCustom=document.getElementById('f-budget-custom');
 
   [dest,email,dateStart,dateEnd].forEach(function(el){el.classList.remove('field-error');});
   consentWrap.classList.remove('field-error');
+  if(budgetCustom) budgetCustom.classList.remove('field-error');
 
   if(!dest.value.trim()){dest.classList.add('field-error');valid=false;}
   if(!dateStart.value){dateStart.classList.add('field-error');valid=false;}
@@ -1416,10 +1708,22 @@ function validateForm(){
   if(!email.value.trim()||!email.value.includes('@')){email.classList.add('field-error');valid=false;}
   if(!consent.checked){consentWrap.classList.add('field-error');valid=false;}
 
+  // Custom budget: если выбран чип "Своя сумма", сумма обязательна
+  var customChip=document.querySelector('#f-budget .chip-custom.on');
+  if(customChip){
+    var val=budgetCustom ? parseInt(budgetCustom.value,10) : 0;
+    if(!val || val<=0){
+      if(budgetCustom) budgetCustom.classList.add('field-error');
+      valid=false;
+    }
+  }
+
   if(!valid){
     track('form_validation_failed');
     if(!consent.checked && dest.value.trim() && email.value.trim()){
       showToast('Примите условия договора и политику ПДн');
+    }else if(customChip && (!budgetCustom || !parseInt(budgetCustom.value,10))){
+      showToast('Укажите свою сумму бюджета');
     }else{
       showToast('Заполните обязательные поля');
     }
@@ -1434,9 +1738,11 @@ function submitForm(){
     destination:document.getElementById('f-destination').value.trim(),
     date_start:document.getElementById('f-date-start').value,
     date_end:document.getElementById('f-date-end').value,
-    budget:getChipValue('f-budget'),
+    budget:getBudgetValue(),
     travelers:getChipValue('f-travelers'),
     interests:getChipValue('f-interests'),
+    pace:getChipValue('f-pace'),
+    lodging:getChipValue('f-lodging'),
     wishes:document.getElementById('f-wishes').value.trim(),
     email:document.getElementById('f-email').value.trim(),
     consent_given:true,
@@ -1449,22 +1755,48 @@ function submitForm(){
     interests_count:(window._formData.interests||[]).length
   });
 
-  var summary=document.getElementById('pricing-summary');
-  summary.textContent='Маршрут: '+window._formData.destination+', '+window._formData.travelers+', '+window._formData.budget;
+  // Build nice order summary for s3
+  var d=window._formData;
+  var parts=[];
+  if(d.destination) parts.push(d.destination);
+  // days
+  if(d.date_start && d.date_end){
+    var s=new Date(d.date_start), e=new Date(d.date_end);
+    if(!isNaN(s) && !isNaN(e)){
+      var diff=Math.round((e-s)/(1000*60*60*24));
+      if(diff>0){
+        var suffix=(diff===1?'день':(diff<5?'дня':'дней'));
+        parts.push(diff+' '+suffix);
+      }
+    }
+  }
+  if(d.travelers){
+    // Убираем emoji для чистого вывода
+    var trav=d.travelers.replace(/^[^\wА-Яа-я]+\s*/,'').toLowerCase();
+    parts.push(trav);
+  }
+  if(d.budget) parts.push(d.budget);
+
+  var summary=document.getElementById('order-summary-main');
+  if(summary){summary.textContent=parts.join(' · ');}
 
   go(3);
 }
 
 function resetPayButton(){
   var btn=document.getElementById('pay-btn');
-  btn.textContent='Оплатить 990 \u20BD';
+  var priceEl=document.getElementById('pay-btn-price');
+  if(priceEl) priceEl.textContent='990 \u20BD';
   btn.disabled=false;
   document.querySelectorAll('.tariff').forEach(function(t){t.classList.remove('selected');});
-  document.getElementById('tariff-mid').classList.add('selected');
+  var mid=document.getElementById('tariff-mid');
+  if(mid) mid.classList.add('selected');
 }
 
 function pay(){
   var btn=document.getElementById('pay-btn');
+  var labelEl=btn.querySelector('.pay-btn-label');
+  var priceEl=document.getElementById('pay-btn-price');
   var selectedPrice=0;
   var selectedTariff=document.querySelector('.tariff.selected');
   if(selectedTariff){
@@ -1473,12 +1805,15 @@ function pay(){
   }
 
   track('pay_clicked',{price:selectedPrice});
-  btn.textContent='Обработка...';
+  if(labelEl) labelEl.textContent='Обработка...';
+  if(priceEl) priceEl.style.display='none';
   btn.disabled=true;
 
   if(!window._formData){
     track('payment_error',{reason:'no_form_data'});
     showToast('Ошибка: данные формы не найдены');
+    if(labelEl) labelEl.textContent='Оплатить';
+    if(priceEl) priceEl.style.display='';
     resetPayButton();
     return;
   }
@@ -1490,13 +1825,107 @@ function pay(){
   }).then(function(response){
     if(!response.ok) throw new Error('Ошибка сервера');
     track('payment_success',{price:selectedPrice});
-    btn.textContent='Готово!';
+    if(labelEl) labelEl.textContent='Готово!';
+    populateSuccess();
     go(4);
   }).catch(function(err){
     track('payment_error',{reason:'network'});
     showToast('Ошибка отправки. Попробуйте ещё раз.');
+    if(labelEl) labelEl.textContent='Оплатить';
+    if(priceEl) priceEl.style.display='';
     resetPayButton();
   });
+}
+
+/* Helpers for success screen */
+function formatDateShort(iso){
+  if(!iso) return '';
+  var parts=iso.split('-');
+  if(parts.length!==3) return iso;
+  var months=['янв','фев','мар','апр','мая','июн','июл','авг','сен','окт','ноя','дек'];
+  var m=parseInt(parts[1],10);
+  if(m<1||m>12) return iso;
+  return parseInt(parts[2],10)+' '+months[m-1];
+}
+
+function daysBetween(startIso,endIso){
+  if(!startIso||!endIso) return null;
+  var s=new Date(startIso), e=new Date(endIso);
+  if(isNaN(s)||isNaN(e)) return null;
+  var diff=Math.round((e-s)/(1000*60*60*24));
+  if(diff<=0) return null;
+  return diff;
+}
+
+function daysText(n){
+  if(!n) return '—';
+  var last=n%10, rem=n%100;
+  if(rem>=11 && rem<=14) return n+' дней';
+  if(last===1) return n+' день';
+  if(last>=2 && last<=4) return n+' дня';
+  return n+' дней';
+}
+
+function generateOrderNum(){
+  var now=new Date();
+  var pad=function(v){return v<10?'0'+v:''+v;};
+  return 'P-'+now.getFullYear()%100+pad(now.getMonth()+1)+pad(now.getDate())+'-'+pad(now.getHours())+pad(now.getMinutes())+pad(now.getSeconds());
+}
+
+function populateSuccess(){
+  if(!window._formData) return;
+  var d=window._formData;
+  var set=function(id,val){
+    var el=document.getElementById(id);
+    if(el) el.textContent=val||'—';
+  };
+  set('r-destination',d.destination);
+  var datesStr='—';
+  if(d.date_start && d.date_end){
+    datesStr=formatDateShort(d.date_start)+' — '+formatDateShort(d.date_end);
+  }
+  set('r-dates',datesStr);
+  set('r-days',daysText(daysBetween(d.date_start,d.date_end)));
+  set('r-travelers',d.travelers);
+  set('r-budget',d.budget);
+  set('r-email',d.email);
+  set('r-email-header',d.email||'указанную почту');
+  set('r-order-num','№ '+generateOrderNum());
+
+  // Динамический пакет в зависимости от тарифа
+  var price=window._selectedPrice||990;
+  var info=getTariffInfo(price);
+
+  var badge=document.getElementById('r-tariff-badge');
+  if(badge){
+    badge.textContent=info.name;
+    badge.className='success-package-badge';
+    if(info.badgeClass) badge.classList.add(info.badgeClass);
+  }
+
+  // Показать/скрыть пункты по тиру
+  var items=document.querySelectorAll('.success-package-item[data-tariff-tier]');
+  var visibleCount=0;
+  items.forEach(function(item){
+    var itemTier=parseInt(item.getAttribute('data-tariff-tier'),10);
+    if(itemTier<=info.tier){
+      item.style.display='';
+      visibleCount++;
+    }else{
+      item.style.display='none';
+    }
+  });
+
+  // Подзаголовок
+  var sub=document.getElementById('r-package-sub');
+  if(sub){
+    var docsText=visibleCount+(visibleCount===1?' документ':(visibleCount<5?' документа':' документов'));
+    if(info.trips>1){
+      sub.textContent=docsText+' × '+info.trips+' поездки (архив придёт для первой)';
+    }else{
+      sub.textContent=docsText+' одним архивом';
+    }
+  }
 }
 
 function startNewTrip(){
@@ -1510,12 +1939,21 @@ function startNewTrip(){
 
   var budgetChips=document.getElementById('f-budget').querySelectorAll('.chip');
   budgetChips.forEach(function(c,i){c.classList.toggle('on',i===1);});
+  var budgetCustom=document.getElementById('f-budget-custom');
+  if(budgetCustom){budgetCustom.value='';budgetCustom.classList.remove('field-error');}
+  var budgetWrap=document.getElementById('f-budget-custom-wrap');
+  if(budgetWrap) budgetWrap.classList.remove('visible');
+
   var travelerChips=document.getElementById('f-travelers').querySelectorAll('.chip');
   travelerChips.forEach(function(c,i){c.classList.toggle('on',i===0);});
   var interestChips=document.getElementById('f-interests').querySelectorAll('.chip');
   interestChips.forEach(function(c){c.classList.remove('on');});
-  interestChips[0].classList.add('on');
-  interestChips[2].classList.add('on');
+  if(interestChips[0]) interestChips[0].classList.add('on');
+  if(interestChips[2]) interestChips[2].classList.add('on');
+  var paceChips=document.getElementById('f-pace').querySelectorAll('.chip');
+  paceChips.forEach(function(c,i){c.classList.toggle('on',i===1);});
+  var lodgingChips=document.getElementById('f-lodging').querySelectorAll('.chip');
+  lodgingChips.forEach(function(c,i){c.classList.toggle('on',i===4);});
 
   resetPayButton();
   window._formData=null;
@@ -1530,13 +1968,50 @@ function pick(el){
   }else{
     el.classList.toggle('on');
   }
+  // Custom budget logic
+  if(el.parentElement.id==='f-budget'){
+    var wrap=document.getElementById('f-budget-custom-wrap');
+    var input=document.getElementById('f-budget-custom');
+    if(wrap){
+      if(el.classList.contains('chip-custom')){
+        wrap.classList.add('visible');
+        setTimeout(function(){if(input)input.focus();},50);
+      }else{
+        wrap.classList.remove('visible');
+        if(input){input.classList.remove('field-error');}
+      }
+    }
+  }
+}
+
+function getBudgetValue(){
+  var budgetEl=document.getElementById('f-budget');
+  if(!budgetEl) return '';
+  var selected=budgetEl.querySelector('.chip.on');
+  if(!selected) return '';
+  if(selected.classList.contains('chip-custom')){
+    var input=document.getElementById('f-budget-custom');
+    var val=input ? parseInt(input.value,10) : 0;
+    if(val>0){
+      return val.toLocaleString('ru-RU')+' ₽';
+    }
+    return '';
+  }
+  return selected.textContent.trim();
 }
 
 function pickTariff(el,price){
   document.querySelectorAll('.tariff').forEach(function(t){t.classList.remove('selected');});
   el.classList.add('selected');
-  document.getElementById('pay-btn').textContent='Оплатить '+price.toLocaleString('ru-RU')+' \u20BD';
+  var priceEl=document.getElementById('pay-btn-price');
+  if(priceEl) priceEl.textContent=price.toLocaleString('ru-RU')+' \u20BD';
+  window._selectedPrice=price;
   track('tariff_selected',{price:price});
+}
+
+function getTariffInfo(price){
+  if(price===490) return {name:'Базовый',tier:1,badgeClass:'basic',trips:1};
+  return {name:'Расширенный',tier:2,badgeClass:'',trips:1};
 }
 
 var _formStartedTracked=false;
@@ -1556,6 +2031,13 @@ document.addEventListener('DOMContentLoaded',function(){
   if(consent){
     consent.addEventListener('change',function(){
       document.getElementById('consent-wrap').classList.remove('field-error');
+    });
+  }
+
+  var budgetCustom=document.getElementById('f-budget-custom');
+  if(budgetCustom){
+    budgetCustom.addEventListener('input',function(){
+      this.classList.remove('field-error');
     });
   }
 
