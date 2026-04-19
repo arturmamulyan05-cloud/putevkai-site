@@ -417,7 +417,8 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .error-msg{font-size:12px;color:var(--red);margin-top:6px;display:none}
 .error-msg.visible{display:block}
 .date-row{display:flex;gap:10px}
-.date-row>div{flex:1}
+.date-row>div{flex:1 1 0;min-width:0}
+.date-row .field-input{min-width:0}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{padding:10px 18px;border-radius:24px;border:1.5px solid var(--border);font-size:14px;color:var(--text-2);cursor:pointer;background:var(--card);transition:all .15s;font-family:inherit;user-select:none;font-weight:500}
 .chip:hover{border-color:var(--blue);color:var(--blue)}
@@ -723,6 +724,9 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
   /* Form sections */
   .form-section-card{padding:16px}
   .form-section-label{font-size:10px}
+
+  /* Date row — на узких телефонах складываем в столбец */
+  .date-row{flex-direction:column;gap:10px}
 
   /* Destination chips grid — давай в одну колонку на узких */
   .package-grid{grid-template-columns:1fr 1fr}
