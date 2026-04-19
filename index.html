@@ -5,6 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ПутёвкAI — готовый маршрут по России за 5 минут</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=108663677', 'ym');
+    ym(108663677, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/108663677" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--blue:#1A5FA4;--blue-light:#E8F0FB;--blue-dark:#0D4170;--green:#0F6E56;--green-light:#E1F5EE;--amber:#854F0B;--amber-light:#FFF4E0;--red:#A32D2D;--red-light:#FCEBEB;--text:#1E1E1C;--text-2:#5A5A56;--text-3:#8A8A84;--bg:#FAFAF8;--card:#FFFFFF;--border:#E8E8E4;--border-light:#F2F2EE}
@@ -181,8 +195,8 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 <div class="nav-bar"><span class="nav-logo">ПутёвкAI</span></div>
 <h1 class="hero-title">Готовый маршрут<br>по России <span>за 5 минут</span></h1>
 <p class="hero-sub">ИИ спланирует поездку под ваш бюджет, даты и интересы. Вы получите PDF-маршрут, карту и таблицу расходов.</p>
-<button class="hero-cta" onclick="go(2)">Спланировать поездку</button>
-<button class="hero-cta-sec" onclick="go(5)">Посмотреть пример маршрута</button>
+<button class="hero-cta" onclick="track('cta_plan_clicked');go(2)">Спланировать поездку</button>
+<button class="hero-cta-sec" onclick="track('example_view');go(5)">Посмотреть пример маршрута</button>
 </div></div>
 <div class="container">
 <div class="steps-section"><div class="steps-row">
@@ -292,7 +306,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 <div class="blur-cta">
 <div class="lock-icon">&#128274;</div>
 <p>Ещё 12 дней маршрута, карта,<br>таблица бюджета и чек-лист вещей</p>
-<button class="btn-primary" onclick="go(2)">Получить полный маршрут</button>
+<button class="btn-primary" onclick="track('example_cta_clicked');go(2)">Получить полный маршрут</button>
 </div>
 </div>
 
@@ -306,6 +320,17 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 
 <script>
 var WEBHOOK_URL='https://n8n-production-bd16.up.railway.app/webhook/travel-request';
+var YM_ID=108663677;
+
+// Безопасная отправка событий в Яндекс.Метрику.
+// Ничего не падает, если счётчик заблокирован (AdBlock) или ещё не загрузился.
+function track(goal,params){
+  try{
+    if(typeof ym==='function'){
+      ym(YM_ID,'reachGoal',goal,params||{});
+    }
+  }catch(e){}
+}
 
 function go(n){
   document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
@@ -360,6 +385,7 @@ function validateForm(){
     valid=false;
   }
   if(!valid){
+    track('form_validation_failed');
     showToast('Заполните обязательные поля');
   }
   return valid;
@@ -379,6 +405,13 @@ function submitForm(){
     email:document.getElementById('f-email').value.trim()
   };
 
+  // Трекаем успешную отправку формы + параметры (без email, чтобы не было PII)
+  track('form_submitted',{
+    travelers:window._formData.travelers,
+    budget:window._formData.budget,
+    interests_count:(window._formData.interests||[]).length
+  });
+
   // Update pricing summary with user data
   var summary=document.getElementById('pricing-summary');
   summary.textContent='Маршрут: '+window._formData.destination+', '+window._formData.travelers+', '+window._formData.budget;
@@ -397,10 +430,20 @@ function resetPayButton(){
 
 function pay(){
   var btn=document.getElementById('pay-btn');
+  var selectedPrice=0;
+  var selectedTariff=document.querySelector('.tariff.selected');
+  if(selectedTariff){
+    var priceText=selectedTariff.querySelector('.tariff-price').textContent;
+    selectedPrice=parseInt(priceText.replace(/\D/g,''),10)||990;
+  }
+
+  track('pay_clicked',{price:selectedPrice});
+
   btn.textContent='Обработка...';
   btn.disabled=true;
 
   if(!window._formData){
+    track('payment_error',{reason:'no_form_data'});
     showToast('Ошибка: данные формы не найдены');
     resetPayButton();
     return;
@@ -412,15 +455,19 @@ function pay(){
     body:JSON.stringify(window._formData)
   }).then(function(response){
     if(!response.ok) throw new Error('Ошибка сервера');
+    track('payment_success',{price:selectedPrice});
     btn.textContent='Готово!';
     go(4);
   }).catch(function(err){
+    track('payment_error',{reason:'network'});
     showToast('Ошибка отправки. Попробуйте ещё раз.');
     resetPayButton();
   });
 }
 
 function startNewTrip(){
+  track('new_trip_started');
+
   // Reset form fields
   document.getElementById('f-destination').value='';
   document.getElementById('f-date-start').value='';
@@ -461,12 +508,29 @@ function pickTariff(el,price){
   document.querySelectorAll('.tariff').forEach(function(t){t.classList.remove('selected');});
   el.classList.add('selected');
   document.getElementById('pay-btn').textContent='Оплатить '+price.toLocaleString('ru-RU')+' \u20BD';
+  track('tariff_selected',{price:price});
 }
 
-// Remove error styling on input focus
+// Remove error styling on input focus + отслеживание начала заполнения формы (один раз за сессию)
+var _formStartedTracked=false;
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('.field-input').forEach(function(input){
     input.addEventListener('focus',function(){this.classList.remove('field-error');});
+    input.addEventListener('input',function(){
+      if(!_formStartedTracked){
+        _formStartedTracked=true;
+        track('form_started');
+      }
+    });
+  });
+  // То же для чипсов (пользователь может начать с выбора чипса, не трогая текстовые поля)
+  document.querySelectorAll('.chips .chip').forEach(function(chip){
+    chip.addEventListener('click',function(){
+      if(!_formStartedTracked){
+        _formStartedTracked=true;
+        track('form_started');
+      }
+    });
   });
 });
 </script>
