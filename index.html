@@ -7,11 +7,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>ПутёвкAI — готовый маршрут по России за 10 минут</title>
-<meta name="description" content="AI-планировщик путешествий по России. Получите PDF-маршрут, таблицу бюджета и карту за 10 минут. От 490 ₽.">
-<meta name="theme-color" content="#1A5FA4">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%231A5FA4'/%3E%3Ctext x='50' y='72' text-anchor='middle' font-family='Arial,sans-serif' font-size='62' font-weight='900' fill='white'%3E%D0%9F%3C/text%3E%3C/svg%3E">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%231A5FA4'/%3E%3Ctext x='50' y='72' text-anchor='middle' font-family='Arial,sans-serif' font-size='62' font-weight='900' fill='white'%3E%D0%9F%3C/text%3E%3C/svg%3E">
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="description" content="Готовый план путешествия по России за 10 минут. Маршрут по дням, бюджет, карта и чек-лист — всё на почту. От 290 ₽.">
+<meta name="theme-color" content="#1C5E4A">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%231C5E4A'/%3E%3Ctext x='50' y='72' text-anchor='middle' font-family='Arial,sans-serif' font-size='62' font-weight='900' fill='white'%3E%D0%9F%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%231C5E4A'/%3E%3Ctext x='50' y='72' text-anchor='middle' font-family='Arial,sans-serif' font-size='62' font-weight='900' fill='white'%3E%D0%9F%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
@@ -28,8 +28,37 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--blue:#1A5FA4;--blue-light:#E8F0FB;--blue-dark:#0D4170;--green:#0F6E56;--green-light:#E1F5EE;--amber:#854F0B;--amber-light:#FFF4E0;--red:#A32D2D;--red-light:#FCEBEB;--text:#1E1E1C;--text-2:#5A5A56;--text-3:#8A8A84;--bg:#FAFAF8;--card:#FFFFFF;--border:#E8E8E4;--border-light:#F2F2EE}
-body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
+:root{
+  /* Main brand — глубокий изумруд */
+  --blue:#1C5E4A;
+  --blue-light:#E4F0EB;
+  --blue-dark:#0F3E30;
+  /* Accent — тёплая медь/терракот (для редких CTA и акцентов) */
+  --accent:#C8765A;
+  --accent-light:#F8E7DE;
+  --accent-dark:#A05842;
+  /* Semantic */
+  --green:#1C5E4A;
+  --green-light:#E4F0EB;
+  --amber:#8B5A1E;
+  --amber-light:#FBEED6;
+  --red:#A43F2F;
+  --red-light:#F7E2DD;
+  /* Surface — слоновая кость */
+  --text:#1A2821;
+  --text-2:#4E5E55;
+  --text-3:#8A958F;
+  --bg:#F9F6F0;
+  --card:#FFFFFF;
+  --border:#E6E1D6;
+  --border-light:#F0ECE3;
+  /* Dark surface для hero */
+  --dark:#0F2E26;
+  --dark-2:#184538;
+}
+body{font-family:'Manrope',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
+/* Display font — только для hero и главных заголовков секций */
+.hero-v2-title,.flow-title,.success-title,.demo-title,.comparison-title,.section-main-title,.final-cta-title,.home-cta-title,.info-hero-title,.example-hero-title,.nav-logo,.site-footer-logo{font-family:'Unbounded',sans-serif;font-weight:700;letter-spacing:-.02em}
 .screen{display:none;min-height:100vh;animation:fadeUp .4s ease}
 .screen.active{display:block}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
@@ -37,7 +66,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .container{max-width:480px;margin:0 auto;padding:0 20px}
 .nav-bar{text-align:center;padding-bottom:24px}
 .nav-logo{font-size:18px;font-weight:800;color:#fff;letter-spacing:-.3px}
-.hero-section{background:linear-gradient(165deg,#0A3D6E 0%,#185FA5 40%,#2B7EC9 100%);padding:56px 0 48px;position:relative;overflow:hidden}
+.hero-section{background:linear-gradient(165deg,#0F3E30 0%,#1C5E4A 40%,#2A8B72 100%);padding:56px 0 48px;position:relative;overflow:hidden}
 .hero-section::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(255,255,255,0.08) 0%,transparent 70%);border-radius:50%}
 .hero-section::after{content:'';position:absolute;bottom:-40px;left:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(255,255,255,0.05) 0%,transparent 70%);border-radius:50%}
 .hero-logo{font-size:13px;font-weight:600;color:rgba(255,255,255,0.5);letter-spacing:3px;text-transform:uppercase;text-align:center;margin-bottom:24px}
@@ -107,17 +136,17 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .home-cta-section{padding:36px 0 40px;text-align:center}
 .home-cta-title{font-size:22px;font-weight:800;margin-bottom:8px;letter-spacing:-.3px;line-height:1.3}
 .home-cta-sub{font-size:14px;color:var(--text-2);margin-bottom:22px;line-height:1.5}
-.home-cta-btn{display:inline-block;padding:16px 40px;border-radius:14px;background:var(--blue);color:#fff;text-align:center;font-size:15px;font-weight:700;border:none;cursor:pointer;font-family:inherit;transition:all .2s;box-shadow:0 4px 16px rgba(26,95,164,0.25)}
-.home-cta-btn:hover{background:var(--blue-dark);transform:translateY(-2px);box-shadow:0 6px 24px rgba(26,95,164,0.35)}
+.home-cta-btn{display:inline-block;padding:16px 40px;border-radius:14px;background:var(--blue);color:#fff;text-align:center;font-size:15px;font-weight:700;border:none;cursor:pointer;font-family:inherit;transition:all .2s;box-shadow:0 4px 16px rgba(28,94,74,0.25)}
+.home-cta-btn:hover{background:var(--blue-dark);transform:translateY(-2px);box-shadow:0 6px 24px rgba(28,94,74,0.35)}
 
 /* ============ HERO V2 ============ */
-.hero-v2{background:#0A2540;padding:max(56px,calc(env(safe-area-inset-top,0px) + 40px)) 0 0;position:relative;overflow:hidden;color:#fff}
-.hero-v2::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top right,rgba(43,126,201,0.35) 0%,transparent 55%),radial-gradient(ellipse at bottom left,rgba(26,95,164,0.25) 0%,transparent 55%);pointer-events:none}
+.hero-v2{background:#0F2E26;padding:max(56px,calc(env(safe-area-inset-top,0px) + 40px)) 0 0;position:relative;overflow:hidden;color:#fff}
+.hero-v2::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top right,rgba(28,94,74,0.35) 0%,transparent 55%),radial-gradient(ellipse at bottom left,rgba(28,94,74,0.25) 0%,transparent 55%);pointer-events:none}
 .hero-v2-content{position:relative;z-index:1}
-.hero-v2-tag{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:rgba(43,126,201,0.15);border:1px solid rgba(43,126,201,0.3);border-radius:20px;font-size:11px;font-weight:600;color:#8AC0EE;letter-spacing:.5px;text-transform:uppercase;margin-bottom:20px}
-.hero-v2-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:#3AD07F;box-shadow:0 0 8px #3AD07F}
+.hero-v2-tag{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:rgba(28,94,74,0.15);border:1px solid rgba(28,94,74,0.3);border-radius:20px;font-size:11px;font-weight:600;color:#9ECCB5;letter-spacing:.5px;text-transform:uppercase;margin-bottom:20px}
+.hero-v2-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:#E8B08C;box-shadow:0 0 8px rgba(232,176,140,.6)}
 .hero-v2-title{font-size:40px;font-weight:800;line-height:1.05;letter-spacing:-1px;margin-bottom:18px;color:#fff}
-.hero-v2-title .accent{background:linear-gradient(135deg,#6AB2E8,#B8D9F5);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-v2-title .accent{background:linear-gradient(135deg,#B8DCC9,#DDEDE3);-webkit-background-clip:text;background-clip:text;color:transparent}
 .hero-v2-sub{font-size:16px;color:rgba(255,255,255,0.7);line-height:1.55;margin-bottom:28px;max-width:420px}
 .hero-v2-actions{display:flex;flex-direction:column;gap:10px;margin-bottom:32px}
 .hero-v2-primary{padding:17px 28px;border-radius:14px;background:#fff;color:var(--blue);font-size:15px;font-weight:700;border:none;cursor:pointer;font-family:inherit;transition:all .2s;box-shadow:0 8px 24px rgba(0,0,0,0.25)}
@@ -127,7 +156,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .hero-v2-secondary:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.4)}
 .hero-v2-trust{display:flex;gap:18px;align-items:center;font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:4px}
 .hero-v2-trust-item{display:flex;align-items:center;gap:6px}
-.hero-v2-trust-check{color:#3AD07F;font-weight:800}
+.hero-v2-trust-check{color:#E8A98F;font-weight:800}
 
 /* Hero phone preview */
 .hero-v2-preview{margin:0 -20px;padding:24px 20px 0;position:relative;z-index:1}
@@ -139,10 +168,10 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .phone-demo{display:flex;flex-direction:column;gap:10px}
 .phone-msg{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px 14px;font-size:12px;color:rgba(255,255,255,0.85);line-height:1.5}
 .phone-msg-label{font-size:10px;color:rgba(138,192,238,0.8);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
-.phone-route{background:linear-gradient(135deg,rgba(26,95,164,0.2),rgba(43,126,201,0.1));border:1px solid rgba(43,126,201,0.25);border-radius:12px;padding:12px 14px}
+.phone-route{background:linear-gradient(135deg,rgba(28,94,74,0.2),rgba(28,94,74,0.1));border:1px solid rgba(28,94,74,0.25);border-radius:12px;padding:12px 14px}
 .phone-route-day{display:flex;align-items:center;gap:10px;font-size:11px;color:rgba(255,255,255,0.9);padding:4px 0}
-.phone-route-time{color:#8AC0EE;font-weight:700;min-width:40px}
-.phone-route-dot{width:5px;height:5px;border-radius:50%;background:#3AD07F;flex-shrink:0}
+.phone-route-time{color:#9ECCB5;font-weight:700;min-width:40px}
+.phone-route-dot{width:5px;height:5px;border-radius:50%;background:#E8A98F;flex-shrink:0}
 
 /* ============ TRUST STRIP ============ */
 .trust-strip{background:var(--bg);padding:18px 0;border-bottom:1px solid var(--border-light)}
@@ -159,7 +188,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .demo-tabs{display:flex;gap:6px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:5px;margin-bottom:20px;overflow-x:auto;scrollbar-width:none}
 .demo-tabs::-webkit-scrollbar{display:none}
 .demo-tab{flex:1;padding:9px 10px;border-radius:10px;font-size:12px;font-weight:600;color:var(--text-2);cursor:pointer;background:transparent;border:none;font-family:inherit;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap;min-width:0}
-.demo-tab.on{background:var(--blue);color:#fff;box-shadow:0 2px 8px rgba(26,95,164,0.25)}
+.demo-tab.on{background:var(--blue);color:#fff;box-shadow:0 2px 8px rgba(28,94,74,0.25)}
 .demo-tab-icon{width:18px;height:18px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;flex-shrink:0}
 .demo-tab.on .demo-tab-icon{background:rgba(255,255,255,0.2);color:#fff}
 .demo-panel{display:none;background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.06)}
@@ -185,7 +214,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .demo-sheet-row.total .demo-sheet-num{color:var(--blue);font-weight:800}
 /* Map panel */
 .demo-map{position:relative;height:220px;background:linear-gradient(135deg,#E8F0FB,#D4E4F5);border-radius:8px;overflow:hidden}
-.demo-map-pin{position:absolute;width:20px;height:20px;background:var(--blue);border:2px solid #fff;border-radius:50%;box-shadow:0 2px 6px rgba(26,95,164,0.4);animation:pulse 2s ease infinite}
+.demo-map-pin{position:absolute;width:20px;height:20px;background:var(--blue);border:2px solid #fff;border-radius:50%;box-shadow:0 2px 6px rgba(28,94,74,0.4);animation:pulse 2s ease infinite}
 .demo-map-pin::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:6px;height:6px;background:#fff;border-radius:50%}
 .demo-map-line{position:absolute;height:2px;background:repeating-linear-gradient(90deg,var(--blue) 0,var(--blue) 4px,transparent 4px,transparent 8px);opacity:.4}
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
@@ -196,33 +225,33 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .demo-chk-box.checked{background:var(--green);border-color:var(--green);color:#fff;font-size:11px;font-weight:800}
 
 /* ============ COMPARISON SECTION (DARK) ============ */
-.comparison-section{background:#0A2540;padding:56px 0 48px;margin:8px 0;color:#fff;position:relative;overflow:hidden}
-.comparison-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top,rgba(43,126,201,0.15) 0%,transparent 60%);pointer-events:none}
+.comparison-section{background:#0F2E26;padding:56px 0 48px;margin:8px 0;color:#fff;position:relative;overflow:hidden}
+.comparison-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top,rgba(28,94,74,0.15) 0%,transparent 60%);pointer-events:none}
 .comparison-section>.container{position:relative;z-index:1}
-.comparison-eyebrow{font-size:11px;font-weight:700;color:#8AC0EE;text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;text-align:center}
+.comparison-eyebrow{font-size:11px;font-weight:700;color:#9ECCB5;text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;text-align:center}
 .comparison-title{font-size:26px;font-weight:800;line-height:1.2;letter-spacing:-.5px;text-align:center;margin-bottom:10px;color:#fff}
 .comparison-sub{font-size:14px;color:rgba(255,255,255,0.6);text-align:center;line-height:1.55;margin-bottom:28px}
 .comparison-table{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;overflow:hidden}
 .comparison-head{display:grid;grid-template-columns:1.2fr 1fr 1fr;padding:14px 16px;background:rgba(255,255,255,0.03);border-bottom:1px solid rgba(255,255,255,0.08);gap:8px;align-items:center}
 .comparison-head-cell{font-size:12px;font-weight:700;color:rgba(255,255,255,0.6);letter-spacing:.3px}
 .comparison-head-cell.them{text-align:center;color:rgba(255,255,255,0.45)}
-.comparison-head-cell.us{text-align:center;color:#8AC0EE;font-weight:800}
+.comparison-head-cell.us{text-align:center;color:#9ECCB5;font-weight:800}
 .comparison-row{display:grid;grid-template-columns:1.2fr 1fr 1fr;padding:13px 16px;border-bottom:1px solid rgba(255,255,255,0.06);gap:8px;align-items:center}
 .comparison-row:last-child{border-bottom:none}
 .comparison-criterion{font-size:13px;color:rgba(255,255,255,0.85);font-weight:500;line-height:1.4}
 .comparison-cell{font-size:12px;text-align:center;line-height:1.4}
 .comparison-cell.them{color:rgba(255,255,255,0.5)}
-.comparison-cell.us{color:#3AD07F;font-weight:600}
+.comparison-cell.us{color:#E8A98F;font-weight:600}
 .comparison-mark{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;margin-bottom:4px}
 .comparison-mark.no{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.5)}
-.comparison-mark.yes{background:rgba(58,208,127,0.2);color:#3AD07F}
+.comparison-mark.yes{background:rgba(232,169,143,0.2);color:#E8A98F}
 
 /* ============ STEPS V2 ============ */
 .steps-v2-section{padding:56px 0 44px}
 .steps-v2{display:flex;flex-direction:column;gap:16px;margin-top:28px}
 .step-v2{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px;display:flex;gap:16px;align-items:flex-start;transition:all .2s;position:relative;overflow:hidden}
-.step-v2:hover{transform:translateX(4px);border-color:var(--blue);box-shadow:0 8px 24px rgba(26,95,164,0.08)}
-.step-v2-num{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--blue),#2B7EC9);color:#fff;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;flex-shrink:0;box-shadow:0 4px 12px rgba(26,95,164,0.25)}
+.step-v2:hover{transform:translateX(4px);border-color:var(--blue);box-shadow:0 8px 24px rgba(28,94,74,0.08)}
+.step-v2-num{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--blue),#2A8B72);color:#fff;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;flex-shrink:0;box-shadow:0 4px 12px rgba(28,94,74,0.25)}
 .step-v2-body{flex:1}
 .step-v2-title{font-size:17px;font-weight:800;margin-bottom:6px;letter-spacing:-.2px}
 .step-v2-desc{font-size:13px;color:var(--text-2);line-height:1.55}
@@ -231,8 +260,8 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .tariffs-preview-section{padding:56px 0 44px;background:var(--bg)}
 .tariffs-preview-grid{display:flex;flex-direction:column;gap:12px;margin-top:22px}
 .tariff-preview{background:var(--card);border:1.5px solid var(--border);border-radius:18px;padding:22px 22px 20px;cursor:pointer;transition:all .2s;position:relative}
-.tariff-preview:hover{border-color:var(--blue);transform:translateY(-2px);box-shadow:0 10px 28px rgba(26,95,164,0.08)}
-.tariff-preview.featured{border:2px solid var(--blue);box-shadow:0 6px 24px rgba(26,95,164,0.15)}
+.tariff-preview:hover{border-color:var(--blue);transform:translateY(-2px);box-shadow:0 10px 28px rgba(28,94,74,0.08)}
+.tariff-preview.featured{border:2px solid var(--blue);box-shadow:0 6px 24px rgba(28,94,74,0.15)}
 .tariff-preview-badge{position:absolute;top:-10px;right:18px;font-size:9px;font-weight:800;padding:4px 12px;border-radius:12px;background:var(--blue);color:#fff;letter-spacing:.5px;text-transform:uppercase}
 .tariff-preview-save-badge{position:absolute;top:-10px;right:18px;font-size:9px;font-weight:800;padding:4px 12px;border-radius:12px;background:var(--green);color:#fff;letter-spacing:.5px;text-transform:uppercase}
 .tariff-preview-top{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:14px;gap:12px}
@@ -254,9 +283,9 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .faq-preview-list{display:flex;flex-direction:column;gap:10px;margin-top:22px}
 
 /* ============ FINAL CTA (DARK) ============ */
-.final-cta-section{background:#0A2540;padding:64px 0 72px;color:#fff;position:relative;overflow:hidden;text-align:center}
-.final-cta-section::before{content:'';position:absolute;top:-60px;left:-60px;width:240px;height:240px;background:radial-gradient(circle,rgba(43,126,201,0.25) 0%,transparent 65%);border-radius:50%;pointer-events:none}
-.final-cta-section::after{content:'';position:absolute;bottom:-60px;right:-60px;width:220px;height:220px;background:radial-gradient(circle,rgba(26,95,164,0.2) 0%,transparent 65%);border-radius:50%;pointer-events:none}
+.final-cta-section{background:#0F2E26;padding:64px 0 72px;color:#fff;position:relative;overflow:hidden;text-align:center}
+.final-cta-section::before{content:'';position:absolute;top:-60px;left:-60px;width:240px;height:240px;background:radial-gradient(circle,rgba(28,94,74,0.25) 0%,transparent 65%);border-radius:50%;pointer-events:none}
+.final-cta-section::after{content:'';position:absolute;bottom:-60px;right:-60px;width:220px;height:220px;background:radial-gradient(circle,rgba(28,94,74,0.2) 0%,transparent 65%);border-radius:50%;pointer-events:none}
 .final-cta-section>.container{position:relative;z-index:1}
 .final-cta-title{font-size:28px;font-weight:800;line-height:1.2;letter-spacing:-.5px;margin-bottom:12px;color:#fff}
 .final-cta-sub{font-size:14px;color:rgba(255,255,255,0.7);line-height:1.55;margin-bottom:26px}
@@ -271,7 +300,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 /* ============ STICKY MOBILE CTA ============ */
 .sticky-cta{position:fixed;bottom:16px;left:50%;transform:translateX(-50%) translateY(calc(100% + 32px));z-index:900;opacity:0;transition:all .35s cubic-bezier(.4,0,.2,1);pointer-events:none;max-width:calc(100% - 32px);width:auto}
 .sticky-cta.visible{transform:translateX(-50%) translateY(0);opacity:1;pointer-events:auto}
-.sticky-cta-btn{display:flex;align-items:center;gap:10px;padding:14px 24px;border-radius:100px;background:var(--blue);color:#fff;font-size:14px;font-weight:700;border:none;cursor:pointer;font-family:inherit;box-shadow:0 8px 28px rgba(26,95,164,0.45),0 2px 8px rgba(0,0,0,0.15);transition:all .2s}
+.sticky-cta-btn{display:flex;align-items:center;gap:10px;padding:14px 24px;border-radius:100px;background:var(--blue);color:#fff;font-size:14px;font-weight:700;border:none;cursor:pointer;font-family:inherit;box-shadow:0 8px 28px rgba(28,94,74,0.45),0 2px 8px rgba(0,0,0,0.15);transition:all .2s}
 .sticky-cta-btn:hover{background:var(--blue-dark);transform:scale(1.03)}
 .sticky-cta-btn:active{transform:scale(.97)}
 .sticky-cta-arrow{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:14px}
@@ -281,19 +310,19 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .reveal.visible{opacity:1;transform:translateY(0)}
 
 /* ============ FLOW HEADER (unified for s2, s3, s5) ============ */
-.flow-header{background:#0A2540;padding:max(48px,calc(env(safe-area-inset-top,0px) + 28px)) 0 36px;position:relative;overflow:hidden;color:#fff}
-.flow-header::before{content:'';position:absolute;top:-80px;right:-80px;width:240px;height:240px;background:radial-gradient(circle,rgba(43,126,201,0.25) 0%,transparent 65%);border-radius:50%;pointer-events:none}
-.flow-header::after{content:'';position:absolute;bottom:-40px;left:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(26,95,164,0.18) 0%,transparent 65%);border-radius:50%;pointer-events:none}
+.flow-header{background:#0F2E26;padding:max(48px,calc(env(safe-area-inset-top,0px) + 28px)) 0 36px;position:relative;overflow:hidden;color:#fff}
+.flow-header::before{content:'';position:absolute;top:-80px;right:-80px;width:240px;height:240px;background:radial-gradient(circle,rgba(28,94,74,0.25) 0%,transparent 65%);border-radius:50%;pointer-events:none}
+.flow-header::after{content:'';position:absolute;bottom:-40px;left:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(28,94,74,0.18) 0%,transparent 65%);border-radius:50%;pointer-events:none}
 .flow-header>.container{position:relative;z-index:1}
 .flow-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
 .flow-back{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;color:rgba(255,255,255,0.9);background:rgba(255,255,255,0.06);font-family:inherit;transition:all .15s;flex-shrink:0}
 .flow-back:hover{background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.35)}
-.flow-step{font-size:11px;font-weight:700;color:#8AC0EE;letter-spacing:2px;text-transform:uppercase;padding:5px 11px;background:rgba(43,126,201,0.15);border:1px solid rgba(43,126,201,0.3);border-radius:20px}
+.flow-step{font-size:11px;font-weight:700;color:#9ECCB5;letter-spacing:2px;text-transform:uppercase;padding:5px 11px;background:rgba(28,94,74,0.15);border:1px solid rgba(28,94,74,0.3);border-radius:20px}
 .flow-badge-example{font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);color:rgba(255,255,255,0.9);letter-spacing:.5px}
 .flow-title{font-size:28px;font-weight:800;line-height:1.15;letter-spacing:-.5px;color:#fff;margin-bottom:8px}
 .flow-sub{font-size:14px;color:rgba(255,255,255,0.65);line-height:1.5;margin-bottom:20px;max-width:380px}
 .flow-progress{height:4px;background:rgba(255,255,255,0.12);border-radius:2px;overflow:hidden}
-.flow-progress-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#6AB2E8,#B8D9F5);transition:width .4s ease}
+.flow-progress-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#B8DCC9,#DDEDE3);transition:width .4s ease}
 
 /* ============ FORM BODY V2 ============ */
 .flow-body{padding:32px 0 48px}
@@ -304,17 +333,17 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .form-section-card .field:last-child{margin-bottom:0}
 
 /* ============ ORDER SUMMARY (on s3) ============ */
-.order-summary{background:linear-gradient(135deg,var(--blue-light),#F0F5FC);border:1px solid rgba(26,95,164,0.15);border-radius:16px;padding:16px 18px;margin-bottom:24px;display:flex;align-items:center;gap:14px}
+.order-summary{background:linear-gradient(135deg,var(--blue-light),#F0F5FC);border:1px solid rgba(28,94,74,0.15);border-radius:16px;padding:16px 18px;margin-bottom:24px;display:flex;align-items:center;gap:14px}
 .order-summary-icon{width:36px;height:36px;border-radius:10px;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
 .order-summary-body{flex:1;min-width:0}
 .order-summary-label{font-size:10px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:3px}
 .order-summary-main{font-size:14px;font-weight:700;color:var(--text);line-height:1.4}
-.order-summary-edit{font-size:11px;color:var(--blue);font-weight:600;cursor:pointer;padding:6px 12px;border-radius:8px;background:rgba(255,255,255,0.6);border:1px solid rgba(26,95,164,0.2);transition:all .15s;flex-shrink:0;font-family:inherit}
+.order-summary-edit{font-size:11px;color:var(--blue);font-weight:600;cursor:pointer;padding:6px 12px;border-radius:8px;background:rgba(255,255,255,0.6);border:1px solid rgba(28,94,74,0.2);transition:all .15s;flex-shrink:0;font-family:inherit}
 .order-summary-edit:hover{background:#fff;border-color:var(--blue)}
 
 /* ============ PAY BUTTON V2 ============ */
-.pay-btn{display:flex;width:100%;padding:18px 24px;border-radius:14px;background:var(--blue);color:#fff;border:none;cursor:pointer;font-family:inherit;transition:all .2s;align-items:center;justify-content:space-between;box-shadow:0 4px 16px rgba(26,95,164,0.3);margin-top:8px}
-.pay-btn:hover{background:var(--blue-dark);transform:translateY(-1px);box-shadow:0 8px 24px rgba(26,95,164,0.4)}
+.pay-btn{display:flex;width:100%;padding:18px 24px;border-radius:14px;background:var(--blue);color:#fff;border:none;cursor:pointer;font-family:inherit;transition:all .2s;align-items:center;justify-content:space-between;box-shadow:0 4px 16px rgba(28,94,74,0.3);margin-top:8px}
+.pay-btn:hover{background:var(--blue-dark);transform:translateY(-1px);box-shadow:0 8px 24px rgba(28,94,74,0.4)}
 .pay-btn:active{transform:scale(.98)}
 .pay-btn:disabled{opacity:.7;cursor:not-allowed;transform:none}
 .pay-btn-label{font-size:15px;font-weight:700}
@@ -334,11 +363,11 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .stat-card-v2-lbl{font-size:10px;color:var(--text-3);margin-top:6px;text-transform:uppercase;letter-spacing:1px;font-weight:600}
 
 /* ============ SUCCESS PAGE (s4) ============ */
-.success-header{background:#0A2540;padding:max(56px,calc(env(safe-area-inset-top,0px) + 40px)) 0 48px;position:relative;overflow:hidden;color:#fff;text-align:center}
-.success-header::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:320px;height:320px;background:radial-gradient(circle,rgba(58,208,127,0.25) 0%,transparent 65%);border-radius:50%;pointer-events:none}
-.success-header::after{content:'';position:absolute;bottom:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(43,126,201,0.2) 0%,transparent 65%);border-radius:50%;pointer-events:none}
+.success-header{background:#0F2E26;padding:max(56px,calc(env(safe-area-inset-top,0px) + 40px)) 0 48px;position:relative;overflow:hidden;color:#fff;text-align:center}
+.success-header::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:320px;height:320px;background:radial-gradient(circle,rgba(232,169,143,0.25) 0%,transparent 65%);border-radius:50%;pointer-events:none}
+.success-header::after{content:'';position:absolute;bottom:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(28,94,74,0.2) 0%,transparent 65%);border-radius:50%;pointer-events:none}
 .success-header>.container{position:relative;z-index:1}
-.success-check-wrap{width:76px;height:76px;border-radius:50%;background:linear-gradient(135deg,#3AD07F,#2AA865);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;box-shadow:0 12px 32px rgba(58,208,127,0.3);animation:scaleIn .5s cubic-bezier(.4,0,.2,1);border:3px solid rgba(255,255,255,0.15)}
+.success-check-wrap{width:76px;height:76px;border-radius:50%;background:linear-gradient(135deg,#E8A98F,#C8765A);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;box-shadow:0 12px 32px rgba(232,169,143,0.3);animation:scaleIn .5s cubic-bezier(.4,0,.2,1);border:3px solid rgba(255,255,255,0.15)}
 .success-check{color:#fff;font-size:36px;font-weight:800;line-height:1}
 .success-title{font-size:30px;font-weight:800;line-height:1.15;letter-spacing:-.5px;color:#fff;margin-bottom:10px}
 .success-sub{font-size:14px;color:rgba(255,255,255,0.7);line-height:1.5;max-width:340px;margin:0 auto}
@@ -348,9 +377,9 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .success-timeline{display:flex;align-items:flex-start;justify-content:space-between;gap:0;margin:0 auto 0;max-width:380px;padding:0 8px;position:relative;z-index:2}
 .success-timeline-step{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;position:relative}
 .success-timeline-dot{width:32px;height:32px;border-radius:50%;background:var(--card);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--text-3);z-index:2;position:relative;transition:all .3s}
-.success-timeline-step.done .success-timeline-dot{background:#3AD07F;border-color:#3AD07F;color:#fff;box-shadow:0 2px 8px rgba(58,208,127,0.35)}
-.success-timeline-step.active .success-timeline-dot{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 2px 8px rgba(26,95,164,0.4);animation:pulse-dot 2s ease infinite}
-@keyframes pulse-dot{0%,100%{box-shadow:0 0 0 0 rgba(26,95,164,0.5),0 2px 8px rgba(26,95,164,0.4)}50%{box-shadow:0 0 0 10px rgba(26,95,164,0),0 2px 8px rgba(26,95,164,0.4)}}
+.success-timeline-step.done .success-timeline-dot{background:#E8A98F;border-color:#E8A98F;color:#fff;box-shadow:0 2px 8px rgba(232,169,143,0.35)}
+.success-timeline-step.active .success-timeline-dot{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 2px 8px rgba(28,94,74,0.4);animation:pulse-dot 2s ease infinite}
+@keyframes pulse-dot{0%,100%{box-shadow:0 0 0 0 rgba(28,94,74,0.5),0 2px 8px rgba(28,94,74,0.4)}50%{box-shadow:0 0 0 10px rgba(28,94,74,0),0 2px 8px rgba(28,94,74,0.4)}}
 .success-timeline-label{font-size:11px;font-weight:600;color:var(--text-2);text-align:center;line-height:1.3;padding:0 2px}
 .success-timeline-step:not(.active):not(.done) .success-timeline-label{color:var(--text-3)}
 .success-timeline-step.active .success-timeline-label{color:var(--blue);font-weight:700}
@@ -358,7 +387,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .success-timeline-step::before{content:'';position:absolute;top:16px;left:-50%;width:100%;height:2px;background:var(--border);z-index:1}
 .success-timeline-step:first-child::before{display:none}
 .success-timeline-step.done+.success-timeline-step::before,
-.success-timeline-step.done::before{background:#3AD07F}
+.success-timeline-step.done::before{background:#E8A98F}
 
 /* Success body */
 .success-body{padding:28px 0 40px;margin-top:-12px;position:relative;z-index:3}
@@ -399,7 +428,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .success-help-card-body{flex:1;font-size:13px;color:var(--amber);line-height:1.55}
 .success-help-card-body strong{display:block;color:#5A3407;font-weight:700;margin-bottom:4px;font-size:13px}
 .success-help-card-body a{color:#5A3407;text-decoration:underline;font-weight:600}
-.form-header{background:linear-gradient(165deg,#0A3D6E,#185FA5);padding:20px 0 24px}
+.form-header{background:linear-gradient(165deg,#0F3E30,#1C5E4A);padding:20px 0 24px}
 .form-nav{display:flex;align-items:center;gap:12px;margin-bottom:16px}
 .back-btn{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;color:rgba(255,255,255,0.8);background:rgba(255,255,255,0.08);font-family:inherit;transition:all .15s}
 .back-btn:hover{background:rgba(255,255,255,0.15)}
@@ -413,7 +442,7 @@ a[href^="tel:"],a[x-apple-data-detectors],.chip a{color:inherit !important;text-
 
 .field-label{font-size:13px;font-weight:600;color:var(--text);margin-bottom:8px;display:block}
 .field-input{width:100%;padding:14px 16px;border:1.5px solid var(--border);border-radius:12px;font-size:15px;color:var(--text);background:var(--card);font-family:inherit;outline:none;transition:all .2s}
-.field-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,95,164,0.1)}
+.field-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(28,94,74,0.1)}
 .field-input::placeholder{color:var(--text-3)}
 .field-hint{font-size:12px;color:var(--text-3);margin-top:6px}
 .field-error{border-color:var(--red) !important;box-shadow:0 0 0 3px rgba(163,45,45,0.1) !important}
@@ -431,11 +460,11 @@ a[href^="tel:"],a[x-apple-data-detectors],.chip a{color:inherit !important;text-
 .chip-custom.on{border-style:solid;background:var(--blue-dark)}
 
 /* Custom budget input */
-.custom-budget-wrap{display:none;margin-top:12px;padding:14px 16px;background:var(--blue-light);border-radius:12px;border:1px solid rgba(26,95,164,0.15);animation:fadeUp .25s ease}
+.custom-budget-wrap{display:none;margin-top:12px;padding:14px 16px;background:var(--blue-light);border-radius:12px;border:1px solid rgba(28,94,74,0.15);animation:fadeUp .25s ease}
 .custom-budget-wrap.visible{display:block}
 .custom-budget-input{display:flex;align-items:center;gap:10px}
 .custom-budget-input input{flex:1;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:15px;font-family:inherit;outline:none;transition:all .15s;font-weight:600;color:var(--text);background:#fff;min-width:0}
-.custom-budget-input input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,95,164,0.1)}
+.custom-budget-input input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(28,94,74,0.1)}
 .custom-budget-input input::-webkit-outer-spin-button,.custom-budget-input input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 .custom-budget-input input[type=number]{-moz-appearance:textfield}
 .custom-budget-suffix{font-size:13px;color:var(--blue);font-weight:600;white-space:nowrap;flex-shrink:0}
@@ -449,7 +478,7 @@ a[href^="tel:"],a[x-apple-data-detectors],.chip a{color:inherit !important;text-
 .pricing-summary{font-size:13px;color:var(--text-2);margin-bottom:24px;line-height:1.5}
 .tariff{background:var(--card);border:1.5px solid var(--border);border-radius:16px;padding:22px;margin-bottom:12px;cursor:pointer;transition:all .2s;position:relative}
 .tariff:hover{border-color:var(--blue)}
-.tariff.selected{border:2.5px solid var(--blue);box-shadow:0 4px 20px rgba(26,95,164,0.12)}
+.tariff.selected{border:2.5px solid var(--blue);box-shadow:0 4px 20px rgba(28,94,74,0.12)}
 .tariff-badge{position:absolute;top:-11px;right:16px;font-size:10px;font-weight:700;padding:4px 14px;border-radius:20px;background:var(--blue);color:#fff}
 .tariff-badge-save{background:var(--green)}
 .tariff-name{font-size:15px;font-weight:700;margin-bottom:4px}
@@ -494,7 +523,7 @@ a[href^="tel:"],a[x-apple-data-detectors],.chip a{color:inherit !important;text-
 .file-desc{font-size:12px;color:var(--text-3);margin-top:2px}
 .file-arrow{font-size:18px;color:var(--border);transition:color .15s}
 .file-card:hover .file-arrow{color:var(--blue)}
-.example-header{background:linear-gradient(165deg,#0A3D6E,#185FA5);padding:20px 0 24px}
+.example-header{background:linear-gradient(165deg,#0F3E30,#1C5E4A);padding:20px 0 24px}
 .example-hero-title{font-size:22px;font-weight:800;color:#fff;margin-bottom:4px}
 .example-hero-sub{font-size:13px;color:rgba(255,255,255,0.65)}
 .stats-row{display:flex;gap:8px;margin-bottom:24px}
@@ -540,7 +569,7 @@ a[href^="tel:"],a[x-apple-data-detectors],.chip a{color:inherit !important;text-
 .blur-cta{position:relative;z-index:2;text-align:center;padding:0 0 24px}
 .blur-cta p{font-size:13px;color:var(--text-3);margin-bottom:14px}
 .lock-icon{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;background:var(--blue-light);color:var(--blue);font-size:22px;margin-bottom:12px}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--red);color:#fff;padding:14px 24px;border-radius:14px;font-size:14px;font-weight:600;font-family:'Outfit',sans-serif;z-index:999;opacity:0;transition:all .3s ease;pointer-events:none;max-width:90%;text-align:center}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--red);color:#fff;padding:14px 24px;border-radius:14px;font-size:14px;font-weight:600;font-family:'Manrope',sans-serif;z-index:999;opacity:0;transition:all .3s ease;pointer-events:none;max-width:90%;text-align:center}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 
 /* Consent checkbox */
@@ -551,7 +580,7 @@ a[href^="tel:"],a[x-apple-data-detectors],.chip a{color:inherit !important;text-
 .consent-field.field-error{border-color:var(--red);background:var(--red-light)}
 
 /* Site footer */
-.site-footer{background:#0A2540;padding:40px 0 32px}
+.site-footer{background:#0F2E26;padding:40px 0 32px}
 .site-footer-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px;max-width:380px;margin-left:auto;margin-right:auto}
 .site-footer-link{font-size:13px;color:rgba(255,255,255,0.75);cursor:pointer;font-family:inherit;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);padding:11px 14px;text-align:center;transition:all .18s;font-weight:500;border-radius:10px}
 .site-footer-link:hover{color:#fff;background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.2)}
@@ -560,7 +589,7 @@ a[href^="tel:"],a[x-apple-data-detectors],.chip a{color:inherit !important;text-
 .site-footer-tagline{font-size:12px;color:rgba(255,255,255,0.4);text-align:center;margin-bottom:24px;letter-spacing:.5px}
 
 /* Info pages */
-.info-header{background:linear-gradient(165deg,#0A3D6E,#185FA5);padding:max(44px,calc(env(safe-area-inset-top,0px) + 24px)) 0 32px;position:relative;overflow:hidden}
+.info-header{background:linear-gradient(165deg,#0F3E30,#1C5E4A);padding:max(44px,calc(env(safe-area-inset-top,0px) + 24px)) 0 32px;position:relative;overflow:hidden}
 .info-header::before{content:'';position:absolute;top:-80px;right:-80px;width:240px;height:240px;background:radial-gradient(circle,rgba(255,255,255,0.08) 0%,transparent 70%);border-radius:50%;pointer-events:none}
 .info-header::after{content:'';position:absolute;bottom:-60px;left:-60px;width:180px;height:180px;background:radial-gradient(circle,rgba(255,255,255,0.05) 0%,transparent 70%);border-radius:50%;pointer-events:none}
 .info-header>.container{position:relative;z-index:1}
@@ -585,7 +614,7 @@ a[href^="tel:"],a[x-apple-data-detectors],.chip a{color:inherit !important;text-
 .info-card li::before{content:'';position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:var(--blue)}
 
 /* Author hero card (О сервисе) */
-.author-card{background:linear-gradient(135deg,#1A5FA4,#2B7EC9);border-radius:20px;padding:28px 24px;margin-bottom:16px;color:#fff;position:relative;overflow:hidden;box-shadow:0 8px 28px rgba(26,95,164,0.25)}
+.author-card{background:linear-gradient(135deg,#1C5E4A,#2A8B72);border-radius:20px;padding:28px 24px;margin-bottom:16px;color:#fff;position:relative;overflow:hidden;box-shadow:0 8px 28px rgba(28,94,74,0.25)}
 .author-card::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(255,255,255,0.12) 0%,transparent 70%);border-radius:50%}
 .author-avatar{width:68px;height:68px;border-radius:50%;background:rgba(255,255,255,0.15);border:2px solid rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;color:#fff;margin-bottom:16px;position:relative;z-index:1}
 .author-quote{font-size:16px;font-weight:500;line-height:1.55;color:#fff;position:relative;z-index:1}
@@ -602,7 +631,7 @@ a[href^="tel:"],a[x-apple-data-detectors],.chip a{color:inherit !important;text-
 
 /* FAQ redesign */
 .faq-item{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:10px;overflow:hidden;transition:all .2s}
-.faq-item.open{border-color:var(--blue);box-shadow:0 4px 20px rgba(26,95,164,0.1)}
+.faq-item.open{border-color:var(--blue);box-shadow:0 4px 20px rgba(28,94,74,0.1)}
 .faq-q{padding:18px 20px;cursor:pointer;display:flex;align-items:flex-start;gap:14px;font-size:14px;font-weight:600;color:var(--text);line-height:1.45;user-select:none}
 .faq-num{flex-shrink:0;font-size:12px;font-weight:800;color:var(--blue);background:var(--blue-light);width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;letter-spacing:-.3px;transition:all .2s}
 .faq-item.open .faq-num{background:var(--blue);color:#fff}
@@ -620,7 +649,7 @@ a[href^="tel:"],a[x-apple-data-detectors],.chip a{color:inherit !important;text-
 .faq-group-label:first-child{margin-top:0}
 
 /* Contact big card */
-.contact-hero{background:linear-gradient(135deg,#1A5FA4,#2B7EC9);border-radius:20px;padding:32px 24px;text-align:center;color:#fff;margin-bottom:16px;position:relative;overflow:hidden;box-shadow:0 8px 28px rgba(26,95,164,0.25)}
+.contact-hero{background:linear-gradient(135deg,#1C5E4A,#2A8B72);border-radius:20px;padding:32px 24px;text-align:center;color:#fff;margin-bottom:16px;position:relative;overflow:hidden;box-shadow:0 8px 28px rgba(28,94,74,0.25)}
 .contact-hero::before{content:'';position:absolute;top:-60px;right:-60px;width:180px;height:180px;background:radial-gradient(circle,rgba(255,255,255,0.1) 0%,transparent 70%);border-radius:50%}
 .contact-hero::after{content:'';position:absolute;bottom:-40px;left:-40px;width:140px;height:140px;background:radial-gradient(circle,rgba(255,255,255,0.08) 0%,transparent 70%);border-radius:50%}
 .contact-hero-icon{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,0.2);border:2px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 18px;position:relative;z-index:1}
@@ -771,15 +800,15 @@ a[href^="tel:"],a[x-apple-data-detectors],.chip a{color:inherit !important;text-
 <div class="hero-v2"><div class="container">
 <div class="nav-bar"><span class="nav-logo">ПутёвкAI</span></div>
 <div class="hero-v2-content">
-<div class="hero-v2-tag">AI-планировщик</div>
-<h1 class="hero-v2-title">Маршрут по России <span class="accent">за 10 минут</span>, не за 10 вечеров</h1>
-<p class="hero-v2-sub">Расскажите, куда хочется — ИИ соберёт маршрут по дням, таблицу бюджета, карту и чек-лист вещей. Всё в одном письме.</p>
+<div class="hero-v2-tag">Новый способ планировать</div>
+<h1 class="hero-v2-title">Маршрут по России, <span class="accent">собранный под вас</span></h1>
+<p class="hero-v2-sub">Расскажите куда хочется — и получите на почту готовый план поездки: маршрут по дням, ориентир по бюджету, список мест и что взять с собой. Без часов на форумах.</p>
 <div class="hero-v2-actions">
 <button class="hero-v2-primary" onclick="track('cta_plan_clicked');go(2)">Спланировать поездку &rarr;</button>
 <button class="hero-v2-secondary" onclick="track('example_view');go(5)">Посмотреть пример</button>
 </div>
 <div class="hero-v2-trust">
-<span class="hero-v2-trust-item"><span class="hero-v2-trust-check">&#10003;</span> От 490 ₽</span>
+<span class="hero-v2-trust-item"><span class="hero-v2-trust-check">&#10003;</span> От 290 ₽</span>
 <span class="hero-v2-trust-item"><span class="hero-v2-trust-check">&#10003;</span> Возврат возможен</span>
 <span class="hero-v2-trust-item"><span class="hero-v2-trust-check">&#10003;</span> Без подписки</span>
 </div>
@@ -813,16 +842,16 @@ a[href^="tel:"],a[x-apple-data-detectors],.chip a{color:inherit !important;text-
 <div class="trust-strip"><div class="container">
 <div class="trust-strip-row">
 <div class="trust-item"><div class="trust-num">10 мин</div><div class="trust-lbl">На маршрут</div></div>
-<div class="trust-item"><div class="trust-num">4 файла</div><div class="trust-lbl">В пакете</div></div>
-<div class="trust-item"><div class="trust-num">от 490&thinsp;₽</div><div class="trust-lbl">За маршрут</div></div>
+<div class="trust-item"><div class="trust-num">Всё на почту</div><div class="trust-lbl">Сразу пакетом</div></div>
+<div class="trust-item"><div class="trust-num">от 290&thinsp;₽</div><div class="trust-lbl">За маршрут</div></div>
 </div>
 </div></div>
 
 <!-- DEMO SECTION -->
 <div class="demo-section"><div class="container">
-<div class="section-eyebrow reveal">Что именно вы получите</div>
-<h2 class="section-main-title reveal">Не текст. Пакет документов.</h2>
-<p class="section-main-sub reveal" style="margin-bottom:28px">PDF, таблица, карта, чек-лист — всё готовое к использованию в поездке</p>
+<div class="section-eyebrow reveal">Что внутри</div>
+<h2 class="section-main-title reveal">Что придёт на почту</h2>
+<p class="section-main-sub reveal" style="margin-bottom:28px">Посмотрите как выглядит каждый файл из пакета. В базовом — маршрут и чек-лист, в расширенном ещё бюджет и карта.</p>
 
 <div class="demo-tabs reveal">
 <button class="demo-tab on" onclick="switchDemo(this,'pdf')"><span class="demo-tab-icon fi-pdf">PDF</span>Маршрут</button>
@@ -900,8 +929,8 @@ a[href^="tel:"],a[x-apple-data-detectors],.chip a{color:inherit !important;text-
 <!-- COMPARISON SECTION (DARK) -->
 <div class="comparison-section"><div class="container">
 <div class="comparison-eyebrow reveal">Чем это отличается</div>
-<h2 class="comparison-title reveal">ИИ-планировщик, а не просто чат</h2>
-<p class="comparison-sub reveal">ChatGPT даст вам текст. Мы — готовый пакет для поездки.</p>
+<h2 class="comparison-title reveal">Почему не ChatGPT</h2>
+<p class="comparison-sub reveal">ChatGPT напишет простыню текста. У нас всё уже в виде готовых файлов.</p>
 
 <div class="comparison-table reveal">
 <div class="comparison-head">
@@ -960,14 +989,14 @@ a[href^="tel:"],a[x-apple-data-detectors],.chip a{color:inherit !important;text-
 <div class="step-v2-num">2</div>
 <div class="step-v2-body">
 <div class="step-v2-title">Выберите тариф и оплатите</div>
-<div class="step-v2-desc">Три тарифа от 490 ₽. Банковская карта через защищённый шлюз, данные карты не хранятся.</div>
+<div class="step-v2-desc">Два тарифа: базовый от 290 ₽ или расширенный 690 ₽. Банковская карта через защищённый шлюз, данные карты не хранятся.</div>
 </div>
 </div>
 <div class="step-v2 reveal">
 <div class="step-v2-num">3</div>
 <div class="step-v2-body">
 <div class="step-v2-title">Получите пакет на почту</div>
-<div class="step-v2-desc">В течение 10 минут: PDF-маршрут, Google-таблица бюджета, ссылка на карту, чек-лист вещей.</div>
+<div class="step-v2-desc">В течение 10 минут на почту придёт PDF-маршрут и чек-лист, а в расширенном тарифе ещё таблица бюджета и карта маршрута.</div>
 </div>
 </div>
 </div>
@@ -1017,7 +1046,7 @@ a[href^="tel:"],a[x-apple-data-detectors],.chip a{color:inherit !important;text-
 <div class="tariff-preview-top">
 <div>
 <div class="tariff-preview-name">Базовый</div>
-<div class="tariff-preview-price">490 <span>&#8381;</span></div>
+<div class="tariff-preview-price">290 <span>&#8381;</span></div>
 </div>
 <div class="tariff-preview-meta">разово<br>один маршрут</div>
 </div>
@@ -1037,7 +1066,7 @@ a[href^="tel:"],a[x-apple-data-detectors],.chip a{color:inherit !important;text-
 <div class="tariff-preview-top">
 <div>
 <div class="tariff-preview-name">Расширенный</div>
-<div class="tariff-preview-price">990 <span>&#8381;</span></div>
+<div class="tariff-preview-price">690 <span>&#8381;</span></div>
 </div>
 <div class="tariff-preview-meta">разово<br>один маршрут</div>
 </div>
@@ -1047,8 +1076,8 @@ a[href^="tel:"],a[x-apple-data-detectors],.chip a{color:inherit !important;text-
 <li>Чек-лист вещей</li>
 <li>Таблица бюджета в Google Sheets</li>
 <li>Маршрут на Яндекс.Картах</li>
-<li>Рекомендации кафе и жилья</li>
-<li>Контакты экстренных служб</li>
+<li>Советы по жилью и еде в регионе</li>
+<li>Особенности региона и что учесть</li>
 </ul>
 <div class="tariff-preview-cta">Выбрать <span class="tariff-preview-cta-arrow">&rarr;</span></div>
 </div>
@@ -1065,7 +1094,7 @@ a[href^="tel:"],a[x-apple-data-detectors],.chip a{color:inherit !important;text-
 <div class="faq-item reveal" onclick="toggleFaq(this)">
 <div class="faq-q"><span class="faq-num">?</span><span class="faq-q-text">Чем это лучше, чем просто спросить ChatGPT?</span><span class="faq-q-arrow">+</span></div>
 <div class="faq-a">
-<p>ChatGPT даст только текст — его потом надо структурировать, переносить в таблицу, искать точки на карте. Мы сразу выдаём <strong>готовый пакет</strong> документов: PDF-маршрут, Google-таблицу с формулами, карту и чек-лист.</p>
+<p>ChatGPT даст только текст — его потом надо структурировать, переносить в таблицу, искать точки на карте. Мы выдаём сразу готовые файлы: маршрут и чек-лист в базовом, плюс таблицу бюджета и карту в расширенном.</p>
 </div>
 </div>
 <div class="faq-item reveal" onclick="toggleFaq(this)">
@@ -1086,8 +1115,8 @@ a[href^="tel:"],a[x-apple-data-detectors],.chip a{color:inherit !important;text-
 
 <!-- FINAL CTA (DARK) -->
 <div class="final-cta-section"><div class="container">
-<div class="final-cta-title">Готовы начать планирование?</div>
-<div class="final-cta-sub">Заполните форму за 2 минуты — маршрут придёт в течение 10 минут</div>
+<div class="final-cta-title">Куда едем?</div>
+<div class="final-cta-sub">Две минуты на форму — и маршрут уже готовится</div>
 <button class="final-cta-btn" onclick="track('cta_plan_clicked');go(2)">Спланировать поездку</button>
 </div></div>
 
@@ -1134,7 +1163,7 @@ a[href^="tel:"],a[x-apple-data-detectors],.chip a{color:inherit !important;text-
 <div class="form-section-label">Направление и даты</div>
 <div class="form-section-card">
 <div class="field"><label class="field-label">Куда хотите поехать?</label><input class="field-input" id="f-destination" placeholder="Например: Алтай, Байкал, Дагестан..."><div class="field-hint">Можно несколько вариантов или «не знаю, подберите»</div></div>
-<div class="field" style="margin-bottom:0"><label class="field-label">Даты поездки</label><div class="date-row"><div><input class="field-input" id="f-date-start" type="date"></div><div><input class="field-input" id="f-date-end" type="date"></div></div></div>
+<div class="field" style="margin-bottom:0"><label class="field-label">Даты поездки</label><div class="date-row"><div><input class="field-input" id="f-date-start" type="date" aria-label="Дата начала" placeholder="Начало"></div><div><input class="field-input" id="f-date-end" type="date" aria-label="Дата окончания" placeholder="Конец"></div></div><div class="field-hint" style="margin-top:6px">Минимум 1 день, максимум 60 дней</div></div>
 </div>
 </div>
 
@@ -1196,7 +1225,7 @@ a[href^="tel:"],a[x-apple-data-detectors],.chip a{color:inherit !important;text-
 <button class="order-summary-edit" onclick="go(2)">Изменить</button>
 </div>
 
-<div class="tariff" onclick="pickTariff(this,490)"><div class="tariff-name">Базовый</div><div class="tariff-price">490 &#8381; <span>разово</span></div><ul class="tariff-list">
+<div class="tariff" onclick="pickTariff(this,290)"><div class="tariff-name">Базовый</div><div class="tariff-price">290 &#8381; <span>разово</span></div><ul class="tariff-list">
 <li>PDF-маршрут по дням</li>
 <li>Список мест и адресов</li>
 <li>Чек-лист вещей</li>
@@ -1205,14 +1234,14 @@ a[href^="tel:"],a[x-apple-data-detectors],.chip a{color:inherit !important;text-
 <li class="muted">Без рекомендаций жилья</li>
 </ul></div>
 
-<div class="tariff selected" id="tariff-mid" onclick="pickTariff(this,990)"><div class="tariff-badge">Популярный</div><div class="tariff-name">Расширенный</div><div class="tariff-price">990 &#8381; <span>разово</span></div><ul class="tariff-list">
+<div class="tariff selected" id="tariff-mid" onclick="pickTariff(this,690)"><div class="tariff-badge">Популярный</div><div class="tariff-name">Расширенный</div><div class="tariff-price">690 &#8381; <span>разово</span></div><ul class="tariff-list">
 <li>PDF-маршрут по дням</li>
 <li>Список мест и адресов</li>
 <li>Чек-лист вещей</li>
 <li>Таблица бюджета в Google Sheets</li>
 <li>Маршрут на Яндекс.Картах</li>
-<li>Рекомендации кафе и жилья</li>
-<li>Контакты экстренных служб</li>
+<li>Советы по жилью и еде в регионе</li>
+<li>Особенности региона и что учесть</li>
 </ul></div>
 
 <div class="guarantee-v2">
@@ -1225,7 +1254,7 @@ a[href^="tel:"],a[x-apple-data-detectors],.chip a{color:inherit !important;text-
 
 <button class="pay-btn" id="pay-btn" onclick="pay()">
 <span class="pay-btn-label">Оплатить</span>
-<span class="pay-btn-price" id="pay-btn-price">990 &#8381;</span>
+<span class="pay-btn-price" id="pay-btn-price">690 &#8381;</span>
 </button>
 
 </div></div></div>
@@ -1424,13 +1453,14 @@ a[href^="tel:"],a[x-apple-data-detectors],.chip a{color:inherit !important;text-
 <div class="info-card-icon ici-green">&#127873;</div>
 <h3>Что вы получаете</h3>
 </div>
-<p>Не просто текст маршрута, как в ChatGPT — а готовый пакет из четырёх документов:</p>
+<p>Не просто текст маршрута, как в ChatGPT — а готовый пакет документов, которыми можно пользоваться прямо в поездке:</p>
 <div class="package-preview">
 <div class="package-item"><div class="package-item-icon fi-pdf">PDF</div><div class="package-item-name">Маршрут</div><div class="package-item-desc">Расписание по дням, места, время</div></div>
+<div class="package-item"><div class="package-item-icon fi-chk" style="font-size:18px">&#10003;</div><div class="package-item-name">Чек-лист</div><div class="package-item-desc">Вещи под ваше направление</div></div>
 <div class="package-item"><div class="package-item-icon fi-xls">XLS</div><div class="package-item-name">Бюджет</div><div class="package-item-desc">Google-таблица с формулами</div></div>
 <div class="package-item"><div class="package-item-icon fi-map">MAP</div><div class="package-item-name">Карта</div><div class="package-item-desc">Все точки в Яндекс.Картах</div></div>
-<div class="package-item"><div class="package-item-icon fi-chk" style="font-size:18px">&#10003;</div><div class="package-item-name">Чек-лист</div><div class="package-item-desc">Вещи под ваше направление</div></div>
 </div>
+<p style="font-size:12px;color:var(--text-3);margin-top:10px">Базовый тариф — PDF-маршрут и чек-лист. Расширенный — плюс таблица бюджета и карта.</p>
 </div>
 
 <div class="info-card">
@@ -1469,7 +1499,7 @@ a[href^="tel:"],a[x-apple-data-detectors],.chip a{color:inherit !important;text-
 <div class="faq-item" onclick="toggleFaq(this)">
 <div class="faq-q"><span class="faq-num">01</span><span class="faq-q-text">Чем это лучше, чем просто спросить ChatGPT?</span><span class="faq-q-arrow">+</span></div>
 <div class="faq-a">
-<p>ChatGPT даст вам только текст — его потом нужно самому структурировать, перенести в таблицу, искать точки на карте, собирать контакты. Мы сразу выдаём <strong>готовый пакет</strong>: PDF-маршрут по дням, Google-таблицу с формулами, карту и чек-лист вещей.</p>
+<p>ChatGPT даст вам только текст — его потом нужно самому структурировать, перенести в таблицу, искать точки на карте, собирать контакты. Мы сразу выдаём готовые файлы: PDF-маршрут, чек-лист вещей, а в расширенном ещё таблицу бюджета и карту со всеми точками.</p>
 <p>Плюс у нас настроены промпты специально под планирование поездок по России — результат получается более детальный и практичный.</p>
 </div>
 </div>
@@ -1622,14 +1652,15 @@ a[href^="tel:"],a[x-apple-data-detectors],.chip a{color:inherit !important;text-
 <li>электронную таблицу бюджета в Google Sheets;</li>
 <li>ссылку на Яндекс.Карты с отмеченными точками маршрута;</li>
 <li>чек-лист вещей, адаптированный под поездку;</li>
-<li>контакты экстренных служб региона.</li>
+<li>советы по поиску жилья и еды в регионе;</li>
+<li>информацию об особенностях региона, которые важно учесть.</li>
 </ul>
 
 <h3>3. Стоимость и порядок оплаты</h3>
 <p>Стоимость услуг определяется выбранным Заказчиком тарифом, действующим на сайте на момент оформления заказа:</p>
 <ul>
-<li><strong>Базовый</strong> — 490 рублей за один маршрут;</li>
-<li><strong>Расширенный</strong> — 990 рублей за один маршрут.</li>
+<li><strong>Базовый</strong> — 290 рублей за один маршрут;</li>
+<li><strong>Расширенный</strong> — 690 рублей за один маршрут.</li>
 </ul>
 <p>Оплата производится единоразово, в момент оформления заказа, безналичным способом через интернет-эквайринг. Датой оплаты считается дата поступления денежных средств Исполнителю.</p>
 
@@ -1796,7 +1827,9 @@ function showToast(msg){
   var t=document.getElementById('toast');
   t.textContent=msg;
   t.classList.add('show');
-  setTimeout(function(){t.classList.remove('show');},3000);
+  // Длинные сообщения дольше висят - нужно дать время прочитать
+  var duration=Math.min(5500,Math.max(3000,msg.length*70));
+  setTimeout(function(){t.classList.remove('show');},duration);
 }
 
 function getChipValue(id){
@@ -1808,7 +1841,8 @@ function getChipValue(id){
 }
 
 function validateForm(){
-  var valid=true;
+  var errors=[];
+  var firstErrorEl=null;
   var dest=document.getElementById('f-destination');
   var email=document.getElementById('f-email');
   var dateStart=document.getElementById('f-date-start');
@@ -1821,34 +1855,143 @@ function validateForm(){
   consentWrap.classList.remove('field-error');
   if(budgetCustom) budgetCustom.classList.remove('field-error');
 
-  if(!dest.value.trim()){dest.classList.add('field-error');valid=false;}
-  if(!dateStart.value){dateStart.classList.add('field-error');valid=false;}
-  if(!dateEnd.value){dateEnd.classList.add('field-error');valid=false;}
-  if(dateStart.value && dateEnd.value && dateStart.value>=dateEnd.value){dateEnd.classList.add('field-error');valid=false;}
-  if(!email.value.trim()||!email.value.includes('@')){email.classList.add('field-error');valid=false;}
-  if(!consent.checked){consentWrap.classList.add('field-error');valid=false;}
+  // Направление
+  var destVal=dest.value.trim();
+  if(!destVal){
+    dest.classList.add('field-error');
+    errors.push('Укажите, куда хотите поехать');
+    if(!firstErrorEl) firstErrorEl=dest;
+  }else if(destVal.length<3){
+    dest.classList.add('field-error');
+    errors.push('Направление слишком короткое');
+    if(!firstErrorEl) firstErrorEl=dest;
+  }else if(!/[а-яёА-ЯЁa-zA-Z]{3,}/.test(destVal)){
+    dest.classList.add('field-error');
+    errors.push('Введите название региона или города');
+    if(!firstErrorEl) firstErrorEl=dest;
+  }else if(/(.)\1{3,}/.test(destVal.toLowerCase())){
+    // аааа, ффффф, 1111
+    dest.classList.add('field-error');
+    errors.push('Похоже, тут опечатка — проверьте направление');
+    if(!firstErrorEl) firstErrorEl=dest;
+  }else if(/^(qwe|asd|zxc|йцу|фыв|ячс|qwer|asdf|zxcv|qaz|wsx|edc|rfv|tgb|йфя|цыч|укв|кеа|ено|впр|ыап|авы|оро|аза|кае|ввв|ккк|ннн)/i.test(destVal.replace(/[\s\-]/g,''))){
+    // Клавиатурный мусор
+    dest.classList.add('field-error');
+    errors.push('Похоже, вы случайно нажали на клавиши — введите название направления');
+    if(!firstErrorEl) firstErrorEl=dest;
+  }else if(/^[а-яёa-z]{3,}$/i.test(destVal.replace(/\s/g,''))){
+    // Одно слово только из букв — проверяем есть ли гласные
+    var hasVowel=/[аеёиоуыэюяaeiouy]/i.test(destVal);
+    var hasConsonant=/[бвгджзйклмнпрстфхцчшщbcdfghjklmnpqrstvwxz]/i.test(destVal);
+    if(!hasVowel || !hasConsonant){
+      dest.classList.add('field-error');
+      errors.push('Это не похоже на название — проверьте направление');
+      if(!firstErrorEl) firstErrorEl=dest;
+    }
+  }
 
-  // Custom budget: если выбран чип "Своя сумма", сумма обязательна
+  // Даты
+  var today=new Date();today.setHours(0,0,0,0);
+  var maxDate=new Date();maxDate.setFullYear(maxDate.getFullYear()+2);
+
+  if(!dateStart.value){
+    dateStart.classList.add('field-error');
+    errors.push('Укажите дату начала поездки');
+    if(!firstErrorEl) firstErrorEl=dateStart;
+  }else{
+    var sDate=new Date(dateStart.value);
+    if(isNaN(sDate)){
+      dateStart.classList.add('field-error');
+      errors.push('Неверная дата начала');
+      if(!firstErrorEl) firstErrorEl=dateStart;
+    }else if(sDate<today){
+      dateStart.classList.add('field-error');
+      errors.push('Дата начала не может быть в прошлом');
+      if(!firstErrorEl) firstErrorEl=dateStart;
+    }else if(sDate>maxDate){
+      dateStart.classList.add('field-error');
+      errors.push('Дата начала слишком далеко (максимум 2 года вперёд)');
+      if(!firstErrorEl) firstErrorEl=dateStart;
+    }
+  }
+
+  if(!dateEnd.value){
+    dateEnd.classList.add('field-error');
+    errors.push('Укажите дату окончания поездки');
+    if(!firstErrorEl) firstErrorEl=dateEnd;
+  }else if(dateStart.value && dateEnd.value){
+    var sDate=new Date(dateStart.value);
+    var eDate=new Date(dateEnd.value);
+    if(isNaN(eDate)){
+      dateEnd.classList.add('field-error');
+      errors.push('Неверная дата окончания');
+      if(!firstErrorEl) firstErrorEl=dateEnd;
+    }else if(eDate<=sDate){
+      dateEnd.classList.add('field-error');
+      errors.push('Дата окончания должна быть позже даты начала');
+      if(!firstErrorEl) firstErrorEl=dateEnd;
+    }else{
+      var diffDays=Math.round((eDate-sDate)/(1000*60*60*24));
+      if(diffDays>60){
+        dateEnd.classList.add('field-error');
+        errors.push('Максимальная длина поездки — 60 дней');
+        if(!firstErrorEl) firstErrorEl=dateEnd;
+      }
+    }
+  }
+
+  // Email
+  var emailVal=email.value.trim();
+  var emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  if(!emailVal){
+    email.classList.add('field-error');
+    errors.push('Укажите email для получения маршрута');
+    if(!firstErrorEl) firstErrorEl=email;
+  }else if(!emailRegex.test(emailVal)){
+    email.classList.add('field-error');
+    errors.push('Email введён в неверном формате');
+    if(!firstErrorEl) firstErrorEl=email;
+  }
+
+  // Custom budget
   var customChip=document.querySelector('#f-budget .chip-custom.on');
   if(customChip){
     var val=budgetCustom ? parseInt(budgetCustom.value,10) : 0;
     if(!val || val<=0){
       if(budgetCustom) budgetCustom.classList.add('field-error');
-      valid=false;
+      errors.push('Укажите свою сумму бюджета');
+      if(!firstErrorEl) firstErrorEl=budgetCustom;
+    }else if(val<5000){
+      if(budgetCustom) budgetCustom.classList.add('field-error');
+      errors.push('Минимальный бюджет — 5 000 ₽ на человека');
+      if(!firstErrorEl) firstErrorEl=budgetCustom;
+    }else if(val>10000000){
+      if(budgetCustom) budgetCustom.classList.add('field-error');
+      errors.push('Укажите реалистичную сумму бюджета');
+      if(!firstErrorEl) firstErrorEl=budgetCustom;
     }
   }
 
-  if(!valid){
-    track('form_validation_failed');
-    if(!consent.checked && dest.value.trim() && email.value.trim()){
-      showToast('Примите условия договора и политику ПДн');
-    }else if(customChip && (!budgetCustom || !parseInt(budgetCustom.value,10))){
-      showToast('Укажите свою сумму бюджета');
-    }else{
-      showToast('Заполните обязательные поля');
-    }
+  // Consent
+  if(!consent.checked){
+    consentWrap.classList.add('field-error');
+    errors.push('Нужно принять условия договора и политику ПДн');
+    if(!firstErrorEl) firstErrorEl=consent;
   }
-  return valid;
+
+  if(errors.length>0){
+    track('form_validation_failed',{reason:errors[0]});
+    showToast(errors[0]);
+    // Scroll к первому полю с ошибкой на мобилке
+    if(firstErrorEl){
+      setTimeout(function(){
+        firstErrorEl.scrollIntoView({behavior:'smooth',block:'center'});
+        if(firstErrorEl.focus) firstErrorEl.focus();
+      },100);
+    }
+    return false;
+  }
+  return true;
 }
 
 function submitForm(){
@@ -1906,7 +2049,7 @@ function submitForm(){
 function resetPayButton(){
   var btn=document.getElementById('pay-btn');
   var priceEl=document.getElementById('pay-btn-price');
-  if(priceEl) priceEl.textContent='990 \u20BD';
+  if(priceEl) priceEl.textContent='690 \u20BD';
   btn.disabled=false;
   document.querySelectorAll('.tariff').forEach(function(t){t.classList.remove('selected');});
   var mid=document.getElementById('tariff-mid');
@@ -1921,7 +2064,7 @@ function pay(){
   var selectedTariff=document.querySelector('.tariff.selected');
   if(selectedTariff){
     var priceText=selectedTariff.querySelector('.tariff-price').textContent;
-    selectedPrice=parseInt(priceText.replace(/\D/g,''),10)||990;
+    selectedPrice=parseInt(priceText.replace(/\D/g,''),10)||690;
   }
 
   track('pay_clicked',{price:selectedPrice});
@@ -1931,10 +2074,11 @@ function pay(){
 
   if(!window._formData){
     track('payment_error',{reason:'no_form_data'});
-    showToast('Ошибка: данные формы не найдены');
+    showToast('Сначала заполните форму заказа');
     if(labelEl) labelEl.textContent='Оплатить';
     if(priceEl) priceEl.style.display='';
     resetPayButton();
+    setTimeout(function(){go(2);},1500);
     return;
   }
 
@@ -1943,14 +2087,22 @@ function pay(){
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify(window._formData)
   }).then(function(response){
-    if(!response.ok) throw new Error('Ошибка сервера');
+    if(!response.ok){
+      if(response.status>=500) throw new Error('server');
+      if(response.status===429) throw new Error('ratelimit');
+      throw new Error('unknown');
+    }
     track('payment_success',{price:selectedPrice});
     if(labelEl) labelEl.textContent='Готово!';
     populateSuccess();
     go(4);
   }).catch(function(err){
-    track('payment_error',{reason:'network'});
-    showToast('Ошибка отправки. Попробуйте ещё раз.');
+    var msg='Не удалось отправить заказ. Проверьте интернет и попробуйте ещё раз.';
+    if(err && err.message==='server') msg='Сервис временно недоступен. Попробуйте через пару минут.';
+    else if(err && err.message==='ratelimit') msg='Слишком много запросов. Подождите минуту.';
+    else if(err && err.message && err.message.indexOf('Failed to fetch')>-1) msg='Нет соединения с интернетом. Проверьте сеть.';
+    track('payment_error',{reason:err && err.message ? err.message : 'unknown'});
+    showToast(msg);
     if(labelEl) labelEl.textContent='Оплатить';
     if(priceEl) priceEl.style.display='';
     resetPayButton();
@@ -2013,7 +2165,7 @@ function populateSuccess(){
   set('r-order-num','№ '+generateOrderNum());
 
   // Динамический пакет в зависимости от тарифа
-  var price=window._selectedPrice||990;
+  var price=window._selectedPrice||690;
   var info=getTariffInfo(price);
 
   var badge=document.getElementById('r-tariff-badge');
@@ -2130,7 +2282,7 @@ function pickTariff(el,price){
 }
 
 function getTariffInfo(price){
-  if(price===490) return {name:'Базовый',tier:1,badgeClass:'basic',trips:1};
+  if(price===290) return {name:'Базовый',tier:1,badgeClass:'basic',trips:1};
   return {name:'Расширенный',tier:2,badgeClass:'',trips:1};
 }
 
@@ -2158,6 +2310,34 @@ document.addEventListener('DOMContentLoaded',function(){
   if(budgetCustom){
     budgetCustom.addEventListener('input',function(){
       this.classList.remove('field-error');
+    });
+  }
+
+  // Даты: устанавливаем min (сегодня) и max (+2 года) для нативного iOS picker
+  var dateStart=document.getElementById('f-date-start');
+  var dateEnd=document.getElementById('f-date-end');
+  if(dateStart && dateEnd){
+    var pad=function(n){return n<10?'0'+n:''+n;};
+    var today=new Date();
+    var todayStr=today.getFullYear()+'-'+pad(today.getMonth()+1)+'-'+pad(today.getDate());
+    var maxDate=new Date();maxDate.setFullYear(maxDate.getFullYear()+2);
+    var maxStr=maxDate.getFullYear()+'-'+pad(maxDate.getMonth()+1)+'-'+pad(maxDate.getDate());
+    dateStart.setAttribute('min',todayStr);
+    dateStart.setAttribute('max',maxStr);
+    dateEnd.setAttribute('min',todayStr);
+    dateEnd.setAttribute('max',maxStr);
+    // Когда меняется дата начала — обновляем min у даты конца
+    dateStart.addEventListener('change',function(){
+      if(this.value){
+        var sDate=new Date(this.value);
+        sDate.setDate(sDate.getDate()+1);
+        var minEnd=sDate.getFullYear()+'-'+pad(sDate.getMonth()+1)+'-'+pad(sDate.getDate());
+        dateEnd.setAttribute('min',minEnd);
+        // Если конец раньше нового начала — очищаем
+        if(dateEnd.value && dateEnd.value<=this.value){
+          dateEnd.value='';
+        }
+      }
     });
   }
 
