@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ПутёвкAI — готовый маршрут по России за 10 минут</title>
+<meta name="description" content="AI-планировщик путешествий по России. Получите PDF-маршрут, таблицу бюджета и карту за 10 минут. От 490 ₽.">
+<meta name="theme-color" content="#1A5FA4">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%231A5FA4'/%3E%3Ctext x='50' y='72' text-anchor='middle' font-family='Arial,sans-serif' font-size='62' font-weight='900' fill='white'%3E%D0%9F%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%231A5FA4'/%3E%3Ctext x='50' y='72' text-anchor='middle' font-family='Arial,sans-serif' font-size='62' font-weight='900' fill='white'%3E%D0%9F%3C/text%3E%3C/svg%3E">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <!-- Yandex.Metrika counter -->
@@ -64,9 +68,214 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
 .av-blue{background:var(--blue-light);color:var(--blue)}
 .av-green{background:var(--green-light);color:var(--green)}
+.av-amber{background:var(--amber-light);color:var(--amber)}
+.av-purple{background:#F0E8F7;color:#6B3AA0}
 .review-name{font-size:13px;font-weight:700}
 .stars{color:#EF9F27;font-size:12px;letter-spacing:1px;margin-left:6px}
 .review-text{font-size:13px;color:var(--text-2);line-height:1.55}
+.review-trip{font-size:11px;color:var(--text-3);margin-top:6px;font-weight:500}
+
+/* Home: "Что вы получите" */
+.package-section{padding:8px 0 36px}
+.package-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.package-tile{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px 16px;transition:all .2s}
+.package-tile:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.06);border-color:var(--blue)}
+.package-tile-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;margin-bottom:12px}
+.package-tile-name{font-size:14px;font-weight:700;margin-bottom:4px}
+.package-tile-desc{font-size:12px;color:var(--text-3);line-height:1.45}
+
+/* Home: "Куда поехать" */
+.destinations-section{padding:0 0 36px}
+.dest-chips{display:flex;flex-wrap:wrap;gap:8px}
+.dest-chip{padding:10px 16px;border-radius:24px;border:1.5px solid var(--border);font-size:13px;color:var(--text-2);cursor:pointer;background:var(--card);transition:all .15s;font-family:inherit;font-weight:500;user-select:none;display:inline-flex;align-items:center;gap:6px}
+.dest-chip:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-1px)}
+.dest-chip:active{transform:scale(.97)}
+
+/* Home: "Почему ПутёвкAI" */
+.why-section{padding:0 0 36px}
+.why-grid{display:flex;flex-direction:column;gap:10px}
+.why-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px 20px;display:flex;align-items:center;gap:14px}
+.why-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.why-content{flex:1}
+.why-title{font-size:15px;font-weight:700;margin-bottom:3px}
+.why-desc{font-size:13px;color:var(--text-2);line-height:1.45}
+
+/* Home: Final CTA before footer */
+.home-cta-section{padding:36px 0 40px;text-align:center}
+.home-cta-title{font-size:22px;font-weight:800;margin-bottom:8px;letter-spacing:-.3px;line-height:1.3}
+.home-cta-sub{font-size:14px;color:var(--text-2);margin-bottom:22px;line-height:1.5}
+.home-cta-btn{display:inline-block;padding:16px 40px;border-radius:14px;background:var(--blue);color:#fff;text-align:center;font-size:15px;font-weight:700;border:none;cursor:pointer;font-family:inherit;transition:all .2s;box-shadow:0 4px 16px rgba(26,95,164,0.25)}
+.home-cta-btn:hover{background:var(--blue-dark);transform:translateY(-2px);box-shadow:0 6px 24px rgba(26,95,164,0.35)}
+
+/* ============ HERO V2 ============ */
+.hero-v2{background:#0A2540;padding:40px 0 0;position:relative;overflow:hidden;color:#fff}
+.hero-v2::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top right,rgba(43,126,201,0.35) 0%,transparent 55%),radial-gradient(ellipse at bottom left,rgba(26,95,164,0.25) 0%,transparent 55%);pointer-events:none}
+.hero-v2-content{position:relative;z-index:1}
+.hero-v2-tag{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:rgba(43,126,201,0.15);border:1px solid rgba(43,126,201,0.3);border-radius:20px;font-size:11px;font-weight:600;color:#8AC0EE;letter-spacing:.5px;text-transform:uppercase;margin-bottom:20px}
+.hero-v2-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:#3AD07F;box-shadow:0 0 8px #3AD07F}
+.hero-v2-title{font-size:40px;font-weight:800;line-height:1.05;letter-spacing:-1px;margin-bottom:18px;color:#fff}
+.hero-v2-title .accent{background:linear-gradient(135deg,#6AB2E8,#B8D9F5);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-v2-sub{font-size:16px;color:rgba(255,255,255,0.7);line-height:1.55;margin-bottom:28px;max-width:420px}
+.hero-v2-actions{display:flex;flex-direction:column;gap:10px;margin-bottom:32px}
+.hero-v2-primary{padding:17px 28px;border-radius:14px;background:#fff;color:var(--blue);font-size:15px;font-weight:700;border:none;cursor:pointer;font-family:inherit;transition:all .2s;box-shadow:0 8px 24px rgba(0,0,0,0.25)}
+.hero-v2-primary:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,0.35)}
+.hero-v2-primary:active{transform:scale(.98)}
+.hero-v2-secondary{padding:15px 28px;border-radius:14px;background:transparent;color:rgba(255,255,255,0.85);border:1px solid rgba(255,255,255,0.2);font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;transition:all .2s}
+.hero-v2-secondary:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.4)}
+.hero-v2-trust{display:flex;gap:18px;align-items:center;font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:4px}
+.hero-v2-trust-item{display:flex;align-items:center;gap:6px}
+.hero-v2-trust-check{color:#3AD07F;font-weight:800}
+
+/* Hero phone preview */
+.hero-v2-preview{margin:0 -20px;padding:24px 20px 0;position:relative;z-index:1}
+.phone-mockup{background:linear-gradient(165deg,#1E3A5F,#0D2945);border:1px solid rgba(255,255,255,0.1);border-radius:24px 24px 0 0;padding:20px;box-shadow:0 -20px 60px rgba(0,0,0,0.4)}
+.phone-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.08)}
+.phone-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.15)}
+.phone-dots{display:flex;gap:6px}
+.phone-label{font-size:11px;color:rgba(255,255,255,0.4);font-weight:600;letter-spacing:1px}
+.phone-demo{display:flex;flex-direction:column;gap:10px}
+.phone-msg{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px 14px;font-size:12px;color:rgba(255,255,255,0.85);line-height:1.5}
+.phone-msg-label{font-size:10px;color:rgba(138,192,238,0.8);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.phone-route{background:linear-gradient(135deg,rgba(26,95,164,0.2),rgba(43,126,201,0.1));border:1px solid rgba(43,126,201,0.25);border-radius:12px;padding:12px 14px}
+.phone-route-day{display:flex;align-items:center;gap:10px;font-size:11px;color:rgba(255,255,255,0.9);padding:4px 0}
+.phone-route-time{color:#8AC0EE;font-weight:700;min-width:40px}
+.phone-route-dot{width:5px;height:5px;border-radius:50%;background:#3AD07F;flex-shrink:0}
+
+/* ============ TRUST STRIP ============ */
+.trust-strip{background:var(--bg);padding:18px 0;border-bottom:1px solid var(--border-light)}
+.trust-strip-row{display:flex;justify-content:space-around;align-items:center;gap:14px;text-align:center}
+.trust-item{flex:1}
+.trust-num{font-size:18px;font-weight:800;color:var(--text);line-height:1.1}
+.trust-lbl{font-size:10px;color:var(--text-3);margin-top:3px;text-transform:uppercase;letter-spacing:1px;font-weight:600}
+
+/* ============ PRODUCT DEMO SECTION ============ */
+.demo-section{padding:56px 0 44px}
+.demo-eyebrow{font-size:11px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;text-align:center}
+.demo-title{font-size:28px;font-weight:800;line-height:1.15;letter-spacing:-.5px;text-align:center;margin-bottom:10px}
+.demo-sub{font-size:14px;color:var(--text-2);text-align:center;line-height:1.55;margin-bottom:28px;max-width:380px;margin-left:auto;margin-right:auto}
+.demo-tabs{display:flex;gap:6px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:5px;margin-bottom:20px;overflow-x:auto;scrollbar-width:none}
+.demo-tabs::-webkit-scrollbar{display:none}
+.demo-tab{flex:1;padding:9px 10px;border-radius:10px;font-size:12px;font-weight:600;color:var(--text-2);cursor:pointer;background:transparent;border:none;font-family:inherit;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap;min-width:0}
+.demo-tab.on{background:var(--blue);color:#fff;box-shadow:0 2px 8px rgba(26,95,164,0.25)}
+.demo-tab-icon{width:18px;height:18px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;flex-shrink:0}
+.demo-tab.on .demo-tab-icon{background:rgba(255,255,255,0.2);color:#fff}
+.demo-panel{display:none;background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.06)}
+.demo-panel.on{display:block;animation:fadeUp .3s ease}
+.demo-panel-head{padding:14px 18px;background:linear-gradient(135deg,#F5F5F3,#EEEEE8);display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border-light)}
+.demo-panel-badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;background:var(--bg);color:var(--text-3);letter-spacing:.5px}
+.demo-panel-filename{font-size:13px;font-weight:700;color:var(--text)}
+.demo-panel-body{padding:18px}
+/* PDF panel */
+.demo-pdf-day{padding:10px 0;border-bottom:1px dashed var(--border-light)}
+.demo-pdf-day:last-child{border-bottom:none}
+.demo-pdf-day-title{font-size:12px;font-weight:700;color:var(--blue);margin-bottom:6px;letter-spacing:.3px;text-transform:uppercase}
+.demo-pdf-item{display:flex;gap:10px;padding:3px 0;font-size:12px}
+.demo-pdf-time{color:var(--text-3);font-weight:700;min-width:38px}
+.demo-pdf-place{color:var(--text);font-weight:500}
+/* Sheet panel */
+.demo-sheet-row{display:grid;grid-template-columns:1fr 70px 70px;gap:10px;padding:7px 0;border-bottom:1px solid var(--border-light);font-size:12px;align-items:center}
+.demo-sheet-row:last-child{border-bottom:none}
+.demo-sheet-head{font-weight:700;color:var(--text-3);font-size:10px;text-transform:uppercase;letter-spacing:.5px}
+.demo-sheet-cat{color:var(--text);font-weight:500}
+.demo-sheet-num{text-align:right;font-variant-numeric:tabular-nums;color:var(--text-2);font-weight:500}
+.demo-sheet-row.total{font-weight:800;color:var(--blue);border-bottom:none;padding-top:10px;margin-top:4px;border-top:2px solid var(--border)}
+.demo-sheet-row.total .demo-sheet-num{color:var(--blue);font-weight:800}
+/* Map panel */
+.demo-map{position:relative;height:220px;background:linear-gradient(135deg,#E8F0FB,#D4E4F5);border-radius:8px;overflow:hidden}
+.demo-map-pin{position:absolute;width:20px;height:20px;background:var(--blue);border:2px solid #fff;border-radius:50%;box-shadow:0 2px 6px rgba(26,95,164,0.4);animation:pulse 2s ease infinite}
+.demo-map-pin::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:6px;height:6px;background:#fff;border-radius:50%}
+.demo-map-line{position:absolute;height:2px;background:repeating-linear-gradient(90deg,var(--blue) 0,var(--blue) 4px,transparent 4px,transparent 8px);opacity:.4}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+/* Checklist panel */
+.demo-chk-item{display:flex;align-items:center;gap:10px;padding:8px 0;font-size:13px;color:var(--text-2);border-bottom:1px dashed var(--border-light)}
+.demo-chk-item:last-child{border-bottom:none}
+.demo-chk-box{width:18px;height:18px;border:2px solid var(--border);border-radius:5px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.demo-chk-box.checked{background:var(--green);border-color:var(--green);color:#fff;font-size:11px;font-weight:800}
+
+/* ============ COMPARISON SECTION (DARK) ============ */
+.comparison-section{background:#0A2540;padding:56px 0 48px;margin:8px 0;color:#fff;position:relative;overflow:hidden}
+.comparison-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top,rgba(43,126,201,0.15) 0%,transparent 60%);pointer-events:none}
+.comparison-section>.container{position:relative;z-index:1}
+.comparison-eyebrow{font-size:11px;font-weight:700;color:#8AC0EE;text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;text-align:center}
+.comparison-title{font-size:26px;font-weight:800;line-height:1.2;letter-spacing:-.5px;text-align:center;margin-bottom:10px;color:#fff}
+.comparison-sub{font-size:14px;color:rgba(255,255,255,0.6);text-align:center;line-height:1.55;margin-bottom:28px}
+.comparison-table{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;overflow:hidden}
+.comparison-head{display:grid;grid-template-columns:1.2fr 1fr 1fr;padding:14px 16px;background:rgba(255,255,255,0.03);border-bottom:1px solid rgba(255,255,255,0.08);gap:8px;align-items:center}
+.comparison-head-cell{font-size:12px;font-weight:700;color:rgba(255,255,255,0.6);letter-spacing:.3px}
+.comparison-head-cell.them{text-align:center;color:rgba(255,255,255,0.45)}
+.comparison-head-cell.us{text-align:center;color:#8AC0EE;font-weight:800}
+.comparison-row{display:grid;grid-template-columns:1.2fr 1fr 1fr;padding:13px 16px;border-bottom:1px solid rgba(255,255,255,0.06);gap:8px;align-items:center}
+.comparison-row:last-child{border-bottom:none}
+.comparison-criterion{font-size:13px;color:rgba(255,255,255,0.85);font-weight:500;line-height:1.4}
+.comparison-cell{font-size:12px;text-align:center;line-height:1.4}
+.comparison-cell.them{color:rgba(255,255,255,0.5)}
+.comparison-cell.us{color:#3AD07F;font-weight:600}
+.comparison-mark{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;margin-bottom:4px}
+.comparison-mark.no{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.5)}
+.comparison-mark.yes{background:rgba(58,208,127,0.2);color:#3AD07F}
+
+/* ============ STEPS V2 ============ */
+.steps-v2-section{padding:56px 0 44px}
+.steps-v2{display:flex;flex-direction:column;gap:16px;margin-top:28px}
+.step-v2{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px;display:flex;gap:16px;align-items:flex-start;transition:all .2s;position:relative;overflow:hidden}
+.step-v2:hover{transform:translateX(4px);border-color:var(--blue);box-shadow:0 8px 24px rgba(26,95,164,0.08)}
+.step-v2-num{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--blue),#2B7EC9);color:#fff;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;flex-shrink:0;box-shadow:0 4px 12px rgba(26,95,164,0.25)}
+.step-v2-body{flex:1}
+.step-v2-title{font-size:17px;font-weight:800;margin-bottom:6px;letter-spacing:-.2px}
+.step-v2-desc{font-size:13px;color:var(--text-2);line-height:1.55}
+
+/* ============ TARIFFS PREVIEW ON HOME ============ */
+.tariffs-preview-section{padding:56px 0 44px;background:var(--bg)}
+.tariffs-preview-grid{display:flex;flex-direction:column;gap:12px;margin-top:22px}
+.tariff-preview{background:var(--card);border:1.5px solid var(--border);border-radius:18px;padding:22px 22px 20px;cursor:pointer;transition:all .2s;position:relative}
+.tariff-preview:hover{border-color:var(--blue);transform:translateY(-2px);box-shadow:0 10px 28px rgba(26,95,164,0.08)}
+.tariff-preview.featured{border:2px solid var(--blue);box-shadow:0 6px 24px rgba(26,95,164,0.15)}
+.tariff-preview-badge{position:absolute;top:-10px;right:18px;font-size:9px;font-weight:800;padding:4px 12px;border-radius:12px;background:var(--blue);color:#fff;letter-spacing:.5px;text-transform:uppercase}
+.tariff-preview-save-badge{position:absolute;top:-10px;right:18px;font-size:9px;font-weight:800;padding:4px 12px;border-radius:12px;background:var(--green);color:#fff;letter-spacing:.5px;text-transform:uppercase}
+.tariff-preview-top{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:14px;gap:12px}
+.tariff-preview-name{font-size:12px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.tariff-preview-price{font-size:28px;font-weight:800;letter-spacing:-.5px;line-height:1}
+.tariff-preview-price span{font-size:13px;font-weight:500;color:var(--text-3)}
+.tariff-preview-meta{font-size:11px;color:var(--text-3);text-align:right;line-height:1.4}
+.tariff-preview-features{list-style:none;padding:0;margin:0 0 4px 0}
+.tariff-preview-features li{font-size:13px;color:var(--text-2);padding:5px 0;display:flex;align-items:flex-start;gap:10px;line-height:1.45}
+.tariff-preview-features li::before{content:'\2713';width:18px;height:18px;border-radius:50%;background:var(--green-light);color:var(--green);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;margin-top:1px}
+.tariff-preview-features li.muted{color:var(--text-3)}
+.tariff-preview-features li.muted::before{background:var(--border-light);color:var(--text-3)}
+.tariff-preview-cta{margin-top:14px;padding-top:14px;border-top:1px solid var(--border-light);display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:600;color:var(--blue)}
+.tariff-preview-cta-arrow{transition:transform .2s}
+.tariff-preview:hover .tariff-preview-cta-arrow{transform:translateX(4px)}
+
+/* ============ FAQ PREVIEW ============ */
+.faq-preview-section{padding:56px 0 44px}
+.faq-preview-list{display:flex;flex-direction:column;gap:10px;margin-top:22px}
+
+/* ============ FINAL CTA (DARK) ============ */
+.final-cta-section{background:#0A2540;padding:64px 0 72px;color:#fff;position:relative;overflow:hidden;text-align:center}
+.final-cta-section::before{content:'';position:absolute;top:-60px;left:-60px;width:240px;height:240px;background:radial-gradient(circle,rgba(43,126,201,0.25) 0%,transparent 65%);border-radius:50%;pointer-events:none}
+.final-cta-section::after{content:'';position:absolute;bottom:-60px;right:-60px;width:220px;height:220px;background:radial-gradient(circle,rgba(26,95,164,0.2) 0%,transparent 65%);border-radius:50%;pointer-events:none}
+.final-cta-section>.container{position:relative;z-index:1}
+.final-cta-title{font-size:28px;font-weight:800;line-height:1.2;letter-spacing:-.5px;margin-bottom:12px;color:#fff}
+.final-cta-sub{font-size:14px;color:rgba(255,255,255,0.7);line-height:1.55;margin-bottom:26px}
+.final-cta-btn{display:inline-block;padding:17px 36px;border-radius:14px;background:#fff;color:var(--blue);font-size:15px;font-weight:700;border:none;cursor:pointer;font-family:inherit;transition:all .2s;box-shadow:0 8px 28px rgba(0,0,0,0.3)}
+.final-cta-btn:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(0,0,0,0.4)}
+
+/* ============ SECTION EYEBROWS ============ */
+.section-eyebrow{font-size:11px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;text-align:center}
+.section-main-title{font-size:26px;font-weight:800;line-height:1.2;letter-spacing:-.5px;text-align:center;margin-bottom:10px}
+.section-main-sub{font-size:14px;color:var(--text-2);text-align:center;line-height:1.55;margin-bottom:0;max-width:380px;margin-left:auto;margin-right:auto}
+
+/* ============ STICKY MOBILE CTA ============ */
+.sticky-cta{position:fixed;bottom:16px;left:50%;transform:translateX(-50%) translateY(calc(100% + 32px));z-index:900;opacity:0;transition:all .35s cubic-bezier(.4,0,.2,1);pointer-events:none;max-width:calc(100% - 32px);width:auto}
+.sticky-cta.visible{transform:translateX(-50%) translateY(0);opacity:1;pointer-events:auto}
+.sticky-cta-btn{display:flex;align-items:center;gap:10px;padding:14px 24px;border-radius:100px;background:var(--blue);color:#fff;font-size:14px;font-weight:700;border:none;cursor:pointer;font-family:inherit;box-shadow:0 8px 28px rgba(26,95,164,0.45),0 2px 8px rgba(0,0,0,0.15);transition:all .2s}
+.sticky-cta-btn:hover{background:var(--blue-dark);transform:scale(1.03)}
+.sticky-cta-btn:active{transform:scale(.97)}
+.sticky-cta-arrow{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:14px}
+
+/* ============ SCROLL REVEAL ============ */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
 .form-header{background:linear-gradient(165deg,#0A3D6E,#185FA5);padding:20px 0 24px}
 .form-nav{display:flex;align-items:center;gap:12px;margin-bottom:16px}
 .back-btn{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;color:rgba(255,255,255,0.8);background:rgba(255,255,255,0.08);font-family:inherit;transition:all .15s}
@@ -101,6 +310,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .tariff:hover{border-color:var(--blue)}
 .tariff.selected{border:2.5px solid var(--blue);box-shadow:0 4px 20px rgba(26,95,164,0.12)}
 .tariff-badge{position:absolute;top:-11px;right:16px;font-size:10px;font-weight:700;padding:4px 14px;border-radius:20px;background:var(--blue);color:#fff}
+.tariff-badge-save{background:var(--green)}
 .tariff-name{font-size:15px;font-weight:700;margin-bottom:4px}
 .tariff-price{font-size:28px;font-weight:800;letter-spacing:-.5px}
 .tariff-price span{font-size:14px;font-weight:400;color:var(--text-3)}
@@ -297,27 +507,347 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 
 <!-- S1 HOME -->
 <div class="screen active" id="s1">
-<div class="hero-section"><div class="container">
+
+<!-- HERO V2 -->
+<div class="hero-v2"><div class="container">
 <div class="nav-bar"><span class="nav-logo">ПутёвкAI</span></div>
-<h1 class="hero-title">Готовый маршрут<br>по России <span>за 10 минут</span></h1>
-<p class="hero-sub">ИИ спланирует поездку под ваш бюджет, даты и интересы. Вы получите PDF-маршрут, карту и таблицу расходов.</p>
-<button class="hero-cta" onclick="track('cta_plan_clicked');go(2)">Спланировать поездку</button>
-<button class="hero-cta-sec" onclick="track('example_view');go(5)">Посмотреть пример маршрута</button>
-</div></div>
-<div class="container">
-<div class="steps-section"><div class="steps-row">
-<div class="step-card"><div class="step-num">1</div><p>Расскажите о поездке</p></div>
-<div class="step-card"><div class="step-num">2</div><p>ИИ создаёт маршрут</p></div>
-<div class="step-card"><div class="step-num">3</div><p>Получите готовый пакет</p></div>
-</div></div>
-<div class="example-section"><div class="section-label">Пример маршрута</div>
-<div class="example-card"><div class="example-top"><h3>Алтай, 7 дней</h3><span class="badge badge-green">Пример</span></div>
-<div class="example-body"><p>&#128107; Пара, бюджет 80 000 &#8381;</p><p>&#128205; Чемал &#8594; Телецкое озеро &#8594; Акташ &#8594; Марс-1</p><p>&#127968; Жильё, еда, транспорт — всё расписано</p></div></div></div>
-<div class="social-section"><div class="section-label">Отзывы</div>
-<div class="review-card"><div class="review-top"><div class="avatar av-blue">АК</div><div><span class="review-name">Анна К.</span><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div></div><div class="review-text">Съездили на Байкал по этому маршруту. Всё совпало, ничего лишнего. Очень удобная таблица расходов!</div></div>
-<div class="review-card"><div class="review-top"><div class="avatar av-green">ДМ</div><div><span class="review-name">Дмитрий М.</span><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div></div><div class="review-text">Заказал маршрут по Дагестану для семьи с ребёнком. Учли всё: и рестораны с детским меню, и время на переезды.</div></div>
+<div class="hero-v2-content">
+<div class="hero-v2-tag">AI-планировщик</div>
+<h1 class="hero-v2-title">Маршрут по России <span class="accent">за 10 минут</span>, не за 10 вечеров</h1>
+<p class="hero-v2-sub">Расскажите, куда хочется — ИИ соберёт маршрут по дням, таблицу бюджета, карту и чек-лист вещей. Всё в одном письме.</p>
+<div class="hero-v2-actions">
+<button class="hero-v2-primary" onclick="track('cta_plan_clicked');go(2)">Спланировать поездку &rarr;</button>
+<button class="hero-v2-secondary" onclick="track('example_view');go(5)">Посмотреть пример</button>
+</div>
+<div class="hero-v2-trust">
+<span class="hero-v2-trust-item"><span class="hero-v2-trust-check">&#10003;</span> От 490 ₽</span>
+<span class="hero-v2-trust-item"><span class="hero-v2-trust-check">&#10003;</span> Возврат возможен</span>
+<span class="hero-v2-trust-item"><span class="hero-v2-trust-check">&#10003;</span> Без подписки</span>
+</div>
+</div>
+<!-- Phone mockup -->
+<div class="hero-v2-preview">
+<div class="phone-mockup">
+<div class="phone-top">
+<div class="phone-dots"><div class="phone-dot"></div><div class="phone-dot"></div><div class="phone-dot"></div></div>
+<div class="phone-label">ВАШ МАРШРУТ</div>
+<div></div>
+</div>
+<div class="phone-demo">
+<div class="phone-msg">
+<div class="phone-msg-label">ЗАПРОС</div>
+Алтай, неделя, пара, бюджет 80 000 ₽, природа + активный отдых
+</div>
+<div class="phone-route">
+<div class="phone-msg-label" style="margin-bottom:8px">ДЕНЬ 3 &middot; ЧЕМАЛ</div>
+<div class="phone-route-day"><span class="phone-route-time">09:00</span><span class="phone-route-dot"></span>Завтрак в «Чемальской долине»</div>
+<div class="phone-route-day"><span class="phone-route-time">11:00</span><span class="phone-route-dot"></span>Каракольские озёра, трекинг</div>
+<div class="phone-route-day"><span class="phone-route-time">14:30</span><span class="phone-route-dot"></span>Обед, остров Патмос</div>
+<div class="phone-route-day"><span class="phone-route-time">18:00</span><span class="phone-route-dot"></span>Чемальская ГЭС &amp; ужин</div>
+</div>
+</div>
+</div>
+</div>
 </div></div>
 
+<!-- TRUST STRIP -->
+<div class="trust-strip"><div class="container">
+<div class="trust-strip-row">
+<div class="trust-item"><div class="trust-num">10 мин</div><div class="trust-lbl">На маршрут</div></div>
+<div class="trust-item"><div class="trust-num">4 файла</div><div class="trust-lbl">В пакете</div></div>
+<div class="trust-item"><div class="trust-num">от 490&thinsp;₽</div><div class="trust-lbl">За маршрут</div></div>
+</div>
+</div></div>
+
+<!-- DEMO SECTION -->
+<div class="demo-section"><div class="container">
+<div class="section-eyebrow reveal">Что именно вы получите</div>
+<h2 class="section-main-title reveal">Не текст. Пакет документов.</h2>
+<p class="section-main-sub reveal" style="margin-bottom:28px">PDF, таблица, карта, чек-лист — всё готовое к использованию в поездке</p>
+
+<div class="demo-tabs reveal">
+<button class="demo-tab on" onclick="switchDemo(this,'pdf')"><span class="demo-tab-icon fi-pdf">PDF</span>Маршрут</button>
+<button class="demo-tab" onclick="switchDemo(this,'sheet')"><span class="demo-tab-icon fi-xls">XLS</span>Бюджет</button>
+<button class="demo-tab" onclick="switchDemo(this,'map')"><span class="demo-tab-icon fi-map">MAP</span>Карта</button>
+<button class="demo-tab" onclick="switchDemo(this,'chk')"><span class="demo-tab-icon fi-chk" style="font-size:10px">&#10003;</span>Чек-лист</button>
+</div>
+
+<!-- PDF panel -->
+<div class="demo-panel on" id="demo-pdf">
+<div class="demo-panel-head"><span class="demo-panel-badge">PDF</span><span class="demo-panel-filename">Маршрут Алтай 7 дней.pdf</span></div>
+<div class="demo-panel-body">
+<div class="demo-pdf-day">
+<div class="demo-pdf-day-title">День 1 &middot; Горно-Алтайск</div>
+<div class="demo-pdf-item"><span class="demo-pdf-time">09:00</span><span class="demo-pdf-place">Прилёт, трансфер до Чемала</span></div>
+<div class="demo-pdf-item"><span class="demo-pdf-time">13:00</span><span class="demo-pdf-place">Обед в «Усадьбе Ника»</span></div>
+<div class="demo-pdf-item"><span class="demo-pdf-time">15:00</span><span class="demo-pdf-place">Чемальская ГЭС, остров Патмос</span></div>
+</div>
+<div class="demo-pdf-day">
+<div class="demo-pdf-day-title">День 2 &middot; Каракол</div>
+<div class="demo-pdf-item"><span class="demo-pdf-time">08:00</span><span class="demo-pdf-place">Ранний выезд к Каракольским озёрам</span></div>
+<div class="demo-pdf-item"><span class="demo-pdf-time">12:30</span><span class="demo-pdf-place">Пикник у первого озера</span></div>
+</div>
+</div>
+</div>
+
+<!-- Sheet panel -->
+<div class="demo-panel" id="demo-sheet">
+<div class="demo-panel-head"><span class="demo-panel-badge">XLS</span><span class="demo-panel-filename">Бюджет Алтай 7 дней</span></div>
+<div class="demo-panel-body">
+<div class="demo-sheet-row"><div class="demo-sheet-head">Категория</div><div class="demo-sheet-head" style="text-align:right">План</div><div class="demo-sheet-head" style="text-align:right">Факт</div></div>
+<div class="demo-sheet-row"><div class="demo-sheet-cat">Жильё</div><div class="demo-sheet-num">32 000</div><div class="demo-sheet-num">28 500</div></div>
+<div class="demo-sheet-row"><div class="demo-sheet-cat">Транспорт</div><div class="demo-sheet-num">18 000</div><div class="demo-sheet-num">17 200</div></div>
+<div class="demo-sheet-row"><div class="demo-sheet-cat">Еда</div><div class="demo-sheet-num">16 000</div><div class="demo-sheet-num">14 800</div></div>
+<div class="demo-sheet-row"><div class="demo-sheet-cat">Активности</div><div class="demo-sheet-num">9 000</div><div class="demo-sheet-num">8 400</div></div>
+<div class="demo-sheet-row"><div class="demo-sheet-cat">Резерв</div><div class="demo-sheet-num">5 000</div><div class="demo-sheet-num">2 100</div></div>
+<div class="demo-sheet-row total"><div>Итого</div><div class="demo-sheet-num">80 000</div><div class="demo-sheet-num">71 000</div></div>
+</div>
+</div>
+
+<!-- Map panel -->
+<div class="demo-panel" id="demo-map">
+<div class="demo-panel-head"><span class="demo-panel-badge">MAP</span><span class="demo-panel-filename">Маршрут на Яндекс.Картах</span></div>
+<div class="demo-panel-body">
+<div class="demo-map">
+<div class="demo-map-pin" style="top:30%;left:18%"></div>
+<div class="demo-map-pin" style="top:45%;left:40%"></div>
+<div class="demo-map-pin" style="top:38%;left:62%"></div>
+<div class="demo-map-pin" style="top:62%;left:78%"></div>
+<div class="demo-map-pin" style="top:72%;left:50%"></div>
+<div class="demo-map-line" style="top:38%;left:22%;width:18%;transform:rotate(35deg)"></div>
+<div class="demo-map-line" style="top:42%;left:42%;width:22%;transform:rotate(-15deg)"></div>
+<div class="demo-map-line" style="top:50%;left:65%;width:16%;transform:rotate(55deg)"></div>
+<div class="demo-map-line" style="top:68%;left:52%;width:28%;transform:rotate(-10deg)"></div>
+</div>
+<div style="text-align:center;font-size:12px;color:var(--text-3);margin-top:12px">5 точек маршрута &middot; открывается в приложении Яндекс.Карты</div>
+</div>
+</div>
+
+<!-- Checklist panel -->
+<div class="demo-panel" id="demo-chk">
+<div class="demo-panel-head"><span class="demo-panel-badge">LIST</span><span class="demo-panel-filename">Чек-лист на Алтай, июль</span></div>
+<div class="demo-panel-body">
+<div class="demo-chk-item"><div class="demo-chk-box checked">&#10003;</div>Ветровка (вечером холодно)</div>
+<div class="demo-chk-item"><div class="demo-chk-box checked">&#10003;</div>Тёплый свитшот на 2 слоя</div>
+<div class="demo-chk-item"><div class="demo-chk-box checked">&#10003;</div>Трекинговые ботинки</div>
+<div class="demo-chk-item"><div class="demo-chk-box"></div>Солнцезащитный крем SPF 50+</div>
+<div class="demo-chk-item"><div class="demo-chk-box"></div>Репеллент от мошки</div>
+<div class="demo-chk-item"><div class="demo-chk-box"></div>Аптечка (список внутри)</div>
+</div>
+</div>
+
+</div></div>
+
+<!-- COMPARISON SECTION (DARK) -->
+<div class="comparison-section"><div class="container">
+<div class="comparison-eyebrow reveal">Чем это отличается</div>
+<h2 class="comparison-title reveal">ИИ-планировщик, а не просто чат</h2>
+<p class="comparison-sub reveal">ChatGPT даст вам текст. Мы — готовый пакет для поездки.</p>
+
+<div class="comparison-table reveal">
+<div class="comparison-head">
+<div class="comparison-head-cell">Критерий</div>
+<div class="comparison-head-cell them">ChatGPT</div>
+<div class="comparison-head-cell us">ПутёвкAI</div>
+</div>
+<div class="comparison-row">
+<div class="comparison-criterion">Формат результата</div>
+<div class="comparison-cell them">Текст в чате</div>
+<div class="comparison-cell us">PDF + Sheets + Карта</div>
+</div>
+<div class="comparison-row">
+<div class="comparison-criterion">Таблица бюджета</div>
+<div class="comparison-cell them"><span class="comparison-mark no">&ndash;</span></div>
+<div class="comparison-cell us"><span class="comparison-mark yes">&#10003;</span></div>
+</div>
+<div class="comparison-row">
+<div class="comparison-criterion">Точки на карте</div>
+<div class="comparison-cell them"><span class="comparison-mark no">&ndash;</span></div>
+<div class="comparison-cell us"><span class="comparison-mark yes">&#10003;</span></div>
+</div>
+<div class="comparison-row">
+<div class="comparison-criterion">Чек-лист вещей</div>
+<div class="comparison-cell them"><span class="comparison-mark no">&ndash;</span></div>
+<div class="comparison-cell us"><span class="comparison-mark yes">&#10003;</span></div>
+</div>
+<div class="comparison-row">
+<div class="comparison-criterion">Фокус на России</div>
+<div class="comparison-cell them">Общий</div>
+<div class="comparison-cell us">Специализирован</div>
+</div>
+<div class="comparison-row">
+<div class="comparison-criterion">Время на результат</div>
+<div class="comparison-cell them">Много сообщений</div>
+<div class="comparison-cell us">10 минут</div>
+</div>
+</div>
+</div></div>
+
+<!-- STEPS V2 -->
+<div class="steps-v2-section"><div class="container">
+<div class="section-eyebrow reveal">Как это работает</div>
+<h2 class="section-main-title reveal">Три шага до поездки</h2>
+<p class="section-main-sub reveal">Минут десять на ваше время — остальное делает ИИ</p>
+
+<div class="steps-v2">
+<div class="step-v2 reveal">
+<div class="step-v2-num">1</div>
+<div class="step-v2-body">
+<div class="step-v2-title">Расскажите о поездке</div>
+<div class="step-v2-desc">Направление, даты, бюджет, с кем едете, интересы. Форма — 6 полей, занимает 2 минуты.</div>
+</div>
+</div>
+<div class="step-v2 reveal">
+<div class="step-v2-num">2</div>
+<div class="step-v2-body">
+<div class="step-v2-title">Выберите тариф и оплатите</div>
+<div class="step-v2-desc">Три тарифа от 490 ₽. Банковская карта через защищённый шлюз, данные карты не хранятся.</div>
+</div>
+</div>
+<div class="step-v2 reveal">
+<div class="step-v2-num">3</div>
+<div class="step-v2-body">
+<div class="step-v2-title">Получите пакет на почту</div>
+<div class="step-v2-desc">В течение 10 минут: PDF-маршрут, Google-таблица бюджета, ссылка на карту, чек-лист вещей.</div>
+</div>
+</div>
+</div>
+</div></div>
+
+<!-- DESTINATIONS -->
+<div class="container">
+<div class="destinations-section reveal"><div class="section-label">Популярные направления</div>
+<div class="dest-chips">
+<div class="dest-chip" onclick="planTrip('Горный Алтай')">&#127956; Алтай</div>
+<div class="dest-chip" onclick="planTrip('Байкал')">&#127754; Байкал</div>
+<div class="dest-chip" onclick="planTrip('Дагестан')">&#127956; Дагестан</div>
+<div class="dest-chip" onclick="planTrip('Карелия')">&#127794; Карелия</div>
+<div class="dest-chip" onclick="planTrip('Камчатка')">&#127755; Камчатка</div>
+<div class="dest-chip" onclick="planTrip('Сочи и Красная Поляна')">&#127796; Сочи</div>
+<div class="dest-chip" onclick="planTrip('Калининградская область')">&#127984; Калининград</div>
+<div class="dest-chip" onclick="planTrip('Казань и Татарстан')">&#127984; Казань</div>
+<div class="dest-chip" onclick="planTrip('Санкт-Петербург')">&#127967; Петербург</div>
+<div class="dest-chip" onclick="planTrip('Мурманск и Хибины')">&#10052;&#65039; Мурманск</div>
+</div></div>
+
+<!-- EXAMPLE CARD -->
+<div class="example-section reveal"><div class="section-label">Живой пример</div>
+<div class="example-card"><div class="example-top"><h3>Алтай, 7 дней</h3><span class="badge badge-green">Пример</span></div>
+<div class="example-body"><p>&#128107; Пара, бюджет 80 000 &#8381;</p><p>&#128205; Чемал &#8594; Телецкое озеро &#8594; Акташ &#8594; Марс-1</p><p>&#127968; Жильё, еда, транспорт — всё расписано</p></div></div>
+<button class="btn-secondary" style="margin-top:12px" onclick="track('example_view');go(5)">Посмотреть подробно &rarr;</button>
+</div>
+
+<!-- REVIEWS -->
+<div class="social-section reveal"><div class="section-label">Отзывы путешественников</div>
+<div class="review-card"><div class="review-top"><div class="avatar av-blue">АК</div><div><span class="review-name">Анна К.</span><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div></div><div class="review-text">Съездили на Байкал по этому маршруту. Всё совпало, ничего лишнего. Очень удобная таблица расходов!</div><div class="review-trip">Байкал, 10 дней &middot; пара</div></div>
+<div class="review-card"><div class="review-top"><div class="avatar av-green">ДМ</div><div><span class="review-name">Дмитрий М.</span><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div></div><div class="review-text">Заказал маршрут по Дагестану для семьи с ребёнком. Учли всё: и рестораны с детским меню, и время на переезды.</div><div class="review-trip">Дагестан, 5 дней &middot; семья</div></div>
+<div class="review-card"><div class="review-top"><div class="avatar av-amber">ЕС</div><div><span class="review-name">Екатерина С.</span><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div></div><div class="review-text">Думала, ИИ выдаст что-то стандартное. А получила маршрут прямо по моим пожеланиям — без горнолыжки и с акцентом на кофейни и музеи.</div><div class="review-trip">Петербург, 4 дня &middot; соло</div></div>
+<div class="review-card"><div class="review-top"><div class="avatar av-purple">ИР</div><div><span class="review-name">Игорь Р.</span><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div></div><div class="review-text">Сэкономил несколько вечеров планирования. Таблица бюджета — топ: вбиваешь факт, сразу видишь остаток на дни вперёд.</div><div class="review-trip">Карелия, 6 дней &middot; компания</div></div>
+</div>
+</div>
+
+<!-- TARIFFS PREVIEW -->
+<div class="tariffs-preview-section"><div class="container">
+<div class="section-eyebrow reveal">Тарифы</div>
+<h2 class="section-main-title reveal">Честные цены</h2>
+<p class="section-main-sub reveal">Без подписки и скрытых платежей — оплатили один раз, получили маршрут</p>
+
+<div class="tariffs-preview-grid">
+
+<div class="tariff-preview reveal" onclick="track('cta_plan_clicked');go(2)">
+<div class="tariff-preview-top">
+<div>
+<div class="tariff-preview-name">Базовый</div>
+<div class="tariff-preview-price">490 <span>&#8381;</span></div>
+</div>
+<div class="tariff-preview-meta">разово<br>один маршрут</div>
+</div>
+<ul class="tariff-preview-features">
+<li>PDF-маршрут по дням</li>
+<li>Список мест и адресов</li>
+<li>Чек-лист вещей</li>
+<li class="muted">Без таблицы бюджета</li>
+<li class="muted">Без карты</li>
+</ul>
+<div class="tariff-preview-cta">Выбрать <span class="tariff-preview-cta-arrow">&rarr;</span></div>
+</div>
+
+<div class="tariff-preview featured reveal" onclick="track('cta_plan_clicked');go(2)">
+<div class="tariff-preview-badge">Популярный</div>
+<div class="tariff-preview-top">
+<div>
+<div class="tariff-preview-name">Расширенный</div>
+<div class="tariff-preview-price">990 <span>&#8381;</span></div>
+</div>
+<div class="tariff-preview-meta">разово<br>один маршрут</div>
+</div>
+<ul class="tariff-preview-features">
+<li>Всё из базового</li>
+<li>Таблица бюджета в Google Sheets</li>
+<li>Маршрут на Яндекс.Картах</li>
+<li>Рекомендации кафе и жилья</li>
+<li>Контакты экстренных служб</li>
+</ul>
+<div class="tariff-preview-cta">Выбрать <span class="tariff-preview-cta-arrow">&rarr;</span></div>
+</div>
+
+<div class="tariff-preview reveal" onclick="track('cta_plan_clicked');go(2)">
+<div class="tariff-preview-save-badge">−980 ₽</div>
+<div class="tariff-preview-top">
+<div>
+<div class="tariff-preview-name">Пакет 3 маршрута</div>
+<div class="tariff-preview-price">1&thinsp;990 <span>&#8381;</span></div>
+</div>
+<div class="tariff-preview-meta">за 3 поездки<br>действует год</div>
+</div>
+<ul class="tariff-preview-features">
+<li>3 расширенных маршрута</li>
+<li>Экономия 980&thinsp;₽ vs поодиночке</li>
+<li>Используйте в течение 12 месяцев</li>
+<li>Подходит для планов на год вперёд</li>
+</ul>
+<div class="tariff-preview-cta">Выбрать <span class="tariff-preview-cta-arrow">&rarr;</span></div>
+</div>
+
+</div>
+</div></div>
+
+<!-- FAQ PREVIEW -->
+<div class="faq-preview-section"><div class="container">
+<div class="section-eyebrow reveal">Вопросы и ответы</div>
+<h2 class="section-main-title reveal">Частые вопросы</h2>
+
+<div class="faq-preview-list">
+<div class="faq-item reveal" onclick="toggleFaq(this)">
+<div class="faq-q"><span class="faq-num">?</span><span class="faq-q-text">Чем это лучше, чем просто спросить ChatGPT?</span><span class="faq-q-arrow">+</span></div>
+<div class="faq-a">
+<p>ChatGPT даст только текст — его потом надо структурировать, переносить в таблицу, искать точки на карте. Мы сразу выдаём <strong>готовый пакет</strong> документов: PDF-маршрут, Google-таблицу с формулами, карту и чек-лист.</p>
+</div>
+</div>
+<div class="faq-item reveal" onclick="toggleFaq(this)">
+<div class="faq-q"><span class="faq-num">?</span><span class="faq-q-text">Когда придёт маршрут?</span><span class="faq-q-arrow">+</span></div>
+<div class="faq-a">
+<p>В течение <strong>10 минут</strong> после оплаты. Все файлы приходят на email, указанный в форме.</p>
+</div>
+</div>
+<div class="faq-item reveal" onclick="toggleFaq(this)">
+<div class="faq-q"><span class="faq-num">?</span><span class="faq-q-text">Что если не понравился маршрут?</span><span class="faq-q-arrow">+</span></div>
+<div class="faq-a">
+<p>Напишите на hello@putevkai.ru. Мы либо пересоберём маршрут под уточнения, либо вернём деньги.</p>
+</div>
+</div>
+</div>
+<button class="btn-secondary" style="margin-top:16px" onclick="go(7)">Все вопросы &rarr;</button>
+</div></div>
+
+<!-- FINAL CTA (DARK) -->
+<div class="final-cta-section"><div class="container">
+<div class="final-cta-title">Готовы начать планирование?</div>
+<div class="final-cta-sub">Заполните форму за 2 минуты — маршрут придёт в течение 10 минут</div>
+<button class="final-cta-btn" onclick="track('cta_plan_clicked');go(2)">Спланировать поездку</button>
+</div></div>
+
+<!-- FOOTER -->
 <div class="site-footer"><div class="container">
 <div class="site-footer-logo">ПутёвкAI</div>
 <div class="site-footer-tagline">МАРШРУТЫ ПО РОССИИ</div>
@@ -331,6 +861,15 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 </div>
 <div class="site-footer-bottom">© 2026 putevkai.ru<br>Автор сервиса &mdash; Артур</div>
 </div></div>
+
+<!-- STICKY MOBILE CTA -->
+<div class="sticky-cta" id="sticky-cta">
+<button class="sticky-cta-btn" onclick="track('cta_plan_clicked');go(2)">
+Спланировать поездку
+<span class="sticky-cta-arrow">&rarr;</span>
+</button>
+</div>
+
 </div>
 
 <!-- S2 FORM -->
@@ -367,7 +906,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 <div class="pricing-summary" id="pricing-summary">Ваш маршрут почти готов — выберите подходящий пакет</div>
 <div class="tariff" onclick="pickTariff(this,490)"><div class="tariff-name">Базовый</div><div class="tariff-price">490 &#8381; <span>разово</span></div><ul class="tariff-list"><li>Маршрут по дням в PDF</li><li>Список мест и адресов</li><li>Чек-лист вещей</li></ul></div>
 <div class="tariff selected" id="tariff-mid" onclick="pickTariff(this,990)"><div class="tariff-badge">Популярный</div><div class="tariff-name">Расширенный</div><div class="tariff-price">990 &#8381; <span>разово</span></div><ul class="tariff-list"><li>Всё из базового</li><li>Таблица бюджета в Google Sheets</li><li>Маршрут на Яндекс.Картах</li><li>Рекомендации кафе и жилья</li><li>Контакты экстренных служб</li></ul></div>
-<div class="tariff" onclick="pickTariff(this,1990)"><div class="tariff-name">Пакет 3 маршрута</div><div class="tariff-price">1 990 &#8381; <span>за 3 поездки</span></div><ul class="tariff-list"><li>3 расширенных маршрута</li><li>Экономия 980 &#8381;</li><li>Используйте в течение года</li></ul></div>
+<div class="tariff" onclick="pickTariff(this,1990)"><div class="tariff-badge tariff-badge-save">&minus;980 &#8381;</div><div class="tariff-name">Пакет 3 маршрута</div><div class="tariff-price">1 990 &#8381; <span>за 3 поездки</span></div><ul class="tariff-list"><li>3 расширенных маршрута</li><li>Экономия 980 &#8381; vs поодиночке</li><li>Действует 12 месяцев с даты оплаты</li></ul></div>
 <div class="guarantee"><div class="guarantee-icon">&#10003;</div><p><strong>Если маршрут не подойдёт</strong> — напишите на hello@putevkai.ru. Обсудим: переделаем под уточнения или вернём деньги.</p></div>
 <button class="btn-primary" id="pay-btn" onclick="pay()">Оплатить 990 &#8381;</button>
 </div></div>
@@ -384,7 +923,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 <div class="file-card"><div class="file-icon fi-pdf">PDF</div><div class="file-info"><div class="file-name">Маршрут Алтай 7 дней.pdf</div><div class="file-desc">14 страниц, маршрут по дням + чек-лист</div></div><div class="file-arrow">&#8594;</div></div>
 <div class="file-card"><div class="file-icon fi-xls">XLS</div><div class="file-info"><div class="file-name">Бюджет поездки</div><div class="file-desc">Google Sheets, расходы по категориям</div></div><div class="file-arrow">&#8594;</div></div>
 <div class="file-card"><div class="file-icon fi-map">MAP</div><div class="file-info"><div class="file-name">Маршрут на карте</div><div class="file-desc">Яндекс.Карты, все точки отмечены</div></div><div class="file-arrow">&#8594;</div></div>
-<div class="file-card"><div class="file-icon fi-chk">CHK</div><div class="file-info"><div class="file-name">Чек-лист вещей</div><div class="file-desc">PDF, адаптирован под Алтай в июле</div></div><div class="file-arrow">&#8594;</div></div>
+<div class="file-card"><div class="file-icon fi-chk" style="font-size:22px">&#10003;</div><div class="file-info"><div class="file-name">Чек-лист вещей</div><div class="file-desc">PDF, адаптирован под Алтай в июле</div></div><div class="file-arrow">&#8594;</div></div>
 </div>
 <button class="btn-primary" onclick="startNewTrip()">Спланировать ещё одну поездку</button>
 <button class="btn-secondary">Поделиться маршрутом</button>
@@ -479,7 +1018,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 <div class="package-item"><div class="package-item-icon fi-pdf">PDF</div><div class="package-item-name">Маршрут</div><div class="package-item-desc">Расписание по дням, места, время</div></div>
 <div class="package-item"><div class="package-item-icon fi-xls">XLS</div><div class="package-item-name">Бюджет</div><div class="package-item-desc">Google-таблица с формулами</div></div>
 <div class="package-item"><div class="package-item-icon fi-map">MAP</div><div class="package-item-name">Карта</div><div class="package-item-desc">Все точки в Яндекс.Картах</div></div>
-<div class="package-item"><div class="package-item-icon fi-chk">CHK</div><div class="package-item-name">Чек-лист</div><div class="package-item-desc">Вещи под ваше направление</div></div>
+<div class="package-item"><div class="package-item-icon fi-chk" style="font-size:18px">&#10003;</div><div class="package-item-name">Чек-лист</div><div class="package-item-desc">Вещи под ваше направление</div></div>
 </div>
 </div>
 
@@ -567,7 +1106,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 <div class="faq-item" onclick="toggleFaq(this)">
 <div class="faq-q"><span class="faq-num">07</span><span class="faq-q-text">Как происходит оплата? Это безопасно?</span><span class="faq-q-arrow">+</span></div>
 <div class="faq-a">
-<p>Оплата — через защищённый платёжный шлюз банковской картой. Данные карты не хранятся у нас, обработка проходит на стороне платёжной системы по стандартам PCI DSS.</p>
+<p>Оплата — через защищённый платёжный шлюз банковской картой. Данные карты не сохраняются на стороне сервиса и обрабатываются напрямую платёжной системой.</p>
 <p>На текущем пилотном этапе возможны альтернативные способы оплаты — если что, напишите на hello@putevkai.ru.</p>
 </div>
 </div>
@@ -825,6 +1364,24 @@ function go(n){
 function goBackSmart(){go(_lastScreen||1);}
 function toggleFaq(el){el.classList.toggle('open');}
 
+function planTrip(destination){
+  track('destination_chip_clicked',{destination:destination});
+  var destField=document.getElementById('f-destination');
+  if(destField){destField.value=destination;}
+  go(2);
+}
+
+function switchDemo(btn,key){
+  var tabs=document.querySelectorAll('.demo-tab');
+  tabs.forEach(function(t){t.classList.remove('on');});
+  btn.classList.add('on');
+  var panels=document.querySelectorAll('.demo-panel');
+  panels.forEach(function(p){p.classList.remove('on');});
+  var panel=document.getElementById('demo-'+key);
+  if(panel){panel.classList.add('on');}
+  track('demo_tab_switched',{tab:key});
+}
+
 function showToast(msg){
   var t=document.getElementById('toast');
   t.textContent=msg;
@@ -1000,6 +1557,43 @@ document.addEventListener('DOMContentLoaded',function(){
     consent.addEventListener('change',function(){
       document.getElementById('consent-wrap').classList.remove('field-error');
     });
+  }
+
+  // Sticky CTA: показываем когда скроллим ниже hero
+  var stickyCta=document.getElementById('sticky-cta');
+  if(stickyCta){
+    var stickyShown=false;
+    window.addEventListener('scroll',function(){
+      var activeScreen=document.querySelector('.screen.active');
+      if(!activeScreen || activeScreen.id!=='s1'){
+        stickyCta.classList.remove('visible');
+        return;
+      }
+      var scrollY=window.scrollY||window.pageYOffset;
+      // Показываем после 500px скролла, скрываем в самом низу (когда footer виден)
+      var nearBottom=(window.innerHeight+scrollY)>=(document.body.offsetHeight-120);
+      if(scrollY>500 && !nearBottom){
+        if(!stickyShown){stickyCta.classList.add('visible');stickyShown=true;}
+      }else{
+        stickyCta.classList.remove('visible');
+        stickyShown=false;
+      }
+    },{passive:true});
+  }
+
+  // Scroll reveal
+  if('IntersectionObserver' in window){
+    var revealObserver=new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },{threshold:0.1,rootMargin:'0px 0px -50px 0px'});
+    document.querySelectorAll('.reveal').forEach(function(el){revealObserver.observe(el);});
+  }else{
+    document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('visible');});
   }
 });
 </script>
