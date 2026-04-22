@@ -962,14 +962,20 @@ body.page-home .final-cta p {
   margin-right: auto;
   line-height: 1.55;
 }
+body.page-home .final-cta-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
 body.page-home .final-btn {
-  background: var(--text);
+  background: var(--accent);
   color: var(--bg);
   border: none;
   padding: 22px 48px;
   font-family: inherit;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.02em;
   cursor: pointer;
   border-radius: 2px;
@@ -977,7 +983,20 @@ body.page-home .final-btn {
   display: inline-block;
   transition: background 0.3s, transform 0.2s;
 }
-body.page-home .final-btn:hover { background: var(--accent); transform: translateY(-2px); }
+body.page-home .final-btn:hover { background: var(--text); transform: translateY(-2px); }
+body.page-home .final-btn-secondary {
+  color: var(--text-2);
+  text-decoration: none;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  padding: 8px 16px;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+body.page-home .final-btn-secondary:hover {
+  color: var(--text);
+  border-bottom-color: var(--line-bright);
+}
 body.page-home .footer {
   padding: 80px 48px 40px;
   border-top: 1px solid var(--line);
@@ -1170,6 +1189,123 @@ body.page-form .text-input {
 }
 body.page-form .text-input:focus { border-bottom-color: var(--accent); }
 body.page-form .text-input::placeholder { color: var(--text-3); font-style: italic; }
+
+/* Custom-text input shown when "Другое" is selected */
+body.page-form .custom-input-wrap {
+  margin-top: 24px;
+  max-width: 560px;
+  animation: customSlideIn 0.4s ease;
+}
+@keyframes customSlideIn {
+  0% { opacity: 0; transform: translateY(-8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+body.page-form .custom-input-label {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+body.page-form .custom-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid var(--accent-dim);
+  padding: 14px 0;
+  font-size: 22px;
+  color: var(--text);
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  outline: none;
+  transition: border-color 0.3s;
+}
+body.page-form .custom-input:focus { border-bottom-color: var(--accent); }
+body.page-form .custom-input::placeholder { color: var(--text-3); font-style: italic; }
+
+/* === ERROR / VALIDATION MESSAGES === */
+body.page-form .field-error {
+  margin-top: 16px;
+  padding: 14px 18px;
+  background: rgba(229, 115, 115, 0.08);
+  border-left: 2px solid var(--error);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-2);
+  max-width: 560px;
+  animation: errorSlideIn 0.3s ease;
+  border-radius: 0 2px 2px 0;
+}
+body.page-form .field-error strong {
+  color: var(--error);
+  font-weight: 500;
+  display: block;
+  margin-bottom: 4px;
+}
+body.page-form .field-hint {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--text-3);
+  max-width: 560px;
+  font-style: italic;
+}
+body.page-form .field-hint.warning { color: #E5B873; }
+@keyframes errorSlideIn {
+  0% { opacity: 0; transform: translateY(-4px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes optionShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+body.page-form .option.shake {
+  animation: optionShake 0.4s ease;
+  border-color: var(--error) !important;
+}
+body.page-form .text-input.has-error,
+body.page-form .custom-input.has-error,
+body.page-form .email-input.has-error,
+body.page-form .date-input.has-error {
+  border-bottom-color: var(--error) !important;
+  border-color: var(--error) !important;
+}
+body.page-form .char-counter {
+  font-size: 11px;
+  color: var(--text-3);
+  text-align: right;
+  margin-top: 6px;
+  letter-spacing: 0.05em;
+  max-width: 560px;
+}
+body.page-form .char-counter.warning { color: #E5B873; }
+body.page-form .char-counter.error { color: var(--error); }
+
+/* Disabled-button hint */
+body.page-form .nav-bar .next-hint {
+  position: absolute;
+  bottom: 100%;
+  right: 48px;
+  margin-bottom: 12px;
+  padding: 8px 14px;
+  background: var(--bg-lift);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-size: 12px;
+  color: var(--text-2);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.2s, transform 0.2s;
+  pointer-events: none;
+}
+body.page-form .nav-bar .next-hint.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
 body.page-form .date-row {
   display: flex;
   gap: 32px;
@@ -1396,6 +1532,22 @@ body.page-form .nav-tariff {
   font-size: 13px;
   color: var(--text-3);
   text-align: center;
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 0.2s, background 0.2s;
+}
+body.page-form .nav-tariff:hover {
+  border-color: var(--line);
+  background: rgba(255, 255, 255, 0.02);
+}
+body.page-form .nav-tariff:hover::after {
+  content: " ⇄";
+  color: var(--accent);
+  font-size: 11px;
 }
 body.page-form .nav-tariff strong {
   color: var(--text);
@@ -2355,7 +2507,7 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
     <li><a href="#pricing">Цены</a></li>
     <li><a href="#faq">Вопросы</a></li>
   </ul>
-  <a href="#form" class="nav-cta">Начать</a>
+  <a href="#form:extended" class="nav-cta">Начать</a>
 </nav>
 
 <!-- HERO -->
@@ -2374,7 +2526,7 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
       куда ехать, что смотреть, где есть, сколько стоит. Под ваш бюджет и стиль.
     </p>
     <div class="hero-actions">
-      <a href="#form" class="btn-primary">Составить маршрут</a>
+      <a href="#form:extended" class="btn-primary">Составить маршрут</a>
       <a href="#example" class="btn-ghost">Посмотреть пример</a>
     </div>
   </div>
@@ -2785,7 +2937,7 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
         <li><span class="price-check">◆</span>PDF-файл на email</li>
         <li><span class="price-check">◆</span>Срок доставки 5–10 минут</li>
       </ul>
-      <a href="#form" class="price-btn">Выбрать базовый</a>
+      <a href="#form:basic" class="price-btn">Выбрать базовый</a>
     </div>
     <div class="price-card featured">
       <div class="price-tag">Популярный</div>
@@ -2800,7 +2952,7 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
         <li><span class="price-check">◆</span>Региональные советы</li>
         <li><span class="price-check">◆</span>Замена плана без доплат</li>
       </ul>
-      <a href="#form" class="price-btn">Выбрать расширенный</a>
+      <a href="#form:extended" class="price-btn">Выбрать расширенный</a>
     </div>
   </div>
 </section>
@@ -2843,8 +2995,11 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
   <div class="final-photo"></div>
   <div class="final-cta-inner">
     <h2>Готовы увидеть<br>Россию <em>по-новому?</em></h2>
-    <p>Первый маршрут — за пять минут. Оплата после одобрения плана. Не понравилось — вернём деньги.</p>
-    <a href="#form" class="final-btn">Составить маршрут — 290 ₽</a>
+    <p>Маршрут с детальным бюджетом, картой, чек-листом и региональными советами — в почте через пять минут. Не понравилось — вернём деньги.</p>
+    <div class="final-cta-actions">
+      <a href="#form:extended" class="final-btn">Получить маршрут — 690 ₽</a>
+      <a href="#form:basic" class="final-btn-secondary">или базовый за 290 ₽ →</a>
+    </div>
   </div>
 </section>
 
@@ -2911,7 +3066,9 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
       <div class="step-eyebrow">Направление</div>
       <h2 class="step-question">Куда хотите <em>поехать?</em></h2>
       <p class="step-hint">Регион, республика, остров, город — что угодно. От Калининграда до Камчатки.</p>
-      <input type="text" class="text-input" id="destInput" placeholder="Например, Дагестан или Алтай" autocomplete="off">
+      <input type="text" class="text-input" id="destInput" placeholder="Например, Дагестан или Алтай" autocomplete="off" maxlength="80">
+      <div class="char-counter" id="destCounter" style="display:none;"></div>
+      <div class="field-error" id="destError" style="display:none;"></div>
     </div>
 
     <!-- STEP 2: Dates -->
@@ -2929,6 +3086,8 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
           <input type="date" class="date-input" id="dateEnd">
         </div>
       </div>
+      <div class="field-error" id="datesError" style="display:none;"></div>
+      <div class="field-hint" id="datesInfo" style="display:none;"></div>
     </div>
 
     <!-- STEP 3: Travelers -->
@@ -2959,6 +3118,11 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
           <span class="option-icon">v.</span>
           <div class="option-name">Другое</div>
         </button>
+      </div>
+      <div class="custom-input-wrap" id="travelersCustomWrap" style="display:none;">
+        <div class="custom-input-label">Расскажите подробнее</div>
+        <input type="text" class="custom-input" id="travelersCustomInput" placeholder="Например: я с мамой и сыном-подростком" autocomplete="off" maxlength="120">
+        <div class="field-error" id="travelersCustomError" style="display:none;"></div>
       </div>
     </div>
 
@@ -2993,14 +3157,19 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
           <div class="option-desc">укажу точную сумму</div>
         </button>
       </div>
+      <div class="custom-input-wrap" id="budgetCustomWrap" style="display:none;">
+        <div class="custom-input-label">Укажите бюджет</div>
+        <input type="text" class="custom-input" id="budgetCustomInput" placeholder="Например: до 80 тысяч на двоих" autocomplete="off" maxlength="120">
+        <div class="field-error" id="budgetCustomError" style="display:none;"></div>
+      </div>
     </div>
 
     <!-- STEP 5: Interests -->
     <div class="step" data-step="5">
       <div class="step-eyebrow">Интересы</div>
       <h2 class="step-question">Что <em>интересно</em> в&nbsp;поездке?</h2>
-      <p class="step-hint">Выберите всё что подходит. Чем больше — тем точнее план.</p>
-      <div class="options cols-4" data-field="interests" data-mode="multi">
+      <p class="step-hint">Выберите от 1 до 5 пунктов. Чем точнее — тем лучше маршрут. Слишком много — ИИ не сможет приоритизировать.</p>
+      <div class="options cols-4" data-field="interests" data-mode="multi" data-max="5">
         <button class="option" data-value="Природа"><div class="option-name">Природа</div></button>
         <button class="option" data-value="Культура и история"><div class="option-name">Культура и&nbsp;история</div></button>
         <button class="option" data-value="Гастрономия"><div class="option-name">Гастрономия</div></button>
@@ -3012,6 +3181,8 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
         <button class="option" data-value="Шопинг"><div class="option-name">Шопинг</div></button>
         <button class="option" data-value="Ночная жизнь"><div class="option-name">Ночная жизнь</div></button>
       </div>
+      <div class="field-hint" id="interestsCounter" style="display:none;"></div>
+      <div class="field-error" id="interestsError" style="display:none;"></div>
     </div>
 
     <!-- STEP 6: Pace -->
@@ -3058,12 +3229,14 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
     <div class="step" data-step="8">
       <div class="step-eyebrow">Финальные штрихи</div>
       <h2 class="step-question">Особые <em>пожелания?</em></h2>
-      <p class="step-hint">Что важно учесть. Например: «без перелётов», «хотим увидеть закаты», «у мужа аллергия на кошек».</p>
-      <textarea class="text-input" id="wishesInput" placeholder="Например: хотим увидеть Россию без туристических толп, любим маленькие гостевые дома"></textarea>
+      <p class="step-hint">Что важно учесть. Например: «без перелётов», «хотим увидеть закаты», «у мужа аллергия на кошек». Можно пропустить.</p>
+      <textarea class="text-input" id="wishesInput" placeholder="Например: хотим увидеть Россию без туристических толп, любим маленькие гостевые дома" maxlength="500"></textarea>
+      <div class="char-counter" id="wishesCounter" style="display:none;"></div>
 
       <div style="margin-top: 56px;">
         <div class="step-eyebrow" style="margin-bottom: 16px;">Куда отправить маршрут</div>
-        <input type="email" class="email-input" id="emailInput" placeholder="ваш@email.ru" required>
+        <input type="email" class="email-input" id="emailInput" placeholder="ваш@email.ru" required maxlength="120" autocomplete="email">
+        <div class="field-error" id="emailError" style="display:none;"></div>
       </div>
 
       <label class="checkbox-row" id="agreeBox">
@@ -3097,12 +3270,13 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
   <div class="progress">
     <div class="progress-fill" id="progressFill" style="width: 12.5%"></div>
   </div>
+  <div class="next-hint" id="nextHint"></div>
   <div class="nav-inner">
     <button class="btn btn-back" id="backBtn">← Назад</button>
-    <div class="nav-tariff">
-      <span>Базовый тариф</span>
-      <strong>290 ₽</strong>
-    </div>
+    <button class="nav-tariff" id="navTariff" type="button" title="Сменить тариф">
+      <span id="tariffName">Расширенный тариф</span>
+      <strong id="tariffPrice">690 ₽</strong>
+    </button>
     <button class="btn btn-next" id="nextBtn">Далее →</button>
   </div>
 </nav>
@@ -3119,7 +3293,7 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
 <nav class="nav">
   <a href="#home" class="logo">Путёвк<span>AI</span></a>
   <div class="nav-actions">
-    <a href="#form" class="nav-btn primary">Создать свой →</a>
+    <a href="#form:extended" class="nav-btn primary">Создать свой →</a>
   </div>
 </nav>
 
@@ -3594,8 +3768,8 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
 <!-- CTA -->
 <section class="cta">
   <h2>Хотите такой же<br>маршрут <em>под себя?</em></h2>
-  <p>Это пример того, как выглядит готовый маршрут. Под ваш регион, бюджет и интересы — ИИ соберёт уникальный план за 5 минут.</p>
-  <a href="#form" class="cta-btn">Составить мой маршрут — 290 ₽ →</a>
+  <p>Это пример маршрута в расширенной версии — с детальным бюджетом, картой, чек-листом и региональными советами. Под ваш регион и интересы — ИИ соберёт такой же за 5 минут.</p>
+  <a href="#form:extended" class="cta-btn">Составить такой же маршрут — 690 ₽ →</a>
 </section>
 
 <footer class="footer">
@@ -3694,8 +3868,8 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
 <nav class="nav">
   <a href="#home" class="logo">Путёвк<span>AI</span></a>
   <div class="nav-actions">
-    <a href="#" class="nav-btn">↓ Скачать PDF</a>
-    <a href="#" class="nav-btn">✉ Отправить</a>
+    <a href="#" class="nav-btn" id="downloadPdfBtn">↓ Скачать PDF</a>
+    <a href="#" class="nav-btn" id="sendEmailBtn">✉ Отправить</a>
   </div>
 </nav>
 
@@ -4170,8 +4344,8 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
 <!-- CTA -->
 <section class="cta">
   <h2>Хотите такой же<br>маршрут <em>под себя?</em></h2>
-  <p>Это пример того, как выглядит готовый маршрут. Под ваш регион, бюджет и интересы — ИИ соберёт уникальный план за 5 минут.</p>
-  <a href="#form" class="cta-btn">Составить мой маршрут — 290 ₽ →</a>
+  <p>Это пример маршрута в расширенной версии — с детальным бюджетом, картой, чек-листом и региональными советами. Под ваш регион и интересы — ИИ соберёт такой же за 5 минут.</p>
+  <a href="#form:extended" class="cta-btn">Составить такой же маршрут — 690 ₽ →</a>
 </section>
 
 <footer class="footer">
@@ -4345,53 +4519,78 @@ function navigateTo(hashStr) {
   if (hashStr.startsWith('#')) hashStr = hashStr.slice(1);
   
   // Format: pageId or pageId:anchor
-  const [pageId, anchor] = hashStr.split(':');
-  const targetPage = PAGES.includes(pageId) ? pageId : 'home';
+  const [firstPart, anchorPart] = hashStr.split(':');
   
-  // Hide all pages
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  
-  // Show target page
-  const target = document.querySelector(`.page.page-${targetPage}`);
-  if (target) {
-    target.classList.add('active');
-    document.body.className = '';
-    // Map page IDs to body CSS prefix (some pages share the same CSS scope)
-    const bodyClassMap = {
-      'home': 'page-home',
-      'form': 'page-form',
-      'example': 'page-itinerary',
-      'order-accepted': 'page-order-accepted',
-      'order-complete': 'page-itinerary',
-      'legal': 'page-legal',
-    };
-    document.body.classList.add(bodyClassMap[targetPage] || `page-${targetPage}`);
+  // Determine target page and anchor
+  let targetPage, anchor;
+  if (PAGES.includes(firstPart)) {
+    // Explicit page navigation: #form, #legal:contacts, etc.
+    targetPage = firstPart;
+    anchor = anchorPart;
+  } else {
+    // Just an anchor (#map, #how, #pricing, #faq) — stay on current page
+    targetPage = currentPage || 'home';
+    anchor = firstPart;
   }
   
-  currentPage = targetPage;
+  const isPageChange = (targetPage !== currentPage);
   
-  // Init page if first time
-  if (!initializedPages.has(targetPage) && pageInits[targetPage]) {
-    try { pageInits[targetPage](); } catch (e) { console.error('Init error', targetPage, e); }
-    initializedPages.add(targetPage);
+  if (isPageChange) {
+    // Hide all pages
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    
+    // Show target page
+    const target = document.querySelector(`.page.page-${targetPage}`);
+    if (target) {
+      target.classList.add('active');
+      document.body.className = '';
+      // Map page IDs to body CSS prefix (some pages share the same CSS scope)
+      const bodyClassMap = {
+        'home': 'page-home',
+        'form': 'page-form',
+        'example': 'page-itinerary',
+        'order-accepted': 'page-order-accepted',
+        'order-complete': 'page-itinerary',
+        'legal': 'page-legal',
+      };
+      document.body.classList.add(bodyClassMap[targetPage] || `page-${targetPage}`);
+    }
+    
+    currentPage = targetPage;
+    
+    // Init page if first time
+    if (!initializedPages.has(targetPage) && pageInits[targetPage]) {
+      try { pageInits[targetPage](); } catch (e) { console.error('Init error', targetPage, e); }
+      initializedPages.add(targetPage);
+    }
+    
+    // Activate page (every time)
+    if (pageActivates[targetPage]) {
+      try { pageActivates[targetPage](); } catch (e) { console.error('Activate error', targetPage, e); }
+    }
   }
   
-  // Activate page (every time)
-  if (pageActivates[targetPage]) {
-    try { pageActivates[targetPage](); } catch (e) { console.error('Activate error', targetPage, e); }
-  }
-  
-  // Scroll to top, or to anchor
+  // Scroll to anchor or top
   setTimeout(() => {
     if (anchor) {
-      const el = document.getElementById(anchor) || target.querySelector('#' + anchor);
+      const target = document.querySelector(`.page.page-${targetPage}`);
+      const el = (target && target.querySelector('#' + anchor)) || document.getElementById(anchor);
       if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Calculate offset accounting for fixed nav height
+        const nav = (target && target.querySelector('.nav')) || document.querySelector('.nav');
+        const navHeight = nav ? nav.getBoundingClientRect().height : 0;
+        const elTop = el.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({
+          top: elTop - navHeight - 16,  // 16px breathing room
+          behavior: 'smooth'
+        });
         return;
       }
     }
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  }, 50);
+    if (isPageChange) {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+  }, isPageChange ? 50 : 0);
 }
 
 window.addEventListener('hashchange', () => navigateTo(location.hash));
@@ -4513,7 +4712,7 @@ pulseMarkers();
 
 
 pageInits['form'] = function() {
-  const formRoot = document.querySelector('.page-form');
+  const formRoot = document.querySelector('.page.page-form');
   if (!formRoot) return;
   
 
@@ -4524,6 +4723,7 @@ let formData = {
   date_start: '',
   date_end: '',
   travelers: '',
+  travelers_custom: '',
   budget: '',
   budget_custom: '',
   interests: [],
@@ -4531,52 +4731,82 @@ let formData = {
   lodging: '',
   wishes: '',
   email: '',
-  agreed: false
+  agreed: false,
+  tariff: 'extended'  // default to extended (target plan)
 };
 
-const stepNum = document.getElementById('stepNum');
-const progressFill = document.getElementById('progressFill');
-const backBtn = document.getElementById('backBtn');
-const nextBtn = document.getElementById('nextBtn');
-const ambientBg = document.getElementById('ambientBg');
-const navBar = document.getElementById('navBar');
+// Tariff configurations
+const TARIFFS = {
+  basic: { name: 'Базовый', price: '290 ₽', cta: 'Получить маршрут — 290 ₽' },
+  extended: { name: 'Расширенный', price: '690 ₽', cta: 'Получить маршрут — 690 ₽' }
+};
+
+const stepNum = formRoot.querySelector('#stepNum');
+const progressFill = formRoot.querySelector('#progressFill');
+const backBtn = formRoot.querySelector('#backBtn');
+const nextBtn = formRoot.querySelector('#nextBtn');
+const ambientBg = formRoot.querySelector('#ambientBg');
+const navBar = formRoot.querySelector('#navBar');
+const tariffName = formRoot.querySelector('#tariffName');
+const tariffPrice = formRoot.querySelector('#tariffPrice');
+const navTariff = formRoot.querySelector('#navTariff');
+
+function applyTariff() {
+  const t = TARIFFS[formData.tariff] || TARIFFS.extended;
+  if (tariffName) tariffName.textContent = t.name + ' тариф';
+  if (tariffPrice) tariffPrice.textContent = t.price;
+  // Update final button text if on last step
+  if (currentStep === TOTAL_STEPS && nextBtn) {
+    nextBtn.textContent = t.cta + ' →';
+  }
+}
+
+// Click on tariff to switch
+if (navTariff) {
+  navTariff.addEventListener('click', () => {
+    formData.tariff = (formData.tariff === 'basic') ? 'extended' : 'basic';
+    applyTariff();
+  });
+}
 
 function showStep(n) {
-  document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
-  const stepEl = document.querySelector(`.step[data-step="${n}"]`);
+  // Scope to formRoot to avoid touching other pages
+  formRoot.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+  const stepEl = formRoot.querySelector(`.step[data-step="${n}"]`);
   if (stepEl) stepEl.classList.add('active');
 
   currentStep = n;
 
   // Update header
   if (n <= TOTAL_STEPS) {
-    stepNum.textContent = n;
-    document.querySelector('.step-counter').style.display = '';
-    progressFill.style.width = (n / TOTAL_STEPS * 100) + '%';
+    if (stepNum) stepNum.textContent = n;
+    const sc = formRoot.querySelector('.step-counter');
+    if (sc) sc.style.display = '';
+    if (navBar) navBar.style.display = '';
+    if (progressFill) progressFill.style.width = (n / TOTAL_STEPS * 100) + '%';
   } else {
-    document.querySelector('.step-counter').style.display = 'none';
-    navBar.style.display = 'none';
+    const sc = formRoot.querySelector('.step-counter');
+    if (sc) sc.style.display = 'none';
+    if (navBar) navBar.style.display = 'none';
   }
 
   // Buttons
-  backBtn.disabled = (n === 1);
+  if (backBtn) backBtn.disabled = (n === 1);
   if (n === TOTAL_STEPS) {
-    nextBtn.textContent = 'Получить маршрут →';
+    const t = TARIFFS[formData.tariff] || TARIFFS.extended;
+    nextBtn.textContent = t.cta + ' →';
     nextBtn.classList.add('btn-submit');
   } else if (n < TOTAL_STEPS) {
     nextBtn.textContent = 'Далее →';
     nextBtn.classList.remove('btn-submit');
   }
 
-  // Update ambient if destination is known
   updateAmbient();
-
-  // Validate current step
   validateStep();
 
   // Focus first input
   setTimeout(() => {
-    const inp = stepEl.querySelector('input[type="text"], input[type="date"], input[type="email"], textarea');
+    const inp = stepEl ? stepEl.querySelector('input[type="text"], input[type="date"], input[type="email"], textarea') : null;
     if (inp) inp.focus();
   }, 200);
 }
@@ -4591,44 +4821,406 @@ function updateAmbient() {
   }
 }
 
+// ============ VALIDATION SYSTEM ============
+// Helpers
+function showError(elemId, html) {
+  const el = formRoot.querySelector('#' + elemId);
+  if (!el) return;
+  el.innerHTML = html;
+  el.style.display = 'block';
+}
+function hideError(elemId) {
+  const el = formRoot.querySelector('#' + elemId);
+  if (el) el.style.display = 'none';
+}
+function showHint(elemId, text, level) {
+  const el = formRoot.querySelector('#' + elemId);
+  if (!el) return;
+  el.textContent = text;
+  el.className = 'field-hint' + (level ? ' ' + level : '');
+  el.style.display = 'block';
+}
+function hideHint(elemId) {
+  const el = formRoot.querySelector('#' + elemId);
+  if (el) el.style.display = 'none';
+}
+function setFieldError(inputId, hasError) {
+  const el = formRoot.querySelector('#' + inputId);
+  if (el) el.classList.toggle('has-error', hasError);
+}
+
+// Email validator — proper-ish regex
+function isValidEmail(email) {
+  if (!email) return false;
+  const e = email.trim();
+  // Basic but realistic check: something@something.something, no spaces
+  return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(e);
+}
+
+// Destination validator — must contain at least 2 letter chars (Cyrillic or Latin)
+function validateDestination(text) {
+  const t = (text || '').trim();
+  if (t.length === 0) return { valid: false };  // empty — no error shown
+  if (t.length < 3) return { valid: false, error: 'Название слишком короткое — минимум 3 символа' };
+  if (t.length > 80) return { valid: false, error: 'Название слишком длинное — максимум 80 символов' };
+  // Must contain letters (Russian or Latin), not just digits/symbols
+  if (!/[a-zA-Zа-яА-ЯёЁ]{2,}/.test(t)) {
+    return { valid: false, error: 'Название должно содержать буквы. Например: Дагестан, Алтай, Сочи' };
+  }
+  // Detect "fake" inputs — too many repeated chars
+  if (/(.)\1{4,}/.test(t)) {
+    return { valid: false, error: 'Похоже на случайный набор символов. Введите реальное название' };
+  }
+  return { valid: true };
+}
+
+// Date validators
+function validateDates(start, end) {
+  if (!start || !end) return { valid: false };  // not yet filled — no error shown
+  const sd = new Date(start + 'T00:00:00');
+  const ed = new Date(end + 'T00:00:00');
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  if (sd < today) {
+    return {
+      valid: false,
+      error: 'Дата начала не может быть в прошлом',
+      hint: 'Выберите дату не раньше сегодняшней'
+    };
+  }
+  if (ed < sd) {
+    return {
+      valid: false,
+      error: 'Дата окончания должна быть позже даты начала',
+      hint: 'Поменяйте даты местами или выберите более позднюю дату завершения'
+    };
+  }
+  if (sd.getTime() === ed.getTime()) {
+    return {
+      valid: false,
+      error: 'Поездка должна длиться хотя бы один день',
+      hint: 'Сдвиньте дату окончания минимум на один день'
+    };
+  }
+
+  const days = Math.round((ed - sd) / 86400000) + 1;
+  const maxFuture = new Date(today);
+  maxFuture.setFullYear(today.getFullYear() + 2);
+  if (sd > maxFuture) {
+    return {
+      valid: false,
+      error: 'Дата начала слишком далеко в будущем',
+      hint: 'Мы планируем маршруты на ближайшие 2 года. Выберите дату ближе.'
+    };
+  }
+  if (days > 30) {
+    return {
+      valid: false,
+      error: 'Поездка слишком длинная — максимум 30 дней',
+      hint: 'Для более длительных путешествий разбейте маршрут на несколько частей'
+    };
+  }
+
+  // Soft warnings (valid but show info)
+  let info = null;
+  let infoLevel = null;
+  if (days <= 2) {
+    info = `Поездка на ${days === 1 ? 'один день' : 'два дня'} — успеете увидеть только основное`;
+  } else if (days >= 21) {
+    info = `Поездка на ${days} дней — отлично, маршрут будет насыщенным`;
+  } else {
+    info = `Поездка на ${days} ${dayWord(days)} — оптимальная длительность`;
+  }
+  // Soon trip warning
+  const daysUntilStart = Math.round((sd - today) / 86400000);
+  if (daysUntilStart < 7 && daysUntilStart >= 0) {
+    info = `До поездки ${daysUntilStart === 0 ? 'остался сегодняшний день' : daysUntilStart + ' ' + dayWord(daysUntilStart)} — успеем подготовить`;
+    infoLevel = 'warning';
+  }
+
+  return { valid: true, info, infoLevel, days };
+}
+
+function dayWord(n) {
+  const lastTwo = n % 100;
+  if (lastTwo >= 11 && lastTwo <= 14) return 'дней';
+  const last = n % 10;
+  if (last === 1) return 'день';
+  if (last >= 2 && last <= 4) return 'дня';
+  return 'дней';
+}
+
+// Custom-text validator (for "Другое")
+function validateCustomText(text, minLen, fieldName) {
+  const t = (text || '').trim();
+  if (t.length === 0) return { valid: false };
+  if (t.length < minLen) {
+    return { valid: false, error: `Расскажите подробнее — хотя бы ${minLen} символа` };
+  }
+  if (t.length > 120) {
+    return { valid: false, error: 'Слишком длинное описание — максимум 120 символов' };
+  }
+  if (!/[a-zA-Zа-яА-ЯёЁ]{2,}/.test(t)) {
+    return { valid: false, error: 'Описание должно содержать буквы' };
+  }
+  return { valid: true };
+}
+
+// Update char counter
+function updateCharCounter(counterId, current, max) {
+  const el = formRoot.querySelector('#' + counterId);
+  if (!el) return;
+  if (current === 0) { el.style.display = 'none'; return; }
+  el.style.display = 'block';
+  el.textContent = `${current} / ${max}`;
+  el.className = 'char-counter';
+  if (current > max * 0.9) el.classList.add('warning');
+  if (current >= max) el.classList.add('error');
+}
+
+// Hint texts per step (shown when Next is disabled)
+const STEP_HINTS = {
+  1: 'Введите название направления',
+  2: 'Выберите даты поездки',
+  3: 'Выберите путешественников',
+  4: 'Выберите бюджет',
+  5: 'Выберите хотя бы один интерес',
+  6: 'Выберите темп поездки',
+  7: 'Выберите тип жилья',
+  8: 'Введите email и согласитесь с условиями'
+};
+
+function updateNextHint(disabled, customMsg) {
+  const hint = formRoot.querySelector('#nextHint');
+  if (!hint) return;
+  if (disabled) {
+    hint.textContent = customMsg || STEP_HINTS[currentStep] || 'Заполните все поля';
+    hint.classList.add('show');
+  } else {
+    hint.classList.remove('show');
+  }
+}
+
 function validateStep() {
   let valid = false;
+  let nextHint = null;
+
   switch (currentStep) {
-    case 1: valid = formData.destination.trim().length > 1; break;
-    case 2: valid = formData.date_start && formData.date_end; break;
-    case 3: valid = !!formData.travelers; break;
-    case 4: valid = !!formData.budget; break;
-    case 5: valid = formData.interests.length > 0; break;
-    case 6: valid = !!formData.pace; break;
-    case 7: valid = !!formData.lodging; break;
-    case 8: valid = formData.email.includes('@') && formData.agreed; break;
+    case 1: {
+      const r = validateDestination(formData.destination);
+      valid = r.valid;
+      // Don't show error if user hasn't typed anything yet
+      if (formData.destination.length > 0 && !r.valid && r.error) {
+        showError('destError', `<strong>Проверьте название</strong>${r.error}`);
+        setFieldError('destInput', true);
+        nextHint = r.error;
+      } else {
+        hideError('destError');
+        setFieldError('destInput', false);
+      }
+      // Char counter
+      updateCharCounter('destCounter', formData.destination.length, 80);
+      break;
+    }
+    case 2: {
+      const r = validateDates(formData.date_start, formData.date_end);
+      valid = r.valid;
+      if (!valid && r.error) {
+        showError('datesError', `<strong>Проверьте даты</strong>${r.error}${r.hint ? '. ' + r.hint : ''}`);
+        setFieldError('dateStart', true);
+        setFieldError('dateEnd', true);
+        hideHint('datesInfo');
+        nextHint = r.error;
+      } else {
+        hideError('datesError');
+        setFieldError('dateStart', false);
+        setFieldError('dateEnd', false);
+        if (r.info) {
+          showHint('datesInfo', r.info, r.infoLevel);
+        } else {
+          hideHint('datesInfo');
+        }
+      }
+      break;
+    }
+    case 3: {
+      if (!formData.travelers) {
+        valid = false;
+        nextHint = 'Выберите кто едет';
+      } else if (formData.travelers === 'Другое') {
+        const r = validateCustomText(formData.travelers_custom, 3, 'travelers');
+        valid = r.valid;
+        if (formData.travelers_custom.length > 0 && !r.valid && r.error) {
+          showError('travelersCustomError', `<strong>Уточните</strong>${r.error}`);
+          setFieldError('travelersCustomInput', true);
+          nextHint = r.error;
+        } else {
+          hideError('travelersCustomError');
+          setFieldError('travelersCustomInput', false);
+          if (!r.valid) nextHint = 'Опишите кто едет (минимум 3 символа)';
+        }
+      } else {
+        valid = true;
+        hideError('travelersCustomError');
+      }
+      break;
+    }
+    case 4: {
+      if (!formData.budget) {
+        valid = false;
+        nextHint = 'Выберите бюджет';
+      } else if (formData.budget === 'custom') {
+        const r = validateCustomText(formData.budget_custom, 3, 'budget');
+        valid = r.valid;
+        if (formData.budget_custom.length > 0 && !r.valid && r.error) {
+          showError('budgetCustomError', `<strong>Уточните бюджет</strong>${r.error}`);
+          setFieldError('budgetCustomInput', true);
+          nextHint = r.error;
+        } else {
+          hideError('budgetCustomError');
+          setFieldError('budgetCustomInput', false);
+          if (!r.valid) nextHint = 'Опишите бюджет (минимум 3 символа)';
+        }
+      } else {
+        valid = true;
+        hideError('budgetCustomError');
+      }
+      break;
+    }
+    case 5: {
+      const n = formData.interests.length;
+      const max = 5;
+      if (n === 0) {
+        valid = false;
+        hideHint('interestsCounter');
+        hideError('interestsError');
+        nextHint = 'Выберите хотя бы один интерес';
+      } else if (n > max) {
+        valid = false;
+        showError('interestsError', `<strong>Слишком много интересов</strong>Уберите хотя бы один — для качественного маршрута выбирайте до ${max} главных`);
+        hideHint('interestsCounter');
+        nextHint = `Выбрано ${n} из ${max} максимум`;
+      } else {
+        valid = true;
+        hideError('interestsError');
+        showHint('interestsCounter', `Выбрано ${n} ${n === 1 ? 'интерес' : (n < 5 ? 'интереса' : 'интересов')} из ${max}`, n === max ? 'warning' : null);
+      }
+      break;
+    }
+    case 6:
+      valid = !!formData.pace;
+      if (!valid) nextHint = 'Выберите темп поездки';
+      break;
+    case 7:
+      valid = !!formData.lodging;
+      if (!valid) nextHint = 'Выберите тип жилья';
+      break;
+    case 8: {
+      const emailOk = isValidEmail(formData.email);
+      const hasEmail = formData.email.length > 0;
+      // Show error only if user typed something
+      if (hasEmail && !emailOk) {
+        showError('emailError', `<strong>Проверьте email</strong>Похоже на ошибку. Формат: имя@домен.ру`);
+        setFieldError('emailInput', true);
+      } else {
+        hideError('emailError');
+        setFieldError('emailInput', false);
+      }
+      // Wishes counter
+      updateCharCounter('wishesCounter', formData.wishes.length, 500);
+      // Validity
+      valid = emailOk && formData.agreed;
+      if (!valid) {
+        if (!emailOk) nextHint = hasEmail ? 'Проверьте email' : 'Введите email';
+        else if (!formData.agreed) nextHint = 'Подтвердите согласие с офертой';
+      }
+      break;
+    }
   }
   nextBtn.disabled = !valid;
+  updateNextHint(!valid, nextHint);
+  return valid;
 }
 
 // Text inputs
-document.getElementById('destInput').addEventListener('input', e => {
-  formData.destination = e.target.value;
+const _byId = (id) => formRoot.querySelector('#' + id);
+const destInput = _byId('destInput');
+if (destInput) destInput.addEventListener('input', e => {
+  // Remove leading whitespace as user types (trailing OK while typing)
+  let val = e.target.value;
+  if (/^\s/.test(val)) {
+    val = val.replace(/^\s+/, '');
+    e.target.value = val;
+  }
+  formData.destination = val;
   updateAmbient();
   validateStep();
 });
-document.getElementById('dateStart').addEventListener('change', e => { formData.date_start = e.target.value; validateStep(); });
-document.getElementById('dateEnd').addEventListener('change', e => { formData.date_end = e.target.value; validateStep(); });
-document.getElementById('wishesInput').addEventListener('input', e => { formData.wishes = e.target.value; });
-document.getElementById('emailInput').addEventListener('input', e => { formData.email = e.target.value; validateStep(); });
+// Trim on blur
+if (destInput) destInput.addEventListener('blur', () => {
+  formData.destination = formData.destination.trim();
+  destInput.value = formData.destination;
+  validateStep();
+});
+const dateStart = _byId('dateStart');
+if (dateStart) dateStart.addEventListener('change', e => { formData.date_start = e.target.value; validateStep(); });
+const dateEnd = _byId('dateEnd');
+if (dateEnd) dateEnd.addEventListener('change', e => { formData.date_end = e.target.value; validateStep(); });
+const wishesInput = _byId('wishesInput');
+if (wishesInput) wishesInput.addEventListener('input', e => {
+  formData.wishes = e.target.value;
+  // Update counter for shake-7 wishes
+  if (currentStep === 8) {
+    updateCharCounter('wishesCounter', formData.wishes.length, 500);
+  }
+});
+const emailInput = _byId('emailInput');
+if (emailInput) emailInput.addEventListener('input', e => {
+  // Auto-trim email, lowercase domain part
+  formData.email = e.target.value.trim().toLowerCase();
+  validateStep();
+});
+// Also validate on blur — show error after user leaves field
+if (emailInput) emailInput.addEventListener('blur', () => validateStep());
 
 // Agree checkbox
-document.getElementById('agreeBox').addEventListener('click', e => {
+const agreeBox = _byId('agreeBox');
+if (agreeBox) agreeBox.addEventListener('click', e => {
   e.preventDefault();
   formData.agreed = !formData.agreed;
-  document.getElementById('agreeBox').classList.toggle('checked', formData.agreed);
+  agreeBox.classList.toggle('checked', formData.agreed);
   validateStep();
 });
 
-// Option cards (single + multi)
-document.querySelectorAll('.options').forEach(group => {
+// Custom-text inputs for "Другое" options
+const travelersCustomInput = _byId('travelersCustomInput');
+if (travelersCustomInput) travelersCustomInput.addEventListener('input', e => {
+  formData.travelers_custom = e.target.value;
+  validateStep();
+});
+const budgetCustomInput = _byId('budgetCustomInput');
+if (budgetCustomInput) budgetCustomInput.addEventListener('input', e => {
+  formData.budget_custom = e.target.value;
+  validateStep();
+});
+
+// Show/hide custom-text input based on selected "Другое"
+function toggleCustomInput(field) {
+  if (field === 'travelers') {
+    const wrap = formRoot.querySelector('#travelersCustomWrap');
+    if (wrap) wrap.style.display = (formData.travelers === 'Другое') ? 'block' : 'none';
+  } else if (field === 'budget') {
+    const wrap = formRoot.querySelector('#budgetCustomWrap');
+    if (wrap) wrap.style.display = (formData.budget === 'custom') ? 'block' : 'none';
+  }
+}
+
+// Option cards (single + multi) — scoped to formRoot
+formRoot.querySelectorAll('.options').forEach(group => {
   const field = group.dataset.field;
   const mode = group.dataset.mode;
+  const maxCount = parseInt(group.dataset.max) || 0;  // 0 = no limit
 
   group.querySelectorAll('.option').forEach(opt => {
     opt.addEventListener('click', () => {
@@ -4638,13 +5230,29 @@ document.querySelectorAll('.options').forEach(group => {
         group.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
         opt.classList.add('selected');
         formData[field] = value;
+
+        // Show/hide custom-text input if "Другое" was picked
+        toggleCustomInput(field);
       } else {
         // multi
         const idx = formData[field].indexOf(value);
         if (idx > -1) {
+          // Deselect
           formData[field].splice(idx, 1);
           opt.classList.remove('selected');
         } else {
+          // Try to select — check limit
+          if (maxCount > 0 && formData[field].length >= maxCount) {
+            // Visual shake to indicate limit
+            opt.classList.add('shake');
+            setTimeout(() => opt.classList.remove('shake'), 400);
+            // Show notification
+            if (field === 'interests') {
+              showError('interestsError', `<strong>Максимум ${maxCount} интересов</strong>Снимите выбор с одного из выбранных, чтобы добавить новый`);
+              setTimeout(() => hideError('interestsError'), 3000);
+            }
+            return;
+          }
           formData[field].push(value);
           opt.classList.add('selected');
         }
@@ -4653,7 +5261,10 @@ document.querySelectorAll('.options').forEach(group => {
       validateStep();
 
       // Auto-advance for single-mode (delay so user sees the check)
-      if (mode === 'single' && currentStep < TOTAL_STEPS) {
+      // BUT NOT if "Другое" is selected — user needs to type
+      const isCustom = (field === 'travelers' && value === 'Другое') ||
+                       (field === 'budget' && value === 'custom');
+      if (mode === 'single' && currentStep < TOTAL_STEPS && !isCustom) {
         setTimeout(() => goNext(), 400);
       }
     });
@@ -4675,8 +5286,9 @@ function goNext() {
 backBtn.addEventListener('click', goBack);
 nextBtn.addEventListener('click', goNext);
 
-// Keyboard
+// Keyboard — only when this page is active
 document.addEventListener('keydown', e => {
+  if (currentPage !== 'form') return;
   if (e.key === 'Enter' && !e.shiftKey) {
     if (e.target.tagName !== 'TEXTAREA') {
       e.preventDefault();
@@ -4685,78 +5297,231 @@ document.addEventListener('keydown', e => {
   }
 });
 
+let submitting = false;
 function submitForm() {
-  // Save data to sessionStorage so order pages can pick it up
+  if (submitting) return;  // double-click guard
+  // Re-validate everything before submitting
+  if (!validateStep()) return;
+
+  submitting = true;
+  nextBtn.disabled = true;
+  nextBtn.textContent = 'Отправляем...';
+
+  // Final cleanup of data
+  formData.destination = formData.destination.trim();
+  formData.email = formData.email.trim().toLowerCase();
+  formData.wishes = formData.wishes.trim();
+  formData.travelers_custom = formData.travelers_custom.trim();
+  formData.budget_custom = formData.budget_custom.trim();
+
   try { sessionStorage.setItem('putevkai_order', JSON.stringify(formData)); } catch (e) {}
   showStep(9);
-  // Auto-redirect after a few seconds in real flow:
-  // setTimeout(() => location.hash = '#order-accepted', 3000);
+  // submitting stays true so that if user navigates back, we don't re-submit
+  // Reset on next page activation
 }
+
+function setMinDates() {
+  // Today as min for date_start, date_start as min for date_end
+  if (!dateStart || !dateEnd) return;
+  const today = new Date().toISOString().split('T')[0];
+  dateStart.min = today;
+  dateEnd.min = formData.date_start || today;
+  // Max 2 years from today
+  const maxD = new Date();
+  maxD.setFullYear(maxD.getFullYear() + 2);
+  const maxStr = maxD.toISOString().split('T')[0];
+  dateStart.max = maxStr;
+  dateEnd.max = maxStr;
+}
+
+// Update dateEnd min when dateStart changes
+if (dateStart) dateStart.addEventListener('change', () => setMinDates());
 
 // Init
 showStep(1);
+applyTariff();
 
 // Default dates: today + 14d, today + 21d
 const today = new Date();
 const start = new Date(today.getTime() + 14 * 86400000).toISOString().split('T')[0];
 const end = new Date(today.getTime() + 21 * 86400000).toISOString().split('T')[0];
-document.getElementById('dateStart').value = start;
-document.getElementById('dateEnd').value = end;
-formData.date_start = start;
-formData.date_end = end;
+if (dateStart) {
+  dateStart.value = start;
+  formData.date_start = start;
+}
+if (dateEnd) {
+  dateEnd.value = end;
+  formData.date_end = end;
+}
+setMinDates();
+
+// Expose for pageActivates to access
+window._formApi = {
+  showStep,
+  setTariff: function(t) {
+    if (TARIFFS[t]) {
+      formData.tariff = t;
+      applyTariff();
+    }
+  },
+  resetSubmitting: function() { submitting = false; }
+};
 
 };
 
 pageActivates['form'] = function() {
-  // Reset to step 1 on entry
-  if (typeof showStep === 'function') showStep(1);
+  // Read tariff from hash anchor (#form:basic or #form:extended)
+  const hash = location.hash.slice(1);
+  const parts = hash.split(':');
+  const tariffFromHash = parts[1];
+  if (window._formApi) {
+    if (tariffFromHash === 'basic' || tariffFromHash === 'extended') {
+      window._formApi.setTariff(tariffFromHash);
+    }
+    // Reset submitting flag (user re-entered form, e.g. via back nav)
+    window._formApi.resetSubmitting();
+    // Reset to step 1 on entry
+    window._formApi.showStep(1);
+  }
 };
 
 
 pageActivates['order-accepted'] = function() {
+  const root = document.querySelector('.page.page-order-accepted');
+  if (!root) return;
+  const stage = root.querySelector('.stage-inner');
+  // Save original HTML on first activation so we can restore it
+  if (stage && !stage.dataset.originalHtml) {
+    stage.dataset.originalHtml = stage.innerHTML;
+  }
 
-// Try to populate from sessionStorage if user came from form
-try {
-  const data = JSON.parse(sessionStorage.getItem('putevkai_order') || '{}');
-  if (data.destination) {
-    document.getElementById('destination').textContent = data.destination;
-    document.getElementById('dest2').textContent = data.destination;
+  const _ = (sel) => root.querySelector(sel);
+
+  // Read order data
+  let data = {};
+  try {
+    data = JSON.parse(sessionStorage.getItem('putevkai_order') || '{}');
+  } catch (e) {}
+
+  // EMPTY STATE
+  if (!data.destination || !data.email) {
+    if (stage) {
+      stage.innerHTML = `
+        <div class="success-icon" style="border-color: rgba(168, 178, 199, 0.3);">
+          <svg viewBox="0 0 56 56" style="stroke: var(--text-3); width: 48px; height: 48px;" fill="none" stroke-width="1.5">
+            <circle cx="28" cy="28" r="20"/>
+            <path d="M28 18 L28 32" stroke-linecap="round"/>
+            <circle cx="28" cy="40" r="1.5" fill="var(--text-3)" stroke="none"/>
+          </svg>
+        </div>
+        <h1 style="text-align: center;">Заказ не <em>найден.</em></h1>
+        <p class="subtitle">
+          Похоже, вы открыли эту страницу напрямую — без оформления маршрута.<br>
+          Чтобы создать маршрут, начните с формы.
+        </p>
+        <div class="actions" style="margin-top: 48px;">
+          <a href="#form:extended" class="btn btn-primary">Создать маршрут →</a>
+          <a href="#home" class="btn btn-ghost">На главную</a>
+        </div>
+      `;
+    }
+    return;
   }
-  if (data.email) {
-    document.getElementById('email').textContent = data.email;
+
+  // Restore original HTML if it was previously replaced with empty state
+  if (stage && stage.dataset.originalHtml) {
+    stage.innerHTML = stage.dataset.originalHtml;
   }
-  if (data.date_start && data.date_end) {
+
+  // Populate from data
+  if (_('#destination')) _('#destination').textContent = data.destination;
+  if (_('#dest2')) _('#dest2').textContent = data.destination;
+  if (_('#email')) _('#email').textContent = data.email;
+
+  if (data.date_start && data.date_end && _('#dates')) {
     const fmt = (d) => {
       const [y, m, day] = d.split('-');
       const months = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
       return `${parseInt(day)} ${months[parseInt(m)-1]} ${y}`;
     };
-    document.getElementById('dates').textContent = `${fmt(data.date_start)} — ${fmt(data.date_end)}`;
+    _('#dates').textContent = `${fmt(data.date_start)} — ${fmt(data.date_end)}`;
   }
-  // Generate fake order number
-  const orderId = '#PT-' + Math.random().toString(36).substring(2, 7).toUpperCase();
-  document.getElementById('orderNum').innerHTML = `<em>${orderId}</em>`;
-} catch (e) {}
 
+  if (_('#tariff')) {
+    const tInfo = data.tariff === 'extended'
+      ? 'Расширенный — <em>690 ₽</em>'
+      : 'Базовый — <em>290 ₽</em>';
+    _('#tariff').innerHTML = tInfo;
+  }
+
+  if (_('#orderNum')) {
+    let orderId = data.orderId;
+    if (!orderId) {
+      orderId = '#PT-' + Math.random().toString(36).substring(2, 7).toUpperCase();
+      data.orderId = orderId;
+      try { sessionStorage.setItem('putevkai_order', JSON.stringify(data)); } catch (e) {}
+    }
+    _('#orderNum').innerHTML = `<em>${orderId}</em>`;
+  }
+};
+
+
+pageInits['order-complete'] = function() {
+  const root = document.querySelector('.page.page-order-complete');
+  if (!root) return;
+
+  // PDF button — print friendly stub
+  const pdfBtn = root.querySelector('#downloadPdfBtn');
+  if (pdfBtn) {
+    pdfBtn.addEventListener('click', e => {
+      e.preventDefault();
+      // Stub: in production this triggers PDFMonkey
+      alert('Маршрут уже отправлен на ваш email. PDF также доступен по ссылке в письме.\n\nВ ближайшее время мы добавим возможность скачать PDF прямо отсюда.');
+    });
+  }
+
+  // Send button — copy link to clipboard
+  const sendBtn = root.querySelector('#sendEmailBtn');
+  if (sendBtn) {
+    sendBtn.addEventListener('click', e => {
+      e.preventDefault();
+      // Stub: copy current URL to clipboard
+      const url = window.location.href;
+      try {
+        navigator.clipboard.writeText(url).then(() => {
+          sendBtn.textContent = '✓ Ссылка скопирована';
+          setTimeout(() => { sendBtn.textContent = '✉ Отправить'; }, 2000);
+        });
+      } catch (err) {
+        alert('Скопируйте ссылку из адресной строки: ' + url);
+      }
+    });
+  }
 };
 
 
 pageInits['legal'] = function() {
+  const legalRoot = document.querySelector('.page.page-legal');
+  if (!legalRoot) return;
 
-// Highlight active section in sidebar based on scroll
-const sections = document.querySelectorAll('.section');
-const navLinks = document.querySelectorAll('.sidebar a');
+  // Highlight active section in sidebar based on scroll (scoped to legal page)
+  const sections = legalRoot.querySelectorAll('.section');
+  const navLinks = legalRoot.querySelectorAll('.sidebar a');
 
-window.addEventListener('scroll', () => {
-  let currentId = '';
-  sections.forEach(sec => {
-    const top = sec.getBoundingClientRect().top;
-    if (top < 200) currentId = sec.id;
+  window.addEventListener('scroll', () => {
+    if (currentPage !== 'legal') return;
+    let currentId = '';
+    sections.forEach(sec => {
+      const top = sec.getBoundingClientRect().top;
+      if (top < 200) currentId = sec.id;
+    });
+    navLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      // Match both #legal:offer and #offer
+      const isActive = href === '#legal:' + currentId || href === '#' + currentId;
+      link.classList.toggle('active', isActive);
+    });
   });
-  navLinks.forEach(link => {
-    link.classList.toggle('active', link.getAttribute('href') === '#' + currentId);
-  });
-});
 
 };
 
