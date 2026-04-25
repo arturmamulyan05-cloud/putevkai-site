@@ -42,7 +42,7 @@
   --bg-lift: #111729;
   --text: #FFFFFF;
   --text-2: #A8B2C7;
-  --text-3: #5F6B82;
+  --text-3: #7B8AA8;
   --accent: #4FD1C5;
   --accent-dim: rgba(79, 209, 197, 0.4);
   --line: rgba(255, 255, 255, 0.08);
@@ -1095,6 +1095,50 @@ body.page-form .header {
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--line);
 }
+
+/* Draft restored banner */
+body.page-form .draft-banner {
+  position: fixed;
+  top: 73px;
+  left: 0; right: 0;
+  z-index: 99;
+  background: rgba(79, 209, 197, 0.06);
+  border-bottom: 1px solid rgba(79, 209, 197, 0.2);
+  padding: 12px 48px;
+  animation: draftSlide 0.4s ease;
+}
+@keyframes draftSlide {
+  0% { transform: translateY(-100%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+body.page-form .draft-banner-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+body.page-form .draft-banner-text {
+  font-size: 13px;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+body.page-form .draft-banner-reset {
+  background: transparent;
+  border: 1px solid rgba(79, 209, 197, 0.3);
+  color: var(--accent);
+  padding: 6px 14px;
+  font-family: inherit;
+  font-size: 12px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+body.page-form .draft-banner-reset:hover {
+  background: rgba(79, 209, 197, 0.1);
+  border-color: var(--accent);
+}
 body.page-form .logo {
   font-family: 'Fraunces', serif;
   font-weight: 500;
@@ -1638,8 +1682,74 @@ body.page-form .final-text {
   margin: 0 auto 48px;
   line-height: 1.55;
 }
+
+/* Progress checklist on final loading screen */
+body.page-form .progress-checklist {
+  max-width: 360px;
+  margin: 0 auto 56px;
+  text-align: left;
+}
+body.page-form .progress-step {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  opacity: 0.4;
+  transition: opacity 0.5s ease;
+}
+body.page-form .progress-step:last-child { border-bottom: none; }
+body.page-form .progress-step.active { opacity: 1; }
+body.page-form .progress-step.done { opacity: 0.7; }
+
+body.page-form .progress-mark {
+  width: 22px;
+  height: 22px;
+  border: 1.5px solid var(--line-bright);
+  border-radius: 50%;
+  flex-shrink: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s ease;
+}
+body.page-form .progress-step.active .progress-mark {
+  border-color: var(--accent);
+  background: transparent;
+  animation: progressPulse 1.5s ease-in-out infinite;
+}
+@keyframes progressPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(79, 209, 197, 0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(79, 209, 197, 0); }
+}
+body.page-form .progress-step.done .progress-mark {
+  background: var(--accent);
+  border-color: var(--accent);
+  animation: none;
+}
+body.page-form .progress-step.done .progress-mark::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 5px;
+  border-left: 1.5px solid var(--bg);
+  border-bottom: 1.5px solid var(--bg);
+  transform: rotate(-45deg) translate(1px, -1px);
+}
+
+body.page-form .progress-label {
+  font-size: 15px;
+  color: var(--text-2);
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+body.page-form .progress-step.active .progress-label { color: var(--text); }
 @media (max-width: 720px) {
 body.page-form .header { padding: 16px 20px; }
+body.page-form .draft-banner { padding: 10px 20px; top: 57px; }
+body.page-form .draft-banner-text { font-size: 12px; }
 body.page-form .stage { padding: 80px 20px 140px; }
 body.page-form .nav-bar { padding: 16px 20px 24px; }
 body.page-form .progress { left: 20px; right: 20px; }
@@ -2526,7 +2636,7 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
 
 <!-- NAV -->
 <nav class="nav">
-  <a href="#" class="nav-logo">Путёвк<span>AI</span></a>
+  <a href="#home" class="nav-logo">Путёвк<span>AI</span></a>
   <ul class="nav-links">
     <li><a href="#map">Направления</a></li>
     <li><a href="#how">Как работает</a></li>
@@ -3033,7 +3143,7 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
 <footer class="footer">
   <div class="footer-grid">
     <div class="footer-brand">
-      <a href="#" class="nav-logo">Путёвк<span>AI</span></a>
+      <a href="#home" class="nav-logo">Путёвк<span>AI</span></a>
       <p>Искусственный интеллект, который знает Россию лучше вашего самого путешествующего друга.</p>
     </div>
     <div class="footer-col">
@@ -3083,6 +3193,14 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
   <div class="step-counter">Шаг <strong id="stepNum">1</strong> из <span id="totalSteps">8</span></div>
   <a href="#home" class="exit-btn">Выйти ✕</a>
 </header>
+
+<!-- Draft restored banner — shown when user returns to form with saved progress -->
+<div class="draft-banner" id="draftBanner" style="display:none;">
+  <div class="draft-banner-inner">
+    <span class="draft-banner-text">↺ Продолжаем с того места, где остановились</span>
+    <button class="draft-banner-reset" id="draftBannerReset" type="button">Начать заново</button>
+  </div>
+</div>
 
 <main class="stage">
   <div class="stage-inner">
@@ -3281,10 +3399,30 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
         </div>
         <h2 class="final-title">Собираем <em>ваш маршрут.</em></h2>
         <p class="final-text">
-          ИИ обрабатывает запрос: анализирует сезонность, логистику, цены и достопримечательности.
-          Готовый PDF придёт на email в течение 5–10 минут.
+          ИИ обрабатывает запрос. Готовый PDF придёт на email в&nbsp;течение 5–10 минут.
         </p>
-        <a href="#order-accepted" class="btn btn-submit" style="text-decoration: none;">Перейти к статусу заказа →</a>
+
+        <!-- Progress checklist -->
+        <div class="progress-checklist" id="progressChecklist">
+          <div class="progress-step" data-progress-step="1">
+            <span class="progress-mark"></span>
+            <span class="progress-label">Изучаем регион и сезон</span>
+          </div>
+          <div class="progress-step" data-progress-step="2">
+            <span class="progress-mark"></span>
+            <span class="progress-label">Подбираем места и активности</span>
+          </div>
+          <div class="progress-step" data-progress-step="3">
+            <span class="progress-mark"></span>
+            <span class="progress-label">Считаем бюджет и логистику</span>
+          </div>
+          <div class="progress-step" data-progress-step="4">
+            <span class="progress-mark"></span>
+            <span class="progress-label">Оформляем маршрут</span>
+          </div>
+        </div>
+
+        <a href="#order-accepted" class="btn btn-submit" id="goToStatusBtn" style="text-decoration: none; opacity: 0; pointer-events: none; transition: opacity 0.5s;">Перейти к статусу заказа →</a>
       </div>
     </div>
 
@@ -4761,6 +4899,88 @@ let formData = {
   tariff: 'extended'  // default to extended (target plan)
 };
 
+// ============ DRAFT AUTOSAVE / RESTORE ============
+// Save form draft on every change, so user doesn't lose progress on accidental close/back
+const DRAFT_KEY = 'putevkai_draft';
+const DRAFT_TTL_MS = 24 * 60 * 60 * 1000;  // 24 hours
+
+function saveDraft() {
+  try {
+    const draft = {
+      data: formData,
+      step: currentStep,
+      savedAt: Date.now()
+    };
+    sessionStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+  } catch (e) {}
+}
+
+function loadDraft() {
+  try {
+    const raw = sessionStorage.getItem(DRAFT_KEY);
+    if (!raw) return null;
+    const draft = JSON.parse(raw);
+    // Reject too-old drafts
+    if (!draft.savedAt || (Date.now() - draft.savedAt) > DRAFT_TTL_MS) {
+      sessionStorage.removeItem(DRAFT_KEY);
+      return null;
+    }
+    return draft;
+  } catch (e) { return null; }
+}
+
+function clearDraft() {
+  try { sessionStorage.removeItem(DRAFT_KEY); } catch (e) {}
+}
+
+// Restore inputs and option selections from formData object
+function restoreUiFromFormData() {
+  // Text inputs
+  const dest = formRoot.querySelector('#destInput');
+  if (dest && formData.destination) dest.value = formData.destination;
+  const ds = formRoot.querySelector('#dateStart');
+  if (ds && formData.date_start) ds.value = formData.date_start;
+  const de = formRoot.querySelector('#dateEnd');
+  if (de && formData.date_end) de.value = formData.date_end;
+  const wishes = formRoot.querySelector('#wishesInput');
+  if (wishes && formData.wishes) wishes.value = formData.wishes;
+  const email = formRoot.querySelector('#emailInput');
+  if (email && formData.email) email.value = formData.email;
+  const tcInput = formRoot.querySelector('#travelersCustomInput');
+  if (tcInput && formData.travelers_custom) tcInput.value = formData.travelers_custom;
+  const bcInput = formRoot.querySelector('#budgetCustomInput');
+  if (bcInput && formData.budget_custom) bcInput.value = formData.budget_custom;
+
+  // Single-select option groups
+  ['travelers', 'budget', 'pace', 'lodging'].forEach(field => {
+    const value = formData[field];
+    if (!value) return;
+    const group = formRoot.querySelector(`.options[data-field="${field}"]`);
+    if (!group) return;
+    const opt = group.querySelector(`.option[data-value="${value}"]`);
+    if (opt) opt.classList.add('selected');
+    // Show custom inputs if "Другое" was selected
+    toggleCustomInput(field);
+  });
+
+  // Multi-select interests
+  if (formData.interests && formData.interests.length) {
+    const group = formRoot.querySelector('.options[data-field="interests"]');
+    if (group) {
+      formData.interests.forEach(value => {
+        const opt = group.querySelector(`.option[data-value="${value}"]`);
+        if (opt) opt.classList.add('selected');
+      });
+    }
+  }
+
+  // Agree checkbox
+  if (formData.agreed) {
+    const ab = formRoot.querySelector('#agreeBox');
+    if (ab) ab.classList.add('checked');
+  }
+}
+
 // Tariff configurations
 const TARIFFS = {
   basic: { name: 'Базовый', price: '290 ₽', cta: 'Получить маршрут — 290 ₽' },
@@ -5166,6 +5386,8 @@ function validateStep() {
   }
   nextBtn.disabled = !valid;
   updateNextHint(!valid, nextHint);
+  // Autosave draft on every change (cheap — sessionStorage write is fast)
+  saveDraft();
   return valid;
 }
 
@@ -5341,9 +5563,52 @@ function submitForm() {
   formData.budget_custom = formData.budget_custom.trim();
 
   try { sessionStorage.setItem('putevkai_order', JSON.stringify(formData)); } catch (e) {}
+  // Order successfully submitted — clear the draft
+  clearDraft();
   showStep(9);
+  // Start progress animation
+  animateProgressChecklist();
   // submitting stays true so that if user navigates back, we don't re-submit
   // Reset on next page activation
+}
+
+function animateProgressChecklist() {
+  const steps = formRoot.querySelectorAll('.progress-step');
+  const goBtn = formRoot.querySelector('#goToStatusBtn');
+  if (!steps.length) return;
+
+  // Reset all
+  steps.forEach(s => s.classList.remove('active', 'done'));
+  if (goBtn) {
+    goBtn.style.opacity = '0';
+    goBtn.style.pointerEvents = 'none';
+  }
+
+  // Activate first step immediately
+  steps[0].classList.add('active');
+
+  // Then sequence: done(prev) + active(next), every ~1.6s
+  const stepDuration = 1600;
+  steps.forEach((step, i) => {
+    if (i === 0) return;  // first already active
+    setTimeout(() => {
+      // Mark previous as done
+      steps[i - 1].classList.remove('active');
+      steps[i - 1].classList.add('done');
+      // Mark current as active
+      step.classList.add('active');
+    }, i * stepDuration);
+  });
+
+  // After last step completes — mark it done and reveal CTA
+  setTimeout(() => {
+    steps[steps.length - 1].classList.remove('active');
+    steps[steps.length - 1].classList.add('done');
+    if (goBtn) {
+      goBtn.style.opacity = '1';
+      goBtn.style.pointerEvents = 'auto';
+    }
+  }, steps.length * stepDuration);
 }
 
 function setMinDates() {
@@ -5390,8 +5655,71 @@ window._formApi = {
       applyTariff();
     }
   },
-  resetSubmitting: function() { submitting = false; }
+  resetSubmitting: function() { submitting = false; },
+  // Try to restore a saved draft. Returns true if draft was applied.
+  tryRestoreDraft: function() {
+    const draft = loadDraft();
+    if (!draft || !draft.data) return false;
+    // Don't restore if user is on step 1 with literally nothing entered
+    // (so first-time visitors don't see "restore" suggestions)
+    const d = draft.data;
+    const hasMeaningfulData = (d.destination && d.destination.length > 1) ||
+                              d.travelers || d.budget ||
+                              (d.interests && d.interests.length > 0) ||
+                              d.pace || d.lodging || d.email;
+    if (!hasMeaningfulData) return false;
+    // Apply
+    Object.assign(formData, d);
+    restoreUiFromFormData();
+    showStep(draft.step || 1);
+    // Show banner
+    const banner = formRoot.querySelector('#draftBanner');
+    if (banner) banner.style.display = 'block';
+    return true;
+  },
+  // Reset everything to default and start over
+  resetForm: function() {
+    clearDraft();
+    // Reset form data to defaults
+    formData.destination = '';
+    formData.travelers = '';
+    formData.travelers_custom = '';
+    formData.budget = '';
+    formData.budget_custom = '';
+    formData.interests = [];
+    formData.pace = '';
+    formData.lodging = '';
+    formData.wishes = '';
+    formData.email = '';
+    formData.agreed = false;
+    // Reset UI
+    formRoot.querySelectorAll('.option.selected').forEach(o => o.classList.remove('selected'));
+    formRoot.querySelectorAll('input[type="text"], input[type="email"], textarea').forEach(el => {
+      if (el.id !== 'dateStart' && el.id !== 'dateEnd') el.value = '';
+    });
+    const ab = formRoot.querySelector('#agreeBox');
+    if (ab) ab.classList.remove('checked');
+    // Hide custom inputs
+    const tcw = formRoot.querySelector('#travelersCustomWrap');
+    if (tcw) tcw.style.display = 'none';
+    const bcw = formRoot.querySelector('#budgetCustomWrap');
+    if (bcw) bcw.style.display = 'none';
+    // Hide banner
+    const banner = formRoot.querySelector('#draftBanner');
+    if (banner) banner.style.display = 'none';
+    // Back to step 1
+    showStep(1);
+  },
+  clearDraft: function() { clearDraft(); }
 };
+
+// "Начать заново" button in draft banner
+const draftReset = formRoot.querySelector('#draftBannerReset');
+if (draftReset) {
+  draftReset.addEventListener('click', () => {
+    window._formApi.resetForm();
+  });
+}
 
 };
 
@@ -5400,15 +5728,25 @@ pageActivates['form'] = function() {
   const hash = location.hash.slice(1);
   const parts = hash.split(':');
   const tariffFromHash = parts[1];
-  if (window._formApi) {
-    if (tariffFromHash === 'basic' || tariffFromHash === 'extended') {
-      window._formApi.setTariff(tariffFromHash);
-    }
-    // Reset submitting flag (user re-entered form, e.g. via back nav)
-    window._formApi.resetSubmitting();
-    // Reset to step 1 on entry
+  if (!window._formApi) return;
+
+  if (tariffFromHash === 'basic' || tariffFromHash === 'extended') {
+    window._formApi.setTariff(tariffFromHash);
+  }
+  // Reset submitting flag (user re-entered form, e.g. via back nav)
+  window._formApi.resetSubmitting();
+
+  // Hide draft banner by default
+  const banner = document.querySelector('.page.page-form #draftBanner');
+  if (banner) banner.style.display = 'none';
+
+  // Try to restore draft if exists
+  const restored = window._formApi.tryRestoreDraft();
+  if (!restored) {
+    // No draft — start from step 1
     window._formApi.showStep(1);
   }
+  // If restored — restoration logic shows banner and step
 };
 
 
