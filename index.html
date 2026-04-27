@@ -38,8 +38,9 @@
 <!-- DNS-prefetch for image CDN (used in CSS background-image and img) -->
 <link rel="dns-prefetch" href="https://images.unsplash.com">
 
-<!-- Fonts: only used weights. Fraunces is variable (opsz+wght). Space Grotesk: 300/400/500 only -->
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+<!-- Fonts CSS — preload then load. display=block чтобы Safari iOS не показывал fallback при первом рендере (ждёт до 3 сек). -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Space+Grotesk:wght@300;400;500&display=block">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Space+Grotesk:wght@300;400;500&display=block" rel="stylesheet">
 
 <style>
 
@@ -61,7 +62,7 @@ html { scroll-behavior: smooth; }
 html, body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
@@ -149,7 +150,7 @@ body.page-home .nav {
   border-bottom: 1px solid var(--line);
 }
 body.page-home .nav-logo {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 500;
   font-size: 22px;
   letter-spacing: -0.02em;
@@ -246,7 +247,7 @@ body.page-home .hero-eyebrow::before {
   background: var(--accent);
 }
 body.page-home .hero h1 {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 300;
   font-size: clamp(56px, 8.5vw, 140px);
   line-height: 0.95;
@@ -320,7 +321,7 @@ body.page-home .hero-stat-label {
   margin-bottom: 8px;
 }
 body.page-home .hero-stat-value {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 300;
   font-size: 32px;
   letter-spacing: -0.02em;
@@ -352,7 +353,7 @@ body.page-home .section-label::before {
   background: var(--accent);
 }
 body.page-home .numbers-intro h2 {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 300;
   font-size: clamp(36px, 4.8vw, 68px);
   line-height: 1.1;
@@ -373,7 +374,7 @@ body.page-home .number-cell {
   position: relative;
 }
 body.page-home .number-big {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 300;
   font-size: 110px;
   line-height: 1;
@@ -400,7 +401,7 @@ body.page-home .map-header {
   padding: 0 48px;
 }
 body.page-home .map-title {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 300;
   font-size: clamp(40px, 5.5vw, 80px);
   line-height: 1;
@@ -454,7 +455,7 @@ body.page-home .legend-item:hover, body.page-home .legend-item.active {
   border-top-color: var(--accent);
 }
 body.page-home .legend-number {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 300;
   font-style: italic;
   font-size: 14px;
@@ -462,7 +463,7 @@ body.page-home .legend-number {
   margin-bottom: 8px;
 }
 body.page-home .legend-name {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 400;
   font-size: 20px;
   letter-spacing: -0.01em;
@@ -510,7 +511,7 @@ body.page-home .showcase-image[data-fallback="true"]::after {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 300;
   font-style: italic;
   font-size: 72px;
@@ -519,7 +520,7 @@ body.page-home .showcase-image[data-fallback="true"]::after {
   white-space: nowrap;
 }
 body.page-home .showcase-content .showcase-number {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 300;
   font-style: italic;
   font-size: 16px;
@@ -528,7 +529,7 @@ body.page-home .showcase-content .showcase-number {
   margin-bottom: 16px;
 }
 body.page-home .showcase-content h3 {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 300;
   font-size: 72px;
   line-height: 0.95;
@@ -556,7 +557,7 @@ body.page-home .showcase-meta-cell span {
 }
 body.page-home .showcase-meta-cell strong {
   display: block;
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 400;
   font-size: 22px;
   color: var(--text);
@@ -570,7 +571,7 @@ body.page-home .how {
   margin: 0 auto;
 }
 body.page-home .section-title {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 300;
   font-size: clamp(40px, 5.5vw, 80px);
   line-height: 0.98;
@@ -595,7 +596,7 @@ body.page-home .step {
 }
 body.page-home .step:hover { background: var(--bg-lift); }
 body.page-home .step-number {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 300;
   font-style: italic;
   font-size: 84px;
@@ -605,7 +606,7 @@ body.page-home .step-number {
   letter-spacing: -0.04em;
 }
 body.page-home .step h3 {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 400;
   font-size: 26px;
   line-height: 1.15;
@@ -621,7 +622,7 @@ body.page-home .step-arrow {
   position: absolute;
   right: 40px;
   bottom: 40px;
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-size: 24px;
   color: var(--text-3);
   transition: color 0.3s, transform 0.3s;
@@ -678,7 +679,7 @@ body.page-home .dest-label {
   margin-bottom: 12px;
 }
 body.page-home .dest-card h3 {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 400;
   font-size: 32px;
   letter-spacing: -0.02em;
@@ -700,7 +701,7 @@ body.page-home .dest-card[data-fallback-region]::after {
   top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 300;
   font-style: italic;
   font-size: 72px;
@@ -725,7 +726,7 @@ body.page-home .proof {
   position: relative;
 }
 body.page-home .proof-quote {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 300;
   font-style: italic;
   font-size: clamp(28px, 3.5vw, 48px);
@@ -763,7 +764,7 @@ body.page-home .proof-avatar {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 400;
   font-size: 22px;
   color: var(--bg);
@@ -810,7 +811,7 @@ body.page-home .compare-header {
 }
 body.page-home .compare-col.highlight .compare-header { color: var(--accent); }
 body.page-home .compare-col h3 {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 300;
   font-size: 44px;
   line-height: 1;
@@ -827,7 +828,7 @@ body.page-home .compare-time-visual {
   border-bottom: 1px solid var(--line);
 }
 body.page-home .compare-time-num {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 300;
   font-size: 72px;
   line-height: 1;
@@ -897,14 +898,14 @@ body.page-home .price-tag {
   font-weight: 500;
 }
 body.page-home .price-name {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 400;
   font-size: 24px;
   letter-spacing: -0.01em;
   margin-bottom: 32px;
 }
 body.page-home .price-value {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 300;
   font-size: 88px;
   line-height: 1;
@@ -974,7 +975,7 @@ body.page-home .faq-item {
 }
 body.page-home .faq-q {
   padding: 32px 0;
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 400;
   font-size: 24px;
   letter-spacing: -0.01em;
@@ -987,7 +988,7 @@ body.page-home .faq-q {
 }
 body.page-home .faq-q:hover { color: var(--accent); }
 body.page-home .faq-plus {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 300;
   font-size: 32px;
   color: var(--accent);
@@ -1033,7 +1034,7 @@ body.page-home .final-cta-inner {
   margin: 0 auto;
 }
 body.page-home .final-cta h2 {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 300;
   font-size: clamp(48px, 7vw, 104px);
   line-height: 0.98;
@@ -1102,7 +1103,7 @@ body.page-home .trust-item {
   text-align: center;
 }
 body.page-home .trust-value {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 300;
   font-size: 36px;
   color: var(--text);
@@ -1194,7 +1195,7 @@ body.page-tariff .nav {
   border-bottom: 1px solid var(--line);
 }
 body.page-tariff .nav-logo {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 500;
   font-size: 24px;
   letter-spacing: -0.02em;
@@ -1224,7 +1225,7 @@ body.page-tariff .tariff-eyebrow {
   margin-bottom: 24px;
 }
 body.page-tariff .tariff-headline {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 300;
   font-size: clamp(40px, 5.5vw, 76px);
   letter-spacing: -0.03em;
@@ -1309,7 +1310,7 @@ body.page-tariff .tariff-card-price {
   margin-bottom: 28px;
 }
 body.page-tariff .tariff-price-value {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 300;
   font-size: 96px;
   letter-spacing: -0.03em;
@@ -1318,7 +1319,7 @@ body.page-tariff .tariff-price-value {
 }
 body.page-tariff .tariff-card-extended .tariff-price-value { color: var(--accent); }
 body.page-tariff .tariff-price-currency {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 300;
   font-size: 40px;
   color: var(--text-2);
@@ -1466,7 +1467,7 @@ body.page-form .draft-banner-reset:hover {
   border-color: var(--accent);
 }
 body.page-form .logo {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 500;
   font-size: 22px;
   letter-spacing: -0.02em;
@@ -1483,7 +1484,7 @@ body.page-form .step-counter {
 body.page-form .step-counter strong {
   color: var(--text);
   font-weight: 500;
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-style: italic;
 }
 body.page-form .exit-btn {
@@ -1552,7 +1553,7 @@ body.page-form .step-eyebrow::before {
   background: var(--accent);
 }
 body.page-form .step-question {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 300;
   font-size: clamp(36px, 5.5vw, 72px);
   line-height: 1.05;
@@ -1577,7 +1578,7 @@ body.page-form .text-input {
   padding: 20px 0;
   font-size: 28px;
   color: var(--text);
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 300;
   letter-spacing: -0.01em;
   outline: none;
@@ -1634,7 +1635,7 @@ body.page-form .autocomplete-item.highlighted {
   background: rgba(79, 209, 197, 0.08);
 }
 body.page-form .autocomplete-item-name {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 400;
   letter-spacing: -0.01em;
 }
@@ -1691,7 +1692,7 @@ body.page-form .custom-input {
   padding: 14px 0;
   font-size: 22px;
   color: var(--text);
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 300;
   letter-spacing: -0.01em;
   outline: none;
@@ -1874,7 +1875,7 @@ body.page-form .option.selected::after {
   font-weight: 500;
 }
 body.page-form .option-icon {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-size: 24px;
   color: var(--accent);
   font-style: italic;
@@ -1883,7 +1884,7 @@ body.page-form .option-icon {
   display: block;
 }
 body.page-form .option-name {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 400;
   font-size: 18px;
   letter-spacing: -0.01em;
@@ -1986,7 +1987,7 @@ body.page-form .upsell-btn {
   transition: background 0.2s, transform 0.15s;
 }
 body.page-form .upsell-btn strong {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 500;
   font-style: italic;
   margin-left: 4px;
@@ -2119,7 +2120,7 @@ body.page-form .nav-tariff:hover::after {
 }
 body.page-form .nav-tariff strong {
   color: var(--text);
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 400;
   display: block;
   font-size: 15px;
@@ -2151,7 +2152,7 @@ body.page-form .final-icon::before {
   animation: spin 1.5s linear infinite;
 }
 body.page-form .final-icon-inner {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-size: 48px;
   color: var(--accent);
   font-style: italic;
@@ -2165,7 +2166,7 @@ body.page-form .final-icon-inner {
 
 }
 body.page-form .final-title {
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 300;
   font-size: clamp(40px, 5.5vw, 64px);
   line-height: 1.05;
@@ -2239,7 +2240,7 @@ body.page-form .progress-step.done .progress-mark::after {
 body.page-form .progress-label {
   font-size: 15px;
   color: var(--text-2);
-  font-family: 'Fraunces', serif;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
   font-weight: 400;
   letter-spacing: -0.01em;
 }
@@ -2268,7 +2269,7 @@ body.page-itinerary .nav {
   display: flex; justify-content: space-between; align-items: center;
 }
 body.page-itinerary .logo {
-  font-family: 'Fraunces', serif; font-weight: 500; font-size: 22px;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 500; font-size: 22px;
   letter-spacing: -0.02em; color: var(--text); text-decoration: none;
 }
 body.page-itinerary .logo span { color: var(--accent); }
@@ -2300,7 +2301,7 @@ body.page-itinerary .hero-eyebrow::before {
   content: ""; width: 32px; height: 1px; background: var(--accent);
 }
 body.page-itinerary .hero h1 {
-  font-family: 'Fraunces', serif; font-weight: 300;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 300;
   font-size: clamp(48px, 7vw, 96px); line-height: 0.98;
   letter-spacing: -0.03em; margin-bottom: 32px;
 }
@@ -2315,7 +2316,7 @@ body.page-itinerary .hero-meta-label {
   color: var(--text-3); margin-bottom: 6px;
 }
 body.page-itinerary .hero-meta-value {
-  font-family: 'Fraunces', serif; font-weight: 400;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 400;
   font-size: 22px; letter-spacing: -0.01em;
 }
 body.page-itinerary .hero-meta-value em { font-style: italic; color: var(--accent); }
@@ -2331,7 +2332,7 @@ body.page-itinerary .section-label {
 }
 body.page-itinerary .section-label::before { content: ""; width: 24px; height: 1px; background: var(--accent); }
 body.page-itinerary .section-title {
-  font-family: 'Fraunces', serif; font-weight: 300;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 300;
   font-size: clamp(36px, 4.5vw, 56px); line-height: 1.05;
   letter-spacing: -0.025em; margin-bottom: 56px;
 }
@@ -2356,12 +2357,12 @@ body.page-itinerary .route-city {
   text-align: center;
 }
 body.page-itinerary .route-city-num {
-  font-family: 'Fraunces', serif; font-weight: 300; font-style: italic;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 300; font-style: italic;
   font-size: 14px; color: var(--accent); margin-bottom: 6px;
   letter-spacing: 0.05em;
 }
 body.page-itinerary .route-city-name {
-  font-family: 'Fraunces', serif; font-weight: 400; font-size: 18px;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 400; font-size: 18px;
   letter-spacing: -0.01em; margin-bottom: 4px;
 }
 body.page-itinerary .route-city-days {
@@ -2383,7 +2384,7 @@ body.page-itinerary .day:first-child { padding-top: 0; }
 body.page-itinerary .day:last-child { border-bottom: none; }
 body.page-itinerary .day-meta { position: sticky; top: 100px; align-self: start; }
 body.page-itinerary .day-num {
-  font-family: 'Fraunces', serif; font-weight: 300; font-style: italic;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 300; font-style: italic;
   font-size: 88px; line-height: 1; color: var(--accent);
   letter-spacing: -0.04em;
   margin-bottom: 16px;
@@ -2393,12 +2394,12 @@ body.page-itinerary .day-date {
   color: var(--text-3);
 }
 body.page-itinerary .day-location {
-  font-family: 'Fraunces', serif; font-weight: 400; font-size: 20px;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 400; font-size: 20px;
   letter-spacing: -0.01em; color: var(--text); margin-top: 6px;
 }
 body.page-itinerary .day-content { padding-top: 8px; }
 body.page-itinerary .day-title {
-  font-family: 'Fraunces', serif; font-weight: 400;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 400;
   font-size: 32px; line-height: 1.15; letter-spacing: -0.02em;
   margin-bottom: 32px;
 }
@@ -2411,12 +2412,12 @@ body.page-itinerary .activity {
 }
 body.page-itinerary .activity:first-of-type { border-top: none; padding-top: 0; }
 body.page-itinerary .activity-time {
-  font-family: 'Fraunces', serif; font-weight: 300; font-style: italic;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 300; font-style: italic;
   font-size: 18px; color: var(--accent);
   letter-spacing: 0.02em;
 }
 body.page-itinerary .activity-title {
-  font-family: 'Fraunces', serif; font-weight: 400;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 400;
   font-size: 18px; letter-spacing: -0.01em; margin-bottom: 6px;
 }
 body.page-itinerary .activity-desc {
@@ -2445,7 +2446,7 @@ body.page-itinerary .budget-cell-cat {
   color: var(--text-3); margin-bottom: 12px;
 }
 body.page-itinerary .budget-cell-val {
-  font-family: 'Fraunces', serif; font-weight: 300;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 300;
   font-size: 36px; line-height: 1; letter-spacing: -0.025em;
 }
 body.page-itinerary .budget-cell-val em { font-style: italic; color: var(--accent); }
@@ -2461,7 +2462,7 @@ body.page-itinerary .budget-total-label {
   color: var(--text-3);
 }
 body.page-itinerary .budget-total-val {
-  font-family: 'Fraunces', serif; font-weight: 300;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 300;
   font-size: 56px; letter-spacing: -0.03em;
 }
 body.page-itinerary .budget-total-val em { font-style: italic; color: var(--accent); }
@@ -2480,7 +2481,7 @@ body.page-itinerary .checklist-cat {
   background: var(--bg); padding: 32px;
 }
 body.page-itinerary .checklist-cat-name {
-  font-family: 'Fraunces', serif; font-weight: 400;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 400;
   font-size: 20px; letter-spacing: -0.01em;
   margin-bottom: 20px;
   display: flex; align-items: center; gap: 12px;
@@ -2507,7 +2508,7 @@ body.page-itinerary .tip {
   background: var(--bg); padding: 32px;
 }
 body.page-itinerary .tip-num {
-  font-family: 'Fraunces', serif; font-weight: 300; font-style: italic;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 300; font-style: italic;
   font-size: 36px; color: var(--accent); margin-bottom: 16px;
 }
 body.page-itinerary .tip-text {
@@ -2520,7 +2521,7 @@ body.page-itinerary .cta {
   background: radial-gradient(ellipse at center, rgba(79, 209, 197, 0.06) 0%, transparent 60%);
 }
 body.page-itinerary .cta h2 {
-  font-family: 'Fraunces', serif; font-weight: 300;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 300;
   font-size: clamp(40px, 5vw, 64px); line-height: 1.05;
   letter-spacing: -0.03em; margin-bottom: 24px;
 }
@@ -2567,7 +2568,7 @@ body.page-order-accepted .header {
   border-bottom: 1px solid var(--line);
 }
 body.page-order-accepted .logo {
-  font-family: 'Fraunces', serif; font-weight: 500; font-size: 22px;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 500; font-size: 22px;
   letter-spacing: -0.02em; color: var(--text); text-decoration: none;
 }
 body.page-order-accepted .logo span { color: var(--accent); }
@@ -2631,7 +2632,7 @@ body.page-order-accepted .success-icon svg path {
 
 }
 body.page-order-accepted h1 {
-  font-family: 'Fraunces', serif; font-weight: 300;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 300;
   font-size: clamp(48px, 6vw, 72px); line-height: 1.05;
   letter-spacing: -0.025em; text-align: center;
   margin-bottom: 20px;
@@ -2641,7 +2642,7 @@ body.page-order-accepted .subtitle {
   text-align: center; font-size: 18px; color: var(--text-2);
   line-height: 1.55; margin-bottom: 64px;
 }
-body.page-order-accepted .subtitle strong { color: var(--text); font-family: 'Fraunces', serif; font-weight: 400; }
+body.page-order-accepted .subtitle strong { color: var(--text); font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 400; }
 body.page-order-accepted .order-card {
   border: 1px solid var(--line);
   padding: 32px;
@@ -2658,7 +2659,7 @@ body.page-order-accepted .order-label {
   color: var(--text-3);
 }
 body.page-order-accepted .order-value {
-  font-family: 'Fraunces', serif; font-weight: 400;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 400;
   font-size: 17px; letter-spacing: -0.01em; color: var(--text);
 }
 body.page-order-accepted .order-value em { font-style: italic; color: var(--accent); }
@@ -2679,7 +2680,7 @@ body.page-order-accepted .next-step {
 }
 body.page-order-accepted .next-step:last-child { border-bottom: none; }
 body.page-order-accepted .next-step-num {
-  font-family: 'Fraunces', serif; font-weight: 300; font-style: italic;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 300; font-style: italic;
   font-size: 32px; color: var(--accent);
   flex-shrink: 0; min-width: 60px;
 }
@@ -2719,7 +2720,7 @@ body.page-itinerary .nav {
   display: flex; justify-content: space-between; align-items: center;
 }
 body.page-itinerary .logo {
-  font-family: 'Fraunces', serif; font-weight: 500; font-size: 22px;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 500; font-size: 22px;
   letter-spacing: -0.02em; color: var(--text); text-decoration: none;
 }
 body.page-itinerary .logo span { color: var(--accent); }
@@ -2751,7 +2752,7 @@ body.page-itinerary .hero-eyebrow::before {
   content: ""; width: 32px; height: 1px; background: var(--accent);
 }
 body.page-itinerary .hero h1 {
-  font-family: 'Fraunces', serif; font-weight: 300;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 300;
   font-size: clamp(48px, 7vw, 96px); line-height: 0.98;
   letter-spacing: -0.03em; margin-bottom: 32px;
 }
@@ -2766,7 +2767,7 @@ body.page-itinerary .hero-meta-label {
   color: var(--text-3); margin-bottom: 6px;
 }
 body.page-itinerary .hero-meta-value {
-  font-family: 'Fraunces', serif; font-weight: 400;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 400;
   font-size: 22px; letter-spacing: -0.01em;
 }
 body.page-itinerary .hero-meta-value em { font-style: italic; color: var(--accent); }
@@ -2782,7 +2783,7 @@ body.page-itinerary .section-label {
 }
 body.page-itinerary .section-label::before { content: ""; width: 24px; height: 1px; background: var(--accent); }
 body.page-itinerary .section-title {
-  font-family: 'Fraunces', serif; font-weight: 300;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 300;
   font-size: clamp(36px, 4.5vw, 56px); line-height: 1.05;
   letter-spacing: -0.025em; margin-bottom: 56px;
 }
@@ -2807,12 +2808,12 @@ body.page-itinerary .route-city {
   text-align: center;
 }
 body.page-itinerary .route-city-num {
-  font-family: 'Fraunces', serif; font-weight: 300; font-style: italic;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 300; font-style: italic;
   font-size: 14px; color: var(--accent); margin-bottom: 6px;
   letter-spacing: 0.05em;
 }
 body.page-itinerary .route-city-name {
-  font-family: 'Fraunces', serif; font-weight: 400; font-size: 18px;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 400; font-size: 18px;
   letter-spacing: -0.01em; margin-bottom: 4px;
 }
 body.page-itinerary .route-city-days {
@@ -2834,7 +2835,7 @@ body.page-itinerary .day:first-child { padding-top: 0; }
 body.page-itinerary .day:last-child { border-bottom: none; }
 body.page-itinerary .day-meta { position: sticky; top: 100px; align-self: start; }
 body.page-itinerary .day-num {
-  font-family: 'Fraunces', serif; font-weight: 300; font-style: italic;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 300; font-style: italic;
   font-size: 88px; line-height: 1; color: var(--accent);
   letter-spacing: -0.04em;
   margin-bottom: 16px;
@@ -2844,12 +2845,12 @@ body.page-itinerary .day-date {
   color: var(--text-3);
 }
 body.page-itinerary .day-location {
-  font-family: 'Fraunces', serif; font-weight: 400; font-size: 20px;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 400; font-size: 20px;
   letter-spacing: -0.01em; color: var(--text); margin-top: 6px;
 }
 body.page-itinerary .day-content { padding-top: 8px; }
 body.page-itinerary .day-title {
-  font-family: 'Fraunces', serif; font-weight: 400;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 400;
   font-size: 32px; line-height: 1.15; letter-spacing: -0.02em;
   margin-bottom: 32px;
 }
@@ -2862,12 +2863,12 @@ body.page-itinerary .activity {
 }
 body.page-itinerary .activity:first-of-type { border-top: none; padding-top: 0; }
 body.page-itinerary .activity-time {
-  font-family: 'Fraunces', serif; font-weight: 300; font-style: italic;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 300; font-style: italic;
   font-size: 18px; color: var(--accent);
   letter-spacing: 0.02em;
 }
 body.page-itinerary .activity-title {
-  font-family: 'Fraunces', serif; font-weight: 400;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 400;
   font-size: 18px; letter-spacing: -0.01em; margin-bottom: 6px;
 }
 body.page-itinerary .activity-desc {
@@ -2896,7 +2897,7 @@ body.page-itinerary .budget-cell-cat {
   color: var(--text-3); margin-bottom: 12px;
 }
 body.page-itinerary .budget-cell-val {
-  font-family: 'Fraunces', serif; font-weight: 300;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 300;
   font-size: 36px; line-height: 1; letter-spacing: -0.025em;
 }
 body.page-itinerary .budget-cell-val em { font-style: italic; color: var(--accent); }
@@ -2912,7 +2913,7 @@ body.page-itinerary .budget-total-label {
   color: var(--text-3);
 }
 body.page-itinerary .budget-total-val {
-  font-family: 'Fraunces', serif; font-weight: 300;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 300;
   font-size: 56px; letter-spacing: -0.03em;
 }
 body.page-itinerary .budget-total-val em { font-style: italic; color: var(--accent); }
@@ -2931,7 +2932,7 @@ body.page-itinerary .checklist-cat {
   background: var(--bg); padding: 32px;
 }
 body.page-itinerary .checklist-cat-name {
-  font-family: 'Fraunces', serif; font-weight: 400;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 400;
   font-size: 20px; letter-spacing: -0.01em;
   margin-bottom: 20px;
   display: flex; align-items: center; gap: 12px;
@@ -2958,7 +2959,7 @@ body.page-itinerary .tip {
   background: var(--bg); padding: 32px;
 }
 body.page-itinerary .tip-num {
-  font-family: 'Fraunces', serif; font-weight: 300; font-style: italic;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 300; font-style: italic;
   font-size: 36px; color: var(--accent); margin-bottom: 16px;
 }
 body.page-itinerary .tip-text {
@@ -2971,7 +2972,7 @@ body.page-itinerary .cta {
   background: radial-gradient(ellipse at center, rgba(79, 209, 197, 0.06) 0%, transparent 60%);
 }
 body.page-itinerary .cta h2 {
-  font-family: 'Fraunces', serif; font-weight: 300;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 300;
   font-size: clamp(40px, 5vw, 64px); line-height: 1.05;
   letter-spacing: -0.03em; margin-bottom: 24px;
 }
@@ -3019,7 +3020,7 @@ body.page-legal .nav {
   display: flex; justify-content: space-between; align-items: center;
 }
 body.page-legal .logo {
-  font-family: 'Fraunces', serif; font-weight: 500; font-size: 22px;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 500; font-size: 22px;
   letter-spacing: -0.02em; color: var(--text); text-decoration: none;
 }
 body.page-legal .logo span { color: var(--accent); }
@@ -3069,13 +3070,13 @@ body.page-legal .section-eyebrow::before {
   content: ""; width: 32px; height: 1px; background: var(--accent);
 }
 body.page-legal h1 {
-  font-family: 'Fraunces', serif; font-weight: 300;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 300;
   font-size: clamp(36px, 4.5vw, 56px); line-height: 1.05;
   letter-spacing: -0.025em; margin-bottom: 32px;
 }
 body.page-legal h1 em { font-style: italic; color: var(--accent); }
 body.page-legal h2 {
-  font-family: 'Fraunces', serif; font-weight: 400;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 400;
   font-size: 22px; letter-spacing: -0.01em;
   margin-top: 40px; margin-bottom: 16px;
   padding-top: 32px; border-top: 1px solid var(--line);
@@ -3110,7 +3111,7 @@ body.page-legal .contact-label {
   color: var(--text-3); margin-bottom: 12px;
 }
 body.page-legal .contact-value {
-  font-family: 'Fraunces', serif; font-weight: 400;
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif; font-weight: 400;
   font-size: 20px; letter-spacing: -0.01em;
 }
 body.page-legal .contact-value a { color: var(--text); text-decoration: none; transition: color 0.2s; }
@@ -3286,7 +3287,7 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
           <circle r="14" fill="none" stroke="#4FD1C5" stroke-width="1" opacity="0.5"/>
           <circle r="22" fill="none" stroke="#4FD1C5" stroke-width="0.5" opacity="0.3"/>
           <g transform="translate(22, -8)">
-            <text fill="#FFFFFF" font-family="Fraunces" font-style="italic" font-size="20" font-weight="300">Карелия</text>
+            <text fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="20" font-weight="300">Карелия</text>
             <text y="16" fill="#A8B2C7" font-family="Space Grotesk" font-size="10" letter-spacing="2">01 · СЕВЕРО-ЗАПАД</text>
           </g>
         </g>
@@ -3298,7 +3299,7 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
           <circle r="14" fill="none" stroke="#4FD1C5" stroke-width="1" opacity="0.5"/>
           <circle r="22" fill="none" stroke="#4FD1C5" stroke-width="0.5" opacity="0.3"/>
           <g transform="translate(22, 6)">
-            <text fill="#FFFFFF" font-family="Fraunces" font-style="italic" font-size="20" font-weight="300">Дагестан</text>
+            <text fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="20" font-weight="300">Дагестан</text>
             <text y="16" fill="#A8B2C7" font-family="Space Grotesk" font-size="10" letter-spacing="2">02 · СЕВ. КАВКАЗ</text>
           </g>
         </g>
@@ -3310,7 +3311,7 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
           <circle r="14" fill="none" stroke="#4FD1C5" stroke-width="1" opacity="0.5"/>
           <circle r="22" fill="none" stroke="#4FD1C5" stroke-width="0.5" opacity="0.3"/>
           <g transform="translate(22, 6)">
-            <text fill="#FFFFFF" font-family="Fraunces" font-style="italic" font-size="20" font-weight="300">Алтай</text>
+            <text fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="20" font-weight="300">Алтай</text>
             <text y="16" fill="#A8B2C7" font-family="Space Grotesk" font-size="10" letter-spacing="2">03 · ЮЖНАЯ СИБИРЬ</text>
           </g>
         </g>
@@ -3322,7 +3323,7 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
           <circle r="14" fill="none" stroke="#4FD1C5" stroke-width="1" opacity="0.5"/>
           <circle r="22" fill="none" stroke="#4FD1C5" stroke-width="0.5" opacity="0.3"/>
           <g transform="translate(22, -6)">
-            <text fill="#FFFFFF" font-family="Fraunces" font-style="italic" font-size="20" font-weight="300">Байкал</text>
+            <text fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="20" font-weight="300">Байкал</text>
             <text y="16" fill="#A8B2C7" font-family="Space Grotesk" font-size="10" letter-spacing="2">04 · ВОСТ. СИБИРЬ</text>
           </g>
         </g>
@@ -3334,7 +3335,7 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
           <circle r="14" fill="none" stroke="#4FD1C5" stroke-width="1" opacity="0.5"/>
           <circle r="22" fill="none" stroke="#4FD1C5" stroke-width="0.5" opacity="0.3"/>
           <g transform="translate(-120, -8)">
-            <text fill="#FFFFFF" font-family="Fraunces" font-style="italic" font-size="20" font-weight="300" text-anchor="start">Камчатка</text>
+            <text fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="20" font-weight="300" text-anchor="start">Камчатка</text>
             <text y="16" fill="#A8B2C7" font-family="Space Grotesk" font-size="10" letter-spacing="2" text-anchor="start">05 · ДАЛЬНИЙ ВОСТОК</text>
           </g>
         </g>
@@ -3371,8 +3372,8 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
         </g>
 
         <!-- Ocean labels at the edges -->
-        <text x="80" y="200" fill="rgba(168, 178, 199, 0.35)" font-family="Fraunces" font-style="italic" font-size="13">Северный Ледовитый океан</text>
-        <text x="1400" y="720" fill="rgba(168, 178, 199, 0.35)" font-family="Fraunces" font-style="italic" font-size="13" text-anchor="end">Тихий океан</text>
+        <text x="80" y="200" fill="rgba(168, 178, 199, 0.35)" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="13">Северный Ледовитый океан</text>
+        <text x="1400" y="720" fill="rgba(168, 178, 199, 0.35)" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="13" text-anchor="end">Тихий океан</text>
       </svg>
     </div>
   </div>
@@ -4115,36 +4116,36 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
       <g transform="translate(100, 200)">
         <circle r="28" fill="url(#cityGlow)"/>
         <circle r="6" fill="#4FD1C5"/>
-        <text y="-22" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces" font-style="italic" font-size="16">Махачкала</text>
+        <text y="-22" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="16">Махачкала</text>
         <text y="42" text-anchor="middle" fill="#A8B2C7" font-family="Space Grotesk" font-size="10" letter-spacing="2">ДЕНЬ 1–2</text>
       </g>
       <g transform="translate(300, 250)">
         <circle r="28" fill="url(#cityGlow)"/>
         <circle r="6" fill="#4FD1C5"/>
-        <text y="46" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces" font-style="italic" font-size="16">Дербент</text>
+        <text y="46" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="16">Дербент</text>
         <text y="64" text-anchor="middle" fill="#A8B2C7" font-family="Space Grotesk" font-size="10" letter-spacing="2">ДЕНЬ 3</text>
       </g>
       <g transform="translate(600, 150)">
         <circle r="28" fill="url(#cityGlow)"/>
         <circle r="6" fill="#4FD1C5"/>
-        <text y="-22" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces" font-style="italic" font-size="16">Гуниб</text>
+        <text y="-22" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="16">Гуниб</text>
         <text y="42" text-anchor="middle" fill="#A8B2C7" font-family="Space Grotesk" font-size="10" letter-spacing="2">ДЕНЬ 4–5</text>
       </g>
       <g transform="translate(900, 180)">
         <circle r="28" fill="url(#cityGlow)"/>
         <circle r="6" fill="#4FD1C5"/>
-        <text y="-22" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces" font-style="italic" font-size="16">Чох</text>
+        <text y="-22" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="16">Чох</text>
         <text y="42" text-anchor="middle" fill="#A8B2C7" font-family="Space Grotesk" font-size="10" letter-spacing="2">ДЕНЬ 6</text>
       </g>
       <g transform="translate(1100, 200)">
         <circle r="28" fill="url(#cityGlow)"/>
         <circle r="6" fill="#4FD1C5"/>
-        <text y="-22" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces" font-style="italic" font-size="16">Сулак</text>
+        <text y="-22" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="16">Сулак</text>
         <text y="42" text-anchor="middle" fill="#A8B2C7" font-family="Space Grotesk" font-size="10" letter-spacing="2">ДЕНЬ 7–8</text>
       </g>
 
       <!-- Caspian Sea label -->
-      <text x="60" y="370" fill="rgba(168, 178, 199, 0.35)" font-family="Fraunces" font-style="italic" font-size="13">Каспийское море</text>
+      <text x="60" y="370" fill="rgba(168, 178, 199, 0.35)" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="13">Каспийское море</text>
     </svg>
 
     <div class="route-cities">
@@ -4691,36 +4692,36 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
       <g transform="translate(100, 200)">
         <circle r="28" fill="url(#cityGlow)"/>
         <circle r="6" fill="#4FD1C5"/>
-        <text y="-22" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces" font-style="italic" font-size="16">Махачкала</text>
+        <text y="-22" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="16">Махачкала</text>
         <text y="42" text-anchor="middle" fill="#A8B2C7" font-family="Space Grotesk" font-size="10" letter-spacing="2">ДЕНЬ 1–2</text>
       </g>
       <g transform="translate(300, 250)">
         <circle r="28" fill="url(#cityGlow)"/>
         <circle r="6" fill="#4FD1C5"/>
-        <text y="46" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces" font-style="italic" font-size="16">Дербент</text>
+        <text y="46" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="16">Дербент</text>
         <text y="64" text-anchor="middle" fill="#A8B2C7" font-family="Space Grotesk" font-size="10" letter-spacing="2">ДЕНЬ 3</text>
       </g>
       <g transform="translate(600, 150)">
         <circle r="28" fill="url(#cityGlow)"/>
         <circle r="6" fill="#4FD1C5"/>
-        <text y="-22" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces" font-style="italic" font-size="16">Гуниб</text>
+        <text y="-22" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="16">Гуниб</text>
         <text y="42" text-anchor="middle" fill="#A8B2C7" font-family="Space Grotesk" font-size="10" letter-spacing="2">ДЕНЬ 4–5</text>
       </g>
       <g transform="translate(900, 180)">
         <circle r="28" fill="url(#cityGlow)"/>
         <circle r="6" fill="#4FD1C5"/>
-        <text y="-22" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces" font-style="italic" font-size="16">Чох</text>
+        <text y="-22" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="16">Чох</text>
         <text y="42" text-anchor="middle" fill="#A8B2C7" font-family="Space Grotesk" font-size="10" letter-spacing="2">ДЕНЬ 6</text>
       </g>
       <g transform="translate(1100, 200)">
         <circle r="28" fill="url(#cityGlow)"/>
         <circle r="6" fill="#4FD1C5"/>
-        <text y="-22" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces" font-style="italic" font-size="16">Сулак</text>
+        <text y="-22" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="16">Сулак</text>
         <text y="42" text-anchor="middle" fill="#A8B2C7" font-family="Space Grotesk" font-size="10" letter-spacing="2">ДЕНЬ 7–8</text>
       </g>
 
       <!-- Caspian Sea label -->
-      <text x="60" y="370" fill="rgba(168, 178, 199, 0.35)" font-family="Fraunces" font-style="italic" font-size="13">Каспийское море</text>
+      <text x="60" y="370" fill="rgba(168, 178, 199, 0.35)" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="13">Каспийское море</text>
     </svg>
 
     <div class="route-cities">
