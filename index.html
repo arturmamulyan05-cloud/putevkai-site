@@ -145,7 +145,8 @@ body.page-home .nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(10, 15, 28, 0.72);
+  background: rgba(10, 15, 28, 0.92);
+  -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--line);
 }
@@ -1336,8 +1337,8 @@ body.page-tariff .tariff-card-desc {
 body.page-tariff .tariff-features {
   list-style: none;
   padding: 0;
-  margin: 0 0 40px;
-  flex: 1;
+  margin: auto 0 40px;
+  flex-shrink: 0;
 }
 body.page-tariff .tariff-features li {
   position: relative;
@@ -1365,6 +1366,7 @@ body.page-tariff .tariff-card-cta {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
   padding: 16px 24px;
   border: 1px solid var(--line-bright);
   border-radius: 2px;
@@ -1419,6 +1421,7 @@ body.page-form .header {
   align-items: center;
   justify-content: space-between;
   background: rgba(10, 15, 28, 0.85);
+  -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--line);
 }
@@ -1495,6 +1498,12 @@ body.page-form .exit-btn {
   letter-spacing: 0.05em;
   text-decoration: none;
   transition: color 0.2s;
+  /* Минимум 44px touch-target по гайдлайнам Apple/Google. Padding не меняет визуальный размер. */
+  padding: 14px 12px;
+  margin: -14px -12px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
 }
 body.page-form .exit-btn:hover { color: var(--text); }
 body.page-form .ambient-bg {
@@ -1597,7 +1606,7 @@ body.page-form .autocomplete-dropdown {
   top: calc(100% + 8px);
   left: 0;
   right: 0;
-  z-index: 50;
+  z-index: 60;
   background: var(--bg-lift);
   border: 1px solid var(--line-bright);
   border-radius: 4px;
@@ -1776,10 +1785,15 @@ body.page-form .nav-bar .next-hint {
   transform: translateY(4px);
   transition: opacity 0.2s, transform 0.2s;
   pointer-events: none;
+  z-index: 70;
 }
 body.page-form .nav-bar .next-hint.show {
   opacity: 1;
   transform: translateY(0);
+}
+@media (max-width: 720px) {
+  /* На мобильном hint перекрывает dropdown autocomplete и контент. Скрываем — пользователь видит что кнопка Далее неактивна. */
+  body.page-form .nav-bar .next-hint { display: none; }
 }
 
 
@@ -1811,6 +1825,15 @@ body.page-form .date-input {
   color-scheme: dark;
 }
 body.page-form .date-input:focus { border-bottom-color: var(--accent); }
+body.page-form .date-readable {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--text-2);
+  font-family: 'Fraunces', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
+  font-style: italic;
+  letter-spacing: -0.01em;
+  min-height: 18px;
+}
 body.page-form textarea.text-input {
   resize: vertical;
   min-height: 120px;
@@ -2264,6 +2287,7 @@ body.page-itinerary .nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   padding: 20px 48px;
   background: rgba(10, 15, 28, 0.85);
+  -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--line);
   display: flex; justify-content: space-between; align-items: center;
@@ -2564,6 +2588,7 @@ body.page-order-accepted .header {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   padding: 24px 48px;
   background: rgba(10, 15, 28, 0.85);
+  -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--line);
 }
@@ -2715,6 +2740,7 @@ body.page-itinerary .nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   padding: 20px 48px;
   background: rgba(10, 15, 28, 0.85);
+  -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--line);
   display: flex; justify-content: space-between; align-items: center;
@@ -3015,6 +3041,7 @@ body.page-legal .nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   padding: 20px 48px;
   background: rgba(10, 15, 28, 0.85);
+  -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--line);
   display: flex; justify-content: space-between; align-items: center;
@@ -3443,7 +3470,7 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
     <div class="step">
       <div class="step-number">01</div>
       <h3>Расскажите о&nbsp;поездке</h3>
-      <p>Ответьте на десять вопросов: куда, когда, с кем, с каким бюджетом и что интересно. Без регистрации. Три минуты.</p>
+      <p>Ответьте на восемь вопросов: куда, когда, с кем, с каким бюджетом и что интересно. Без регистрации. Три минуты.</p>
       <div class="step-arrow">→</div>
     </div>
     <div class="step">
@@ -3471,7 +3498,7 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
     <div class="proof-avatar">АМ</div>
     <div class="proof-info">
       <div class="proof-info-name">Анна Матвеева</div>
-      <div class="proof-info-meta">Путешествие по Алтаю · Август 2025</div>
+      <div class="proof-info-meta">Путешествие по Алтаю · Март 2026</div>
     </div>
   </div>
 </section>
@@ -3545,7 +3572,7 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
         <span class="compare-time-unit">минут — и<br>маршрут в почте</span>
       </div>
       <ul class="compare-list">
-        <li><span class="compare-marker"></span>Одна форма из десяти вопросов</li>
+        <li><span class="compare-marker"></span>Одна форма из восьми вопросов</li>
         <li><span class="compare-marker"></span>Маршрут под ваш бюджет и стиль</li>
         <li><span class="compare-marker"></span>Готовый PDF на email</li>
         <li><span class="compare-marker"></span>Бюджет по категориям и чек-лист</li>
@@ -3803,10 +3830,12 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
         <div class="date-cell">
           <div class="date-label">От</div>
           <input type="date" class="date-input" id="dateStart" aria-label="Дата начала поездки">
+          <div class="date-readable" id="dateStartReadable" aria-live="polite"></div>
         </div>
         <div class="date-cell">
           <div class="date-label">До</div>
           <input type="date" class="date-input" id="dateEnd" aria-label="Дата окончания поездки">
+          <div class="date-readable" id="dateEndReadable" aria-live="polite"></div>
         </div>
       </div>
       <div class="field-error" role="alert" aria-live="polite" id="datesError" style="display:none;"></div>
@@ -4116,31 +4145,31 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
       <g transform="translate(100, 200)">
         <circle r="28" fill="url(#cityGlow)"/>
         <circle r="6" fill="#4FD1C5"/>
-        <text y="-22" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="16">Махачкала</text>
+        <text y="-22" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="22">Махачкала</text>
         <text y="42" text-anchor="middle" fill="#A8B2C7" font-family="Space Grotesk" font-size="10" letter-spacing="2">ДЕНЬ 1–2</text>
       </g>
       <g transform="translate(300, 250)">
         <circle r="28" fill="url(#cityGlow)"/>
         <circle r="6" fill="#4FD1C5"/>
-        <text y="46" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="16">Дербент</text>
+        <text y="46" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="22">Дербент</text>
         <text y="64" text-anchor="middle" fill="#A8B2C7" font-family="Space Grotesk" font-size="10" letter-spacing="2">ДЕНЬ 3</text>
       </g>
       <g transform="translate(600, 150)">
         <circle r="28" fill="url(#cityGlow)"/>
         <circle r="6" fill="#4FD1C5"/>
-        <text y="-22" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="16">Гуниб</text>
+        <text y="-22" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="22">Гуниб</text>
         <text y="42" text-anchor="middle" fill="#A8B2C7" font-family="Space Grotesk" font-size="10" letter-spacing="2">ДЕНЬ 4–5</text>
       </g>
       <g transform="translate(900, 180)">
         <circle r="28" fill="url(#cityGlow)"/>
         <circle r="6" fill="#4FD1C5"/>
-        <text y="-22" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="16">Чох</text>
+        <text y="-22" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="22">Чох</text>
         <text y="42" text-anchor="middle" fill="#A8B2C7" font-family="Space Grotesk" font-size="10" letter-spacing="2">ДЕНЬ 6</text>
       </g>
       <g transform="translate(1100, 200)">
         <circle r="28" fill="url(#cityGlow)"/>
         <circle r="6" fill="#4FD1C5"/>
-        <text y="-22" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="16">Сулак</text>
+        <text y="-22" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="22">Сулак</text>
         <text y="42" text-anchor="middle" fill="#A8B2C7" font-family="Space Grotesk" font-size="10" letter-spacing="2">ДЕНЬ 7–8</text>
       </g>
 
@@ -4692,31 +4721,31 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
       <g transform="translate(100, 200)">
         <circle r="28" fill="url(#cityGlow)"/>
         <circle r="6" fill="#4FD1C5"/>
-        <text y="-22" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="16">Махачкала</text>
+        <text y="-22" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="22">Махачкала</text>
         <text y="42" text-anchor="middle" fill="#A8B2C7" font-family="Space Grotesk" font-size="10" letter-spacing="2">ДЕНЬ 1–2</text>
       </g>
       <g transform="translate(300, 250)">
         <circle r="28" fill="url(#cityGlow)"/>
         <circle r="6" fill="#4FD1C5"/>
-        <text y="46" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="16">Дербент</text>
+        <text y="46" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="22">Дербент</text>
         <text y="64" text-anchor="middle" fill="#A8B2C7" font-family="Space Grotesk" font-size="10" letter-spacing="2">ДЕНЬ 3</text>
       </g>
       <g transform="translate(600, 150)">
         <circle r="28" fill="url(#cityGlow)"/>
         <circle r="6" fill="#4FD1C5"/>
-        <text y="-22" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="16">Гуниб</text>
+        <text y="-22" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="22">Гуниб</text>
         <text y="42" text-anchor="middle" fill="#A8B2C7" font-family="Space Grotesk" font-size="10" letter-spacing="2">ДЕНЬ 4–5</text>
       </g>
       <g transform="translate(900, 180)">
         <circle r="28" fill="url(#cityGlow)"/>
         <circle r="6" fill="#4FD1C5"/>
-        <text y="-22" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="16">Чох</text>
+        <text y="-22" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="22">Чох</text>
         <text y="42" text-anchor="middle" fill="#A8B2C7" font-family="Space Grotesk" font-size="10" letter-spacing="2">ДЕНЬ 6</text>
       </g>
       <g transform="translate(1100, 200)">
         <circle r="28" fill="url(#cityGlow)"/>
         <circle r="6" fill="#4FD1C5"/>
-        <text y="-22" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="16">Сулак</text>
+        <text y="-22" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, Charter, Georgia, serif" font-style="italic" font-size="22">Сулак</text>
         <text y="42" text-anchor="middle" fill="#A8B2C7" font-family="Space Grotesk" font-size="10" letter-spacing="2">ДЕНЬ 7–8</text>
       </g>
 
@@ -6311,10 +6340,35 @@ if (destInput) {
     }
   });
 }
+// Форматирование даты в человекочитаемый русский: "11 мая 2026, понедельник"
+function formatDateReadable(isoDate) {
+  if (!isoDate) return '';
+  const d = new Date(isoDate);
+  if (isNaN(d.getTime())) return '';
+  try {
+    return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric', weekday: 'long' });
+  } catch (e) {
+    return isoDate;
+  }
+}
+function updateDateReadable(inputId, readableId) {
+  const input = _byId(inputId);
+  const readable = _byId(readableId);
+  if (!input || !readable) return;
+  readable.textContent = formatDateReadable(input.value);
+}
 const dateStart = _byId('dateStart');
-if (dateStart) dateStart.addEventListener('change', e => { formData.date_start = e.target.value; validateStep(); });
+if (dateStart) dateStart.addEventListener('change', e => {
+  formData.date_start = e.target.value;
+  updateDateReadable('dateStart', 'dateStartReadable');
+  validateStep();
+});
 const dateEnd = _byId('dateEnd');
-if (dateEnd) dateEnd.addEventListener('change', e => { formData.date_end = e.target.value; validateStep(); });
+if (dateEnd) dateEnd.addEventListener('change', e => {
+  formData.date_end = e.target.value;
+  updateDateReadable('dateEnd', 'dateEndReadable');
+  validateStep();
+});
 const wishesInput = _byId('wishesInput');
 if (wishesInput) wishesInput.addEventListener('input', e => {
   formData.wishes = e.target.value;
