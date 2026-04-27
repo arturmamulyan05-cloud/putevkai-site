@@ -6494,7 +6494,7 @@ function submitForm() {
 
   submitting = true;
   nextBtn.disabled = true;
-  nextBtn.textContent = 'Отправляем...';
+  nextBtn.innerHTML = 'Отправляем...';
 
   // Final cleanup of data
   formData.destination = formData.destination.trim();
@@ -6503,14 +6503,60 @@ function submitForm() {
   formData.travelers_custom = formData.travelers_custom.trim();
   formData.budget_custom = formData.budget_custom.trim();
 
-  try { sessionStorage.setItem('putevkai_order', JSON.stringify(formData)); } catch (e) {}
-  // Order successfully submitted — clear the draft
+  // Resolve "Другое" → real values for backend
+  const finalTravelers = (formData.travelers === 'Другое' && formData.travelers_custom)
+    ? formData.travelers_custom
+    : formData.travelers;
+  const finalBudget = (formData.budget === 'custom' && formData.budget_custom)
+    ? formData.budget_custom
+    : formData.budget;
+
+  // Order ID for tracking (visible to user, simple format)
+  const orderId = 'P' + Date.now().toString(36).toUpperCase();
+
+  // Payload for n8n webhook — fields match system prompt expectations
+  const payload = {
+    order_id: orderId,
+    destination: formData.destination,
+    date_start: formData.date_start,
+    date_end: formData.date_end,
+    travelers: finalTravelers,
+    budget: finalBudget,
+    interests: formData.interests,
+    pace: formData.pace,
+    lodging: formData.lodging,
+    wishes: formData.wishes,
+    email: formData.email,
+    tariff: formData.tariff,
+    submitted_at: new Date().toISOString()
+  };
+
+  // Save locally for status page
+  try {
+    sessionStorage.setItem('putevkai_order', JSON.stringify({...formData, order_id: orderId}));
+  } catch (e) {}
+
   clearDraft();
   showStep(9);
-  // Start progress animation
   animateProgressChecklist();
-  // submitting stays true so that if user navigates back, we don't re-submit
-  // Reset on next page activation
+
+  // Send to n8n — fire and forget (server processes async, user sees progress UI)
+  fetch('https://n8n-production-bd16.up.railway.app/webhook/beb7c08d-1450-4c7a-a34c-4eb7cd765b82', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(payload),
+    // Don't wait for full response — n8n workflow can take 60+ seconds (Anthropic + Sheets)
+    // If user closes tab, n8n still processes the request
+    keepalive: true
+  }).then(response => {
+    if (!response.ok) {
+      console.error('Webhook returned non-OK status:', response.status);
+    }
+  }).catch(err => {
+    console.error('Webhook submission failed:', err);
+    // Don't change UI — user already on progress screen
+    // Backend can't be reached, but we logged it for debugging
+  });
 }
 
 function animateProgressChecklist() {
