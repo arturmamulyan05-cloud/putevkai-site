@@ -494,6 +494,8 @@ body.page-home .showcase-image img {
   height: 100%;
   object-fit: cover;
   transition: transform 8s ease;
+  position: relative;
+  z-index: 1;
 }
 body.page-home .showcase:hover .showcase-image img { transform: scale(1.05); }
 body.page-home .showcase-image[data-fallback="true"]::before {
@@ -651,6 +653,8 @@ body.page-home .dest-card img {
   object-fit: cover;
   transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
   filter: grayscale(0.1) brightness(0.85);
+  position: relative;
+  z-index: 1;
 }
 body.page-home .dest-card:hover img {
   transform: scale(1.05);
@@ -3698,7 +3702,7 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
         <span class="checkbox-text">
           Я соглашаюсь с <a href="#legal:offer">офертой</a> и <a href="#legal:privacy">политикой конфиденциальности</a>
         </span>
-      </label>
+      </div>
     </div>
 
     <!-- STEP 9: LOADING (after submit) -->
