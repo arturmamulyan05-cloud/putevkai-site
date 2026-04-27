@@ -1181,6 +1181,231 @@ body.page-home .showcase { grid-template-columns: 1fr; gap: 40px; }
 body.page-home .showcase-content h3 { font-size: 48px; }
 body.page-home .map-legend { grid-template-columns: 1fr 1fr; }
 }
+/* === tariff.html (выбор тарифа) === */
+body.page-tariff {
+  background: var(--bg);
+  min-height: 100vh;
+}
+body.page-tariff .nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 48px;
+  border-bottom: 1px solid var(--line);
+}
+body.page-tariff .nav-logo {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 24px;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  text-decoration: none;
+}
+body.page-tariff .nav-logo span { color: var(--accent); }
+body.page-tariff .nav-back {
+  font-size: 13px;
+  color: var(--text-2);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+}
+body.page-tariff .nav-back:hover { color: var(--text); }
+
+body.page-tariff .tariff-stage {
+  padding: 80px 48px 120px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+body.page-tariff .tariff-eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 24px;
+}
+body.page-tariff .tariff-headline {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(40px, 5.5vw, 76px);
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--text);
+  margin: 0 0 24px;
+  max-width: 900px;
+}
+body.page-tariff .tariff-headline em {
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 300;
+}
+body.page-tariff .tariff-sub {
+  font-size: 18px;
+  color: var(--text-2);
+  max-width: 720px;
+  margin: 0 0 80px;
+  line-height: 1.5;
+}
+
+body.page-tariff .tariff-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 48px;
+}
+
+body.page-tariff .tariff-card {
+  position: relative;
+  background: var(--bg-lift);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 48px 40px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.3s, transform 0.2s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+body.page-tariff .tariff-card:hover {
+  border-color: var(--line-bright);
+  transform: translateY(-4px);
+}
+
+body.page-tariff .tariff-card-extended {
+  border-color: rgba(79, 209, 197, 0.4);
+  background: linear-gradient(135deg, rgba(79, 209, 197, 0.03) 0%, var(--bg-lift) 50%);
+}
+body.page-tariff .tariff-card-extended:hover {
+  border-color: var(--accent);
+  box-shadow: 0 12px 40px rgba(79, 209, 197, 0.12);
+}
+
+body.page-tariff .tariff-card-badge {
+  position: absolute;
+  top: -1px;
+  right: 24px;
+  background: var(--accent);
+  color: var(--bg);
+  padding: 6px 14px;
+  border-radius: 0 0 4px 4px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+body.page-tariff .tariff-card-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 24px;
+}
+
+body.page-tariff .tariff-card-price {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 28px;
+}
+body.page-tariff .tariff-price-value {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: 96px;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+  color: var(--text);
+}
+body.page-tariff .tariff-card-extended .tariff-price-value { color: var(--accent); }
+body.page-tariff .tariff-price-currency {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: 40px;
+  color: var(--text-2);
+}
+
+body.page-tariff .tariff-card-desc {
+  font-size: 16px;
+  color: var(--text-2);
+  line-height: 1.5;
+  margin: 0 0 32px;
+  min-height: 48px;
+}
+
+body.page-tariff .tariff-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 40px;
+  flex: 1;
+}
+body.page-tariff .tariff-features li {
+  position: relative;
+  padding-left: 28px;
+  margin-bottom: 12px;
+  font-size: 15px;
+  color: var(--text);
+  line-height: 1.5;
+}
+body.page-tariff .tariff-features li::before {
+  content: "+";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--accent);
+  font-weight: 500;
+  font-size: 18px;
+}
+body.page-tariff .tariff-features li strong {
+  font-weight: 500;
+  color: var(--text);
+}
+
+body.page-tariff .tariff-card-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 24px;
+  border: 1px solid var(--line-bright);
+  border-radius: 2px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--text);
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+body.page-tariff .tariff-card-basic:hover .tariff-card-cta {
+  border-color: var(--text);
+  background: rgba(255, 255, 255, 0.02);
+}
+body.page-tariff .tariff-card-extended .tariff-card-cta {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+}
+body.page-tariff .tariff-card-extended:hover .tariff-card-cta {
+  background: var(--text);
+  border-color: var(--text);
+}
+
+body.page-tariff .tariff-guarantee {
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-3);
+  margin: 0;
+}
+
+@media (max-width: 720px) {
+  body.page-tariff .nav { padding: 16px 20px; }
+  body.page-tariff .tariff-stage { padding: 48px 20px 80px; }
+  body.page-tariff .tariff-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  body.page-tariff .tariff-card { padding: 32px 24px; }
+  body.page-tariff .tariff-price-value { font-size: 72px; }
+  body.page-tariff .tariff-sub { margin-bottom: 48px; font-size: 16px; }
+}
+
 /* === form.html === */
 body.page-form button { font-family: inherit; cursor: pointer; }
 body.page-form input, body.page-form textarea { font-family: inherit; }
@@ -2919,7 +3144,7 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
     <li><a href="#pricing">Цены</a></li>
     <li><a href="#faq">Вопросы</a></li>
   </ul>
-  <a href="#form:extended" class="nav-cta">Начать</a>
+  <a href="#tariff" class="nav-cta">Начать</a>
 </nav>
 
 <!-- HERO -->
@@ -2938,7 +3163,7 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
       куда ехать, что смотреть, где есть, сколько стоит. Под ваш бюджет и стиль.
     </p>
     <div class="hero-actions">
-      <a href="#form:extended" class="btn-primary">Составить маршрут</a>
+      <a href="#tariff" class="btn-primary">Составить маршрут</a>
       <a href="#example" class="btn-ghost">Посмотреть пример</a>
     </div>
   </div>
@@ -3409,8 +3634,8 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
     <h2>Готовы увидеть<br>Россию <em>по-новому?</em></h2>
     <p>Маршрут с детальным бюджетом, картой, чек-листом и региональными советами — в почте через пять минут. Не понравилось — вернём деньги.</p>
     <div class="final-cta-actions">
-      <a href="#form:extended" class="final-btn">Получить маршрут — 690 ₽</a>
-      <a href="#form:basic" class="final-btn-secondary">или базовый за 290 ₽ →</a>
+      <a href="#tariff" class="final-btn">Составить маршрут</a>
+      
     </div>
     <!-- Trust strip — counter activates when there's data to show -->
     <div class="trust-strip" id="trustStrip">
@@ -3472,6 +3697,63 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
 
 
 
+
+</div>
+
+<!-- ============== PAGE: tariff ============== -->
+<div class="page page-tariff" data-page-id="tariff">
+
+<nav class="nav">
+  <a href="#home" class="nav-logo">Путёвк<span>AI</span></a>
+  <a href="#home" class="nav-back" aria-label="Вернуться на главную"><span aria-hidden="true">← </span>На главную</a>
+</nav>
+
+<main class="tariff-stage" id="main-content">
+  <div class="tariff-inner">
+    <div class="tariff-eyebrow">— Тарифы</div>
+    <h1 class="tariff-headline">Выберите формат<br><em>вашего маршрута.</em></h1>
+    <p class="tariff-sub">Оба тарифа включают полный план поездки по дням. Различаются глубиной деталей и материалами.</p>
+
+    <div class="tariff-grid">
+
+      <a href="#form:basic" class="tariff-card tariff-card-basic">
+        <div class="tariff-card-eyebrow">Базовый</div>
+        <div class="tariff-card-price">
+          <span class="tariff-price-value">290</span>
+          <span class="tariff-price-currency">₽</span>
+        </div>
+        <p class="tariff-card-desc">Простой маршрут на каждый день — куда ехать и что смотреть.</p>
+        <ul class="tariff-features">
+          <li>Маршрут по дням</li>
+          <li>Основные места и активности</li>
+          <li>PDF на email</li>
+        </ul>
+        <div class="tariff-card-cta">Выбрать базовый<span aria-hidden="true"> →</span></div>
+      </a>
+
+      <a href="#form:extended" class="tariff-card tariff-card-extended">
+        <div class="tariff-card-badge">Популярный</div>
+        <div class="tariff-card-eyebrow">Расширенный</div>
+        <div class="tariff-card-price">
+          <span class="tariff-price-value">690</span>
+          <span class="tariff-price-currency">₽</span>
+        </div>
+        <p class="tariff-card-desc">Полноценный план с бюджетом, картой, чек-листом и региональными нюансами.</p>
+        <ul class="tariff-features">
+          <li>Всё из Базового</li>
+          <li><strong>Детальный бюджет по категориям</strong></li>
+          <li><strong>Чек-лист сборов под регион и сезон</strong></li>
+          <li><strong>Региональные советы (что брать, чего избегать)</strong></li>
+          <li><strong>Карта с привязкой ко всем точкам</strong></li>
+        </ul>
+        <div class="tariff-card-cta">Выбрать расширенный<span aria-hidden="true"> →</span></div>
+      </a>
+
+    </div>
+
+    <p class="tariff-guarantee">Не понравится — вернём деньги в течение 24 часов без вопросов.</p>
+  </div>
+</main>
 
 </div>
 
@@ -3771,7 +4053,7 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
 <nav class="nav">
   <a href="#home" class="logo">Путёвк<span>AI</span></a>
   <div class="nav-actions">
-    <a href="#form:extended" class="nav-btn primary">Создать свой<span aria-hidden="true"> →</span></a>
+    <a href="#tariff" class="nav-btn primary">Создать свой<span aria-hidden="true"> →</span></a>
   </div>
 </nav>
 
@@ -4247,7 +4529,7 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
 <section class="cta">
   <h2>Хотите такой же<br>маршрут <em>под себя?</em></h2>
   <p>Это пример маршрута в расширенной версии — с детальным бюджетом, картой, чек-листом и региональными советами. Под ваш регион и интересы — ИИ соберёт такой же за 5 минут.</p>
-  <a href="#form:extended" class="cta-btn">Составить такой же маршрут — 690 ₽ →</a>
+  <a href="#tariff" class="cta-btn">Составить такой же маршрут →</a>
 </section>
 
 <footer class="footer">
@@ -4823,7 +5105,7 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
 <section class="cta">
   <h2>Хотите такой же<br>маршрут <em>под себя?</em></h2>
   <p>Это пример маршрута в расширенной версии — с детальным бюджетом, картой, чек-листом и региональными советами. Под ваш регион и интересы — ИИ соберёт такой же за 5 минут.</p>
-  <a href="#form:extended" class="cta-btn">Составить такой же маршрут — 690 ₽ →</a>
+  <a href="#tariff" class="cta-btn">Составить такой же маршрут →</a>
 </section>
 
 <footer class="footer">
@@ -4986,7 +5268,7 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
 
 // ===================== ROUTER =====================
 // Each page is a <div class="page"> with id "page-NAME". URL hash = #NAME (or #NAME:anchor).
-const PAGES = ['home', 'form', 'example', 'order-accepted', 'order-complete', 'legal'];
+const PAGES = ['home', 'tariff', 'form', 'example', 'order-accepted', 'order-complete', 'legal'];
 const pageInits = {};  // page_id -> init function (called once on first activation)
 const pageActivates = {};  // page_id -> activate function (called each time activated)
 let initializedPages = new Set();
@@ -6443,7 +6725,7 @@ pageActivates['order-accepted'] = function() {
           Чтобы создать маршрут, начните с формы.
         </p>
         <div class="actions" style="margin-top: 48px;">
-          <a href="#form:extended" class="btn btn-primary">Создать маршрут →</a>
+          <a href="#tariff" class="btn btn-primary">Создать маршрут →</a>
           <a href="#home" class="btn btn-ghost">На главную</a>
         </div>
       `;
