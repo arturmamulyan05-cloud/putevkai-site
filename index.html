@@ -32,7 +32,14 @@
 <!-- Canonical -->
 <link rel="canonical" href="https://putevkai.ru/">
 
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<!-- Performance: preconnect to font CDN before requesting fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- DNS-prefetch for image CDN (used in CSS background-image and img) -->
+<link rel="dns-prefetch" href="https://images.unsplash.com">
+
+<!-- Fonts: only used weights. Fraunces is variable (opsz+wght). Space Grotesk: 300/400/500 only -->
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
 
@@ -75,6 +82,57 @@ html, body {
 
 /* Avoid duplicate img reset */
 img { display: block; max-width: 100%; }
+
+/* === A11Y UTILITIES === */
+/* Visually hidden but available to screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Skip link — invisible until focused via Tab */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  background: var(--accent);
+  color: var(--bg);
+  padding: 12px 20px;
+  z-index: 9999;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 4px;
+  transition: top 0.2s;
+}
+.skip-link:focus {
+  top: 16px;
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+/* Focus styles — make keyboard navigation visible */
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+/* Remove default focus on elements where we have custom focus styles */
+input:focus-visible, textarea:focus-visible {
+  outline: none;
+}
+/* Reduce motion for users who prefer */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 
 /* === index_v3.html === */
 body.page-home img { display: block; max-width: 100%; }
@@ -1001,7 +1059,7 @@ body.page-home .final-btn {
   padding: 22px 48px;
   font-family: inherit;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.02em;
   cursor: pointer;
   border-radius: 2px;
@@ -1022,6 +1080,45 @@ body.page-home .final-btn-secondary {
 body.page-home .final-btn-secondary:hover {
   color: var(--text);
   border-bottom-color: var(--line-bright);
+}
+
+/* Trust strip with stats */
+body.page-home .trust-strip {
+  display: none;  /* Hidden by default — JS reveals when routesCount has value */
+  margin-top: 64px;
+  padding-top: 40px;
+  border-top: 1px solid var(--line);
+  align-items: center;
+  justify-content: center;
+  gap: 56px;
+  flex-wrap: wrap;
+}
+body.page-home .trust-strip.visible { display: flex; }
+body.page-home .trust-item {
+  text-align: center;
+}
+body.page-home .trust-value {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: 36px;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+body.page-home .trust-value em {
+  color: var(--accent);
+  font-style: italic;
+}
+body.page-home .trust-label {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+body.page-home .trust-divider {
+  width: 1px;
+  height: 48px;
+  background: var(--line);
 }
 body.page-home .footer {
   padding: 80px 48px 40px;
@@ -1260,6 +1357,86 @@ body.page-form .text-input {
 body.page-form .text-input:focus { border-bottom-color: var(--accent); }
 body.page-form .text-input::placeholder { color: var(--text-3); font-style: italic; }
 
+/* === AUTOCOMPLETE === */
+body.page-form .autocomplete-wrap {
+  position: relative;
+  max-width: 560px;
+}
+body.page-form .autocomplete-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: var(--bg-lift);
+  border: 1px solid var(--line-bright);
+  border-radius: 4px;
+  max-height: 360px;
+  overflow-y: auto;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+  animation: dropdownIn 0.18s ease;
+}
+@keyframes dropdownIn {
+  0% { opacity: 0; transform: translateY(-6px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+body.page-form .autocomplete-group {
+  padding: 12px 0 4px;
+}
+body.page-form .autocomplete-group-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  padding: 0 18px 6px;
+}
+body.page-form .autocomplete-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 18px;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-size: 16px;
+  color: var(--text);
+}
+body.page-form .autocomplete-item:hover,
+body.page-form .autocomplete-item.highlighted {
+  background: rgba(79, 209, 197, 0.08);
+}
+body.page-form .autocomplete-item-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+body.page-form .autocomplete-item-name mark {
+  background: transparent;
+  color: var(--accent);
+  font-weight: 500;
+}
+body.page-form .autocomplete-item-tag {
+  font-size: 11px;
+  color: var(--text-3);
+  letter-spacing: 0.05em;
+}
+body.page-form .autocomplete-empty {
+  padding: 16px 18px;
+  font-size: 14px;
+  color: var(--text-3);
+  font-style: italic;
+}
+body.page-form .autocomplete-empty strong {
+  color: var(--text-2);
+  font-style: normal;
+}
+/* Custom scrollbar for dropdown */
+body.page-form .autocomplete-dropdown::-webkit-scrollbar { width: 6px; }
+body.page-form .autocomplete-dropdown::-webkit-scrollbar-track { background: transparent; }
+body.page-form .autocomplete-dropdown::-webkit-scrollbar-thumb {
+  background: var(--line-bright);
+  border-radius: 3px;
+}
+
 /* Custom-text input shown when "Другое" is selected */
 body.page-form .custom-input-wrap {
   margin-top: 24px;
@@ -1465,7 +1642,7 @@ body.page-form .option.selected::after {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
+  font-weight: 500;
 }
 body.page-form .option-icon {
   font-family: 'Fraunces', serif;
@@ -1510,6 +1687,98 @@ body.page-form .checkbox-row {
   margin-top: 24px;
   cursor: pointer;
 }
+
+/* === UPSELL CARD (basic → extended) === */
+body.page-form .upsell-card {
+  margin-top: 48px;
+  background: linear-gradient(135deg, rgba(79, 209, 197, 0.06) 0%, rgba(79, 209, 197, 0.02) 100%);
+  border: 1px solid rgba(79, 209, 197, 0.25);
+  border-radius: 4px;
+  padding: 32px 36px;
+  max-width: 640px;
+  position: relative;
+  overflow: hidden;
+  animation: upsellAppear 0.5s ease;
+}
+@keyframes upsellAppear {
+  0% { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+body.page-form .upsell-card::before {
+  content: "";
+  position: absolute;
+  top: 0; right: 0;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle at top right, rgba(79, 209, 197, 0.12), transparent 70%);
+  pointer-events: none;
+}
+body.page-form .upsell-eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 500;
+}
+body.page-form .upsell-header { margin-bottom: 18px; }
+body.page-form .upsell-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+}
+body.page-form .upsell-list li {
+  position: relative;
+  padding-left: 24px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  color: var(--text);
+  line-height: 1.5;
+}
+body.page-form .upsell-list li::before {
+  content: "+";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--accent);
+  font-weight: 500;
+  font-size: 16px;
+}
+body.page-form .upsell-btn {
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  padding: 14px 28px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+body.page-form .upsell-btn strong {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-style: italic;
+  margin-left: 4px;
+}
+body.page-form .upsell-btn:hover {
+  background: var(--text);
+  transform: translateY(-1px);
+}
+body.page-form .upsell-card.upgraded {
+  background: rgba(79, 209, 197, 0.04);
+  border-color: rgba(79, 209, 197, 0.2);
+}
+body.page-form .upsell-card.upgraded .upsell-btn {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  cursor: default;
+}
+body.page-form .upsell-card.upgraded .upsell-btn::before {
+  content: "✓ ";
+}
 body.page-form .checkbox-box {
   width: 22px;
   height: 22px;
@@ -1523,7 +1792,7 @@ body.page-form .checkbox-box {
   justify-content: center;
   color: var(--bg);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 500;
 }
 body.page-form .checkbox-row.checked .checkbox-box {
   background: var(--accent);
@@ -1592,7 +1861,7 @@ body.page-form .btn-next:disabled { opacity: 0.4; cursor: not-allowed; transform
 body.page-form .btn-submit {
   background: var(--accent);
   color: var(--bg);
-  font-weight: 600;
+  font-weight: 500;
   padding: 18px 40px;
   font-size: 15px;
 }
@@ -2629,6 +2898,9 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
 </head>
 <body class="page-home">
 
+<!-- A11y: skip link for keyboard/screen-reader users -->
+<a href="#main-content" class="skip-link">Перейти к основному содержимому</a>
+
 
 <!-- ============== PAGE: home ============== -->
 <div class="page page-home active" data-page-id="home">
@@ -2647,7 +2919,7 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
 </nav>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="main-content">
   <div class="hero-photo"></div>
   <div class="hero-grain"></div>
   <div class="hero-content">
@@ -2908,7 +3180,7 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
   <!-- Showcase -->
   <div class="showcase" id="showcase">
     <div class="showcase-image" id="showcaseImgWrap" data-region-name="Карелия">
-      <img id="showcaseImg" src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&q=80" alt="Карелия" onerror="this.style.display='none'; this.parentElement.setAttribute('data-fallback', 'true');">
+      <img loading="lazy" decoding="async" id="showcaseImg" src="/photos/karelia.svg" alt="Карелия" onerror="this.style.display='none'; this.parentElement.setAttribute('data-fallback', 'true');">
     </div>
     <div class="showcase-content">
       <div class="showcase-number" id="showcaseNumber">01 · Северо-Запад России</div>
@@ -2984,7 +3256,7 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
 
   <div class="dest-grid">
     <a href="#example" class="dest-card" data-region-label="Алтай" data-fallback-region="altai" style="text-decoration: none; color: inherit;">
-      <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=900&q=80" alt="Алтай" onerror="this.style.display='none';">
+      <img loading="lazy" decoding="async" src="/photos/altai.svg" alt="Алтай" onerror="this.style.display='none';">
       <div class="dest-overlay">
         <div class="dest-label">Пример · 7 дней</div>
         <h3>Горный Алтай</h3>
@@ -2992,7 +3264,7 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
       </div>
     </a>
     <a href="#example" class="dest-card" data-region-label="Байкал" data-fallback-region="baikal" style="text-decoration: none; color: inherit;">
-      <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=900&q=80" alt="Байкал" onerror="this.style.display='none';">
+      <img loading="lazy" decoding="async" src="/photos/baikal.svg" alt="Байкал" onerror="this.style.display='none';">
       <div class="dest-overlay">
         <div class="dest-label">Пример · 6 дней</div>
         <h3>Лёд Байкала</h3>
@@ -3000,7 +3272,7 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
       </div>
     </a>
     <a href="#example" class="dest-card" data-region-label="Дагестан" data-fallback-region="dagestan" style="text-decoration: none; color: inherit;">
-      <img src="https://images.unsplash.com/photo-1565375326087-bc8a14e6c37b?w=900&q=80" alt="Дагестан" onerror="this.style.display='none';">
+      <img loading="lazy" decoding="async" src="/photos/dagestan.svg" alt="Дагестан" onerror="this.style.display='none';">
       <div class="dest-overlay">
         <div class="dest-label">Пример · 8 дней</div>
         <h3>Древний Дагестан</h3>
@@ -3136,6 +3408,23 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
       <a href="#form:extended" class="final-btn">Получить маршрут — 690 ₽</a>
       <a href="#form:basic" class="final-btn-secondary">или базовый за 290 ₽ →</a>
     </div>
+    <!-- Trust strip — counter activates when there's data to show -->
+    <div class="trust-strip" id="trustStrip">
+      <div class="trust-item">
+        <div class="trust-value" id="trustRoutesCount">—</div>
+        <div class="trust-label">маршрутов составлено</div>
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-item">
+        <div class="trust-value">24 ч</div>
+        <div class="trust-label">на возврат без вопросов</div>
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-item">
+        <div class="trust-value">5 мин</div>
+        <div class="trust-label">от запроса до маршрута</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -3191,13 +3480,13 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
 <header class="header">
   <a href="#home" class="logo">Путёвк<span>AI</span></a>
   <div class="step-counter">Шаг <strong id="stepNum">1</strong> из <span id="totalSteps">8</span></div>
-  <a href="#home" class="exit-btn">Выйти ✕</a>
+  <a href="#home" class="exit-btn">Выйти<span aria-hidden="true"> ✕</span></a>
 </header>
 
 <!-- Draft restored banner — shown when user returns to form with saved progress -->
-<div class="draft-banner" id="draftBanner" style="display:none;">
+<div class="draft-banner" id="draftBanner" role="status" aria-live="polite" style="display:none;">
   <div class="draft-banner-inner">
-    <span class="draft-banner-text">↺ Продолжаем с того места, где остановились</span>
+    <span class="draft-banner-text"><span aria-hidden="true">↺ </span>Продолжаем с того места, где остановились</span>
     <button class="draft-banner-reset" id="draftBannerReset" type="button">Начать заново</button>
   </div>
 </div>
@@ -3210,9 +3499,12 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
       <div class="step-eyebrow">Направление</div>
       <h2 class="step-question">Куда хотите <em>поехать?</em></h2>
       <p class="step-hint">Регион, республика, остров, город — что угодно. От Калининграда до Камчатки.</p>
-      <input type="text" class="text-input" id="destInput" placeholder="Например, Дагестан или Алтай" autocomplete="off" maxlength="80">
-      <div class="char-counter" id="destCounter" style="display:none;"></div>
-      <div class="field-error" id="destError" style="display:none;"></div>
+      <div class="autocomplete-wrap" role="combobox" aria-expanded="false" aria-haspopup="listbox" aria-owns="destDropdown">
+        <input type="text" class="text-input" id="destInput" aria-label="Куда хотите поехать" aria-autocomplete="list" aria-controls="destDropdown" placeholder="Например, Дагестан или Алтай" autocomplete="off" maxlength="80">
+        <div class="autocomplete-dropdown" id="destDropdown" role="listbox" aria-label="Подсказки направлений" style="display:none;"></div>
+      </div>
+      <div class="char-counter" id="destCounter" aria-live="polite" style="display:none;"></div>
+      <div class="field-error" role="alert" aria-live="polite" id="destError" style="display:none;"></div>
     </div>
 
     <!-- STEP 2: Dates -->
@@ -3223,14 +3515,14 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
       <div class="date-row">
         <div class="date-cell">
           <div class="date-label">От</div>
-          <input type="date" class="date-input" id="dateStart">
+          <input type="date" class="date-input" id="dateStart" aria-label="Дата начала поездки">
         </div>
         <div class="date-cell">
           <div class="date-label">До</div>
-          <input type="date" class="date-input" id="dateEnd">
+          <input type="date" class="date-input" id="dateEnd" aria-label="Дата окончания поездки">
         </div>
       </div>
-      <div class="field-error" id="datesError" style="display:none;"></div>
+      <div class="field-error" role="alert" aria-live="polite" id="datesError" style="display:none;"></div>
       <div class="field-hint" id="datesInfo" style="display:none;"></div>
     </div>
 
@@ -3265,8 +3557,8 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
       </div>
       <div class="custom-input-wrap" id="travelersCustomWrap" style="display:none;">
         <div class="custom-input-label">Расскажите подробнее</div>
-        <input type="text" class="custom-input" id="travelersCustomInput" placeholder="Например: я с мамой и сыном-подростком" autocomplete="off" maxlength="120">
-        <div class="field-error" id="travelersCustomError" style="display:none;"></div>
+        <input type="text" class="custom-input" id="travelersCustomInput" aria-label="Опишите кто едет" placeholder="Например: я с мамой и сыном-подростком" autocomplete="off" maxlength="120">
+        <div class="field-error" role="alert" aria-live="polite" id="travelersCustomError" style="display:none;"></div>
       </div>
     </div>
 
@@ -3303,8 +3595,8 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
       </div>
       <div class="custom-input-wrap" id="budgetCustomWrap" style="display:none;">
         <div class="custom-input-label">Укажите бюджет</div>
-        <input type="text" class="custom-input" id="budgetCustomInput" placeholder="Например: до 80 тысяч на двоих" autocomplete="off" maxlength="120">
-        <div class="field-error" id="budgetCustomError" style="display:none;"></div>
+        <input type="text" class="custom-input" id="budgetCustomInput" aria-label="Опишите ваш бюджет" placeholder="Например: до 80 тысяч на двоих" autocomplete="off" maxlength="120">
+        <div class="field-error" role="alert" aria-live="polite" id="budgetCustomError" style="display:none;"></div>
       </div>
     </div>
 
@@ -3326,7 +3618,7 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
         <button class="option" data-value="Ночная жизнь"><div class="option-name">Ночная жизнь</div></button>
       </div>
       <div class="field-hint" id="interestsCounter" style="display:none;"></div>
-      <div class="field-error" id="interestsError" style="display:none;"></div>
+      <div class="field-error" role="alert" aria-live="polite" id="interestsError" style="display:none;"></div>
     </div>
 
     <!-- STEP 6: Pace -->
@@ -3374,16 +3666,34 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
       <div class="step-eyebrow">Финальные штрихи</div>
       <h2 class="step-question">Особые <em>пожелания?</em></h2>
       <p class="step-hint">Что важно учесть. Например: «без перелётов», «хотим увидеть закаты», «у мужа аллергия на кошек». Можно пропустить.</p>
-      <textarea class="text-input" id="wishesInput" placeholder="Например: хотим увидеть Россию без туристических толп, любим маленькие гостевые дома" maxlength="500"></textarea>
-      <div class="char-counter" id="wishesCounter" style="display:none;"></div>
+      <textarea class="text-input" id="wishesInput" aria-label="Особые пожелания" placeholder="Например: хотим увидеть Россию без туристических толп, любим маленькие гостевые дома" maxlength="500"></textarea>
+      <div class="char-counter" id="wishesCounter" aria-live="polite" style="display:none;"></div>
 
       <div style="margin-top: 56px;">
         <div class="step-eyebrow" style="margin-bottom: 16px;">Куда отправить маршрут</div>
-        <input type="email" class="email-input" id="emailInput" placeholder="ваш@email.ru" required maxlength="120" autocomplete="email">
-        <div class="field-error" id="emailError" style="display:none;"></div>
+        <input type="email" class="email-input" id="emailInput" aria-label="Email для отправки маршрута" placeholder="ваш@email.ru" required maxlength="120" autocomplete="email">
+        <div class="field-error" role="alert" aria-live="polite" id="emailError" style="display:none;"></div>
       </div>
 
-      <label class="checkbox-row" id="agreeBox">
+      <!-- Upsell: shown only when basic tariff is selected -->
+      <div class="upsell-card" id="upsellCard" style="display:none;">
+        <div class="upsell-header">
+          <span class="upsell-eyebrow">— Доплатите 400 ₽ и получите</span>
+        </div>
+        <div class="upsell-body">
+          <ul class="upsell-list">
+            <li>Детальный бюджет по категориям</li>
+            <li>Чек-лист сборов под регион и сезон</li>
+            <li>Региональные советы и нюансы (что брать, чего избегать)</li>
+            <li>Карту с привязкой ко всем точкам маршрута</li>
+          </ul>
+          <button class="upsell-btn" id="upsellBtn" type="button">
+            Обновить до Расширенного — <strong>+400 ₽</strong>
+          </button>
+        </div>
+      </div>
+
+      <div class="checkbox-row" id="agreeBox" role="checkbox" aria-checked="false" tabindex="0">
         <div class="checkbox-box"></div>
         <span class="checkbox-text">
           Я соглашаюсь с <a href="#legal:offer">офертой</a> и <a href="#legal:privacy">политикой конфиденциальности</a>
@@ -3403,7 +3713,7 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
         </p>
 
         <!-- Progress checklist -->
-        <div class="progress-checklist" id="progressChecklist">
+        <div class="progress-checklist" id="progressChecklist" role="status" aria-live="polite" aria-label="Прогресс обработки заказа">
           <div class="progress-step" data-progress-step="1">
             <span class="progress-mark"></span>
             <span class="progress-label">Изучаем регион и сезон</span>
@@ -3422,7 +3732,7 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
           </div>
         </div>
 
-        <a href="#order-accepted" class="btn btn-submit" id="goToStatusBtn" style="text-decoration: none; opacity: 0; pointer-events: none; transition: opacity 0.5s;">Перейти к статусу заказа →</a>
+        <a href="#order-accepted" class="btn btn-submit" id="goToStatusBtn" style="text-decoration: none; opacity: 0; pointer-events: none; transition: opacity 0.5s;">Перейти к статусу заказа<span aria-hidden="true"> →</span></a>
       </div>
     </div>
 
@@ -3436,12 +3746,12 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
   </div>
   <div class="next-hint" id="nextHint"></div>
   <div class="nav-inner">
-    <button class="btn btn-back" id="backBtn">← Назад</button>
+    <button class="btn btn-back" id="backBtn"><span aria-hidden="true">← </span>Назад</button>
     <button class="nav-tariff" id="navTariff" type="button" title="Сменить тариф">
       <span id="tariffName">Расширенный тариф</span>
       <strong id="tariffPrice">690 ₽</strong>
     </button>
-    <button class="btn btn-next" id="nextBtn">Далее →</button>
+    <button class="btn btn-next" id="nextBtn">Далее<span aria-hidden="true"> →</span></button>
   </div>
 </nav>
 
@@ -3457,7 +3767,7 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
 <nav class="nav">
   <a href="#home" class="logo">Путёвк<span>AI</span></a>
   <div class="nav-actions">
-    <a href="#form:extended" class="nav-btn primary">Создать свой →</a>
+    <a href="#form:extended" class="nav-btn primary">Создать свой<span aria-hidden="true"> →</span></a>
   </div>
 </nav>
 
@@ -4032,8 +4342,8 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
 <nav class="nav">
   <a href="#home" class="logo">Путёвк<span>AI</span></a>
   <div class="nav-actions">
-    <a href="#" class="nav-btn" id="downloadPdfBtn">↓ Скачать PDF</a>
-    <a href="#" class="nav-btn" id="sendEmailBtn">✉ Отправить</a>
+    <a href="#" class="nav-btn" id="downloadPdfBtn"><span aria-hidden="true">↓ </span>Скачать PDF</a>
+    <a href="#" class="nav-btn" id="sendEmailBtn"><span aria-hidden="true">✉ </span>Отправить</a>
   </div>
 </nav>
 
@@ -4530,7 +4840,7 @@ body.page-legal .contact-grid { grid-template-columns: 1fr; }
 
 <nav class="nav">
   <a href="#home" class="logo">Путёвк<span>AI</span></a>
-  <a href="#home" class="back-btn">← На главную</a>
+  <a href="#home" class="back-btn"><span aria-hidden="true">← </span>На главную</a>
 </nav>
 
 <div class="layout">
@@ -4765,12 +5075,28 @@ window.addEventListener('DOMContentLoaded', () => navigateTo(location.hash || '#
 pageInits['home'] = function() {
   const homeRoot = document.querySelector('.page-home');
   if (!homeRoot) return;
-  
 
-// Region data for legend → showcase
+  // ============ TRUST COUNTER ============
+  // Activates when window.PUTEVKAI_STATS.routesCount >= MIN_TO_SHOW.
+  // Backend can populate window.PUTEVKAI_STATS via inline <script> tag at top of page,
+  // or via API endpoint that sets it on page load.
+  // For now: hidden if not set or below minimum.
+  const MIN_ROUTES_TO_SHOW = 30;
+  const stats = (typeof window !== 'undefined' && window.PUTEVKAI_STATS) || {};
+  const count = parseInt(stats.routesCount, 10);
+  const trustStrip = homeRoot.querySelector('#trustStrip');
+  const trustValue = homeRoot.querySelector('#trustRoutesCount');
+  if (trustStrip && trustValue && count && count >= MIN_ROUTES_TO_SHOW) {
+    // Format number with thin space separator (1 234)
+    trustValue.textContent = count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '\u202F');
+    trustStrip.classList.add('visible');
+  }
+
+
+  // Region data for legend → showcase
 const regionData = {
   karelia: {
-    image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&q=80',
+    image: '/photos/karelia.svg',
     number: '01 · Северо-Запад России',
     title: 'Карелия',
     text: 'Тишина тысячи озёр, гранитные острова Ладоги, белые ночи на Валааме и Соловках. Лучшая пора — июнь-сентябрь, когда в лесах зреет морошка, а на озёрах не бывает туристов.',
@@ -4779,7 +5105,7 @@ const regionData = {
     duration: '5–7 дней'
   },
   dagestan: {
-    image: 'https://images.unsplash.com/photo-1565375326087-bc8a14e6c37b?w=1200&q=80',
+    image: '/photos/dagestan.svg',
     number: '02 · Северный Кавказ',
     title: 'Дагестан',
     text: 'Древние аулы на скалах, Сулакский каньон глубже Гранд-Каньона, Каспийское побережье, хинкал и настоящие чабанские сыры в горах Гуниба и Чоха.',
@@ -4788,7 +5114,7 @@ const regionData = {
     duration: '6–8 дней'
   },
   altai: {
-    image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200&q=80',
+    image: '/photos/altai.svg',
     number: '03 · Южная Сибирь',
     title: 'Горный Алтай',
     text: 'Телецкое озеро, Чуйский тракт, ледники Белухи, степи Укока. Лучший маршрут страны для тех, кто впервые едет за Урал.',
@@ -4797,7 +5123,7 @@ const regionData = {
     duration: '7–10 дней'
   },
   baikal: {
-    image: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=1200&q=80',
+    image: '/photos/baikal.svg',
     number: '04 · Восточная Сибирь',
     title: 'Байкал',
     text: 'Самое глубокое озеро планеты, прозрачный лёд с трещинами в феврале, Малое Море летом, омуль горячего копчения и шаманские места Ольхона.',
@@ -4806,7 +5132,7 @@ const regionData = {
     duration: '6–8 дней'
   },
   kamchatka: {
-    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80',
+    image: '/photos/kamchatka.svg',
     number: '05 · Дальний Восток',
     title: 'Камчатка',
     text: 'Двадцать девять действующих вулканов, Долина гейзеров, медведи на Курильском озере, Тихий океан, икра прямо из сетей и горячие источники.',
@@ -5003,8 +5329,19 @@ function applyTariff() {
   if (tariffPrice) tariffPrice.textContent = t.price;
   // Update final button text if on last step
   if (currentStep === TOTAL_STEPS && nextBtn) {
-    nextBtn.textContent = t.cta + ' →';
+    nextBtn.innerHTML = t.cta + '<span aria-hidden="true"> →</span>';
   }
+  // Update upsell visibility
+  updateUpsellVisibility();
+}
+
+function updateUpsellVisibility() {
+  const card = formRoot.querySelector('#upsellCard');
+  if (!card) return;
+  // Show only on step 8 + when basic tariff is selected
+  const shouldShow = (currentStep === 8) && (formData.tariff === 'basic');
+  card.style.display = shouldShow ? 'block' : 'none';
+  card.classList.remove('upgraded');  // reset on each tariff change
 }
 
 // Click on tariff to switch
@@ -5012,6 +5349,27 @@ if (navTariff) {
   navTariff.addEventListener('click', () => {
     formData.tariff = (formData.tariff === 'basic') ? 'extended' : 'basic';
     applyTariff();
+  });
+}
+
+// Upsell button click
+const upsellBtn = formRoot.querySelector('#upsellBtn');
+if (upsellBtn) {
+  upsellBtn.addEventListener('click', () => {
+    if (formData.tariff === 'extended') return;  // already upgraded
+    formData.tariff = 'extended';
+    applyTariff();
+    // Show "upgraded" confirmation state briefly, then hide upsell card
+    const card = formRoot.querySelector('#upsellCard');
+    if (card) {
+      card.classList.add('upgraded');
+      // Update button text to confirmation
+      upsellBtn.innerHTML = 'Тариф обновлён до Расширенного';
+      // Hide after 2.5 seconds
+      setTimeout(() => {
+        card.style.display = 'none';
+      }, 2500);
+    }
   });
 }
 
@@ -5040,20 +5398,28 @@ function showStep(n) {
   if (backBtn) backBtn.disabled = (n === 1);
   if (n === TOTAL_STEPS) {
     const t = TARIFFS[formData.tariff] || TARIFFS.extended;
-    nextBtn.textContent = t.cta + ' →';
+    nextBtn.innerHTML = t.cta + '<span aria-hidden="true"> →</span>';
     nextBtn.classList.add('btn-submit');
   } else if (n < TOTAL_STEPS) {
-    nextBtn.textContent = 'Далее →';
+    nextBtn.innerHTML = 'Далее<span aria-hidden="true"> →</span>';
     nextBtn.classList.remove('btn-submit');
   }
 
   updateAmbient();
   validateStep();
+  updateUpsellVisibility();
 
-  // Focus first input
+  // Focus first input (a11y: keyboard users see where they are)
   setTimeout(() => {
-    const inp = stepEl ? stepEl.querySelector('input[type="text"], input[type="date"], input[type="email"], textarea') : null;
-    if (inp) inp.focus();
+    if (!stepEl) return;
+    const inp = stepEl.querySelector('input[type="text"], input[type="date"], input[type="email"], textarea');
+    if (inp) {
+      inp.focus();
+    } else {
+      // No input on this step (e.g. options-only) — focus first option for keyboard nav
+      const firstOpt = stepEl.querySelector('.option');
+      if (firstOpt) firstOpt.focus();
+    }
   }, 200);
 }
 
@@ -5393,24 +5759,271 @@ function validateStep() {
 
 // Text inputs
 const _byId = (id) => formRoot.querySelector('#' + id);
-const destInput = _byId('destInput');
-if (destInput) destInput.addEventListener('input', e => {
-  // Remove leading whitespace as user types (trailing OK while typing)
-  let val = e.target.value;
-  if (/^\s/.test(val)) {
-    val = val.replace(/^\s+/, '');
-    e.target.value = val;
+
+// ============ AUTOCOMPLETE: REGIONS DATABASE ============
+// Russian regions, popular travel destinations. Grouped by category.
+const DESTINATIONS = [
+  // Republics & autonomous regions (cultural-rich)
+  { name: 'Дагестан', tag: 'Республика', synonyms: ['кавказ', 'махачкала', 'дербент'], group: 'республики' },
+  { name: 'Карелия', tag: 'Республика', synonyms: ['петрозаводск', 'кижи', 'валаам'], group: 'республики' },
+  { name: 'Татарстан', tag: 'Республика', synonyms: ['казань', 'свияжск', 'булгар'], group: 'республики' },
+  { name: 'Башкортостан', tag: 'Республика', synonyms: ['уфа', 'башкирия', 'арский камень'], group: 'республики' },
+  { name: 'Бурятия', tag: 'Республика', synonyms: ['улан-удэ', 'байкал восток', 'иволгинский'], group: 'республики' },
+  { name: 'Тыва', tag: 'Республика', synonyms: ['тува', 'кызыл'], group: 'республики' },
+  { name: 'Калмыкия', tag: 'Республика', synonyms: ['элиста', 'степь'], group: 'республики' },
+  { name: 'Чечня', tag: 'Республика', synonyms: ['грозный', 'чеченская'], group: 'республики' },
+  { name: 'Ингушетия', tag: 'Республика', synonyms: ['магас', 'вовнушки'], group: 'республики' },
+  { name: 'Северная Осетия', tag: 'Республика', synonyms: ['владикавказ', 'осетия', 'алания'], group: 'республики' },
+  { name: 'Кабардино-Балкария', tag: 'Республика', synonyms: ['нальчик', 'эльбрус', 'кбр'], group: 'республики' },
+  { name: 'Карачаево-Черкесия', tag: 'Республика', synonyms: ['домбай', 'архыз', 'теберда', 'кчр'], group: 'республики' },
+  { name: 'Адыгея', tag: 'Республика', synonyms: ['майкоп', 'лагонаки'], group: 'республики' },
+  { name: 'Якутия', tag: 'Республика', synonyms: ['саха', 'якутск', 'ленские столбы'], group: 'республики' },
+  { name: 'Алтай (Республика)', tag: 'Республика', synonyms: ['горный алтай', 'чемал', 'телецкое'], group: 'республики' },
+
+  // Natural / mountainous destinations
+  { name: 'Камчатка', tag: 'Природное', synonyms: ['петропавловск', 'вулканы', 'долина гейзеров'], group: 'природные' },
+  { name: 'Байкал', tag: 'Природное', synonyms: ['озеро', 'ольхон', 'листвянка'], group: 'природные' },
+  { name: 'Алтай', tag: 'Природное', synonyms: ['горный', 'чуйский тракт', 'катунь'], group: 'природные' },
+  { name: 'Кавказские Минеральные Воды', tag: 'Природное', synonyms: ['кмв', 'кисловодск', 'ессентуки', 'пятигорск', 'железноводск'], group: 'природные' },
+  { name: 'Эльбрус', tag: 'Природное', synonyms: ['приэльбрусье', 'терскол'], group: 'природные' },
+  { name: 'Куршская коса', tag: 'Природное', synonyms: ['калининград', 'балтика', 'дюны'], group: 'природные' },
+  { name: 'Соловки', tag: 'Природное', synonyms: ['соловецкий', 'белое море'], group: 'природные' },
+  { name: 'Плато Путорана', tag: 'Природное', synonyms: ['таймыр', 'норильск'], group: 'природные' },
+  { name: 'Курилы', tag: 'Природное', synonyms: ['кунашир', 'итуруп', 'сахалин'], group: 'природные' },
+  { name: 'Сахалин', tag: 'Природное', synonyms: ['южно-сахалинск', 'остров'], group: 'природные' },
+  { name: 'Чукотка', tag: 'Природное', synonyms: ['анадырь'], group: 'природные' },
+  { name: 'Кольский полуостров', tag: 'Природное', synonyms: ['мурманск', 'хибины', 'териберка'], group: 'природные' },
+  { name: 'Шерегеш', tag: 'Природное', synonyms: ['кемерово', 'горнолыжный'], group: 'природные' },
+
+  // Cities
+  { name: 'Санкт-Петербург', tag: 'Город', synonyms: ['питер', 'спб', 'ленинград'], group: 'города' },
+  { name: 'Москва', tag: 'Город', synonyms: ['столица', 'мск'], group: 'города' },
+  { name: 'Казань', tag: 'Город', synonyms: ['татарстан столица'], group: 'города' },
+  { name: 'Калининград', tag: 'Город', synonyms: ['кёнигсберг', 'кенигсберг'], group: 'города' },
+  { name: 'Сочи', tag: 'Город', synonyms: ['красная поляна', 'олимпийский'], group: 'города' },
+  { name: 'Великий Новгород', tag: 'Город', synonyms: ['новгород'], group: 'города' },
+  { name: 'Псков', tag: 'Город', synonyms: ['печоры', 'изборск'], group: 'города' },
+  { name: 'Суздаль', tag: 'Город', synonyms: ['владимир', 'золотое кольцо'], group: 'города' },
+  { name: 'Ярославль', tag: 'Город', synonyms: ['золотое кольцо', 'волга'], group: 'города' },
+  { name: 'Углич', tag: 'Город', synonyms: ['золотое кольцо'], group: 'города' },
+  { name: 'Иркутск', tag: 'Город', synonyms: ['сибирь', 'байкал'], group: 'города' },
+  { name: 'Владивосток', tag: 'Город', synonyms: ['приморье', 'дальний восток'], group: 'города' },
+  { name: 'Нижний Новгород', tag: 'Город', synonyms: ['нижний', 'нн'], group: 'города' },
+  { name: 'Тула', tag: 'Город', synonyms: ['ясная поляна'], group: 'города' },
+  { name: 'Архангельск', tag: 'Город', synonyms: ['север', 'белое море'], group: 'города' },
+  { name: 'Севастополь', tag: 'Город', synonyms: ['крым', 'черное море'], group: 'города' },
+  { name: 'Ростов Великий', tag: 'Город', synonyms: ['золотое кольцо'], group: 'города' },
+
+  // Regional / multi-region trips
+  { name: 'Крым', tag: 'Регион', synonyms: ['ялта', 'симферополь', 'севастополь', 'судак', 'бахчисарай'], group: 'регионы' },
+  { name: 'Краснодарский край', tag: 'Регион', synonyms: ['краснодар', 'геленджик', 'анапа', 'краснодарский'], group: 'регионы' },
+  { name: 'Золотое кольцо', tag: 'Регион', synonyms: ['владимир', 'суздаль', 'ярославль', 'кострома', 'ростов'], group: 'регионы' },
+  { name: 'Русский Север', tag: 'Регион', synonyms: ['архангельск', 'вологда', 'каргополь', 'кижи'], group: 'регионы' },
+  { name: 'Золотое кольцо Алтая', tag: 'Регион', synonyms: ['алтай маршрут'], group: 'регионы' },
+];
+
+const destDropdown = formRoot.querySelector('#destDropdown');
+let acHighlightIdx = -1;
+let acFiltered = [];
+
+function normalizeForSearch(s) {
+  return (s || '').toLowerCase().replace(/ё/g, 'е').replace(/[^а-яa-z0-9 -]/g, '').trim();
+}
+
+function searchDestinations(query) {
+  const q = normalizeForSearch(query);
+  if (!q) {
+    // Show top 8 popular as defaults
+    return [
+      DESTINATIONS.find(d => d.name === 'Дагестан'),
+      DESTINATIONS.find(d => d.name === 'Алтай'),
+      DESTINATIONS.find(d => d.name === 'Байкал'),
+      DESTINATIONS.find(d => d.name === 'Камчатка'),
+      DESTINATIONS.find(d => d.name === 'Карелия'),
+      DESTINATIONS.find(d => d.name === 'Сочи'),
+      DESTINATIONS.find(d => d.name === 'Калининград'),
+      DESTINATIONS.find(d => d.name === 'Санкт-Петербург'),
+    ].filter(Boolean);
   }
-  formData.destination = val;
-  updateAmbient();
-  validateStep();
-});
-// Trim on blur
-if (destInput) destInput.addEventListener('blur', () => {
-  formData.destination = formData.destination.trim();
-  destInput.value = formData.destination;
-  validateStep();
-});
+  // Search in name and synonyms
+  const results = [];
+  for (const d of DESTINATIONS) {
+    const nameNorm = normalizeForSearch(d.name);
+    const synNorm = (d.synonyms || []).map(normalizeForSearch);
+    let score = 0;
+    if (nameNorm.startsWith(q)) score = 100;
+    else if (nameNorm.includes(q)) score = 50;
+    else {
+      for (const s of synNorm) {
+        if (s.startsWith(q)) { score = Math.max(score, 80); break; }
+        if (s.includes(q)) { score = Math.max(score, 40); }
+      }
+    }
+    if (score > 0) results.push({ ...d, _score: score });
+  }
+  results.sort((a, b) => b._score - a._score);
+  return results.slice(0, 10);
+}
+
+function highlightMatch(text, query) {
+  const q = normalizeForSearch(query);
+  if (!q) return text;
+  const textNorm = normalizeForSearch(text);
+  const idx = textNorm.indexOf(q);
+  if (idx === -1) return text;
+  // Find corresponding range in original (length may differ slightly due to ё)
+  return text.substring(0, idx) +
+         '<mark>' + text.substring(idx, idx + q.length) + '</mark>' +
+         text.substring(idx + q.length);
+}
+
+function renderAutocomplete(query) {
+  if (!destDropdown) return;
+  acFiltered = searchDestinations(query);
+  acHighlightIdx = -1;
+
+  if (!acFiltered.length) {
+    destDropdown.innerHTML = `
+      <div class="autocomplete-empty">
+        Ничего не нашли. Можете <strong>оставить как есть</strong> — ИИ постарается понять
+      </div>
+    `;
+    destDropdown.style.display = 'block';
+    const wrap2 = formRoot.querySelector('.autocomplete-wrap');
+    if (wrap2) wrap2.setAttribute('aria-expanded', 'true');
+    return;
+  }
+
+  // Group by category, preserving relevance order (group of best result goes first)
+  const byGroup = {};
+  const groupFirstScore = {};
+  for (const d of acFiltered) {
+    if (!byGroup[d.group]) { byGroup[d.group] = []; groupFirstScore[d.group] = d._score; }
+    byGroup[d.group].push(d);
+  }
+
+  // Order groups by their best score (highest first)
+  const groupOrder = Object.keys(byGroup).sort((a, b) => groupFirstScore[b] - groupFirstScore[a]);
+  const groupLabels = {
+    'республики': 'Республики',
+    'города': 'Города',
+    'природные': 'Природа',
+    'регионы': 'Маршруты по региону'
+  };
+
+  let html = '';
+  let globalIdx = 0;
+  for (const grp of groupOrder) {
+    if (!byGroup[grp]) continue;
+    html += `<div class="autocomplete-group">
+      <div class="autocomplete-group-label">${groupLabels[grp]}</div>`;
+    for (const item of byGroup[grp]) {
+      html += `<div class="autocomplete-item" role="option" data-idx="${globalIdx}" data-value="${item.name}">
+        <span class="autocomplete-item-name">${highlightMatch(item.name, query)}</span>
+        <span class="autocomplete-item-tag">${item.tag}</span>
+      </div>`;
+      globalIdx++;
+    }
+    html += `</div>`;
+  }
+
+  destDropdown.innerHTML = html;
+  destDropdown.style.display = 'block';
+  // a11y: announce open state
+  const wrap = formRoot.querySelector('.autocomplete-wrap');
+  if (wrap) wrap.setAttribute('aria-expanded', 'true');
+
+  // Click handlers
+  destDropdown.querySelectorAll('.autocomplete-item').forEach(item => {
+    item.addEventListener('mousedown', e => {
+      e.preventDefault();  // Prevent input blur before click
+      const value = item.dataset.value;
+      formData.destination = value;
+      destInput.value = value;
+      hideAutocomplete();
+      updateAmbient();
+      validateStep();
+    });
+  });
+}
+
+function hideAutocomplete() {
+  if (destDropdown) destDropdown.style.display = 'none';
+  acHighlightIdx = -1;
+  // a11y: announce closed state
+  const wrap = formRoot.querySelector('.autocomplete-wrap');
+  if (wrap) wrap.setAttribute('aria-expanded', 'false');
+}
+
+function moveHighlight(delta) {
+  const items = destDropdown.querySelectorAll('.autocomplete-item');
+  if (!items.length) return;
+  // Remove old highlight
+  items.forEach(i => i.classList.remove('highlighted'));
+  acHighlightIdx += delta;
+  if (acHighlightIdx < 0) acHighlightIdx = items.length - 1;
+  if (acHighlightIdx >= items.length) acHighlightIdx = 0;
+  const target = items[acHighlightIdx];
+  if (target) {
+    target.classList.add('highlighted');
+    target.scrollIntoView({ block: 'nearest' });
+  }
+}
+
+const destInput = _byId('destInput');
+if (destInput) {
+  destInput.addEventListener('input', e => {
+    // Remove leading whitespace as user types
+    let val = e.target.value;
+    if (/^\s/.test(val)) {
+      val = val.replace(/^\s+/, '');
+      e.target.value = val;
+    }
+    formData.destination = val;
+    updateAmbient();
+    validateStep();
+    // Show autocomplete
+    renderAutocomplete(val);
+  });
+
+  destInput.addEventListener('focus', () => {
+    renderAutocomplete(destInput.value);
+  });
+
+  destInput.addEventListener('blur', () => {
+    formData.destination = formData.destination.trim();
+    destInput.value = formData.destination;
+    validateStep();
+    // Hide autocomplete after small delay (to allow click to register)
+    setTimeout(() => hideAutocomplete(), 150);
+  });
+
+  // Keyboard navigation
+  destInput.addEventListener('keydown', e => {
+    if (destDropdown.style.display === 'none') return;
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      moveHighlight(1);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      moveHighlight(-1);
+    } else if (e.key === 'Enter' && acHighlightIdx >= 0) {
+      e.preventDefault();
+      const items = destDropdown.querySelectorAll('.autocomplete-item');
+      const target = items[acHighlightIdx];
+      if (target) {
+        const value = target.dataset.value;
+        formData.destination = value;
+        destInput.value = value;
+        hideAutocomplete();
+        updateAmbient();
+        validateStep();
+      }
+    } else if (e.key === 'Escape') {
+      hideAutocomplete();
+    }
+  });
+}
 const dateStart = _byId('dateStart');
 if (dateStart) dateStart.addEventListener('change', e => { formData.date_start = e.target.value; validateStep(); });
 const dateEnd = _byId('dateEnd');
@@ -5432,14 +6045,29 @@ if (emailInput) emailInput.addEventListener('input', e => {
 // Also validate on blur — show error after user leaves field
 if (emailInput) emailInput.addEventListener('blur', () => validateStep());
 
-// Agree checkbox
+// Agree checkbox (with proper a11y — role=checkbox, keyboard support)
 const agreeBox = _byId('agreeBox');
-if (agreeBox) agreeBox.addEventListener('click', e => {
-  e.preventDefault();
+function toggleAgree() {
   formData.agreed = !formData.agreed;
   agreeBox.classList.toggle('checked', formData.agreed);
+  agreeBox.setAttribute('aria-checked', formData.agreed ? 'true' : 'false');
   validateStep();
-});
+}
+if (agreeBox) {
+  agreeBox.addEventListener('click', e => {
+    // Don't toggle if user clicked on inner link
+    if (e.target.tagName === 'A') return;
+    e.preventDefault();
+    toggleAgree();
+  });
+  // Space and Enter — same as click (standard for role=checkbox)
+  agreeBox.addEventListener('keydown', e => {
+    if (e.key === ' ' || e.key === 'Enter') {
+      e.preventDefault();
+      toggleAgree();
+    }
+  });
+}
 
 // Custom-text inputs for "Другое" options
 const travelersCustomInput = _byId('travelersCustomInput');
@@ -5470,13 +6098,31 @@ formRoot.querySelectorAll('.options').forEach(group => {
   const mode = group.dataset.mode;
   const maxCount = parseInt(group.dataset.max) || 0;  // 0 = no limit
 
+  // Set ARIA roles based on mode
+  if (mode === 'single') {
+    group.setAttribute('role', 'radiogroup');
+    group.querySelectorAll('.option').forEach(o => {
+      o.setAttribute('role', 'radio');
+      o.setAttribute('aria-checked', 'false');
+    });
+  } else {
+    // multi-select — use aria-pressed
+    group.querySelectorAll('.option').forEach(o => {
+      o.setAttribute('aria-pressed', 'false');
+    });
+  }
+
   group.querySelectorAll('.option').forEach(opt => {
     opt.addEventListener('click', () => {
       const value = opt.dataset.value;
 
       if (mode === 'single') {
-        group.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+        group.querySelectorAll('.option').forEach(o => {
+          o.classList.remove('selected');
+          o.setAttribute('aria-checked', 'false');
+        });
         opt.classList.add('selected');
+        opt.setAttribute('aria-checked', 'true');
         formData[field] = value;
 
         // Show/hide custom-text input if "Другое" was picked
@@ -5488,6 +6134,7 @@ formRoot.querySelectorAll('.options').forEach(group => {
           // Deselect
           formData[field].splice(idx, 1);
           opt.classList.remove('selected');
+          opt.setAttribute('aria-pressed', 'false');
         } else {
           // Try to select — check limit
           if (maxCount > 0 && formData[field].length >= maxCount) {
@@ -5503,6 +6150,7 @@ formRoot.querySelectorAll('.options').forEach(group => {
           }
           formData[field].push(value);
           opt.classList.add('selected');
+          opt.setAttribute('aria-pressed', 'true');
         }
       }
 
@@ -5538,6 +6186,13 @@ nextBtn.addEventListener('click', goNext);
 document.addEventListener('keydown', e => {
   if (currentPage !== 'form') return;
   if (e.key === 'Enter' && !e.shiftKey) {
+    // Don't advance if autocomplete dropdown is open (its own Enter handler manages)
+    if (e.target.id === 'destInput' && destDropdown && destDropdown.style.display !== 'none') {
+      // Let dropdown's keydown handler take over
+      if (acHighlightIdx >= 0) return;  // selection happens in dropdown handler
+      // No selection: hide dropdown and advance
+      hideAutocomplete();
+    }
     if (e.target.tagName !== 'TEXTAREA') {
       e.preventDefault();
       goNext();
@@ -5854,7 +6509,7 @@ pageInits['order-complete'] = function() {
       try {
         navigator.clipboard.writeText(url).then(() => {
           sendBtn.textContent = '✓ Ссылка скопирована';
-          setTimeout(() => { sendBtn.textContent = '✉ Отправить'; }, 2000);
+          setTimeout(() => { sendBtn.innerHTML = '<span aria-hidden="true">✉ </span>Отправить'; }, 2000);
         });
       } catch (err) {
         alert('Скопируйте ссылку из адресной строки: ' + url);
