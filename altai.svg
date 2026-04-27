@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="aSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a1828"/>
+      <stop offset="60%" stop-color="#264a5c"/>
+      <stop offset="100%" stop-color="#3d6b7a"/>
+    </linearGradient>
+    <linearGradient id="aPeak" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f5f7fb"/>
+      <stop offset="60%" stop-color="#a8b2c7"/>
+      <stop offset="100%" stop-color="#5a6478"/>
+    </linearGradient>
+    <linearGradient id="aPeak2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#dde3ec"/>
+      <stop offset="60%" stop-color="#7a8298"/>
+      <stop offset="100%" stop-color="#3a4456"/>
+    </linearGradient>
+    <linearGradient id="aValley" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3d6b7a"/>
+      <stop offset="100%" stop-color="#1f3340"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="1200" height="450" fill="url(#aSky)"/>
+
+  <!-- Stars / faint -->
+  <g fill="#e8eef7" opacity="0.7">
+    <circle cx="100" cy="60" r="0.8"/>
+    <circle cx="280" cy="100" r="0.7"/>
+    <circle cx="450" cy="50" r="1"/>
+    <circle cx="620" cy="80" r="0.6"/>
+    <circle cx="780" cy="60" r="0.9"/>
+    <circle cx="950" cy="120" r="0.8"/>
+    <circle cx="1100" cy="80" r="0.7"/>
+  </g>
+
+  <!-- Faint cirrus clouds -->
+  <g fill="#e8eef7" opacity="0.06">
+    <ellipse cx="200" cy="180" rx="180" ry="8"/>
+    <ellipse cx="500" cy="220" rx="220" ry="6"/>
+    <ellipse cx="850" cy="160" rx="200" ry="10"/>
+    <ellipse cx="1050" cy="200" rx="150" ry="7"/>
+  </g>
+
+  <!-- Far mountains — distant range -->
+  <polygon fill="#5a6478" opacity="0.6"
+           points="0,400 80,330 160,370 250,290 340,350 430,280 530,340 620,260 720,330 820,270 920,330 1020,280 1120,340 1200,300 1200,450 0,450"/>
+
+  <!-- Mid mountains — Belukha-like twin peaks -->
+  <!-- Left peak -->
+  <polygon fill="url(#aPeak2)"
+           points="0,500 100,400 180,440 280,330 380,420 460,360 540,440 540,500"/>
+  <!-- Snow caps left -->
+  <polygon fill="#f5f7fb"
+           points="240,360 280,330 320,360 300,375 280,365 260,380"/>
+  <polygon fill="#f5f7fb"
+           points="80,420 100,400 130,425 115,432 100,425"/>
+
+  <!-- Right peak (main, Belukha-style) -->
+  <polygon fill="url(#aPeak)"
+           points="540,500 620,400 700,300 740,180 800,290 860,350 940,260 1020,360 1100,290 1200,400 1200,500"/>
+  <!-- Main peak snow -->
+  <polygon fill="#f5f7fb"
+           points="700,260 740,180 760,210 765,250 770,290 760,300 745,310 720,300 705,290"/>
+  <!-- Snow on right peak -->
+  <polygon fill="#f5f7fb"
+           points="900,290 940,260 970,290 950,310 935,300 915,310"/>
+  <polygon fill="#f5f7fb"
+           points="1060,330 1100,290 1140,330 1115,355 1090,345 1075,355"/>
+
+  <!-- Shadow lines on peaks (suggest crags) -->
+  <g stroke="#3a4456" stroke-width="1.5" fill="none" opacity="0.5">
+    <path d="M 740 180 L 745 250 L 720 320 L 700 360"/>
+    <path d="M 740 180 L 760 230 L 770 290 L 790 350"/>
+    <path d="M 280 330 L 290 380 L 300 420"/>
+    <path d="M 940 260 L 950 320 L 960 380"/>
+  </g>
+
+  <!-- Valley / foreground -->
+  <rect x="0" y="500" width="1200" height="300" fill="url(#aValley)"/>
+
+  <!-- Distant pine specks -->
+  <g fill="#1a2c2c" opacity="0.8">
+    <path d="M 50 510 L 55 490 L 60 510 Z"/>
+    <path d="M 100 515 L 106 488 L 112 515 Z"/>
+    <path d="M 170 510 L 175 492 L 180 510 Z"/>
+    <path d="M 240 512 L 246 490 L 252 512 Z"/>
+    <path d="M 320 510 L 326 488 L 332 510 Z"/>
+    <path d="M 400 514 L 406 492 L 412 514 Z"/>
+    <path d="M 480 510 L 485 490 L 490 510 Z"/>
+    <path d="M 560 513 L 567 489 L 574 513 Z"/>
+    <path d="M 700 510 L 706 488 L 712 510 Z"/>
+    <path d="M 800 514 L 807 491 L 814 514 Z"/>
+    <path d="M 880 510 L 887 489 L 894 510 Z"/>
+    <path d="M 980 513 L 987 491 L 994 513 Z"/>
+    <path d="M 1080 510 L 1086 489 L 1092 510 Z"/>
+    <path d="M 1150 511 L 1156 491 L 1162 511 Z"/>
+  </g>
+
+  <!-- River winding through valley -->
+  <path d="M 0 720 Q 200 700 400 720 Q 600 740 800 700 Q 1000 670 1200 690 L 1200 740 Q 1000 720 800 750 Q 600 790 400 770 Q 200 750 0 770 Z"
+        fill="#4FD1C5" opacity="0.2"/>
+  <path d="M 0 730 Q 200 712 400 730 Q 600 748 800 712 Q 1000 685 1200 700"
+        stroke="#4FD1C5" stroke-width="1.5" fill="none" opacity="0.4"/>
+
+  <!-- Foreground darker hill -->
+  <path d="M 0 800 L 0 660 Q 150 640 300 670 Q 450 700 600 670 Q 750 640 900 670 Q 1050 700 1200 660 L 1200 800 Z"
+        fill="#0e1a22" opacity="0.85"/>
+</svg>

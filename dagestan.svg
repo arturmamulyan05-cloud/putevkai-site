@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="dSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1f2e"/>
+      <stop offset="40%" stop-color="#3a3144"/>
+      <stop offset="80%" stop-color="#5e3a4a"/>
+      <stop offset="100%" stop-color="#7a4655"/>
+    </linearGradient>
+    <radialGradient id="dSun" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffd4a3" stop-opacity="0.95"/>
+      <stop offset="50%" stop-color="#ff9966" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#ff9966" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Sky / background fills entire canvas -->
+  <rect width="1200" height="800" fill="url(#dSky)"/>
+
+  <!-- Stars -->
+  <g fill="#e8eef7" opacity="0.6">
+    <circle cx="100" cy="60" r="0.8"/>
+    <circle cx="280" cy="120" r="0.6"/>
+    <circle cx="520" cy="80" r="0.9"/>
+    <circle cx="900" cy="90" r="0.7"/>
+    <circle cx="1100" cy="60" r="0.8"/>
+    <circle cx="1050" cy="180" r="0.5"/>
+  </g>
+
+  <!-- Setting sun -->
+  <circle cx="350" cy="380" r="220" fill="url(#dSun)"/>
+  <circle cx="350" cy="380" r="48" fill="#ffd4a3" opacity="0.85"/>
+
+  <!-- Bird silhouettes -->
+  <g fill="#1a1424" opacity="0.6">
+    <path d="M 700 280 q 12 -6 24 0 q -12 -3 -24 0 z"/>
+    <path d="M 760 310 q 10 -5 20 0 q -10 -2 -20 0 z"/>
+  </g>
+
+  <!-- Far mountains row -->
+  <g fill="#3a3144" opacity="0.7">
+    <polygon points="0,460 100,380 180,420 280,340 380,400 480,330 580,390 680,350 780,400 900,340 1000,395 1100,350 1200,405 1200,500 0,500"/>
+  </g>
+
+  <!-- Mid mountains -->
+  <g fill="#52384a">
+    <polygon points="0,520 80,440 160,480 240,420 340,480 420,435 520,485 620,430 720,480 820,440 920,495 1020,455 1120,500 1200,465 1200,540 0,540"/>
+  </g>
+
+  <!-- Left canyon wall as a closed polygon (no gap inside) -->
+  <polygon fill="#3d2730"
+           points="0,800 0,460 60,425 130,480 200,440 260,510 330,470 400,540 450,510 500,580 530,800"/>
+
+  <!-- Right canyon wall -->
+  <polygon fill="#3d2730"
+           points="1200,800 1200,420 1140,380 1080,460 1020,415 960,495 890,445 830,525 770,485 720,565 690,800"/>
+
+  <!-- River at the bottom between walls -->
+  <path d="M 530 800
+           L 500 760
+           Q 600 740 700 760
+           L 690 800 Z"
+        fill="#4FD1C5" opacity="0.5"/>
+  <ellipse cx="600" cy="755" rx="80" ry="3" fill="#7eddc9" opacity="0.4"/>
+
+  <!-- Strata texture on left wall -->
+  <g stroke="#5a3a44" stroke-width="1" fill="none" opacity="0.5">
+    <path d="M 0 540 L 60 510 L 130 560 L 200 520 L 260 590 L 330 550 L 400 615 L 450 590 L 500 660"/>
+    <path d="M 0 620 L 60 590 L 130 640 L 200 600 L 260 670 L 330 630 L 400 695 L 450 670"/>
+    <path d="M 0 700 L 60 675 L 130 720 L 200 680 L 260 745 L 330 710"/>
+  </g>
+  <!-- Strata on right wall -->
+  <g stroke="#5a3a44" stroke-width="1" fill="none" opacity="0.5">
+    <path d="M 1200 510 L 1140 480 L 1080 540 L 1020 500 L 960 575 L 890 530 L 830 605 L 770 565 L 720 645"/>
+    <path d="M 1200 590 L 1140 560 L 1080 620 L 1020 580 L 960 650 L 890 610 L 830 680 L 770 645 L 720 720"/>
+    <path d="M 1200 670 L 1140 640 L 1080 695 L 1020 660 L 960 725 L 890 685 L 830 755"/>
+  </g>
+
+  <!-- Serpentine road on left wall — descends in zigzag -->
+  <g stroke="#a8b2c7" stroke-width="2.5" fill="none" opacity="0.6" stroke-linecap="round" stroke-dasharray="6 8">
+    <path d="M 80 470 Q 200 490 280 530"/>
+    <path d="M 280 530 Q 220 545 170 580"/>
+    <path d="M 170 580 Q 250 600 320 640"/>
+    <path d="M 320 640 Q 280 655 240 685"/>
+  </g>
+</svg>

@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="kSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a1422"/>
+      <stop offset="50%" stop-color="#0f1d33"/>
+      <stop offset="100%" stop-color="#1a2c4a"/>
+    </linearGradient>
+    <linearGradient id="kWater" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a2c4a"/>
+      <stop offset="100%" stop-color="#0a1422"/>
+    </linearGradient>
+    <radialGradient id="kMoon" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#e8eef7" stop-opacity="0.95"/>
+      <stop offset="60%" stop-color="#e8eef7" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#e8eef7" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="1200" height="500" fill="url(#kSky)"/>
+
+  <!-- Stars -->
+  <g fill="#e8eef7" opacity="0.8">
+    <circle cx="120" cy="80" r="1"/>
+    <circle cx="280" cy="140" r="0.8"/>
+    <circle cx="450" cy="60" r="1.2"/>
+    <circle cx="620" cy="120" r="0.7"/>
+    <circle cx="780" cy="50" r="1"/>
+    <circle cx="950" cy="100" r="0.9"/>
+    <circle cx="1080" cy="180" r="1.1"/>
+    <circle cx="200" cy="200" r="0.6"/>
+    <circle cx="540" cy="220" r="0.8"/>
+    <circle cx="850" cy="240" r="0.7"/>
+    <circle cx="1100" cy="60" r="0.6"/>
+    <circle cx="60" cy="160" r="0.8"/>
+    <circle cx="380" cy="180" r="0.5"/>
+    <circle cx="700" cy="280" r="0.6"/>
+    <circle cx="990" cy="300" r="0.7"/>
+  </g>
+
+  <!-- Moon glow -->
+  <circle cx="900" cy="180" r="180" fill="url(#kMoon)"/>
+  <circle cx="900" cy="180" r="38" fill="#f5f7fb"/>
+  <!-- Moon shadow -->
+  <circle cx="912" cy="170" r="34" fill="#dde3ec" opacity="0.5"/>
+
+  <!-- Aurora hint — turquoise wash on horizon -->
+  <ellipse cx="350" cy="460" rx="500" ry="80" fill="#4FD1C5" opacity="0.06"/>
+  <ellipse cx="850" cy="450" rx="400" ry="60" fill="#4FD1C5" opacity="0.04"/>
+
+  <!-- Distant tree line (smaller silhouette, blue-grey) -->
+  <g fill="#0c1628" opacity="0.85">
+    <polygon points="0,500 30,440 60,470 100,420 140,460 180,430 220,455 260,420 300,460 340,440 380,455 420,425 460,450 500,420 540,460 580,440 620,455 660,425 700,450 740,420 780,460 820,440 860,455 900,425 940,450 980,420 1020,460 1060,440 1100,455 1140,425 1180,450 1200,440 1200,500"/>
+  </g>
+
+  <!-- Mid trees — sharper firs -->
+  <g fill="#050a14">
+    <!-- Tree 1 -->
+    <path d="M 80 510 L 90 460 L 80 470 L 95 420 L 85 430 L 100 380 L 115 430 L 105 420 L 120 470 L 110 460 L 120 510 Z"/>
+    <!-- Tree 2 -->
+    <path d="M 200 510 L 215 440 L 200 450 L 220 380 L 208 390 L 225 330 L 245 380 L 232 370 L 250 440 L 235 430 L 250 510 Z"/>
+    <!-- Tree 3 -->
+    <path d="M 320 510 L 332 460 L 320 470 L 338 410 L 326 420 L 345 360 L 364 410 L 352 400 L 370 460 L 358 450 L 370 510 Z"/>
+    <!-- Tree 4 -->
+    <path d="M 1080 510 L 1092 460 L 1080 470 L 1098 410 L 1086 420 L 1105 360 L 1124 410 L 1112 400 L 1130 460 L 1118 450 L 1130 510 Z"/>
+    <!-- Tree 5 -->
+    <path d="M 970 510 L 980 460 L 970 470 L 985 420 L 975 430 L 990 380 L 1005 430 L 995 420 L 1010 470 L 1000 460 L 1010 510 Z"/>
+  </g>
+
+  <!-- Water -->
+  <rect y="500" width="1200" height="300" fill="url(#kWater)"/>
+
+  <!-- Water ripples — faint horizontal lines -->
+  <g stroke="#4FD1C5" stroke-width="1" opacity="0.15">
+    <line x1="0" y1="540" x2="1200" y2="540"/>
+    <line x1="100" y1="580" x2="1100" y2="580"/>
+    <line x1="50" y1="620" x2="1150" y2="620"/>
+    <line x1="200" y1="660" x2="1000" y2="660"/>
+    <line x1="120" y1="710" x2="1080" y2="710"/>
+  </g>
+
+  <!-- Moon reflection in water -->
+  <g opacity="0.3">
+    <ellipse cx="900" cy="540" rx="40" ry="3" fill="#f5f7fb"/>
+    <ellipse cx="900" cy="580" rx="50" ry="2.5" fill="#f5f7fb" opacity="0.7"/>
+    <ellipse cx="900" cy="620" rx="60" ry="2" fill="#f5f7fb" opacity="0.5"/>
+    <ellipse cx="900" cy="670" rx="55" ry="2" fill="#f5f7fb" opacity="0.3"/>
+  </g>
+
+  <!-- Tiny island silhouette -->
+  <ellipse cx="600" cy="510" rx="80" ry="5" fill="#050a14"/>
+  <path d="M 560 510 L 575 495 L 568 500 L 580 480 L 572 485 L 585 465 L 600 490 L 615 470 L 608 477 L 620 487 L 612 482 L 625 510 Z" fill="#050a14"/>
+</svg>

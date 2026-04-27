@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0c1828"/>
+      <stop offset="50%" stop-color="#1a3447"/>
+      <stop offset="100%" stop-color="#2a5066"/>
+    </linearGradient>
+    <linearGradient id="bIce" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2a5066"/>
+      <stop offset="20%" stop-color="#1f3d52"/>
+      <stop offset="60%" stop-color="#16283d"/>
+      <stop offset="100%" stop-color="#0a1828"/>
+    </linearGradient>
+    <linearGradient id="bMountain" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3a4a5e"/>
+      <stop offset="100%" stop-color="#1a2c40"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="1200" height="320" fill="url(#bSky)"/>
+
+  <!-- Distant stars -->
+  <g fill="#e8eef7" opacity="0.7">
+    <circle cx="80" cy="40" r="0.7"/>
+    <circle cx="180" cy="80" r="0.5"/>
+    <circle cx="320" cy="50" r="0.9"/>
+    <circle cx="450" cy="100" r="0.6"/>
+    <circle cx="600" cy="40" r="0.8"/>
+    <circle cx="750" cy="90" r="0.7"/>
+    <circle cx="900" cy="50" r="0.6"/>
+    <circle cx="1050" cy="80" r="0.9"/>
+    <circle cx="1150" cy="40" r="0.5"/>
+  </g>
+
+  <!-- Ольхон-like distant mountains across the lake -->
+  <polygon fill="url(#bMountain)" opacity="0.85"
+           points="0,330 80,290 160,310 240,260 320,300 400,250 480,290 560,255 640,295 720,265 800,300 880,255 960,290 1040,260 1120,295 1200,260 1200,360 0,360"/>
+
+  <!-- Snow caps on far mountains -->
+  <g fill="#dde3ec" opacity="0.4">
+    <polygon points="240,260 260,275 220,275"/>
+    <polygon points="400,250 420,268 380,268"/>
+    <polygon points="560,255 580,272 540,272"/>
+    <polygon points="880,255 900,272 860,272"/>
+    <polygon points="1040,260 1060,278 1020,278"/>
+  </g>
+
+  <!-- Horizon line (subtle) -->
+  <line x1="0" y1="360" x2="1200" y2="360" stroke="#4FD1C5" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- ICE — main field -->
+  <rect y="360" width="1200" height="440" fill="url(#bIce)"/>
+
+  <!-- Ice cracks — radiating from a point, lighter and aquamarine — Baikal signature -->
+  <g stroke="#4FD1C5" fill="none" opacity="0.4" stroke-linecap="round">
+    <!-- Main radial cracks from center -->
+    <path d="M 600 580 L 200 800" stroke-width="1.5"/>
+    <path d="M 600 580 L 320 800" stroke-width="1.2"/>
+    <path d="M 600 580 L 480 800" stroke-width="1"/>
+    <path d="M 600 580 L 600 800" stroke-width="1.4"/>
+    <path d="M 600 580 L 720 800" stroke-width="1"/>
+    <path d="M 600 580 L 880 800" stroke-width="1.2"/>
+    <path d="M 600 580 L 1000 800" stroke-width="1.5"/>
+
+    <!-- Upper radial cracks -->
+    <path d="M 600 580 L 380 380" stroke-width="0.8" opacity="0.3"/>
+    <path d="M 600 580 L 520 370" stroke-width="0.6" opacity="0.3"/>
+    <path d="M 600 580 L 680 370" stroke-width="0.7" opacity="0.3"/>
+    <path d="M 600 580 L 820 380" stroke-width="0.8" opacity="0.3"/>
+
+    <!-- Sideways cracks -->
+    <path d="M 600 580 L 380 600" stroke-width="0.9"/>
+    <path d="M 600 580 L 820 590" stroke-width="0.8"/>
+    <path d="M 600 580 L 280 660" stroke-width="0.7" opacity="0.3"/>
+    <path d="M 600 580 L 920 670" stroke-width="0.8" opacity="0.3"/>
+  </g>
+
+  <!-- Secondary fracture pattern — irregular polygons -->
+  <g stroke="#4FD1C5" stroke-width="0.6" fill="none" opacity="0.25" stroke-linecap="round">
+    <path d="M 100 500 L 280 540 L 380 480 L 220 460 Z"/>
+    <path d="M 280 540 L 380 480 L 500 530 L 420 600 L 320 600 Z"/>
+    <path d="M 500 530 L 600 580 L 700 520 L 620 470"/>
+    <path d="M 700 520 L 850 540 L 920 480 L 800 460 Z"/>
+    <path d="M 920 480 L 1080 500 L 1150 440 L 1000 430 Z"/>
+  </g>
+
+  <!-- Highlight on the central point — bright spot -->
+  <circle cx="600" cy="580" r="3" fill="#4FD1C5" opacity="0.8"/>
+  <circle cx="600" cy="580" r="20" fill="#4FD1C5" opacity="0.1"/>
+  <circle cx="600" cy="580" r="60" fill="#4FD1C5" opacity="0.04"/>
+
+  <!-- Ice texture — subtle horizontal bands -->
+  <g stroke="#e8eef7" stroke-width="0.5" opacity="0.05" fill="none">
+    <line x1="0" y1="430" x2="1200" y2="430"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="0" y1="600" x2="1200" y2="600"/>
+    <line x1="0" y1="700" x2="1200" y2="700"/>
+  </g>
+
+  <!-- Bubble formations frozen in ice (Baikal trademark) -->
+  <g fill="#4FD1C5" opacity="0.3">
+    <circle cx="180" cy="650" r="3"/>
+    <circle cx="170" cy="668" r="2"/>
+    <circle cx="195" cy="675" r="2.5"/>
+    <circle cx="186" cy="690" r="2"/>
+    <circle cx="170" cy="700" r="3"/>
+    <circle cx="200" cy="710" r="2"/>
+
+    <circle cx="950" cy="640" r="2.5"/>
+    <circle cx="965" cy="660" r="2"/>
+    <circle cx="945" cy="675" r="3"/>
+    <circle cx="970" cy="685" r="2"/>
+    <circle cx="955" cy="700" r="2.5"/>
+
+    <circle cx="430" cy="700" r="2"/>
+    <circle cx="450" cy="715" r="2.5"/>
+    <circle cx="435" cy="730" r="2"/>
+
+    <circle cx="800" cy="720" r="2.5"/>
+    <circle cx="820" cy="735" r="2"/>
+    <circle cx="805" cy="750" r="2.5"/>
+  </g>
+</svg>
